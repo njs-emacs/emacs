@@ -1,0 +1,2001 @@
+
+0.el,50
+(defun foo 41,613
+(define-key global-map 42,665
+
+010507.el,169
+(defun command-history-save 1,0
+(defun quote-add 21,545
+(defun mouse-quote-add 27,714
+(defmacro foo-def 35,876
+(defin 'foo-def)foo-def39,979
+(defun foo-re 41,997
+
+060611-135301.el,67
+(defun nvc-old-filename 1,0
+(defun bms 15,384
+(defun foo 20,517
+
+_0.el,17
+(defun efl 3,37
+
+asn.el,21
+(defun asn-mode 1,0
+
+autoload.el,28
+(defmacro mapautoload 3,30
+
+awl-mode.el,21
+(defun awl-mode 1,0
+
+backup-grep.el,26
+(defun backup-grep 6,166
+
+bake.el,790
+(defun bake-path-split 4,78
+(defun bake-path-set 8,146
+(defun bake-path-delete 12,235
+(defun bake-path-concat 17,365
+(defun bake-registered-path-list 26,612
+(defun bake-path-clean 30,729
+(defun bake-path-replace 38,888
+(defun bake-get 53,1224
+(defun bake-put 54,1278
+(defun bake-tool-register 56,1367
+(defun bake-tool-unselect 60,1469
+(defun bake-tool-select 70,1717
+(defun bake-find-directory 84,2125
+(defun bake-find-command 100,2447
+(defun bake-target* 108,2620
+(defun bake-target 120,2901
+(defun bake 133,3190
+(defun bake-clean 137,3273
+(defmacro bake-save-select 142,3423
+(defun null-bake-select 152,3671
+(defun msvc-bake-select 166,3936
+(defun wcc-bake-select 191,4568
+(defun gcc-bake-select 217,5259
+(defun bake-define-key 260,5988
+(defun bake-bake 265,6146
+
+bdiff.el,1023
+(define-key bdiff-map 9,177
+(define-key bdiff-map 10,223
+(define-key bdiff-map 11,262
+(define-key bdiff-map 12,301
+(define-key bdiff-map 13,346
+(define-key bdiff-map 14,390
+(define-key bdiff-map 15,447
+(define-key bdiff-map 16,488
+(define-key bdiff-map 17,526
+(define-key bdiff-map 18,565
+(define-key bdiff-map 19,604
+(define-key bdiff-map 20,646
+(defun bdiff-help 22,686
+(defun bdiff-refresh 26,744
+(defun bdiff-sort 36,951
+(defun bdiff-marked-file 40,1016
+(defun bdiff-original-file 53,1218
+(defun bdiff-file 63,1386
+(defun bdiff-marked-file 70,1499
+(defun bdiff-ediff-files 79,1635
+(defun bdiff-show-mark 95,1992
+(defun bdiff-find-file 104,2123
+(defun bdiff-find-file-other-window 108,2203
+(defun bdiff-clear-mark-1 112,2309
+(defun bdiff-clear-mark 117,2447
+(defun bdiff-mark-1 130,2669
+(defun bdiff-mark 144,2935
+(defun bdiff-next 148,3021
+(defun bdiff-mark-2 159,3213
+(defun bdiff-kill-hook 168,3350
+(defun bdiff-mode 172,3411
+(defun bdiff 184,3653
+(defun bdiff-ediff-cleanup 196,3977
+
+bool.el,54
+(defun >> 5,70
+(defun bits 7,98
+(defun bitl 10,181
+
+bufring.el,213
+(defun killed-buffer-list-flag-toggle 5,68
+(defun kill-buffer-hook-push 10,263
+(defun killed-buffer-pop 21,493
+(defun buffer-ring-next 37,871
+(defun buffer-ring-add 45,1105
+(defun buffer-ring-delete 49,1230
+
+bup-mode.el,333
+(defun buffer-nibble 1,0
+(defun bup-file-assemble 8,162
+(defun bup-parse-line 12,293
+(defun bup-file-name 31,825
+(defun bup-diff 44,1250
+(defun bup-visit-directory 58,1539
+(define-key bup-mode-map 81,2163
+(define-key bup-mode-map 82,2214
+(defun bup-mode 85,2256
+(defun uniquify-buffer-name 92,2377
+(defun boo-hoo 104,2563
+
+c-mode.el,484
+(define-abbrev-table 'c-abbrevc-abbrev1,0
+(defun c-abbrev-expand 12,189
+(defun ns-gen-c 42,863
+(defun ns-c-mode-hook 56,1098
+(defun c-fun-name 76,1740
+(defun c-inside-fun-p 84,1945
+(defun c-beautify-file 91,2090
+(defun comment-region 97,2186
+(defun comment-hide 102,2368
+(defun comment-hide-toggle 113,2643
+(defun prepend-module 116,2730
+(defun c-comment-match-regexp 120,2831
+(defun c-other-file-c 125,2976
+(defun c-other-file-h 139,3322
+(defun c-other-file 152,3667
+
+chide.el,81
+(defun hide-region 3,30
+(defun hide-sexp 11,234
+(define-key global-map 14,301
+
+chop.el,22
+(defun chop-list 1,0
+
+cm.el,891
+(defun cmc-compilation-buffer 13,373
+(defun cmc-location 14,416
+(defun cmt-target-file 16,450
+(defun cmt-target-location 17,486
+(defun cmc 23,591
+(defun cmt 27,636
+(defun cm-build 31,683
+(defun cmc-goto 36,814
+(defun goto-marker 44,984
+(defun cmt-goto 50,1107
+(defun cmc-marker 62,1352
+(defun cmt-marker 66,1485
+(defun cm-string-l 71,1646
+(defun cm-string-c 80,1814
+(defun cm-string 88,2003
+(defun cm-buf-l 94,2132
+(defun cm-buf-c 103,2290
+(defun cm-getbuf 111,2421
+(defmacro cm-sx 119,2561
+(defun cm-buf 123,2634
+(defun cm-buf-list 137,2993
+(defun cm-next 149,3255
+(defun cmc-msg 153,3293
+(defun cmt-progn* 159,3390
+(defmacro cmt-progn 172,3648
+(defun cm-follow 176,3746
+(defun mmb* 180,3855
+(defmacro mmb 190,4027
+(defmacro mmq 196,4233
+(defun mm* 203,4487
+(defmacro mm 211,4645
+(defmacro cm-eval 216,4782
+(defmacro cm-qm 219,4866
+(defmacro mmqr 232,5139
+
+comint.el,369
+(defun process 3,26
+(defun send 8,140
+(defvar comint-filter-stack 23,548
+(defun comint-filter-push 25,582
+(defun comint-filter-pop 31,788
+(defun comint-filter-stack-enable 37,989
+(defun ns-comint-mode 40,1031
+(defvar comint-get-output 51,1282
+(defun comint-get-filter 53,1314
+(defun comint-get 59,1472
+(defun comint-wait 75,1981
+(defun comint-clean 80,2096
+
+comment.el,142
+(defun plain-comment 1,0
+(defun in-comment 11,141
+(defun delete-comment 18,303
+(defun insert-comment 25,492
+(defun comment-region 29,574
+
+compile.el,1167
+(defun compile-log 5,63
+(defun compile-save-some-buffers 16,331
+(defun compilation-restart-errors 27,608
+(define-key esc-map 33,763
+(defun wcompile 44,1010
+(defmacro wgrep 54,1248
+(defun kill-compilation-buffers 61,1415
+(define-key c-map 72,1715
+(defun compile-21 104,2482
+(defun grep+ 128,3501
+(defvar grep-pattern-hist 140,3719
+(defvar grep-spec-hist 141,3750
+(defun grep-spec 167,4329
+(defun ngrep 178,4614
+(defun ngrep-last-search 197,5101
+(define-key global-map 201,5183
+(defvar rgrep-spec-hist 203,5238
+(defvar rgrep-path-default 205,5268
+(defvar rgrep-find-spec-default 206,5300
+(defvar rgrep-path 208,5338
+(defvar rgrep-find-spec 209,5362
+(defun kgrep 211,5392
+(defun egrep 215,5471
+(defun rgrep 219,5582
+(define-key global-map 235,6086
+(define-key global-map 236,6128
+(define-key global-map 237,6170
+(defun compile-visit 240,6287
+(define-key compilation-mode-map 257,6829
+(defun compile-push 265,7066
+(defun compile-pop 270,7185
+(defun compile-filter-errors 277,7334
+(defun compilation-mode-hook-ns 289,7662
+(defun cygdrive-kill 327,8986
+(defun compilation-canonify-filename 334,9222
+(defun compilation-find-file 343,9439
+
+confirm.el,20
+(defun confirm 1,0
+
+cops.el,17
+(defun >> 5,142
+
+cross.el,67
+(defun cross-2 1,0
+(defun cross 12,267
+(defun cross-eval 20,495
+
+cycle.el,40
+(defun defcycle 1,0
+(defun cycle 5,70
+
+daily.el,507
+(defun daily-path 4,64
+(defun yymmdd-to-time 6,124
+(defun daily-html-month 18,348
+(defun daily-html-time 22,442
+(defun daily-html+ 26,540
+(defun daily-html-prev 39,838
+(defun daily-html-next 46,929
+(defun emacs-scratch 61,1317
+(defun home-daily-yesterday 81,1710
+(defun home-daily-today 82,1803
+(defun home-daily-month 83,1875
+(defun daily-time-set 85,1945
+(defun daily-qb-define 96,2273
+(defun daily-home-days-offset 112,2883
+(defun daily-home-prev 126,3334
+(defun daily-home-next 130,3408
+
+date.el,82
+(defun num-list-less-p 3,30
+(defun date-less-p 9,183
+(defun toggle-year 20,512
+
+dc.el,35
+(defun dc 1,0
+(defmacro dc- 4,78
+
+defin.el,994
+(defin 'interactive)interactive3,45
+(defin 'report)report4,66
+(defin 'xt-widget)xt-widget5,82
+(defin 'setq setq7,102
+(defin 'mapautoload mapautoload9,124
+(defin 'map-markers map-markers11,153
+(defin 'dofiles dofiles13,182
+(defin 'dofile-pairs dofile-pairs14,206
+(defin 'with-file with-file16,236
+(defin 'make-file make-file17,262
+(defin 'save-cd save-cd18,288
+(defin 'mvb mvb20,313
+(defin 'with-special-binding with-special-binding25,450
+(defin 'q q29,544
+(defin 'if-out if-out31,563
+(defin 'buffer-replace buffer-replace32,586
+(defin 'buffer-replace-lines buffer-replace-lines33,617
+(defin 'map-search map-search34,654
+(defin 'cfun cfun36,682
+(defin 'case-match case-match37,703
+(defin 'wgrep wgrep39,731
+(defin 'grep-map grep-map40,753
+(defin 'map-cmarkers-bogus map-cmarkers-bogus42,779
+(defin 'map-cmarkers-quick map-cmarkers-quick43,814
+(defin 'map-cmarkers map-cmarkers44,849
+(defin 'dolist)dolist46,879
+(defin 'dotimes)dotimes47,895
+
+dired-sort-map.el,245
+(defvar dired-sort-map 27,783
+(define-key dired-mode-map 29,829
+(define-key dired-sort-map 31,877
+(define-key dired-sort-map 32,1005
+(define-key dired-sort-map 33,1138
+(define-key dired-sort-map 34,1266
+(define-key dired-sort-map 35,1381
+
+dired.el,929
+(defun funcall-existing-files 3,25
+(defun dd-funcall 12,254
+(defun dd-exists-p 23,567
+(defun dd-ediff 27,625
+(defun dired-dd-ediff 31,686
+(defun dired-zip 36,790
+(defun substitute-file 47,988
+(defun dired-mark-files-shell-command 71,1532
+(defun dired-mark-files-command 91,2237
+(define-key dired-mode-map 103,2596
+(define-key dired-mode-map 104,2661
+(define-key dired-mode-map 105,2720
+(define-key dired-mode-map 106,2771
+(define-key dired-mode-map 107,2818
+(defun file-name-history-adjoin 111,2897
+(defun dired-find-file-add-history 118,3126
+(defun dired-find-file 123,3232
+(defun dired-mouse-find-file-other-window 133,3655
+(defun dired-view-file 145,4135
+(defun dired-find-file-other-window 156,4597
+(defun dired-display-file 161,4821
+(defun dired-mapcar-over-marks 168,5139
+(defun drm 179,5391
+(define-key dired-mode-map 184,5466
+(defun dired-load-links 186,5596
+(define-key dired-mode-map 189,5664
+
+doc-eval.el,120
+(defun doc-start 1,0
+(defun underline 5,46
+(defun section 8,115
+(defun section-in 19,367
+(defun section-out 24,475
+
+dos.el,170
+(defun dos-buf 1,0
+(defun undos-buf 13,199
+(defun dos-file-op 26,487
+(defun dos-file 36,661
+(defun undos-file 37,713
+(defun dos-dir 39,770
+(defun undos-dir 45,847
+
+ebg.el,280
+(defun ebg 12,321
+(defun ebg* 21,591
+(defun ebg** 35,1200
+(defun ebg-fpat 64,2062
+(defun ebgh* 74,2475
+(defun ebgp* 79,2651
+(defun ebgc* 84,2825
+(defun ebgh 89,2993
+(defun ebgp 94,3155
+(defun ebgc 99,3315
+(defun ebge 104,3469
+(defun ebgn 109,3624
+(defun ebs 117,3912
+
+ediff.el,364
+(defun venn 12,234
+(defun diff-cmp 19,337
+(defun ediff-re 24,441
+(defun diff-dir 32,663
+(defun ediff-recompute-diffs 50,1176
+(defun -ediff-next 75,2143
+(defun files-identical 83,2329
+(defun ediff-file-list-filter-diff 89,2479
+(defvar ediff-file-list-filter 94,2606
+(defvar diff-args 96,2672
+(defun edb 118,3113
+(defun ediff-base-with-variants 138,3671
+
+evaltext.el,30
+(defun eval-text-buffer 4,66
+
+exec.el,287
+(define-key exec-map 5,43
+(define-key exec-map 6,81
+(defun exec-init 10,158
+(defun exec-sanity 17,320
+(defun exec-tty-sanity 22,482
+(defun exec-run 28,650
+(defun exec-gdb 38,937
+(defun exec-tty 43,1066
+(defun exec-gdb-tty 49,1264
+(defun exec-smart 55,1481
+(defun argx 60,1639
+
+extend.el,450
+(defun file-if-exists 1,0
+(defun locate-alternate-files-in-path 5,124
+(defun locate-file-in-path 16,454
+(defun locate-up-file-directory 26,720
+(defun locate-up-file 39,1014
+(defmacro mdt 52,1362
+(defmacro mdl 58,1516
+(defun adjoin-accessible-directory 64,1676
+(defun alist-put 69,1857
+(defun alist-get 78,2030
+(defun alist-get-if 81,2085
+(defun alist-remprop 84,2146
+(defun alist-merge 87,2232
+(defun gget 97,2450
+(defun gput 103,2606
+
+face.el,35
+(defun hl 7,114
+(defun hl 11,220
+
+fileclass.el,523
+(defvar file-class 8,364
+(defun file-class-guess 13,459
+(defun file-class 30,797
+(defun file-class-guess-name-add 37,970
+(defun file-class-guess-pattern-add 44,1153
+(defun file-class-linked-file-add 53,1392
+(defvar file-linked-plist 59,1600
+(defun linked-file-search 64,1718
+(defun linked-file-class-get 79,1940
+(defun linked-file-mode-get 88,2119
+(defun linked-file-put 95,2271
+(defun linked-file-get 99,2376
+(defun linked-file 103,2441
+(defun sx-linked-file-merge 119,2925
+(defun file-ring-create 127,3096
+
+filehist-old.el,908
+(defun file-history-get 4,60
+(defun file-history-put 10,177
+(defun file-history-file-on-current-line 17,381
+(defun file-history-display 21,475
+(defun file-history-redisplay 41,966
+(defun file-history-add* 45,1043
+(defun file-history-add 57,1383
+(defun file-history-add-dired 61,1456
+(defun file-history-file-apply 68,1631
+(defun file-history-delete-entry 74,1768
+(defun file-history-find-file 81,1967
+(defun file-history-find-file-other-window 85,2058
+(defun file-history-mouse-find-file 89,2175
+(defun file-history-dired 94,2311
+(defun file-history-sort-name 98,2427
+(defun file-history-sort-priority 105,2610
+(defun file-history-sort-time 115,2883
+(defun file-history-electric-key 125,3162
+(defun file-history-electric-key-define 141,3536
+(defun file-history-set-priority 146,3711
+(defun file-history-init 156,3966
+(defun file-history-open 173,4830
+(defun file-history-grep 182,5206
+
+filehist.el,1226
+(defun file-history-recover-list 7,141
+(defun file-history-get 11,250
+(defun file-history-put 17,367
+(defun file-history-electic-column-limit 25,588
+(defun file-history-file-on-current-line 27,643
+(defun file-history-paint-line 31,734
+(defun file-history-display 37,834
+(defun file-history-redisplay 60,1439
+(defun file-history-add* 64,1516
+(defun file-history-add 80,1980
+(defun file-history-add-dired 84,2053
+(defun file-history-file-apply 91,2228
+(defun file-history-delete-entry 97,2365
+(defun file-history-find-file 104,2564
+(defun file-history-find-file-other-window 108,2655
+(defun file-history-find-file-other-frame 112,2772
+(defun file-history-mouse-find-file 116,2887
+(defun file-history-dired 121,3023
+(defun file-history-sort-name 125,3139
+(defun file-history-sort-priority 132,3322
+(defun file-history-sort-time 143,3603
+(defun file-history-electric-key 154,3890
+(defun file-history-electric-key-define 170,4296
+(defun file-history-set-priority 175,4471
+(defun file-history-priority-raise 186,4753
+(defun file-history-priority-lower 193,4962
+(defun file-history-qb-define 200,5171
+(defun file-history-init 210,5387
+(defun file-history-open 232,6585
+(defun file-history-grep 241,6961
+
+fileutil.el,1817
+(defun write-string-to-file 1,0
+(defun write-string-to-file 11,249
+(defun filename-replace-suffix 15,363
+(defun file-name-identical 19,457
+(defun sync-default-directory 23,547
+(defun ls 27,667
+(defun ls-newer 30,742
+(defun ls-find 34,865
+(defun ls-grep 40,1004
+(defun save-kill 45,1144
+(defun save-kill-file 51,1299
+(defmacro dofiles 59,1476
+(defmacro dofile-pairs 76,1895
+(defun touch 98,2617
+(defun unbury-buffer 101,2690
+(defun bury-other 106,2876
+(defun file-name-suffix 111,3000
+(defun basename 118,3290
+(defun file-contents 124,3578
+(defmacro with-file 132,3771
+(defun make-buffer 138,3884
+(defun make-file 145,4044
+(defun tabify-buffer 162,4627
+(defun file-print 166,4691
+(defun rename-files-fun 169,4790
+(defun rename-files 175,5003
+(defun rename-buffer-file 181,5222
+(defmacro save-cd 188,5450
+(defun dir-path 195,5598
+(defun file-path 196,5662
+(defun kill-or-bury-current-buffer 198,5719
+(defun restore-killed-buffer 208,5967
+(defun kill-current-buffer 214,6095
+(defun find-file-force 227,6345
+(defun exe 240,6579
+(defun filename-at-point 247,6739
+(defun funcall-until-first-non-nil 264,7267
+(defvar clever-filename-guess-function-list 273,7443
+(defvar clever-filename-guess-local-function-list 274,7535
+(defun perl-use-clever-file 279,7779
+(defun clever-filename-guess-last 289,7951
+(defun clever-filename-guess 300,8155
+(defun clever-filename-at-point 307,8374
+(defun find-file-at-point 316,8564
+(defun find-file-at-point-mouse 320,8687
+(defun find-kill-head 326,8866
+(defun revert-buffer-no-ask 335,9110
+(defun dired-quick 336,9176
+(define-key f-map 338,9240
+(define-key f-map 339,9277
+(define-key f-map 340,9316
+(define-key f-map 342,9366
+(define-key f-map 343,9411
+(define-key f-map 344,9446
+(define-key f-map 345,9482
+(define-key f-map 346,9523
+
+findgrep.el,177
+(defun *f* 7,157
+(defun fu 17,402
+(defun ff 22,577
+(defun ff1 26,713
+(defun fg-first 31,884
+(defun ffe 36,1060
+(defun ffl 37,1179
+(defun ffc 38,1293
+(defun ffp 39,1419
+
+fly-spec.el,121
+(defun fly-spec-read-string 4,64
+(defun fly-spec-parse 20,315
+(defun fly-spec-read 34,687
+(defun fly-spec-get 44,821
+
+format.el,413
+(defvar default-format 1,0
+(defun prino 6,115
+(defun printf 12,334
+(defun prin* 17,458
+(defun prinq 21,580
+(defun prins 25,715
+(defun mprin 29,851
+(defun mprin* 33,995
+(defun \ 36,1082
+(defun cat 39,1171
+(defun cats 42,1229
+(defun cat* 45,1288
+(defun catq 48,1347
+(defun %% 51,1407
+(defun %%1 57,1551
+(defun %%2 60,1583
+(defmacro docat 63,1631
+(defmacro doprin 69,1882
+(defun format-if 75,2005
+
+frame.el,144
+(defun get-buffer-window-any-frame 8,184
+(defun default-frame-alist-put 12,335
+(defun font-name-default-size 16,450
+(defun font-size 20,535
+
+frequent.el,822
+(define-key global-map 11,297
+(defun qb-key-description 20,514
+(defun qb-where-is 26,651
+(defun qb-where-is-string 45,1034
+(defun qb-mapping 50,1171
+(defun map-dump 52,1233
+(defun qb-map-show-1 70,1713
+(defun qb-map-show 84,1948
+(defun keymap-prune 91,2120
+(defun qb-delete 104,2389
+(defun qb-define 112,2589
+(defun qb-select 121,2897
+(defun qb-define-read-key 132,3209
+(defun qb-define-current 148,3615
+(defun link-file-visit 157,3873
+(defun link-file-visit-prev 194,4618
+(defun link-file-visit-next 195,4709
+(defun link-file-visit-other 196,4800
+(defun link-file-visit-first 197,4893
+(define-key global-map 199,4987
+(define-key global-map 200,5045
+(define-key global-map 201,5104
+(define-key global-map 202,5165
+(defun qb-and-mini 217,5576
+(define-key b-map 225,5809
+(define-key b-map 226,5858
+
+gdb-att.el,176
+(defun get-pid 1,0
+(defun gdb-attach-process 15,367
+(define-key gdb-a-map 21,519
+(defun gdb-exec-tty-get 23,567
+(define-key gdb-a-map 26,675
+(define-key gdb-a-map 29,752
+
+gdb-mous.el,200
+(define-key mouse-map 1,0
+(define-key mouse-map 5,145
+(define-key mouse-map 9,293
+(define-key mouse-map 14,433
+(define-key mouse-map 19,572
+(define-key mouse-map 24,710
+(defun gdb-reset 31,906
+
+gio-mode.el,52
+(defun gio-mode 1,0
+(defun gio-eval-buffer 12,248
+
+gud-special.el,208
+(defun gud-find-file 1,0
+(define-key gud-mode-map 25,944
+(define-key gud-mode-map 26,987
+(defadvice find-file 35,1203
+(defadvice gud-gdb-marker-filter 40,1321
+(defadvice gud-gdbmi-marker-filter 43,1414
+
+help-map.el,50
+(defun help-map 1,0
+(defun help-map-show 25,667
+
+hex.el,345
+(defun digit-val 1,0
+(defun string-to-hex 9,176
+(defun hex-l 20,502
+(defun bin-to-string 23,588
+(defun hex-s 30,786
+(defun hex-r 35,865
+(defun hex-i 40,998
+(defun string-to-hex-string 44,1094
+(defun hex-string-to-string 54,1351
+(defun rep-hex 62,1522
+(defmacro hex 70,1779
+(defmacro bin 79,1998
+(defun hb 88,2195
+(defun hp 89,2228
+
+hide.el,93
+(defun hide 1,0
+(defun hide-pat 11,286
+(defun hide-region 20,584
+(defun hide-next 28,788
+
+hist.el,64
+(define-key t-map 3,27
+(define-key command-history-map 13,288
+
+iget.el,42
+(defun iget-check 1,0
+(defun iget 5,138
+
+iinsert.el,20
+(defun iinsert 1,0
+
+imenu-n.el,67
+(defun imenu-create-index-I 1,0
+(defun imenu-create-index=10,186
+
+init.el,39
+(defun ns-make-frame-function 65,1281
+
+isearch.el,159
+(defun isearch-yank-char 3,27
+(defun isearch-ngrep 9,196
+(defun isearch-ngrep-i 14,281
+(defun isearch-mark-find 19,378
+(defun ns-isearch-mode-hook 23,480
+
+java.el,30
+(defun ns-java-mode-hook 1,0
+
+keyq.el,15
+(defun mm 1,0
+
+keys.el,811
+(defun 0x 3,48
+(defun control-key 8,142
+(defun control-key-vector 16,277
+(define-key global-map 38,937
+(define-key esc-map 39,983
+(define-key minibuffer-local-map 41,1027
+(define-key minibuffer-local-must-match-map 42,1072
+(define-key minibuffer-local-completion-map 43,1128
+(define-key global-map 55,1477
+(define-key global-map 72,1961
+(define-key global-map 75,2032
+(define-key z-map 76,2069
+(define-key z-map 78,2102
+(define-key z-map 79,2151
+(define-key global-map 86,2280
+(define-key global-map 87,2322
+(define-key global-map 89,2367
+(define-key global-map 90,2412
+(define-key global-map 93,2523
+(define-key dired-mode-map 103,2807
+(define-key hash-map 110,3021
+(define-key hash-map 111,3087
+(define-key hash-map 112,3133
+(define-key global-map 115,3246
+(define-key z-map 122,3464
+
+killbrow.el,55
+(defun browse-kill-ring 1,0
+(defun-key [C-f3] 22,498
+
+ktm-mode.el,235
+(defun ktm-other-file 3,15
+(define-abbrev-table 'ktm-abbrev-tablektm-abbrev-table12,245
+(defun ktm-mode-font-lock 18,318
+(defun ktm-mode 33,695
+(defun grepv 54,1295
+(defun greps 61,1495
+(define-key compilation-mode-map 68,1691
+
+ldebug.el,159
+(defun current-defun-name 1,0
+(defun debug-current-defun 8,197
+(defun cancel-debug-current-defun 11,292
+(define-key l-map 14,401
+(define-key l-map 15,445
+
+lex-mode.el,21
+(defun lex-mode 1,0
+
+lexconv.el,40
+(defun repexp 1,0
+(defun fix-in 8,163
+
+lnm.el,109
+(defun z 4,36
+(defun z-sentinel 10,213
+(defun z-filter 17,369
+(defun mapreadeval 29,632
+(defun z 40,879
+
+load.el,141
+(defun loading-path 1,0
+(defun load-in-place 12,385
+(defun init-local-noload 22,794
+(defun init-local 39,1325
+(defun local-file 48,1549
+
+log.el,110
+(defun log-time-string 3,51
+(defvar log-file-name 7,144
+(defun log-append 9,178
+(defun log-to-file 17,387
+
+log1.el,827
+(defun ftime 1,0
+(defun time-normalize 5,83
+(defun time-sub 17,317
+(defun log-file-name 30,515
+(defun log 35,642
+(defun log-suppress-file 52,1021
+(defun log-file 58,1122
+(defun log-find-file 65,1283
+(defun log-write-file 69,1329
+(defun log-event 77,1471
+(defun task-name 83,1559
+(defun task-start 84,1639
+(defun task-end 85,1672
+(defun task-duration 86,1703
+(defun task-subs 87,1768
+(defun log-task 89,1801
+(defun task-push 101,2115
+(defun task-pop 108,2321
+(defun task-re 131,2864
+(defun task-lock 137,2979
+(defun log-compile 143,3114
+(define-key log-map 154,3311
+(define-key log-map 155,3347
+(define-key log-map 156,3382
+(define-key log-map 157,3421
+(define-key log-map 159,3460
+(define-key log-map 160,3499
+(define-key log-map 161,3536
+(define-key log-map 163,3576
+(define-key log-map 164,3651
+
+log2.el,111
+(defun time-string 5,71
+(defvar log-file-name 10,207
+(defun log-time 12,239
+(defun append-log-entry 16,319
+
+log3.el,421
+(defun buffer-comment-generic 12,279
+(defun buffer-comment-lisp 21,425
+(defun buffer-comment-perl 22,476
+(defun buffer-comment-c 23,527
+(defun buffer-comment 25,576
+(defun log-full-time-insert 32,757
+(defun log-short-time-insert 38,961
+(defun file-id-create-modtime 47,1244
+(defun file-id-create 58,1511
+(defun file-id-insert 67,1666
+(defun file-id-insert-modtime 71,1738
+(defun before-save-check-id 107,2994
+
+lorder.el,298
+(defun get-lorder-list 1,0
+(defun group-head 13,302
+(defun group-tail 26,577
+(defun format-group 28,650
+(defun format-group-pair 42,979
+(defun format-group-pairs 51,1154
+(defun symbol-lessp 68,1541
+(defun lorder 71,1618
+(defun read-module 79,1874
+(defun uses 84,2002
+(defun used 89,2144
+
+lsp-mode.el,52
+(defun lsp-mode 1,0
+(defun lsp-eval-buffer 13,262
+
+ltoc.el,26
+(defun ltoc-compile 3,31
+
+macros.el,277
+(defun exec-macro 3,26
+(defun macro-bracket 9,159
+(defun browse-macros 15,352
+(define-key m-map 27,727
+(define-key m-map 31,871
+(define-key m-map 33,971
+(define-key m-map 35,1010
+(define-key m-map 37,1051
+(defun make-macro-from-keys 38,1096
+(define-key m-map 43,1224
+
+make-mode.el,96
+(define-key makefile-mode-map 3,29
+(defun makefile-make-at-point 5,90
+(defun at-point 13,269
+
+mapcars.el,42
+(defun mapcars 1,0
+(defun mapcarn 7,236
+
+marker.el,97
+(defun define-key-marker 1,0
+(defun define-key-marker-dot 8,203
+(defun goto-key-marker 11,298
+
+mini.el,195
+(defun minibuffer-reset 1,0
+(defun minibuffer-dir-try 8,98
+(defun minibuffer-dir 14,283
+(define-key minibuffer-local-map 29,711
+(defun minibuffer-show 33,853
+(defun minibuffer-show 42,1139
+
+modes.el,111
+(defun emacs-read-hash-plus 4,102
+(defun force-mode 17,345
+(defun add-mode 28,770
+(defun c++-mode 113,2705
+
+new-c-fun.el,205
+(defun ps-fun 7,90
+(defun pe-fun 15,276
+(defun rg-fun 19,403
+(defun move-function 23,487
+(defun function-first-use 29,571
+(defun move-function-above-first-use 32,650
+(defun goto-last-include 39,869
+
+news.el,266
+(defun nntp-open-server 6,52
+(defun nntp-open-server-internal 30,965
+(defun nntp-accept-response 53,1817
+(defun process-wait 67,2203
+(defun nntp-wait 76,2432
+(defun nntp-send 79,2504
+(defun nntp-kill 88,2764
+(defun article 105,3169
+(defun news-foo 129,3715
+
+newsget.el,48
+(defun get-mode 3,32
+(defun get-compile 9,159
+
+nl-mode.el,161
+(defun nl-buffer-eval-shell 1,0
+(defun nl-buffer-eval-compile 7,117
+(defun nl-buffer-eval-process 13,230
+(defun nl-buffer-eval 26,611
+(defun nl-mode 38,821
+
+nlisp.el,2076
+(defmacro setq-noisy 1,0
+(defun safe-funcall 5,106
+(defun safe-substring 12,249
+(defun eprogn 21,417
+(defun sym 23,466
+(defun cars-eq 28,536
+(defun cars-equal 29,579
+(defun less 31,629
+(defmacro ++ 42,946
+(defmacro -- 43,986
+(defmacro *++ 45,1027
+(defmacro *-- 46,1080
+(defun flatten 48,1134
+(defun remap 55,1328
+(defmacro mcar 68,1747
+(defun partition 81,2041
+(defun make-ring-list 96,2570
+(defun list-rotate 100,2729
+(defmacro mvb 111,2977
+(defun max-length 117,3191
+(defmacro with-special-binding 119,3253
+(defun not-all-equal 128,3510
+(defun mapcdr 133,3638
+(defun mapcan 141,3838
+(defun mapcar2 147,4017
+(defmacro mdotimes 155,4231
+(defin 'mdotimes)mdotimes160,4388
+(defmacro mdolist 162,4407
+(defin 'mdolist)mdolist167,4566
+(defun mdi 169,4584
+(defun find-mismatch 173,4650
+(defun debug1 178,4730
+(defmacro progd 179,4788
+(defmacro proge 181,4859
+(defun eval-string 185,4978
+(defvar pre-eval-hook 187,5021
+(defvar post-eval-hook 188,5048
+(defun eval-defun-without-narrow 192,5152
+(defun insert-result 221,6146
+(defun show-result 224,6243
+(defun read-buffer-sexp 227,6318
+(defun eval-sexp 235,6529
+(defun eval-c-buffer 242,6675
+(defun eval-makefile-buffer 252,6852
+(defun eval-other-buffer 264,7078
+(defun push-exit-hook 269,7178
+(defvar eval-buffer-function 272,7276
+(defun eval-buffer-modal 281,7673
+(defun load-or-eval 303,8229
+(defun toggle-debug-on-error 306,8304
+(defun find-daily-tmp-lisp-file 309,8403
+(defun key-binding-command 324,8732
+(defun insert-key-binding-command 331,8975
+(defun insert-key-binding 334,9082
+(defun insert-key-name 339,9241
+(defun gget1 345,9423
+(defun gput1 350,9523
+(define-key l-map 363,9873
+(define-key l-map 364,9917
+(define-key l-map 365,9953
+(define-key l-map 367,9988
+(define-key l-map 368,10034
+(define-key l-map 369,10071
+(define-key l-map 370,10120
+(define-key l-map 372,10159
+(define-key l-map 373,10209
+(define-key l-map 374,10256
+(define-key l-map 376,10315
+(define-key l-map 378,10357
+(define-key global-map 380,10397
+(define-key global-map 382,10434
+
+nm.el,247
+(defun dot-o 1,0
+(defun nm-get 3,43
+(defun nm-get-u 17,461
+(defun nm-ulist 20,525
+(defun nm-ulist-mod 26,671
+(defun nm-ulist-mod:format 33,855
+(defun nm-make-file 38,997
+(defmacro nm 43,1110
+(defun nm-uses 46,1168
+(defun nm-owns 51,1274
+
+nname.el,18
+(defun nname 1,0
+
+ns-speedbar.el,190
+(defun speedbar-sort-refresh 7,174
+(define-key speedbar-file-key-map 13,330
+(defun imenu-rebuild 15,393
+(defun speedbar-fetch-dynamic-etags 22,578
+(defun speedbar-parse-ktm-tag 65,2144
+
+nvc.el,1315
+(defun nvc-file-enable 28,854
+(defun file-reverted-contents 39,1142
+(defun file-really-changed 60,1560
+(defun nvc-name-info 71,1831
+(defun nvc-daily-dirname 102,2593
+(defun nvc-dirname 106,2737
+(defun nvc-filename 114,2975
+(defun nvc-shadow-file 131,3543
+(defun nvc-file-copy-once 144,3973
+(defun nvc-copy-for-deletion 161,4384
+(defun nvc-file 166,4533
+(defun localize-file-name 172,4711
+(defun write-file-and-refresh-if-visiting 196,5211
+(defun write-file-and-refresh-if-visiting-fake 207,5478
+(defun write-log-files 221,5817
+(defun nvc-log-write-save 237,6371
+(defun nvc-file-write-force 255,6724
+(defun nvc-file-write-hook 276,7184
+(defun nvc-no-log-visit 321,8350
+(defun nvc-log-visit* 336,8664
+(defun nvc-log-visit 348,8904
+(defun days-ago 361,9250
+(defun nvc-query-args 365,9319
+(defun nvc-dired 378,9692
+(defun nvc-query 396,10155
+(defun nvc-query-i 405,10423
+(defun nvc-ls 416,10749
+(defun nvc-ls-bdiff 421,10893
+(defun nvc-ls-bdiff-new 437,11313
+(defun nvc-grep-args 454,11739
+(defun nvc-grep 471,12212
+(defun nvc-buffer-enable 481,12499
+(defun nvc-buffer-attribute 495,12792
+(define-key global-map 516,13199
+(defun nvc-no-backup-save 518,13253
+(define-key alternate-key-map 524,13351
+(define-key alternate-key-map 525,13413
+(defun localize-buffer-file-name 528,13543
+
+object.el,75
+(defun object-file-name 1,0
+(defun object-exists-p 2,56
+(defun xy 4,122
+
+obsolete-cl.el,40
+(defmacro pop 1,0
+(defmacro push 5,82
+
+old-nvc.el,459
+(defun find-parent-directory 5,44
+(defun nvc-directory 26,485
+(defun m26 34,708
+(defun nvc-latest 37,809
+(defun nvc-file-name 45,1006
+(defun nvc-file-name 48,1101
+(defun file-size 52,1207
+(defun nvc-file-discrete 63,1456
+(defun nvc-file-append 84,2081
+(defun nvc-file 107,2681
+(defun nvc-file-enable 111,2747
+(defun nvc-file-hook 117,2845
+(defun nvc-diff 137,3101
+(defun nvc-delta-1 153,3488
+(defun nvc-delta 174,3961
+(defun vc-quick 198,4398
+
+p-mode.el,245
+(defun p-mode 1,0
+(define-key p-mode-map 11,224
+(define-key p-mode-map 12,271
+(defun indent-bol 14,320
+(defun p-indent-command 20,430
+(defun pm-fum 28,634
+(defun beginning-of-sexp 34,795
+(defun pm-bracket-ify 42,994
+(defun pm-v 51,1131
+
+pa-mode.el,21
+(defun pa-mode 3,34
+
+panic.el,72
+(defun panic 10,180
+(defun kill-all 32,679
+(defun panic-kill 54,1128
+
+path.el,269
+(defun delete-string-from-list-regexp 1,0
+(defun path-element=7,161
+(defun path-split 19,394
+(defun path-add 25,483
+(defun path-delete 35,700
+(defun path-delete-regexp 48,1016
+(defun path-show 55,1178
+(defun list-split 60,1319
+(defun list-split-insert 75,1736
+
+pc-mode.el,49
+(defun pc-other-file 1,0
+(defun pc-mode 10,212
+
+pdecl.el,333
+(defun xlat-ctype 8,148
+(defun pdecl 11,241
+(defun pdecl-cq 25,736
+(defun pdecl-decl 35,1050
+(defun pdecl-args 37,1101
+(defun pdecl-args-noname 42,1208
+(defun pp-fun 47,1316
+(defun region-c-function-header 51,1388
+(defun rep-decl 59,1582
+(defun make-fun-proto 66,1747
+(defmacro let-fun 71,1923
+(defmacro let-call 80,2095
+
+perl.el,239
+(defun perl-command 10,262
+(defun perl-exec-this 17,465
+(defun perl-compile 22,652
+(defun eval-perl-buffer 38,987
+(defun perl-mode-hook-ns 47,1258
+(defun perl-process 56,1509
+(defun bake-perl 72,2030
+(defun perl-other-file 92,2513
+
+pg.el,2916
+(defvar pg:disable-type-coercion 273,12611
+(defconst pg:NAMEDATALEN 293,13559
+(defconst pg:PG_PROTOCOL_LATEST_MAJOR 294,13618
+(defconst pg:PG_PROTOCOL_63_MAJOR 295,13677
+(defconst pg:PG_PROTOCOL_LATEST_MINOR 296,13718
+(defconst pg:SM_DATABASE 297,13759
+(defconst pg:SM_USER 298,13788
+(defconst pg:SM_OPTIONS 299,13817
+(defconst pg:SM_UNUSED 300,13846
+(defconst pg:SM_TTY 301,13875
+(defconst pg:AUTH_REQ_OK 303,13905
+(defconst pg:AUTH_REQ_KRB4 304,13939
+(defconst pg:AUTH_REQ_KRB5 305,13973
+(defconst pg:AUTH_REQ_PASSWORD 306,14007
+(defconst pg:AUTH_REQ_CRYPT 307,14041
+(defconst pg:AUTH_REQ_MD5 308,14075
+(defconst pg:STARTUP_MSG 310,14110
+(defconst pg:STARTUP_KRB4_MSG 311,14149
+(defconst pg:STARTUP_KRB5_MSG 312,14188
+(defconst pg:STARTUP_PASSWORD_MSG 313,14227
+(defconst pg:StartupPacketSize315,14267
+(defconst pg:MAX_MESSAGE_LEN 318,14373
+(defconst pg:INV_ARCHIVE 320,14427
+(defconst pg:INV_WRITE 321,14479
+(defconst pg:INV_READ 322,14512
+(defconst pg:LO_BUFIZE 323,14545
+(defconst pg:ISODATE_REGEX 332,14898
+(defvar pg:parsers 340,15273
+(defstruct pgcon 342,15298
+(defstruct pgresult 343,15358
+(defun pg:flush 345,15423
+(defmacro with-pg-connection 350,15572
+(defmacro with-pg-transaction 361,16093
+(defun pg:for-each 378,16720
+(defun* pg:connect 399,17665
+(defun* pg:exec 466,20746
+(defun pg:result 547,23727
+(defun pg:disconnect 575,25121
+(defvar pg:type-parsers617,27239
+(defun pg:number-parser 644,28305
+(defvar pg::text-encoding 647,28386
+(defsubst pg:text-parser 648,28417
+(defun pg:bool-parser 652,28526
+(defun pg:date-parser 658,28723
+(defun pg:isodate-parser 669,29206
+(defun pg:initialize-parsers 683,29856
+(defun pg:parse 696,30341
+(defun pg:md5-encode 705,30507
+(defun pg:md5-key-salt 708,30625
+(defun pg:md5-hex-digest 713,30750
+(defvar pg:lo-initialized 742,31893
+(defvar pg:lo-functions 743,31924
+(defun pg:lo-init 745,31954
+(defun pg:fn 766,32878
+(defun pg:lo-create 822,34910
+(defun pg:lo-open 839,35668
+(defsubst pg:lo-close 852,36208
+(defsubst pg:lo-read 855,36285
+(defsubst pg:lo-write 858,36373
+(defsubst pg:lo-lseek 861,36459
+(defsubst pg:lo-tell 864,36564
+(defsubst pg:lo-unlink 867,36643
+(defun pg:lo-import 872,36782
+(defun pg:lo-export 888,37338
+(defun pg:databases 915,38349
+(defun pg:tables 920,38547
+(defun pg:columns 927,38920
+(defun pg:backend-version 933,39148
+(defun pg:read-attributes 945,39570
+(defun pg:bitmap-ref 956,40086
+(defun pg:read-tuple 964,40356
+(defun pg:read-char 983,41214
+(defun pg:read-net-int 997,41752
+(defun pg:read-int 1003,41925
+(defun pg:read-chars 1010,42132
+(defvar pg::accept-process-output-supports-floats 1020,42536
+(defvar pg::inside-accept-process-output 1023,42641
+(defun pg::accept-process-output 1025,42688
+(defun pg::process-send 1039,43264
+(defun pg:read-string 1045,43470
+(defun pg:send-int 1052,43680
+(defun pg:send-char 1062,43968
+(defun pg:send 1066,44108
+
+php-mode.el,328
+(defun php-command 4,74
+(defun php-compile 10,199
+(defun eval-php-buffer 18,369
+(defun php-mode-hook-ns 27,632
+(defun php-process 36,864
+(defun insert-close-tag 49,1244
+(defun sgml-close-tag* 53,1307
+(defun sgml-close-tag 71,1834
+(defun mouse-close-tag 81,2114
+(defun insert-blank-tag 90,2320
+(defun php-mode 92,2384
+
+plemu.el,186
+(defmacro ns-defun 1,0
+(defmacro ns-defmacro 5,108
+(defin 'ns-defun)ns-defun12,279
+(defin 'ns-defmacro)ns-defmacro13,297
+(defun member3 68,1756
+(defun delete-duplicates 146,3860
+
+powershell.el,384
+(defun powershell-gen-window-width-string 18,520
+(defvar powershell-prompt-pattern 27,784
+(defgroup powershell 31,952
+(defcustom powershell-need-rawui-resize 37,1048
+(defun powershell 43,1173
+(defun powershell-window-size-changed 105,3365
+(defun powershell-delete-process 112,3524
+(defun powershell-preoutput-filter-for-prompt 125,3902
+(defun powershell-simple-send 140,4211
+
+preinit.el,231
+(defun defin 3,65
+(defmacro save-search 7,202
+(defun string-sub 14,427
+(defun filename-clean 26,911
+(defun filename-canonical 31,1048
+(defun filename-concat 40,1196
+(defun filename-format 46,1294
+(defun concat-path 52,1408
+
+ps-acrobat.el,81
+(defun ps-eval-buffer 3,64
+(defun ps-eval-buffer 11,387
+(defun ps-mode 24,851
+
+ps-gs.el,117
+(defun psh 4,73
+(defun ps-start 15,437
+(defun ps-eof 32,907
+(defun ps-send 36,961
+(defun ps-eval-buffer 40,1022
+
+ps-mode.el,21
+(defun ps-mode 5,92
+
+ps1-mode.el,53
+(defun ps1-eval-buffer 4,67
+(defun ps1-mode 11,280
+
+python.el,129
+(defun python-command 11,299
+(defun python-compile 17,459
+(defun eval-python-buffer 25,635
+(defun python-mode-hook-ns 33,867
+
+qi-c.el,38
+(defun insert-protected-header 8,139
+
+qi-html.el,91
+(defun stub-html-file 3,65
+(defun insert-link-yank 12,287
+(defun insert-link-img 17,402
+
+qi.el,253
+(define-key global-map 5,96
+(defun qi-delete 12,248
+(defun qi-define 24,507
+(defun qi-insert* 37,963
+(defun qi-insert 48,1211
+(defun qi-map-show-1 52,1323
+(defun qi-map-show 56,1408
+(defun buffer-mode-comment 71,1772
+(define-key qi-map 83,2050
+
+qs.el,271
+(define-key global-map 5,90
+(define-key isearch-mode-map 6,128
+(define-key isearch-mode-map 7,172
+(defun qsp-map-show 17,395
+(defun qs-select 23,553
+(defun qs-delete 33,831
+(defun qs-define 41,1045
+(define-key qs-map 56,1496
+(define-key isearch-mode-map 57,1541
+
+query.el,242
+(define-key query-replace-map 1,0
+(define-key query-replace-map 2,45
+(defun query-put 4,88
+(defun query-get 13,249
+(defun dsit-for 22,347
+(defun query-read 28,510
+(defun \ 34,664
+(defmacro query 114,2094
+(defin 'query)query123,2449
+
+quick.el,704
+(defun edd 7,137
+(defun ebq 10,231
+(defun ip 19,411
+(defun mm 30,642
+(defun rr 32,695
+(defmacro sxp 37,854
+(defun eob 43,1014
+(defun bob 44,1053
+(defun point^ 46,1093
+(defun point$ 47,1123
+(defun dx 54,1371
+(defun dc 55,1417
+(defun bl 59,1556
+(defun fl 60,1609
+(defun bss 64,1758
+(defun bsp 66,1853
+(defun bs$ 69,1968
+(defmacro ow 73,2067
+(defun fti 77,2190
+(defun eoln 78,2254
+(defun kcb 80,2326
+(defun me 87,2462
+(defun mb 88,2508
+(defun rsexp 95,2700
+(defun pps 100,2800
+(defun sort-copy 103,2876
+(defun current-window 105,2940
+(defun top-window-p 106,3003
+(defmacro ilambda 108,3058
+(defmacro toggle-fun 111,3153
+(defmacro idefun 114,3232
+(defmacro defun-key 117,3324
+
+random.el,441
+(defun random-mod 1,0
+(defun random-rng 2,46
+(defun random-p 3,103
+(defun random-nth 4,168
+(defun random-list 6,233
+(defun perm-i 12,393
+(defun perm-swap 21,658
+(defun perm-rq 27,801
+(defun perm-p 36,1039
+(defun perm 40,1195
+(defun perm-r 44,1339
+(defun merge 48,1466
+(defun merge-r 57,1713
+(defun rndcat 69,2070
+(defun list-to-string 74,2246
+(defun string-r 76,2313
+(defun string-r-set 78,2386
+(defun expand-range 84,2538
+
+rc-mode.el,20
+(defun rc-mode 1,0
+
+read.el,37
+(defun readc 1,0
+(defun reads 2,41
+
+reap.el,51
+(defun reap-by-mode 4,74
+(defun reap-show 12,240
+
+recent.el,3272
+(defun slash-back 2,65
+(defun slash-front 3,112
+(defun toggle-slashification-region 5,161
+(define-key global-map 19,623
+(defun rc-mode 22,770
+(defun rc-eval 30,936
+(defun arg-expand 36,1149
+(defun today-make-directory 47,1436
+(defun insert-comment-line 57,1723
+(defun print-it 62,1923
+(defun filename-to-kill 75,2185
+(defun dired-quick-dot 87,2496
+(defun toggle-tab-width 91,2576
+(defun inf 103,2866
+(defun region-sort 107,2989
+(defun rect-paste 111,3072
+(defun string-cliph 127,3375
+(defun string-clipt 131,3432
+(defun string-clip 137,3528
+(defun eval-buffer-init-region 141,3589
+(defun kill-paren 149,3758
+(defun ts-file 163,4025
+(defun cfind 175,4375
+(defun file-name-directory-last 180,4498
+(defun member-string-match 191,4722
+(defun assoc-string-match 195,4823
+(defun completion-sort 199,4922
+(defun minibuffer-complete-preferred 211,5276
+(defmacro global-rep 222,5603
+(defun bup 225,5689
+(defun kill-line+ 227,5758
+(defun if-out 232,5848
+(defun string-at 246,6156
+(defun str-to-sym 253,6245
+(defun xman 259,6384
+(defun show-result 261,6449
+(defun %S 267,6608
+(defun buffer 269,6640
+(defun rename-buffer-as-backup 281,7080
+(defun next 289,7357
+(defmacro srpage 311,7995
+(defun qf 315,8076
+(defmacro sn 322,8232
+(defmacro sbx 329,8357
+(defun *sbx 338,8548
+(defmacro sbx 347,8710
+(defin 'sbx)sbx351,8804
+(defmacro sxk 353,8818
+(defin 'sxk)sxk356,8904
+(defun copy-sexp-as-kill 358,8918
+(defun map-buffer-lines* 365,9088
+(defmacro map-buffer-lines 376,9302
+(defun preferred-completion 381,9452
+(defun retabify 391,9707
+(defun file-local-start 398,9818
+(defun comment-line-insert 409,9981
+(defun map-lines 418,10189
+(defmacro qm 429,10431
+(defmacro qmq 439,10702
+(defun insert-time-string 444,10823
+(defun truncate-lines-toggle 448,10934
+(define-key minibuffer-local-completion-map 454,11108
+(define-key minibuffer-local-completion-map 455,11193
+(define-key global-map 457,11269
+(define-key global-map 459,11339
+(define-key global-map 460,11393
+(define-key global-map 461,11447
+(define-key global-map 465,11576
+(define-key global-map 467,11637
+(define-key global-map 469,11686
+(defun-key "\M-ut" 471,11738
+(define-key global-map 473,11777
+(define-key global-map 475,11821
+(define-key global-map 476,11883
+(define-key z-map 479,11963
+(define-key z-map 481,12026
+(define-key z-map 482,12062
+(define-key z-map 484,12107
+(define-key z-map 485,12144
+(define-key z-map 486,12185
+(define-key z-map 488,12229
+(define-key z-map 490,12281
+(define-key z-map 491,12323
+(define-key global-map 496,12453
+(define-key global-map 497,12515
+(define-key global-map 498,12556
+(define-key global-map 500,12603
+(defun buffer-file-name-to-kill 511,12950
+(define-key global-map 517,13059
+(defun assoc-re 519,13185
+(defun filename-replace-suffix 526,13311
+(defun copy-emacs-url 531,13470
+(define-key global-map 535,13591
+(defun toggle-region-visible 538,13724
+(defun toggle-visible-between 542,13844
+(defun toggle-visible-between-tags 546,13972
+(defun chelp 556,14265
+(define-key global-map 563,14508
+(defun line-comment-set-state 565,14615
+(defun toggle-radio 569,14715
+(define-key global-map 578,14925
+(defmacro dq 586,15147
+(defmacro hyper-quick 591,15263
+(defmacro super-quick 596,15410
+
+rect-x.el,71
+(defun rectangle-put-text-property 1,0
+(define-key global-map 13,228
+
+ref.el,38
+(defun unref 5,49
+(defun ref< 8,127
+
+replace.el,63
+(defun buffer-replace 1,0
+(defun buffer-replace-lines 16,506
+
+ruby.el,144
+(defun ruby-command 4,76
+(defun ruby-compile 10,197
+(defun eval-ruby-buffer 18,369
+(defun ruby-mode-hook-ns 26,589
+(defun ruby-mode 33,730
+
+russian.el,3455
+(defvar russian-font-name 380,16289
+(defvar russian-buffer-name 386,16543
+(defvar russian-keyboard-name 390,16672
+(defvar russian-mode-name 396,16929
+(defvar russian-font-additional-list 400,17062
+(defvar russian-buffer-additional-list 403,17147
+(defvar russian-keyboard-additional-list 406,17245
+(defvar russian-mode-additional-list 409,17347
+(defvar russian-auto-mode-alist412,17456
+(defvar russian-auto-mode-regexp422,17870
+(defvar russian-encoding-additional-alist 428,18066
+(defconst russian-encoding-default-alist449,18877
+(defconst russian-font-default-list474,20016
+(defconst russian-buffer-default-list481,20310
+(defconst russian-keyboard-default-list487,20649
+(defconst russian-mode-default-list492,20834
+(defconst russian-safe-encoding-name 498,21149
+(defun russian-set-default-encoding 503,21352
+(defun russian-auto-mode 522,22192
+(defvar russian-encoding-alist534,22653
+(defvar russian-font-list538,22870
+(defvar russian-buffer-list543,23108
+(defvar russian-keyboard-list547,23328
+(defvar russian-mode-list551,23541
+(defvar russian-font-alist 556,23766
+(defvar russian-buffer-alist 557,23827
+(defvar russian-keyboard-alist 558,23892
+(defvar russian-mode-alist 559,23961
+(defconst russian-encoding-ascii562,24054
+(defconst russian-encoding-7koi567,24179
+(defconst russian-encoding-alt572,24304
+(defconst russian-encoding-8koi583,24660
+(defconst russian-encoding-gostcii594,25017
+(defconst russian-encoding-osn605,25377
+(defconst russian-encoding-win-cp1251616,25733
+(defconst russian-encoding-mac627,26096
+(defconst russian-encoding-cp500638,26452
+(defconst russian-encoding-dkoi649,26810
+(defconst russian-encoding-ebcdic660,27167
+(defconst russian-encoding-jcuken671,27526
+(defconst russian-encoding-naive676,27652
+(defconst russian-encoding-libcon686,27998
+(defconst russian-encoding-broken-8koi696,28351
+(defconst russian-encoding-tex-decoding-rule706,28821
+(defconst russian-encoding-broken-8koi-decoding-rule865,31879
+(defconst russian-encoding-libcon-decoding-rule946,33839
+(defconst russian-encoding-naive-decoding-rule1231,41459
+(defconst russian-encoding-tex1235,41549
+(defconst russian-encoding-ascii21245,42007
+(defconst russian-encoding-jcuken-filter-from1251,42195
+(defconst russian-encoding-jcuken-filter-to1254,42286
+(defun russian-set-font 1260,42447
+(defun russian-set-buffer 1272,42858
+(defun russian-set-keyboard 1284,43282
+(defun russian-set-mode 1296,43712
+(defun russian-univ-nth 1310,44134
+(defun russian-univ-vector 1315,44266
+(defun russian-univ-append 1320,44422
+(defvar russian-temporary-table 1325,44621
+(defun russian-get-table 1327,44659
+(defun russian-display 1429,48568
+(defun russian-undisplay 1446,49350
+(defun russian-translate-string-list 1453,49512
+(defun russian-translate-decoding-rule 1467,49903
+(defun russian-translate-region1553,53134
+(defun russian-translate-buffer 1595,54997
+(defconst russian-version 1604,55211
+(defvar russian-mode 1605,55279
+(defconst russian-mode-default-string 1608,55349
+(defvar russian-mode-string 1610,55396
+(defvar russian-mode-hook 1619,55706
+(defun russian-mode 1622,55801
+(defvar russian-insertion-mode 1650,57057
+(defvar russian-insertion-mode-hook 1655,57250
+(defvar russian-insertion-mode-string 1658,57365
+(defvar russian-insertion-mode-map 1661,57468
+(defvar russian-insertion-mode-table 1663,57509
+(defun russian-insertion-mode 1665,57552
+(defun russian-perform-insertion 1716,59951
+
+save-sym.el,59
+(defun setq-form-string 3,21
+(defun save-sym-value 6,151
+
+search.el,1472
+(defun other-window-search 1,0
+(defun qrr 9,147
+(defun xqrr 11,225
+(define-key global-map 23,432
+(defun depth 25,470
+(defun string-match-region 30,634
+(defun match-region 35,762
+(defun gmb 38,855
+(defun gme 39,920
+(defun string-match-string 41,980
+(defun find-match-string-nosave 49,1278
+(defun find-match-string 58,1640
+(defun find-match-strings 68,2009
+(defun string-parse-r 76,2161
+(defun string-parse 82,2382
+(defun sp 89,2616
+(defun string-partition 92,2702
+(defun cut-region 104,3151
+(defun cut-match 107,3234
+(defun kill-regexp 112,3339
+(defun kill-match 116,3447
+(defun kill-regexp 124,3651
+(defun kill-to-regexp-start 128,3759
+(defun kill-to-regexp-end 137,4020
+(defun replace 149,4338
+(defun replace-one 156,4537
+(defmacro reps 166,4808
+(defmacro rep 173,5004
+(defmacro rep$ 182,5179
+(defmacro mrep 186,5247
+(defmacro mrep$ 189,5324
+(defun match-list 192,5404
+(define-key global-map 203,5738
+(define-key search-map 205,5780
+(define-key search-map 206,5830
+(defun rsb 208,5879
+(defun rsf 214,6056
+(defmacro MS 223,6414
+(defmacro MB 226,6476
+(defmacro ME 229,6563
+(defun replace-region 232,6644
+(defmacro repr 239,6789
+(defun search-pattern-bounds 248,6976
+(defun rtor 257,7221
+(defun rtori 259,7295
+(defun repc 268,7524
+(defmacro map-search 271,7584
+(defmacro case-match 281,7772
+(defun re-kill-line 296,8109
+(defun string-substitute-set 299,8197
+(defun string-substitute 312,8497
+(defmacro map-search 324,8742
+
+shell.el,1055
+(defun qshell 5,44
+(defun goto-shell 9,171
+(defun kill-shell-buffer 19,382
+(defun get-shell-buffer 60,1419
+(defun shell-buffer 67,1552
+(defun call-shell 80,1815
+(defun start-shell 92,2111
+(defun bury-buffer-instead 104,2381
+(defun shell-mode-hook-ns 106,2429
+(defun cmd-shell 116,2758
+(defun shell-prompt-rsf 131,3115
+(defun shell-prompt-rsb 139,3218
+(defun overlay-filter 146,3332
+(defun bol-looking-at 151,3486
+(defun shell-output-get-region 154,3547
+(defun shell-output-hide-toggle 175,3876
+(defun shell-annotation-read 213,4800
+(defun shell-annotate-insert 220,4928
+(defun shell-annotate-pre 231,5096
+(defun shell-annotate-post 236,5221
+(defun shell-annotate 241,5347
+(defun shell-output-purge 250,5522
+(define-key shlog-mode-map 261,5817
+(define-key shlog-mode-map 262,5892
+(define-key shlog-mode-map 263,5963
+(define-key shlog-mode-map 264,6044
+(define-key shlog-mode-map 265,6117
+(define-key shlog-mode-map 266,6190
+(define-key shlog-mode-map 267,6245
+(defun remove-bogus-overlays 271,6385
+(defun shlog-mode 282,6657
+
+show.el,104
+(defun show-buf 3,17
+(defun show-buffer-name-function 17,395
+(defun show 21,447
+(defun show1 27,580
+
+sql-edit.el,956
+(defun sql-show 9,119
+(defun sql-exec 12,144
+(defun sql-exec-region 24,446
+(defun sql-exec-command 34,712
+(defun sql-mouse-exec-region 45,999
+(defun sql-mode-variables 50,1101
+(defun sql-mode-commands 54,1181
+(defun sql-mode 65,1557
+(defun sqlint-dynamic-complete-command 178,3157
+(defvar sqlint-mode-syntax-table 192,3619
+(defvar sqlint-mode-abbrev-table 193,3657
+(defvar sqlint-mode-map 194,3695
+(define-abbrev-table 'sqlint-mode-abbrev-table sqlint-mode-abbrev-table203,3887
+(defun sqlint-mode-commands 205,3939
+(defun sqlint-mode-variables 209,4034
+(defvar sqlint-mode-map 214,4170
+(defvar sqlint-buffer 215,4199
+(defun sqlint-mode 217,4227
+(defun sqlint-sentinel 247,5184
+(defun sqlint-start 254,5350
+(defun sqlint 268,5633
+(defun sqlint-send 274,5775
+(defun sqlint-get 279,5866
+(defun sqlint-get-describe-table 283,5938
+(defun sql-get-select-list 304,6404
+(defun sql-get-help 316,6673
+(defvar sqlint-program-name 346,7871
+
+stringdf.el,310
+(defun sync-trial-safe 4,81
+(defun sync-trial 14,366
+(defun sync 17,448
+(defun check-insert 24,617
+(defun string-diff-index 41,969
+(defun string-diff-pair 48,1168
+(defun string-sync-try 53,1354
+(defun string-sync 64,1635
+(defun mod-up 77,2040
+(defun string-diff 79,2093
+(defun hstring-diff 135,3677
+
+symlink.el,93
+(defun chars-to-string1,0
+(defun delete-char-from-string 4,86
+(defun symlink-follow 9,187
+
+tagfile.el,50
+(defun get-tag-info 1,0
+(defun make-tags 16,353
+
+tax.el,35
+(defun td 3,35
+(defun tax 10,146
+
+text.el,798
+(define-key t-map 7,136
+(define-key t-map 8,173
+(define-key t-map 9,209
+(define-key t-map 10,248
+(define-key t-map 12,288
+(define-key t-map 13,321
+(define-key t-map 15,353
+(define-key global-map 17,396
+(define-key global-map 19,433
+(defun line-length 21,480
+(defun line-copy 28,684
+(defun line-string 35,917
+(defun line-contains 42,1213
+(defun for-lines 51,1512
+(defun for-lines-matching 68,2034
+(defun lines-matching-concat 75,2325
+(defun lines-matching-list 82,2571
+(defun buffer-line-strings 89,2813
+(defun insert-lines-matching 97,3050
+(define-key t-map 99,3149
+(defun force-column 101,3196
+(defun force-indent 107,3399
+(defun force-text-column 114,3664
+(defun set-left 121,3899
+(defun n-text 122,3969
+(defun fill-indent 129,4098
+(define-global-abbrev "fro" 136,4271
+
+todo.el,62
+(defun todo-mode-font-lock 32,1051
+(defun todo-mode 40,1255
+
+tp.el,90
+(defun rotate 3,62
+(defun tp 13,261
+(defun tp-sexp 16,343
+(defun mouse-tp-sexp 27,556
+
+tree.el,152
+(defun node 1,0
+(defun print-tree 4,75
+(defun print-tree 12,349
+(defun traverse-pre 22,678
+(defun traverse-post 29,877
+(defun traverse-in 36,1079
+
+umake.el,276
+(defun umake-bake-select 3,17
+(defun umake-file-locate 38,716
+(defun lookup-secondary-map 60,1223
+(defun umake-file-map-replace 68,1475
+(defun umake-define-key 74,1619
+(defun umake-file-locate-here 79,1813
+(defun umake-find-file 84,1928
+(define-key global-map 98,2250
+
+unconcat.el,210
+(defun space-ify 1,0
+(defun unspace-ify 4,51
+(defun hyphen-rep 7,128
+(defun strip-white 10,200
+(defun strip-white 14,279
+(defun unconcat 20,462
+(defun unconcat-lines 29,787
+(defun unconcat-white 30,833
+
+vat.el,41
+(defun vat-ex 2,34
+(defun vat-add 3,65
+
+vc.el,32
+(define-key vc-prefix-map 3,22
+
+vt.el,222
+(defun blammo 1,0
+(defun te-blank-line 27,576
+(defun vt-delete-line 30,692
+(defun vt-insert-line 36,805
+(defun vt-cursor 42,918
+(defun vt-clear-line 47,1015
+(defun vt-clear-screen 51,1078
+(defun vt-unknown 55,1137
+
+wakeup.el,102
+(defun wakeup 1,0
+(defun kill-wakeup 10,269
+(defun make-one-line-window 14,366
+(defun doit 34,884
+
+wdiff.el,124
+(defun flash 1,0
+(defun wdiff-sync-try 4,121
+(defun wdiff-sync 10,298
+(defun wdiff-cmp 14,417
+(defun wdiff-next 19,495
+
+wdw.el,96
+(defun dbg-mode 2,65
+(defun start-perl 8,183
+(defun start-wdw 13,309
+(defun start-nl 18,429
+
+winutil.el,119
+(defun window-select-top 1,0
+(defun window-line 5,102
+(defun window-enforce-bottom 8,170
+(defun goto-marker 12,287
+
+wuft.el,248
+(defun cons-load-path 3,37
+(defun override-adjoin 6,124
+(defun load-standard 11,256
+(defun wuft-get 16,354
+(defun wuft-put 20,410
+(defun safe-for-path 24,496
+(defun wuft-load 36,768
+(defun wuft-load-all 42,908
+(defun load-overrides 46,992
+
+y-mode.el,19
+(defun y-mode 1,0
+
+yas.el,27
+(defun yas/foo-init 7,258
+
+zencoding-mode.el,2368
+(defconst zencoding-mode:version 6,157
+(defmacro zencoding-aif 68,2263
+(defmacro zencoding-pif 73,2473
+(defmacro zencoding-parse 78,2714
+(defmacro zencoding-run 85,3047
+(defmacro zencoding-por 94,3382
+(defun zencoding-regex 106,3921
+(defun zencoding-expr 116,4319
+(defun zencoding-multiplier 130,5129
+(defun zencoding-tag 138,5562
+(defun zencoding-tag-props 153,6407
+(defun zencoding-props 162,6746
+(defun zencoding-prop 169,7046
+(defun zencoding-tag-classes 181,7434
+(defun zencoding-tagname 193,7982
+(defun zencoding-pexpr 198,8212
+(defun zencoding-parent-child 206,8612
+(defun zencoding-child-sans 226,9589
+(defun zencoding-child 232,9811
+(defun zencoding-sibling 239,10124
+(defun zencoding-siblings 246,10376
+(defun zencoding-name 257,10972
+(defun zencoding-class 262,11203
+(defun zencoding-identifier 269,11487
+(defun zencoding-classes 275,11718
+(defvar zencoding-single-tags287,12212
+(defvar zencoding-inline-tags291,12264
+(defvar zencoding-block-tags306,12457
+(defvar zencoding-leaf-function 314,12520
+(defun zencoding-make-tag 318,12633
+(defun zencoding-transform 344,13590
+(defun zencoding-test-cases 363,14226
+(defgroup zencoding 431,18415
+(defun zencoding-expr-on-line 435,18507
+(defun zencoding-prettify 445,18898
+(defun zencoding-expand-line 461,19415
+(defvar zencoding-mode-keymap 496,20726
+(define-minor-mode zencoding-mode506,20993
+(defun zencoding-transform-yas 533,21598
+(defun zencoding-expand-yas 541,21810
+(defvar zencoding-preview-input 563,22452
+(defvar zencoding-preview-output 565,22536
+(defvar zencoding-old-show-paren 567,22622
+(defface zencoding-preview-input570,22709
+(defface zencoding-preview-output575,22849
+(defvar zencoding-preview-keymap580,22974
+(defun zencoding-preview-accept 586,23179
+(defvar zencoding-flash-ovl 599,23676
+(defun zencoding-remove-flash-ovl 602,23760
+(defcustom zencoding-preview-default 608,23950
+(defcustom zencoding-insert-flash-time 614,24141
+(defun zencoding-insert-and-flash 621,24357
+(defun zencoding-preview 632,24816
+(defvar zencoding-preview-pending-abort 664,26165
+(defun zencoding-preview-before-change 667,26273
+(defun zencoding-preview-abort 675,26607
+(defun zencoding-preview-post-command 689,27186
+(defun zencoding-preview-post-command-1 694,27348
+(defun zencoding-preview-transformed 701,27655
+(defun zencoding-update-preview 710,28002
+
+xdired.el,0
+
+tramp.el,0
+
+stuff.el,0
+
+start.el,0
+
+qb-stack.el,0
+
+printcodes.el,0
+
+path-panic.el,0
+
+nog.el,0
+
+no-keys.el,0
+
+mouse.el,0
+
+mouse-bind.el,0
+
+info.el,0
+
+help.el,0
+
+emacs.el,0
+
+dreg.el,0
+
+custom.el,0
+
+apache-env.el,0
+
+ange-ftp.el,0
+
+aa.el,0
+
+111011-165601.el,0

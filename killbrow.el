@@ -1,0 +1,23 @@
+(defun browse-kill-ring () (interactive)
+  (save-window-excursion
+    (pop-to-buffer (get-buffer-create "*kill*"))
+    (erase-buffer)
+    (insert "  " (mapconcat 'prin1-to-string kill-ring "\n  "))
+    (bob)
+    (recursive-edit)
+    (if (not (looking-at "^  \""))
+	     (rsb "^  \""))
+    (kill-sexp 1)
+    (bob)
+    (sx (yank))
+    (let (new)
+      (while (not (eobp))
+	(setq new (cons (readc) new)))
+      (setq kill-ring (reverse new)))
+    (kill-buffer "*kill*")
+    (car kill-ring)
+    )
+  )
+
+(defun-key [C-f3] (insert (browse-kill-ring)))
+

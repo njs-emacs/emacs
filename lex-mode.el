@@ -1,0 +1,5 @@
+(defun lex-mode () (interactive)
+  (c-mode)
+  (use-local-map (setq lex-mode-map (copy-sequence c-mode-map)))
+  (setq mode-name "lex")
+  )

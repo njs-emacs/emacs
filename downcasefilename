@@ -1,0 +1,2 @@
+to=`echo $1 | tr A-Z a-z`
+mv $1 $to

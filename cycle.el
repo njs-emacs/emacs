@@ -1,0 +1,10 @@
+(defun defcycle (name values)
+  (put name 'cycle-values values) 
+  )
+
+(defun cycle (name)
+  (let ((values (get name 'cycle-values)))
+    (defcycle name (append (cdr values) (list (car values))))
+    (car values)
+    )
+  )

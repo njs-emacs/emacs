@@ -1,0 +1,15 @@
+(fset '| 'logior)
+(fset '~ 'lognot)
+(fset '^ 'logxor)
+(fset '<< 'ash)
+(defun >> (n) (ash (- n)))
+
+(defun bits (&rest args)
+  (apply 'logior (mapcar '(lambda (x) (ash 1 x)) args)))
+
+(defun bitl (&rest args)
+  (let* ((v 0)
+	 )
+    (while args (setq v (+ (* v 2) (car args)))
+	   (setq args (cdr args)))
+    v))

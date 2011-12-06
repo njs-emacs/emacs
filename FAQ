@@ -1,0 +1,3 @@
+(describe-function 'string-match)
+(describe-function 'string-match-string)
+(describe-function 'replace-regexp-in-string)

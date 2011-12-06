@@ -1,0 +1,11 @@
+as of 111104-192932 I don't know if the below is still true
+SHELL is set to cmdproxy.exe and bash seems to run fine
+we use ESHELL (fallback to SHELL) environment variable
+so here we see we actually mean either ESHELL must be set
+to bash (which it currently is) or SHELL must be (which
+it currently isn't
+---- old text follows ---
+
+HOME environment var must be set for bash to work
+SHELL env var must be set to bash.exe
+don't have command line -l option if $HOME/.emacs exists

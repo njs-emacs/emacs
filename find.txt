@@ -1,0 +1,1 @@
+window properties:	systems/NT/init.el

@@ -1,0 +1,18 @@
+(setq foo (make-face 'foo))
+(set-face-foreground (make-face 'highlight) "black")
+(set-face-background (make-face 'region) "pink")
+(set-face-background foo "black")
+(setq foq (make-face 'foq))
+(set-face-foreground foq "yellow")
+(set-face-background foq "red")
+(defun hh () (interactive)
+  (put-text-property (point) (+ (point) 5) 'invisible t))
+(global-set-key [f6] 'hh)
+
+(defun hf () (interactive)
+  (put-text-property (point) (+ (point) 5) 'face 'foq))
+(global-set-key [f7] 'hf)
+
+(defun hl () (interactive)
+  (put-text-property (point^) (point$) 'face 'foq))
+(global-set-key [f7] 'hl)

@@ -1,0 +1,10 @@
+(defun chop-list (list n)    
+  (let* ((out) (list (copy-sequence list)))
+      (while list
+	(let ((next list))
+	  (setq list (nthcdr n list))
+	  (let ((cdr (nthcdr (1- n) next))) (and cdr (setcdr cdr nil)))
+	  (setq out (cons next out))
+	  )
+	)
+      (nreverse out)))

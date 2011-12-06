@@ -1,0 +1,66 @@
+(defun p-mode () (interactive)
+  (c-mode)
+  (modify-syntax-entry ?- "w")
+  (setq major-mode 'p-mode)
+  (setq mode-name "P")
+  (setq grep-spec "*")
+  (use-local-map p-mode-map)
+  )
+
+(setq p-mode-map (copy-keymap c-mode-map))
+(define-key p-mode-map "\t" 'p-indent-command)
+(define-key p-mode-map "\C-c[" 'pm-bracket-ify)
+
+(defun indent-bol (i)
+  (bol)
+  (delete-region (point) (sxp (skip-chars-forward " \t")))
+  (indent-to i)
+  )
+
+(defun p-indent-command (&optional whole-exp) (interactive "P")
+  (let ((indent (* 4 (depth))))
+    (cond ((sx (skip-chars-backward " \t") (bolp))
+	   (indent-bol indent)
+	   )
+	  ((insert-tab)))
+    ))
+
+(defun pm-fum () (interactive)
+  (let ((lim (sxp (rsf "[^A-Za-z0-9 ]"))))
+    (downcase-region (point) lim)
+    (subst-char-in-region (point) lim ?  ?-)
+    ))
+
+(defun beginning-of-sexp () (interactive)
+  "Move back to start of sexp if positioned within sexp. Otherwise move forward."
+  (forward-sexp 1)
+  (forward-sexp -1)
+  )
+
+(fset 'bx 'beginning-of-sexp)
+
+(defun pm-bracket-ify (&optional arg) (interactive "P")
+  (sx
+   (beginning-of-sexp)
+   (insert "[")
+   (fx 1)
+   (insert "]")
+   )
+  )
+
+(defun pm-v (&optional arg) (interactive "P")
+  (setq arg (or arg 40))
+  (bol)
+  (p-indent-command)
+  (pm-bracket-ify)
+  (fx 1)
+  (transpose-sexps 1)
+  (sx
+   (fx -1)
+   (force-indent arg)
+   )
+  (insert ",")
+  )
+
+;(define-key p-mode-map [f5] 'pm-v)
+;(define-key p-mode-map [f6] 'pm-fum)

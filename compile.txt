@@ -1,0 +1,26 @@
+* Introduction  -*-compilation-*-       (Copyright information at end of file)
+
+symbol: gnu
+
+_foo.c:8: message
+f_oo.c:8: message
+foo.c:8: message
+../foo.c:8: W: message
+/tmp/foo.c:8:warning message
+foo/bar.py:8: FutureWarning message
+foo.py:8: RuntimeWarning message
+foo.c:8:I: message
+foo.c:8.23: info: message
+foo.c:8:23:information: message
+foo.c:8.23-45: Informational: message
+foo.c:8-23: message
+foo.c:8-45.3: message
+foo.c:8.23-9.1: message
+jade:dbcommon.dsl:133:17:E: missing argument for function call
+G:/cygwin/dev/build-myproj.xml:54: Compiler Adapter 'javac' can't be found.
+file:G:/cygwin/dev/build-myproj.xml:54: Compiler Adapter 'javac' can't be found.
+{standard input}:27041: Warning: end of file not at end of a line; newline inserted
+(rsf "^\\(.*?\\)(\\([0-9]+\\),\\([0-9]+\\))")
+d:\vs7\vc7\Include\ctype.h(50,24)
+ctype.h(50,24): Datatype wchar_t declared with inconsistent type: unsigned short int
+ctype.h(50,24): Datatype wchar_t declared with inconsistent type: unsigned short int

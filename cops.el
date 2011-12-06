@@ -1,0 +1,5 @@
+(fset '& (symbol-function 'logand))
+(fset '| (symbol-function 'logior))
+(fset '^ (symbol-function 'logxor))
+(fset '<< (symbol-function 'ash))
+(defun >> (value count) (<< value (- count)))

@@ -1,0 +1,86 @@
+(defun c-class (x) (car x))
+(defun c-type (x)  (cadr x))
+(defun c-star (x &optional n)  (car (nth (or n 0) (nth 2 x))))
+(defun c-name (x &optional n)  (cadr (nth (or n 0) (nth 2 x))))
+(defun c-type-name (x) (intern (format "%s%s" (c-type x) (c-star x))))
+
+(defun fun-class (x) (c-class (car x)))
+(defun fun-type (x)  (c-type (car x)))
+(defun fun-star (x)  (c-star (car x)))
+(defun fun-name (x)  (c-name (car x)))
+(defun fun-type-name (x) (c-type-name (car x)))
+
+(defun c-fun-style (s)
+  (let* ((args (unconcat (sx (sms c-fun-header-regexp s 2)) ","))
+	 )
+    (cond
+     ((null args) nil)
+     ((sms "\\(\\sw\\|[*]\\)+\\s +\\(\\sw\\|[*]\\)+" (car args)) 'ansi)
+     ('kr))
+    ))
+
+(defun c-name-list (s)
+  (mapcar '(lambda (s)
+	     (let* (name stars)
+	       (and (setq stars (sms "\**" s))
+		    (setq s (substring s (match-end 0))))
+	       (setq name (sms "\\(\\sw+\\)[ \t\n]*" s 1))
+	       (list stars (intern name))))
+	  (unconcat s ",")))
+
+(defun c-decl (s)
+  (and (sms "\\s *\\sw+" s)
+       (let* (class type)
+	 (and (setq class (sms "\\(static\\|extern\\)\\s *" s 1))
+	      (setq s (substring s (match-end 0))))
+	 (cond ((sms "\\sw+[ \t\n*]+\\sw+" s)
+		(setq type (or (sms "\\(struct[ \t\n]*\\sw+\\)[ \t\n]*" s 1)
+			       (sms "\\(\\sw+\\)[ \t\n]*" s 1)))
+		(setq s (substring s (match-end 0))))
+	       ((setq type "int")))
+	 (list (and class (intern class)) (intern type) (c-name-list s))))
+  )
+
+(defun c-fun-decl:ansi (s)
+  (string-match c-fun-header-regexp s)
+  (let* ((s (substring s (match-beginning 0) (match-end 0)))
+	 (x (string-parse s "\\([^(]*\\)(\\([^)]*\\)" 1 2)))
+    (cons
+     (c-decl (nth 0 x))
+     (mapcar 'c-decl (unconcat (nth 1 x) ","))
+     )))
+
+(defun c-fun-decl:kr (s)
+  (string-match c-fun-header-regexp s)
+  (let* ((x (string-parse s "\\([^(]*\\)(\\([^)]*\\)" 1 2))
+	 (y (string-parse s "(\\([^)]*\\))\\([^{]*\\)" 1 2))
+	 y0 y1 y2)
+    (setq y0 (mapcar 'car (mapcar 'read-from-string (unconcat (nth 0 y) ","))))
+    (setq y1 (unconcat (nth 1 y) ";"))
+    (setq y1 (delq nil (mapcar 'c-decl y1)))
+    (setq y2 (apply 'append (mapcar '(lambda (x)
+			 (mapcar '(lambda (y)
+				    (list (intern (nth 1 y))
+					  (nth 0 x) (nth 1 x) (list y)))
+					 (nth 2 x))) y1)))
+    (setq y1 
+	  (mapcar '(lambda (x)
+		     (let ((xx (assoc x y2)))
+		       (cond
+			(xx (cdr xx))
+			((list nil "int" (list (list "" x))))))) y0))
+    (cons
+     (c-decl (nth 0 x))
+     y1
+     )))
+
+(defun c-fun-decl (s)
+  (let* ((style (c-fun-style s))
+	 (fun (cond
+	       ((eq style 'kr) (c-fun-decl:kr s))
+	       ((c-fun-decl:ansi s))
+	       ))
+	 )
+    (list style fun)))
+
+
