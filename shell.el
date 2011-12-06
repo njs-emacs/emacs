@@ -37,13 +37,18 @@
 	   )))
   )
 
+;; shell logs will be forced into history when they are first created
+
 (defun kill-shell-buffer-yes (&optional save-session save-input)
   (let ((ts (format-time-string "%y%m%d-%H%M%S"))
 	(host (downcase system-name))
 	)
     (cond
      ((y-or-n-p "Save session log? ")
-	     (let ((name (format "%s/sh-%s-%s.log" home-daily-today host ts)))
+	     (let (
+		   (name (format "%s/sh-%s-%s.log" home-daily-today host ts))
+		   (nvc-enable-force t)
+		   )
 	       (bob)
 	       (insert
 		(format "#~type:{shell.log}\n##host:%s\n##nobackup##\n" host))
@@ -54,6 +59,7 @@
     (cond
      ((y-or-n-p "Save input-ring? ")
       (let ((cmds (nthcdr 2 comint-input-ring))
+	    (nvc-enable-force t)
 	    (name
 	     (format "%s/sh-%s-%s.input" home-daily-today host ts)
 	     ))
