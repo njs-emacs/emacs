@@ -79,14 +79,23 @@
 (defun linked-file-class-get (tag name)
   (let* (
 	 (class (file-class name))
-	 (fun (gget1 file-class-linked-file-alist class tag))
+	 (fun
+	  (or
+	   (gget1 file-class-linked-file-alist class tag)
+	   (gget1 file-class-linked-file-alist class t)
+	   )
+	  )
 	 )
     (cond (fun (funcall fun)))
     )
   )
 
 (defun linked-file-mode-get (tag name)
-  (let* ((fun (gget1 file-class-linked-file-alist major-mode tag))
+  (let* ((fun
+	  (or
+	   (gget1 file-class-linked-file-alist major-mode tag)
+	   (gget1 file-class-linked-file-alist major-mode t)
+	   )
 	 )
     (cond (fun (funcall fun)))
     )
@@ -97,7 +106,7 @@
   )
 
 (defun linked-file-get (tag)
-  (gget file-linked-plist tag)
+  (alist-get file-linked-plist tag)
   )
 
 (defun linked-file (tag &optional name)
@@ -109,3 +118,19 @@
    (linked-file-mode-get tag name)
    )
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun path-replace-until-found (fun offset name max)
+  "Call FUN maximum (MAX) number of times modifying NAME until it returns a file that exists.
+OFFSET is passed to FUN."
+  (or name (setq name (buffer-file-name)))
+  (debug)
+  (let ((x))
+    (while
+	(and (>= (setq max (1- max)) 0) (not x))
+      (setq name (funcall fun offset name))
+      (cond ((file-exists-p name) (setq x name)))
+      )
+    x)
+  )
+

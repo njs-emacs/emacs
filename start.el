@@ -1,7 +1,11 @@
 ; this file is not loaded
 ; select the current environment
 
+(frame-default-height)
+
 (top-level)
+
+(find-file (concat user-emacs-home "/yas.el"))
 
 (find-file (home-path "daily/.emacs.el"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

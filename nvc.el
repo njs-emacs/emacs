@@ -273,6 +273,9 @@
      ))
   nil)
 
+(defvar nvc-enable-force nil "If non-nil, override any buffer-specific backup disable directives.
+Used to enter a file into edit tracking on creation but not at any other time.")
+
 (defun nvc-file-write-hook ()
   (let* ((file (buffer-file-name))
 	 )

@@ -1,16 +1,23 @@
-(add-to-list 'load-path "~/emacs/packages/yasnippet-0.6.1c")
-(require 'yasnippet)
-(yas/initialize)
-(setq yas/root-directory `("~/emacs/packages/yasnippet-0.6.1c/snippets"))
-(qb-define (control-key-vector ?e ?y) "~/emacs/packages/yasnippet-0.6.1c/snippets")
-
-(defun yas/foo-init ()
-  (yas/load-directory "~/emacs/packages/yasnippet-0.6.1c/snippets")
-  (catch 'error (yas/insert-snippet))
+(let ((load-path (cons (concat user-emacs-home "/packages/yasnippet-0.6.1c") load-path)))
+  (require 'yasnippet)
   )
 
-(yas/foo-init)
+(add-mode "\\.ys$" 'snippet-mode)
+
+(setq yas/my-dir (concat user-emacs-home "/yas"))
+(qb-define (kbd "C-e C-y") (car yas/root-directory))
+
+(setq yas/root-directory (list yas/my-dir))
+(yas/load-directory yas/my-dir)
+
+(yas/initialize)
+
 (top-level)
+
+(describe-function 'yas/expand-snippet)
+
 (menu-bar-mode)
 
-(add-mode "\\.ys$" 'snippet-mode)
+pud
+pim
+top

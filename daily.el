@@ -1,4 +1,5 @@
 ;; stop file-class guessing
+
 (setq file-class 'emacs-lisp-init)
 
 (defun daily-path (a) (filename-concat home-daily-root a))
@@ -20,6 +21,54 @@
   (daily-path (format "%s/%s" (format-time-string "%y%m/%d" time) name))
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun daily-path-replace (offset &optional name)
+  "Replace daily path part of file. Does not modify any date stamp in the filename part" 
+  (or name (setq name (buffer-file-name)))
+  (let* ((i (string-match "\\([0-9][0-9][0-9][0-9]\\)/" name))
+	 (y (substring name i (+ i 2)))
+	 (m (substring name (+ i 2) (+ i 4)))
+	 (d (substring name (+ i 5) (+ i 7)))
+	 (time (encode-time 0 0 0 (string-to-int d) (string-to-int m) (+ 2000 (string-to-int y))))
+	 (itime (time-add time (days-to-time offset)))
+	 (dtime (decode-time itime))
+	 (ftime (format-time-string "%y%m/%d" itime))
+	 )
+    (concat (substring name 0 i) ftime (substring name (+ i 7)))
+    )
+  )
+
+(defun daily-linked-file ()
+  (let ((offset (alist-get '((prev . -1) (next . 1)) tag)))
+    (cond
+     (offset (daily-path-replace offset))
+     )
+    )
+  )
+
+(file-class-linked-file-add
+ 'daily
+ '(
+   (t . daily-linked-file)
+   ))
+
+(defun daily-home-prev ()
+  (daily-path-replace -1 name)
+  )
+
+(defun daily-home-next ()
+  (daily-path-replace 1 name)
+  )
+
+(file-class-guess-pattern-add 'daily-html "created by create.php")
+
+(file-class-guess-name-add 'daily-home "e:/daily/[0-9]*/[0-9][0-9]/$")
+
+(file-class-linked-file-add 'daily-home '((prev . daily-home-prev)
+					  (next . daily-home-next)
+					  ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun daily-html-month (&optional time)
   (daily-date-path "%y%m/%y%m.html" time t)
   )
@@ -113,33 +162,3 @@
 
 (daily-time-set)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun daily-home-days-offset (days)
-  (let* ((i (string-match "\\([0-9][0-9][0-9][0-9]\\)/" name))
-	 (y (substring name i (+ i 2)))
-	 (m (substring name (+ i 2) (+ i 4)))
-	 (d (substring name (+ i 5) (+ i 7)))
-	 (time (encode-time 0 0 0 (string-to-int d) (string-to-int m) (+ 2000 (string-to-int y))))
-	 (itime (time-add time (days-to-time days)))
-	 (dtime (decode-time itime))
-	 (ftime (format-time-string "%y%m/%d" itime))
-	 )
-    ftime
-    )
-  )
-
-(defun daily-home-prev ()
-  (daily-path (daily-home-days-offset -1))
-  )
-
-(defun daily-home-next ()
-  (daily-path (daily-home-days-offset 1))
-  )
-
-(file-class-guess-pattern-add 'daily-html "created by create.php")
-
-(file-class-guess-name-add 'daily-home "e:/daily/[0-9]*/[0-9][0-9]/$")
-
-(file-class-linked-file-add 'daily-home '((prev . daily-home-prev)
-					  (next . daily-home-next)
-					  ))

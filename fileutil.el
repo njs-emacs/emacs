@@ -292,7 +292,7 @@ on completion. If optional HOOK is given, call this before closing the file."
     (sx
      (and point (goto-char point))
      (cond 
-      ((string
+;      ((string
       ((bol-looking-at "^use\\s *\\(\\S *\\)")
        (perl-use-clever-file (ms 1))
        )
@@ -301,7 +301,7 @@ on completion. If optional HOOK is given, call this before closing the file."
        )
       )
      )
-    )
+    ))
 
 (defun clever-filename-guess (&optional point)
   (or
@@ -310,7 +310,7 @@ on completion. If optional HOOK is given, call this before closing the file."
    )
   )
 
-(defun clever-filename-at-point (&optional point) (debug)
+(defun clever-filename-at-point (&optional point)
   (let ((file (filename-at-point point)))
     (cond
      ((file-exists-p file) file)
