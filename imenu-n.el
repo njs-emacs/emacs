@@ -3,7 +3,7 @@
     (sx
      (bob)
      (while (rsf "/\\*I[+-]* *\\([^*]*\\)")
-       (push list (cons (ms 1) (sxp (bol)))))
+       (push (cons (ms 1) (sxp (bol))) list))
      )
     (nreverse list)))
 
@@ -12,6 +12,6 @@
     (sx
      (bob)
      (while (rsf "/\\* *==+\\s *\\([^=]*\\)")
-       (push list (cons (ms 1) (sxp (bol)))))
+       (push (cons (ms 1) (sxp (bol))) list))
      )
     (nreverse list)))
