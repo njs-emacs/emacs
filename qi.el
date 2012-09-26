@@ -83,3 +83,16 @@
 (define-key qi-map (control-key-vector ?u ?s) 'qi-map-show)
 
 (qi-define (control-key-vector ?g ?/) '(buffer-mode-comment))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun insert-car-regexp-search-ring (s)
+  (interactive
+    (list
+     (read-from-minibuffer
+      "Insert: "
+      (car regexp-search-ring) nil nil `(regexp-search-ring . 1))
+     ))
+  (insert s)
+  )
+
+(define-key qi-map (kbd "C-s") 'insert-car-regexp-search-ring)
