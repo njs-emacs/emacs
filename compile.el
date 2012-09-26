@@ -8,7 +8,7 @@
 (setq compilation-mode-hook nil)
 
 (setq compile-save-modes
-  '(p-mode c-mode c++-mode yacc-mode lex-mode makefile-mode rc-mode
+  '(p-mode c-mode c++-mode yacc-mode lex-mode makefile-mode makefile-gmake-mode  rc-mode
 	   perl-mode
 	   java-mode
 	   ))
