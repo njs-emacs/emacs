@@ -135,7 +135,8 @@
     (unwind-protect
 	(let ((key (read-key-sequence "Key:"))
 	      )
-	  (cond ((string-equal key "\C-g") (error "Cancelled")))
+	  (cond ((and (stringp key) (string-equal key "\C-g"))
+		 (error "Cancelled")))
 	  (define-key qb-map key item) 
 	  (define-key b-map key 'qb-select)
 	  (message "mapped %s to %s" (qb-key-description key) item)
