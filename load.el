@@ -46,3 +46,18 @@ containing that file. NOERROR NOMESSAGE arguments are as for 'load' function."
   )
 
 (defun local-file (name) (concat (expand-file-name local-home) name))
+
+(defun load-file-in-directory (dir file)
+  (let ((default-directory (expand-file-name dir)))
+    (load-file file)
+    )
+  )
+
+(defun load-file-in-directory (file)
+  (let* ((dir (expand-file-name (file-name-directory file)))
+	 (file (file-name-nondirectory file))
+	 (default-directory dir)
+	 )
+    (load-file file)
+    )
+  )
