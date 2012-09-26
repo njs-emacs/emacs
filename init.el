@@ -61,6 +61,9 @@
 
 (load-overrides "init")
 
+(load "d:/.data/e/emacs/init.el" t t t t)
+(load "c:/.data/e/emacs/init.el" t t t t)
+
 (set-default 'truncate-lines t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
