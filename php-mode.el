@@ -91,8 +91,8 @@ the current start-tag or the current comment or the current cdata, ..."
 
 (defun php-mode () (interactive)
   (html-mode)
-;  (setq major-mode 'php-mode)
-;  (setq mode-name "PHP")
+  (setq major-mode 'php-mode)
+  (setq mode-name "PHP")
   (setq grep-spec "*.php")
   (setq grep-flags "-n")
   (setq rgrep-flags grep-flags)
@@ -100,5 +100,5 @@ the current start-tag or the current comment or the current cdata, ..."
     (gput buffer-mode-comment-alist 'php-mode (gget buffer-mode-comment-alist 'html-mode)))
   (define-key sgml-mode-map [S-mouse-2] 'mouse-close-tag)
   (define-key sgml-mode-map (control-key-vector ?c ?/) 'sgml-close-tag)
-  (define-key sgml-mode-map (control-key-vector ?c ?;) 'insert-blank-tag)
+  (define-key sgml-mode-map (control-key-vector ?c ?\;) 'insert-blank-tag)
   )
