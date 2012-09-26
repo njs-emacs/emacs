@@ -1,3 +1,4 @@
+(defun byte-compile-log-warning (&rest args))
 (load "plemu" t t)
 (load "environ" t t)
 (load "custom" t t)
@@ -90,4 +91,5 @@
 (load "daily" t t)
 
 (load "symlink" t t)
+(load "gface" t t)
 (load "recent" t t)
