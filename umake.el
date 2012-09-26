@@ -5,7 +5,8 @@
   (or build (setq build
 	      (case (wuft-get 'system-type)
 		(gnu-linux ".bln")
-		(windows-nt ".bwg")
+;		(windows-nt ".bwg")
+		(windows-nt ".bww")
 		)
 	      )
       )
