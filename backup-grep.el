@@ -5,9 +5,10 @@
 
 (defun backup-grep (pat &rest args)
   "Search for PAT in backed up files.\nUses findgrep, so has similar usage to ff functions."
-  (let ((default-directory (filename-concat backup-root ".meta")))
+  (let ((default-directory (filename-concat backup-root ".meta/")))
     (compile
-     (format "perl backupgrep.pl -pat=\"%s\" %s" pat (mconcat args " ")))
+     (format "perl ./backupgrep.pl -pat=\"%s\" %s" pat (mconcat args " "))
+     )
     )
   )
 
