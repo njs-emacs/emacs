@@ -189,17 +189,6 @@
 	  result)
     ))
 
-(ns-defmacro case (key &rest forms)
-  (setq key (eval key))
-  (while (and forms (let ((car (caar forms)))
-		      (not (cond ((and (atom car) (eq key car)))
-				 ((and (consp car) (member key car)))
-				 ((eq car t))
-				 ))))
-    (setq forms (cdr forms)))
-  (cons 'progn (cdar forms))
-  )
-
 (ns-defun mformat (list &optional fmt sep)
   (mconcat (mapcar '(lambda (x) (format (or fmt "%s") x)) list) (or sep " "))
   )
