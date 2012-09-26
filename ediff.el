@@ -144,3 +144,20 @@
 
 (fset 'edbv 'ediff-base-with-variants)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun ediff-kill () (interactive)
+  (let* ((buf-a (make-buffer "*edk-a*"))
+	 (buf-b (make-buffer "*edk-b*"))
+	 )
+    (set-buffer buf-a)
+    (erase-buffer)
+    (insert (nth 0 kill-ring))
+    (set-buffer buf-b)
+    (erase-buffer)
+    (insert (nth 1 kill-ring))
+    (ediff-buffers buf-a buf-b)
+    )
+  )
+
+
+(global-set-key "\M-e\M-k" 'ediff-kill)
