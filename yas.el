@@ -17,7 +17,3 @@
 (describe-function 'yas/expand-snippet)
 
 (menu-bar-mode)
-
-pud
-pim
-top

@@ -292,7 +292,6 @@ on completion. If optional HOOK is given, call this before closing the file."
     (sx
      (and point (goto-char point))
      (cond 
-;      ((string
       ((bol-looking-at "^use\\s *\\(\\S *\\)")
        (perl-use-clever-file (ms 1))
        )
