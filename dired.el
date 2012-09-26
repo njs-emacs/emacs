@@ -45,28 +45,27 @@
 	))
 
 (defun substitute-file (format file)
-  (let (s (a (string-partition format "[^%]*%.")))
+  (let ((s "") (a (string-partition format "[^%]*%.")) (ca))
     (while a
-      (let ((c (car a)))
-	(setq s
-	  (concat
-	   s
-	   (substring c 0 -2)
-	   (case (aref (substring c -1) 0)
-	     (?s file)
-	     (?n (file-name-nondirectory file))
-	     (?d (file-name-directory file))
-	     (?b (basename file))
-	     (?B (format "%s/%s/%s" (nth 0 dd) (nth 2 dd)
-			 (file-name-nondirectory file)))
-	     (?. (file-name-suffix file))
-	     (?x (expand-file-name file))
-	     )
-	   ))
-	)
-      (setq a (cdr a)))
-    s)
-  )
+      (setq ca (car a))
+      (setq s
+	(concat
+	 s
+	 (substring ca 0 -2)
+	 (case (aref (substring ca -1) 0)
+	   (?s file)
+	   (?n (file-name-nondirectory file))
+	   (?d (file-name-directory file))
+	   (?b (basename file))
+	   (?B (format "%s/%s/%s" (nth 0 dd) (nth 2 dd)
+		       (file-name-nondirectory file)))
+	   (?. (file-name-suffix file))
+	   (?x (expand-file-name file))
+	   )
+	 ))
+      )
+    (setq a (cdr a))
+    s))
 
 (defun dired-mark-files-shell-command (command &optional marker-char)
   (interactive
