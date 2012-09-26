@@ -286,7 +286,7 @@ Used to enter a file into edit tracking on creation but not at any other time.")
      nvc-global-enable
      nvc-enable
      (file-exists-p nvc-root)
-     (nth 0 (file-attributes nvc-root))
+     (nth 0 (file-attributes nvc-root))		; is file
      (or
       nvc-enable-force
       (and 
@@ -488,15 +488,30 @@ Used to enter a file into edit tracking on creation but not at any other time.")
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun nvc-buffer-enable (file)
+(setq nvc-confirm-size-limit 1000000)
+
+(defun nvc-confirm-maybe (buffer)
+  (let* ((size (buffer-size)))
+    (and
+     (or (< size nvc-confirm-size-limit)
+	 (y-or-n-p (format "Buffer size is %.1f MB, still backup? " (/ size 1000000.0)))
+	 )
+     )
+    )
+  )
+
+(defun nvc-buffer-enable (buffer)
   (sx (bob)
       (let* ((limit (min (point-max) 1000000))
 	     (limit (or (sx (rsf "##limit##" limit)) limit))
 	     )
 	(or
 	 (sx (rsf "##backup##" limit))
-	 (not (rsf "##\\(generated\\|nobackup\\)##" limit))
-	 (file-exists-p ".nobackup")
+	 (and
+	  (not (rsf "##\\(generated\\|nobackup\\)##" limit))
+	  (not (file-exists-p ".nobackup"))
+	  (nvc-confirm-maybe buffer)
+	  )
 	 )
 	)
       )
