@@ -76,14 +76,40 @@
     )
   )
 
+(defun bup-get-file-name ()
+  (sx (bol)
+      (let* ((parse (bup-parse-line))
+	     (file (nth 5 parse)))
+	file
+	)
+      )
+  )
+
+(defun bup-find-file () (interactive)
+  (let ((file (bup-get-file-name)))
+    (find-file file)
+    )
+  )
+
+(defun bup-find-file-other-window () (interactive)
+  (let ((file (bup-get-file-name)))
+    (find-file-other-window file)
+    )
+  )
+
 (setq bup-mode-map (make-sparse-keymap))
 
+(define-key bup-mode-map " " 'next-line)
+(define-key bup-mode-map "f" 'bup-find-file)
+(define-key bup-mode-map "o" 'bup-find-file-other-window)
 (define-key bup-mode-map "d" 'bup-visit-directory)
 (define-key bup-mode-map "a" 'bup-diff)
 
 
 (defun bup-mode () (interactive)
   (use-local-map bup-mode-map)
+  (setq mode-name "BUP")
+  (setq major-mode 'bup-mode)
   (cond (buffer-read-only)
 	((toggle-read-only))
 	)
@@ -101,7 +127,7 @@
 	(1+ i)))
     name))
 
-(defun boo-hoo (arg) (interactive "SQuery: ")
+(defun boo-hoo-shell (&optional arg) (interactive "SQuery: ")
   (let ((s (call-shell (format "perl %s/.meta/dreg/dred.pl %s" backup-root arg)))
 	(buffer (get-buffer-create (uniquify-buffer-name "boo")))
 	)
@@ -114,5 +140,16 @@
     )
   )
 
-(boo-hoo "")
+(defun boo-hoo-compile (&optional arg) (interactive "SQuery: ")
+  (let ((cmd (format "perl %s/.meta/dreg/dred.pl %s" backup-root arg))
+	buffer)
+    (setq buffer (compilation-start cmd 'bup-mode nil nil))
+    (pop-to-buffer buffer)
+    (goto-line 6)
+    )
+  )
+
+(fset 'boo-hoo 'boo-hoo-compile)
+
+;(boo-hoo "")
 
