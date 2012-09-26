@@ -1,8 +1,8 @@
 (autoload 'todo-mode "todo")
 
 (defmacro mapautoload (file &rest syms)
-  (mapcar '(lambda (x) (autoload x file nil t)) syms)
-  nil)
+  (progn (mapcar '(lambda (x) (autoload x file nil t)) syms) nil)
+)
 
 (autoload 'hide "hide.el" "" t)
 (autoload 'time-string "time-string.el" "" t)
