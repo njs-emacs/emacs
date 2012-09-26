@@ -163,11 +163,11 @@ Optional third argument is substring to select."
     )
   )
 
-(defmacro reps (*s old &optional new limit)
-  (let ((buf (make-buffer "*reps*" (eval *s))))
-    (sx (set-buffer buf)
-	(while (rep old new limit))
-	(prog1 (buffer-string) (kill-buffer buf))))
+(defmacro reps (s old &optional new limit)
+  `(let ((buf (make-buffer "*reps*" ,s)))
+     (sx (set-buffer buf)
+	 (while (rep ,old ,new ,limit))
+	 (prog1 (buffer-string) (kill-buffer buf))))
   )
 
 (defmacro rep (old &optional new limit)
@@ -278,6 +278,10 @@ match, and if BEG is non-nil move to the beginning of the match."
       (nreverse out)
       )))
 
+;;; this has a problem in emacs 24.2
+;;; macros which execute directly rather than return an executable
+;;; form cause byte-compilation problems
+
 (defmacro case-match (*s &rest forms)
   (setq *s (eval *s))
   (let ((save (match-data)))
@@ -290,6 +294,24 @@ match, and if BEG is non-nil move to the beginning of the match."
 			(throw 'done (cdr car))))
 		 (setq forms (cdr forms))
 		 )))))
+;      (store-match-data save)
+      )))
+
+(defmacro case-match (*s &rest *forms)
+  `(let ((save (match-data))
+	 (s ,*s)
+	 (forms ',*forms)
+	 )
+     (prog1
+	 (sx
+	  (progn
+	    (catch 'done
+	      (while forms
+		(let ((car (car forms)))
+		  (cond ((string-match (car car) s)
+			 (throw 'done (cdr car))))
+		  (setq forms (cdr forms))
+		  )))))
 ;      (store-match-data save)
       )))
 
