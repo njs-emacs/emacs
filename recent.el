@@ -1,3 +1,23 @@
+(defun command-history-save (&optional name) (interactive)
+  (setq name
+    (or name
+	(let* ((save-dir (format "%s/emacs/host/%s" local-home system-name))
+	       (default-directory save-dir)
+	       )
+	  (make-directory save-dir t)
+	  (expand-file-name (format-time-string "_%y%m%d.el")))))
+  (save-excursion
+    (set-buffer (find-file-noselect name))
+    (end-of-buffer)
+    (dolist (i command-history)
+      (prin1 i (current-buffer))
+      (insert "\n")
+      )
+    (save-buffer)
+    )
+  )
+(add-hook 'kill-emacs-hook 'command-history-save)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun slash-back (s) (string-sub s "/" "\\"))
 (defun slash-front (s) (string-sub s "\\" "/"))
@@ -252,8 +272,9 @@
 
 (defun str-to-sym () (interactive)
   (sx (kill-sexp 1)
-      (let ((s (read (car kill-ring))))
-	(insert (downcase (reps s " " "-")))
+      (let ((sa (read (car kill-ring)))
+	    (sb ""))
+	(insert (downcase (reps sb " " "-")))
 	)))
 
 (defun xman () (interactive) (manual-entry (x-get-cut-buffer)))
@@ -629,3 +650,6 @@ then replace VALUE with the value which follows it in the property list."
 ;(defun rs () (interactive) (insert (prin (read-key-sequence "???"))))
 ;(define-key global-map [M-f1] 'rs)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun rsf-fold-maybe (pat limit fold)
+  (let ((case-fold-search fold)) (rsf pat limit t)))
