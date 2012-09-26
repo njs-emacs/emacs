@@ -96,6 +96,7 @@
 	   (gget1 file-class-linked-file-alist major-mode tag)
 	   (gget1 file-class-linked-file-alist major-mode t)
 	   )
+	  )
 	 )
     (cond (fun (funcall fun)))
     )
@@ -124,7 +125,6 @@
   "Call FUN maximum (MAX) number of times modifying NAME until it returns a file that exists.
 OFFSET is passed to FUN."
   (or name (setq name (buffer-file-name)))
-  (debug)
   (let ((x))
     (while
 	(and (>= (setq max (1- max)) 0) (not x))
