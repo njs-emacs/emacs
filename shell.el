@@ -6,17 +6,6 @@
 
 ;(qshell "if [ -f tttetet ] ; then exit 0 ; else exit 3 ; fi")
 
-(defun instant-shell () (interactive)
-  (let* ((name (format "shell-%s" default-directory))
-	 (buf (get-buffer name)))
-    (cond (buf (switch-to-buffer buf))
-	  (t
-	   (shell)
-	   (rename-buffer name)
-	   )))
-  )
-(define-key global-map [M-f8] 'instant-shell)
-
 (defun goto-shell (&optional arg) (interactive "P")
   (let* ((name (format "shell-%s" (or arg 0)))
 	 (buf (get-buffer name)))
@@ -27,37 +16,27 @@
 	   )))
   )
 
-(defun shell-from-dired (arg) (interactive "P")
-  (let* ((name (format "shell-%s" (or arg 0)))
-	 (buf (get-buffer name)))
-    (cond (buf (switch-to-buffer buf))
-	  (t
-	   (shell)
-	   (rename-buffer name)
-	   )))
-  )
-
-;; shell logs will be forced into history when they are first created
+;; shell logs are forced into history when they are first created
 
 (defun kill-shell-buffer-yes (&optional save-session save-input)
   (let ((ts (format-time-string "%y%m%d-%H%M%S"))
 	(host (downcase system-name))
 	)
     (cond
-     ((y-or-n-p "Save session log? ")
-	     (let (
-		   (name (format "%s/sh-%s-%s.log" home-daily-today host ts))
-		   (nvc-enable-force t)
-		   )
-	       (bob)
-	       (insert
-		(format "#~type:{shell.log}\n##host:%s\n##nobackup##\n" host))
-	       (write-file name)
-	       )
-	     )
+     ((or save-session (y-or-n-p "Save session log? "))
+      (let (
+	    (name (format "%s/sh-%s-%s.log" home-daily-today host ts))
+	    (nvc-enable-force t)
+	    )
+	(bob)
+	(insert
+	 (format "#~type:{shell.log}\n##host:%s\n##nobackup##\n" host))
+	(write-file name)
+	)
+      )
      )
     (cond
-     ((y-or-n-p "Save input-ring? ")
+     ((or save-input (y-or-n-p "Save input-ring? "))
       (let ((cmds (nthcdr 2 comint-input-ring))
 	    (nvc-enable-force t)
 	    (name
@@ -149,7 +128,6 @@
   (add-hook 'kill-current-buffer-hook 'bury-buffer-instead t t)
   (setq shell-process (get-buffer-process "*shell*"))
   (setq kill-buffer-query-functions nil)
-  (define-key shell-mode-map [M-f8] 'shell-kill-force)
   )
 
 (add-hook 'shell-mode-hook 'shell-mode-hook-ns)
@@ -326,4 +304,25 @@
   )
 
 ;(set-keymap-parent)
+
+(defun instant-shell () (interactive)
+  (let* ((name (format "shell-%s" default-directory))
+	 (buf (get-buffer name)))
+    (cond (buf (switch-to-buffer buf))
+	  (t
+	   (shell)
+	   (rename-buffer name)
+	   )))
+  )
+(define-key global-map [M-f8] 'instant-shell)
+
+(defun shell-from-dired (arg) (interactive "P")
+  (let* ((name (format "shell-%s" (or arg 0)))
+	 (buf (get-buffer name)))
+    (cond (buf (switch-to-buffer buf))
+	  (t
+	   (shell)
+	   (rename-buffer name)
+	   )))
+  )
 
