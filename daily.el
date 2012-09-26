@@ -41,7 +41,7 @@
 (defun daily-linked-file ()
   (let ((offset (alist-get '((prev . -1) (next . 1)) tag)))
     (cond
-     (offset (daily-path-replace offset))
+     (offset (path-replace-until-found 'daily-path-replace offset name 30))
      )
     )
   )
@@ -52,6 +52,40 @@
    (t . daily-linked-file)
    ))
 
+(file-class-guess-name-add 'daily (daily-path "[0-9]\\{4\\}/[0-9]\\{2\\}/"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun monthly-path-replace (offset &optional name)
+  "Replace daily path part of file. Does not modify any date stamp in the filename part" 
+  (or name (setq name (buffer-file-name)))
+  (let* ((i (string-match "\\([0-9][0-9][0-9][0-9]\\)/" name))
+	 (y (read (substring name i (+ i 2))))
+	 (m (read (substring name (+ i 2) (+ i 4))))
+	 )
+    (setq mm (+ (+ (* 12 y) (1- m)) offset))
+    (setq m (1+ (mod mm 12)))
+    (setq y (/ mm 12))
+    (concat (substring name 0 i) (format "%02d%02d" y m) (substring name (+ i 4)))
+    )
+  )
+
+(file-class-linked-file-add
+ 'monthly
+ '(
+   (t . monthly-linked-file)
+   ))
+
+(defun monthly-linked-file ()
+  (let ((offset (alist-get '((prev . -1) (next . 1)) tag)))
+    (cond
+     (offset (path-replace-until-found 'monthly-path-replace offset name 12))
+     )
+    )
+  )
+
+(file-class-guess-name-add 'monthly (daily-path "[0-9]\\{4\\}/\\.month/"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun daily-home-prev ()
   (daily-path-replace -1 name)
   )
@@ -60,9 +94,7 @@
   (daily-path-replace 1 name)
   )
 
-(file-class-guess-pattern-add 'daily-html "created by create.php")
-
-(file-class-guess-name-add 'daily-home "e:/daily/[0-9]*/[0-9][0-9]/$")
+(file-class-guess-name-add 'daily-home (daily-path "[0-9]*/[0-9][0-9]/$"))
 
 (file-class-linked-file-add 'daily-home '((prev . daily-home-prev)
 					  (next . daily-home-next)
