@@ -12,6 +12,8 @@
 
 (setq nvc-remote-ntfs t)
 
+(defun backup-path (s) (filename-concat backup-root s))
+
 (setq nvc-root (filename-format "%s/emacs" backup-root))
 (setq nvc-shadow-root (filename-format "%s/shadow" backup-root))
 

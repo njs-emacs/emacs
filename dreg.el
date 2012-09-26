@@ -1,1 +1,1 @@
-(load "e:/_backup/.meta/dreg/dreg.el")
+(load (backup-path ".meta/dreg/dreg.el"))
