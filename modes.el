@@ -113,3 +113,12 @@ force-mode is callable interactively with \\[force-mode]"
 (defun c++-mode () (c-mode))
 
 (add-mode "\\.ic$" 'c-mode)
+
+(autoload 'log-mode "log-mode")
+(add-mode "\\.log" 'log-mode)
+
+(autoload 'ahk-mode "ahk-mode")
+(add-mode "\\.ahk" 'ahk-mode)
+
+(autoload 'file-history-mode "filehistory")
+(add-mode "\\.efh" 'file-history-mode)
