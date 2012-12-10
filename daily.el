@@ -2,7 +2,15 @@
 
 (setq file-class 'emacs-lisp-init)
 
-(defun daily-path (a) (filename-concat home-daily-root a))
+(defun daily-path (a)
+  (let* ((path (filename-concat home-daily-root a))
+	 (dir (file-name-directory path)))
+    (cond
+     ((file-exists-p dir))
+     ((make-directory dir t))
+     )
+    path
+    ))
 
 (defun yymmdd-to-time (s)
   (encode-time
