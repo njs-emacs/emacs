@@ -207,7 +207,7 @@
 ;; want to replace all self-insert-command keys with file-history-electric-key
 ;;
 
-(defun file-history-init ()
+(defun file-history-map-init ()
   (setq file-history-map (make-sparse-keymap))
   (setq file-history-electric-map (make-sparse-keymap))
   (file-history-electric-key-define " " 'next-line)
@@ -229,13 +229,19 @@
      (char-to-string (+ ?0 i)) 'file-history-set-priority))
   )
 
+(defun file-history-mode () (interactive)
+  (or (boundp 'file-history-map) (file-history-map-init))
+  (use-local-map file-history-map)
+  (setq major-mode 'file-history-mode)
+  (setq mode-name "HISTORY")
+  )
+
 (defun file-history-open () (interactive)
-  (or (boundp 'file-history-map) (file-history-init))
   (setq file-history-buffer (get-buffer-create "*files*"))
 ;  (or (get-buffer-window-any-frame file-history-buffer) (display-buffer file-history-buffer))
   (file-history-display file-history-buffer)
   (switch-to-buffer file-history-buffer)
-  (use-local-map file-history-map)
+  (file-history-mode)
   )
 
 (defun file-history-grep (pat &optional fpat)
