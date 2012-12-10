@@ -16,7 +16,6 @@
 (load "backup-grep" t t)
 (load "bdiff" t t)
 (load "dired" t t)
-(load "perl" t t)
 
 ; placement of load "keys" is sensitive, as keys are defined in
 ; maps which only exist after loading of modules, e.g dired-mode-map
@@ -30,8 +29,10 @@
 
 (load "macros" t t)
 (load "frequent" t t)
+(load "qi" t t)
 (load "link-buffer" t t)
 
+(load "perl" t t)
 (load "c-mode" t t)
 ;(load "cc-mode" t t)
 (load "java" t t)
@@ -87,7 +88,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "filehist" t t)
-(load "qi" t t)
 (load "qi-html" t t)
 (load "fly-spec" t t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
