@@ -161,3 +161,21 @@
 
 
 (global-set-key "\M-e\M-k" 'ediff-kill)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq ediff-revision-1 "")
+(setq ediff-revision-2 "")
+
+(defun ediff-revision-latest () (interactive)
+  (let* ((file (file-name-nondirectory (buffer-file-name)))
+	 (rev1 ediff-revision-1)
+	 (rev2 ediff-revision-2)
+	 startup-hooks)
+    (ediff-load-version-control)
+    (funcall
+     (intern (format "ediff-%S-internal" ediff-version-control-package))
+     rev1 rev2 startup-hooks)
+    )
+)
+(global-set-key "\M-e\M-v" 'ediff-revision-latest)
+
+
