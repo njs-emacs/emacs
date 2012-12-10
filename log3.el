@@ -35,8 +35,11 @@
   (and kill (kill-new log-time-string))
   )
 
+(make-variable-buffer-local 'log-short-time-insert-format)
+(set-default 'log-short-time-insert-format "%H%M%S")
+
 (defun log-short-time-insert (&optional kill) (interactive "P")
-  (setq log-time-string (format-time-string "%H%M%S"))
+  (setq log-time-string (format-time-string log-short-time-insert-format))
   (insert log-time-string)
   (and kill (kill-new log-time-string))
   )

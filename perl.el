@@ -53,6 +53,7 @@
   (setq grep-spec "*.p[lm]")
   (emacs-read-hash-plus)
   (define-key perl-mode-map [M-f9] 'perl-exec-this)
+  (setq log-short-time-insert-format "%d_%H%M")
   )
 
 (add-hook 'perl-mode-hook 'perl-mode-hook-ns)
@@ -101,4 +102,14 @@
    ((string-match "\\.pl" file) (concat (basename file) ".pm"))
    )
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun perl-stub-sub ()
+  (list
+   (format "sub _%s {\n    " (format-time-string "%m%d_%H%M"))
+   "\n}\n"
+   ))
+
+(qi-define "\C-p\C-s" '(perl-stub-sub))
+
 
