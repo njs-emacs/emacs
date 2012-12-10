@@ -653,3 +653,31 @@ then replace VALUE with the value which follows it in the property list."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun rsf-fold-maybe (pat limit fold)
   (let ((case-fold-search fold)) (rsf pat limit t)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun command-history-save (&optional name) (interactive)
+  (or name 
+      (setq name
+	(daily-date-path
+	 (concat (downcase system-name) "-%y%m%d-%H%M%S" "-hist.el") nil t)))
+  (save-excursion
+    (set-buffer (find-file-noselect name))
+    (end-of-buffer)
+    (dolist (i command-history)
+      (prin1 i (current-buffer))
+      (insert "\n")
+      )
+    (save-buffer)
+    )
+  )
+(add-hook 'kill-emacs-hook 'command-history-save)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun insert-file-timestamp () (interactive)
+  (insert (format-time-string "%y%m%d-%H%M%S" (visited-file-modtime)))
+  )
+
+(define-key global-map [M-f7] 'insert-file-timestamp)
+
+
+
