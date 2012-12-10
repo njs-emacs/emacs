@@ -119,6 +119,7 @@
 
 (ff "vom")
 (ff "kill-current-buffer")
+(ff "kill-ring")
 (ff "filename-concat")
 (ff "keys")
 (ff "php-exe")
@@ -157,3 +158,19 @@
 (ff "command-history")
 
 (ff "list-split-insert")
+(ff "\\bg[ud].*hook")
+
+(ff "history")
+(ff "interactive ")
+
+(ff "property")
+(ff "w32")
+(ff "command-history-save")
+(ff "modifier")
+
+(ff "m!e:/!")
+(ff "php")
+(ff "replace.el")
+
+(ff " suffix")
+(ff "standard-load-path")
