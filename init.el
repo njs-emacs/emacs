@@ -65,8 +65,6 @@
 (load "d:/.data/e/emacs/init.el" t t t t)
 (load "c:/.data/e/emacs/init.el" t t t t)
 
-(set-default 'truncate-lines t)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun ns-make-frame-function (frame)
   )
@@ -81,8 +79,8 @@
 (show-paren-mode)
 (setq kill-ring-max 1000)
 
-;(require 'ffap)
-;(ffap-bindings)
+(set-default 'truncate-lines t)
+(setq history-length t)
 
 (setq archive-zip-extract '("unzip" "-qq" "-c"))
 
@@ -96,3 +94,20 @@
 (load "symlink" t t)
 (load "gface" t t)
 (load "recent" t t)
+
+(define-key global-map "\C-xf" 'find-file)
+
+(qb-define (control-key-vector ?e ?x) "e:/help/home.org")
+
+(qb-define (control-key-vector ?d ?.) (daily-path ".emacs.el") t)
+(qb-define (control-key-vector ?d ?e) (daily-path "0.el") t)
+
+(qi-define (control-key-vector ?g ?#) "#\#nobackup##")
+
+(setq h-slash-map (make-sparse-keymap))
+(setq s-slash-map (make-sparse-keymap))
+
+(define-key global-map (kbd "H-/") h-slash-map)
+(define-key global-map (kbd "s-/") s-slash-map)
+
+
