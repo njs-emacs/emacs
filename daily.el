@@ -2,10 +2,11 @@
 
 (setq file-class 'emacs-lisp-init)
 
-(defun daily-path (a)
+(defun daily-path (a &optional force-create)
   (let* ((path (filename-concat home-daily-root a))
 	 (dir (file-name-directory path)))
     (cond
+     ((not force-create))
      ((file-exists-p dir))
      ((make-directory dir t))
      )
@@ -24,9 +25,13 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun daily-date-path (name &optional time format)
+(defun daily-date-path (name &optional time format force-create)
   (and format (setq name (format-time-string name time)))
-  (daily-path (format "%s/%s" (format-time-string "%y%m/%d" time) name))
+  (daily-path (format "%s/%s" (format-time-string "%y%m/%d" time) name) force-create)
+  )
+
+(defun daily-date-path-create (name &optional time format)
+  (daily-date-path name time format t)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
