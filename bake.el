@@ -85,8 +85,8 @@
   (let* ((build (bake-get 'build))
 	 (path (locate-alternate-files-in-path
 		(bake-get 'build-files)
-		(list "." ".." build
-		      (format "../%s" build)
+		(list "." build
+		      ".." (format "../%s" build)
 		      )
 		)
 	       ))
