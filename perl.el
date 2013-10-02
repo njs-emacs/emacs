@@ -7,21 +7,27 @@
 (set-default 'perl-process-start-hooks nil)
 (set-default 'perl-compile-start-hooks nil)
 
+(make-variable-buffer-local 'perl-exec-file)
+(set-default 'perl-exec-file "perl")
+
 (defun perl-command (file &optional options)
   (let* ((perl-opts (mconcat perl-options " "))
 	 (script-opts (mconcat options " ")))
-    (format "perl %s \"%s\" %s" perl-opts file script-opts)
+    (format "%s %s \"%s\" %s" perl-exec-file perl-opts file script-opts)
     )
   )
 
 (defun start-perl () (interactive)
   (save-buffer)
-  (start-process "*sex*" nil "perl" (format "%s" (buffer-file-name)))
+  (start-process "*sex*" nil perl-exec-file (format "%s" (buffer-file-name)))
   )
 
 (defun perl-exec-this (&optional cmd) (interactive)
-  (or cmd (setq cmd (sx (rsb "^sub *\\(\\w+\\)") (ms 1))))
-  (compile (format "perl %s --cmd=%s" (buffer-file-name) (or cmd "")))
+  (sx 
+   (eol)
+   (or cmd (setq cmd (sx (rsb "^sub *\\(\\w+\\)") (ms 1))))
+   (compile (format "%s \"%s\" --cmd=%s" perl-exec-file (buffer-file-name) (or cmd "")))
+   )
   )
 
 (defun perl-compile (&optional options) (interactive "i")
@@ -63,7 +69,7 @@
   (let* ((file (buffer-file-name))
 	 (name (concat (basename) (format-time-string "-%H%M%S") ".out"))
 	 (opts (mconcat perl-options " "))
-	 (command (format "%s %s \"%s\"" "perl" opts file))
+	 (command (format "%s %s \"%s\"" perl-exec-file opts file))
 	 (outbuf (get-buffer-create name))
 	 )
     (save-buffer)
@@ -84,10 +90,10 @@
 	     (f (basename target))
 	     (s (file-name-suffix target))
 	     )
-	(compile (format "perl %s --target=\"%s\"" mf target))
+	(compile (format "%s %s --target=\"%s\"" perl-exec-file mf target))
 	)
       )
-     ((compile (format "perl %s" mf)))
+     ((compile (format "%s %s" perl-exec-file mf)))
      )
     )
   )
@@ -112,4 +118,4 @@
 
 (qi-define "\C-p\C-s" '(perl-stub-sub))
 
-
+(wuft-load "perl")
