@@ -62,8 +62,9 @@
 
 (load-overrides "init")
 
-(load "d:/.data/e/emacs/init.el" t t t t)
-(load "c:/.data/e/emacs/init.el" t t t t)
+;(load "d:/.data/e/emacs/init.el" t t t t)
+;(load "c:/.data/e/emacs/init.el" t t t t)
+(message "c: and d: init removed!")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun ns-make-frame-function (frame)
@@ -97,7 +98,7 @@
 
 (define-key global-map "\C-xf" 'find-file)
 
-(qb-define (control-key-vector ?e ?x) "e:/help/home.org")
+(qb-define (control-key-vector ?e ?x) (concat ehome "/help/home.org"))
 
 (qb-define (control-key-vector ?d ?.) (daily-path ".emacs.el") t)
 (qb-define (control-key-vector ?d ?e) (daily-path "0.el") t)
