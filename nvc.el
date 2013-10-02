@@ -240,13 +240,16 @@
   (cond
    (nvc-no-log-visit)
    ((let*
-       ((log-string
-	 (format "%-12s S -------- %s\t%s %s %s\n"
+       ((tag (file-unique-meta-tag))
+	(log-string
+	 (format "%-12s S -------%s %s\t%s %s %s %s\n"
 		 (format-time-string "%y%m%d-%H%M%S" time)
+		 (if tag "T" "-")
 		 (downcase (system-name))
 		 (localize-file-name file)
 		 md5-old
 		 md5-new
+		 (or tag "")
 		 ))
 	)
      (write-log-files log-string)
@@ -551,8 +554,29 @@ Used to enter a file into edit tracking on creation but not at any other time.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun localize-buffer-file-name ()
-  (set-visited-file-name (localize-file-name (buffer-file-name)))
-  (set-buffer-modified-p nil)
+  (let ((name (buffer-file-name)))
+    (cond
+     (name
+      (set-visited-file-name (localize-file-name name))
+      (set-buffer-modified-p nil)
+      )
+     )
+    )
   )
 
 (add-hook 'find-file-hooks 'localize-buffer-file-name)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun file-unique-meta-tag ()
+  (let ((f (locate-up-file ".meta"))
+	s ss)
+    (cond
+     (f
+      (setq s (file-contents f))
+      (setq ss (string-match "tag:\\s *\\(.*\\)" s))
+      (match-string 1 s)
+      )
+     )
+    )
+  )
+
