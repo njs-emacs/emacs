@@ -1,4 +1,5 @@
 (defun byte-compile-log-warning (&rest args))
+
 (load "plemu" t t)
 (load "environ" t t)
 (load "custom" t t)
@@ -16,6 +17,7 @@
 (load "backup-grep" t t)
 (load "bdiff" t t)
 (load "dired" t t)
+(load "pad" t t)
 
 ; placement of load "keys" is sensitive, as keys are defined in
 ; maps which only exist after loading of modules, e.g dired-mode-map
@@ -99,6 +101,7 @@
 
 (load "symlink" t t)
 (load "gface" t t)
+(load "vc-x" t t)
 (load "recent" t t)
 
 (define-key global-map "\C-xf" 'find-file)
