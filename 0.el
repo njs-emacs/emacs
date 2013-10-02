@@ -174,3 +174,5 @@
 
 (ff " suffix")
 (ff "standard-load-path")
+(ff "scroll")
+(ff "auto")
