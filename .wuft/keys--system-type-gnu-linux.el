@@ -13,6 +13,10 @@
 (global-set-key [S-f12] 'command-history-mode)
 (global-set-key [M-f12] 'repeat-complex-command)
 
+(define-key esc-map "`" 'undo)
+(define-key global-map [insertchar] 'other-window)
+(define-key esc-map [insertchar] 'bury-buffer)
+(define-key esc-map [deletechar] 'kill-current-buffer)
 
 (global-set-key [kp-subtract] 'goto-line)
 
