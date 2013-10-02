@@ -176,6 +176,7 @@
      rev1 rev2 startup-hooks)
     )
 )
-(global-set-key "\M-e\M-v" 'ediff-revision-latest)
+(global-set-key "\M-e\M-l" 'ediff-revision-latest)
+(global-set-key "\M-e\M-v" 'ediff-revision)
 
 
