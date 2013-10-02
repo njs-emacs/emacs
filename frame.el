@@ -44,5 +44,5 @@
 
 ;(set-frame-parameter (selected-frame) 'height 100)
 ;(set-frame-parameter (selected-frame) 'background-color "LightGray")
-
+;(set-frame-parameter (selected-frame) 'background-color "Black")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
