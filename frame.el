@@ -27,7 +27,7 @@
 (setq default-frame-alist
   (alist-merge default-frame-alist
 	       `(
-;		 (font . ,(font-name-default-size 11))
+		 (font . ,(font-name-default-size 11))
 		 )
 	       ))
 
