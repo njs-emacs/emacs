@@ -5,7 +5,7 @@
    ))
 
 ;; this also works
-(face-spec-set 'minibuffer-prompt `((t (:foreground "yellow"))))
+(face-spec-set 'minibuffer-prompt `((t (:foreground "blue"))))
 
 ;; this doesn't
 ;; (face-spec-set 'minibuffer-prompt `((t (:foreground "red") (:weight bold))))
