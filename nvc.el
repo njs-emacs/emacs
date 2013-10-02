@@ -580,3 +580,6 @@ Used to enter a file into edit tracking on creation but not at any other time.")
     )
   )
 
+; disable for now
+
+(defun file-unique-meta-tag ())
