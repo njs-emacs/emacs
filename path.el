@@ -1,3 +1,7 @@
+(defun path-set (list)
+  (setenv "PATH" (mconcat list ";"))
+  )
+
 (defun delete-string-from-list-regexp (pat list)
   (let ((case-fold-search t))
     (delete-if '(lambda (x) (string-match (regexp-quote pat) x)) list)
