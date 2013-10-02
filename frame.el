@@ -18,7 +18,7 @@
   )
 
 (defun font-size (size)
-  (set-frame-font (font-name-default-size args))
+  (set-frame-font (font-name-default-size size))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
