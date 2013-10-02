@@ -21,9 +21,8 @@
 (set-default 'buffer-file-coding-system 'utf-8-dos)
 ;(setq buffer-file-coding-system 'utf-8-unix)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(minibuffer-dir "/" (concat ehome "/"))
+(minibuffer-dir "/" (format "//%s/" (downcase system-name)))
 
-(qb-and-mini ?a apache-home)
 (qb-and-mini ?e user-emacs-home)
 (qb-and-mini ?l emacs-lisp-dir)
 
@@ -34,6 +33,7 @@
 (qb-define "\C-e\C-b" backup-root)
 (qb-define "\C-e\C-h" (filename-format "%s/emacs/emacs.log" backup-root))
 (qb-define "\C-e\C-e" "~/.emacs/")
+(qb-define "\C-e\C-k" (concat ehome "/ahk/a.ahk"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(define-abbrev global-abbrev-table "dir" "directory")
