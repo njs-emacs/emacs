@@ -81,6 +81,11 @@
 (setq kill-ring-max 1000)
 
 (set-default 'truncate-lines t)
+;(set-default 'line-move-visual t)
+
+(make-variable-buffer-local 'auto-hscroll-mode)
+(set-default 'auto-hscroll-mode t)
+
 (setq history-length t)
 
 (setq archive-zip-extract '("unzip" "-qq" "-c"))
