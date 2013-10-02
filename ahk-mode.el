@@ -1,0 +1,2 @@
+(defun ahk-mode () (interactive)
+  )
