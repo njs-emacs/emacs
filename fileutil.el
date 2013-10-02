@@ -123,11 +123,15 @@ For example (file-name-suffix \"emacs/modes.el\") returns \".el\""
 
 (defun file-contents (name)
   "Returns the contents of file with name NAME."
-  (cond ((file-exists-p name)
-	 (find-file name)
-	 (prog1 (buffer-string)
-	   (kill-buffer (current-buffer))))
-	))
+  (let ((buffer (get-file-buffer name)))
+    (cond 
+     (buffer (save-excursion (set-buffer buffer) (buffer-string)))
+     ((file-exists-p name)
+      (setq buffer (find-file-noselect name))
+      (prog1 (save-excursion (set-buffer buffer) (buffer-string))
+	(kill-buffer buffer)))
+     ))
+  )
 
 (defmacro with-file (file &rest body)
   `(save-window-excursion
