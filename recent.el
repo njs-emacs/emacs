@@ -679,5 +679,29 @@ then replace VALUE with the value which follows it in the property list."
 
 (define-key global-map [M-f7] 'insert-file-timestamp)
 
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun not-this-file ()
+  (let ((src (sx (bob) (rsf "##generated##.*from [<'`\"]\\(.*?\\)[>'`\"]") (ms 1))))
+    (cond
+     ((y-or-n-p
+       (format "Edit file '%s' instead ? " src)
+       )
+      (let ((new (find-file-noselect src)))
+	(kill-buffer (current-buffer))
+	(switch-to-buffer new)
+	(top-level)
+	t
+	)
+      )
+     ((y-or-n-p
+       "Do you want to clear this hook ? "
+       )
+      (setq first-change-hook nil)
+      )
+     (t
+      (toggle-read-only)
+      (top-level)
+      )
+     )
+    )
+  )
