@@ -336,6 +336,18 @@ on completion. If optional HOOK is given, call this before closing the file."
   (find-file (car kill-ring))
   )
 
+(defun filename-unconcat (f)
+  (unconcat (filename-canonical f) "/"))
+
+(defun filename-directory-last (&optional f)
+  (or f (setq f default-directory))
+  (cond
+   ((file-directory-p f))
+   (t (setq f (file-name-directory f)))
+   )
+  (car (reverse (filename-unconcat f)))
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;#~ key bindings should be segregated from code as they may conflict
 

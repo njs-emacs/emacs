@@ -197,11 +197,6 @@
    (format "find %s %s 2>/dev/null | sed 's/$/:1:/'" (or path ".") arg))
   )
 
-(defun file-name-directory-last (&optional file)
-  (file-name-nondirectory
-   (substring (file-name-directory (or file (buffer-file-name))) 1 -1))
-  )
-
 (setq completion-rank
   '(
     (".*\\.KTM$" nil (".*\\.P$"))
