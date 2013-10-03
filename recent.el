@@ -213,6 +213,7 @@
   )
 
 (defun assoc-string-match (key list)
+  "Return member of LIST which has a car which string-mathes KEY"
   (assoc-if '(lambda (pat) (string-match pat key)) list)
   )
 
