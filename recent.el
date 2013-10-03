@@ -701,3 +701,36 @@ then replace VALUE with the value which follows it in the property list."
      )
     )
   )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun smart-git-process-sentinel (proc state)
+  (cond
+   ((string-match "finished" state)
+    (delete-process proc)
+    )
+   )
+  )
+
+(defun smart-git-here (&optional d) (interactive "DSmartGit on Repository: ")
+  (or d (setq d default-directory))
+  (let ((last (filename-directory-last d))
+	proc)
+    (cond
+     ((string= last ".git") (smart-git-here ".."))
+     ((file-directory-p ".git")
+      (setq proc (start-process
+		  (format "git-%s" last)
+		  nil
+		  "D:/S/SmartGitHg4.6/bin/smartgithg.exe"
+		  "--open"
+		  d))
+      (set-process-sentinel proc smart-git-process-sentinel
+
+      )
+     )
+    )
+  )
+
+(define-key global-map [M-f11] 'smart-git-here)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(highlight-lines-matching-regexp "open" nil)
+;(apropos "process")
