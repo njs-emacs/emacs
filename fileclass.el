@@ -27,7 +27,8 @@
    )
   )
 
-(defun file-class (name)
+(defun file-class (&optional name)
+  (setq name (or name (buffer-file-name)))
   (or file-class (file-class-guess name))
   )
 
