@@ -713,6 +713,7 @@ then replace VALUE with the value which follows it in the property list."
 (defun smart-git-here (&optional d) (interactive "DSmartGit on Repository: ")
   (or d (setq d default-directory))
   (let ((last (filename-directory-last d))
+	(default-directory d)
 	proc)
     (cond
      ((string= last ".git") (smart-git-here ".."))
@@ -723,10 +724,9 @@ then replace VALUE with the value which follows it in the property list."
 		  "D:/S/SmartGitHg4.6/bin/smartgithg.exe"
 		  "--open"
 		  d))
-      (set-process-sentinel proc smart-git-process-sentinel
-
-      )
+      (set-process-sentinel proc 'smart-git-process-sentinel)
      )
+    )
     )
   )
 
