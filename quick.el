@@ -63,7 +63,7 @@
 (defun fl (&optional n) (forward-line (or n 1)))
 
 (fset 'bdc (symbol-function 'backward-delete-char))
-(fset 'bs (symbol-function 'buffer-substring))
+(fset 'bs (symbol-function 'buffer-substring-no-properties))
 (defun bss (&optional start end)
   (buffer-substring (or start (point)) (or end (point-max))))
 (defun bsp (length &optional start)
