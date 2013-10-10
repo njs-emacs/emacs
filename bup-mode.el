@@ -9,21 +9,38 @@
   (format "%s/emacs/%s/%s%s/%s%s%s/%s/%s/" backup-root y y m y m d host file)
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;	       (y (nth 0 info))
+;	       (m (nth 1 info))
+;	       (d (nth 2 info))
+;	       (time (nth 3 info))
+;	       (host (nth 4 info))
+;	       (file (nth 5 info))
+;	       (backup (nth 6 info))
+;	       (shadow (nth 7 info))
+
 (defun bup-parse-line ()
   (sx
+   (bol)
    (let* ((y (buffer-nibble 2))
 	  (m (buffer-nibble 2))
 	  (d (buffer-nibble 2))
 	  (time (buffer-nibble 6 1 12))
 	  (host (find-match-string-nosave "\\(\\S *\\)\\s *" 1))
-	  file date dir dd
+	  (file-start (match-end 0))
+	  file date dir dd info shadow
+	  (end (sxp (eol)))
+	  (sum (sx (rsf "\\s *[0-9a-f]\\{32\\} [0-9a-f]\\{32\\}\\s *$" end nil 0 t)))
 	  )
-     (goto-char (match-end 0))
-     (setq file (bs (point) (sxp (eol))))
+     (and sum (setq end sum))
+     (setq file (bs file-start end))
+     (setq info (nvc-name-info file))
      (setq dd (string-sub file ":" ""))
      (setq dd (string-sub dd "/[^/]*$" ""))
-     (setq dir (format "%s/emacs/%s/%s%s/%s%s%s/%s/%s/" backup-root y y m y m d host file))
-     (list y m d time host file dir)
+     (setq dir (format "%s/emacs/%s/%s%s/%s%s%s/%s/%s" backup-root y y m y m d host (nth 1 info)))
+     (setq shadow (filename-clean
+		   (filename-format "%s/%s/%s/%s" nvc-shadow-root host (nth 1 info) (nth 2 info))))
+     (list y m d time host file dir shadow)
      )
    )
   )
@@ -40,6 +57,8 @@
 	    dir (basename name) prefix date-string time-string
 	    (or (file-name-suffix name) ""))
     ))
+
+;; this doesn't work unless the file was edited on the same host
 
 (defun bup-diff () (interactive)
   (let* ((bp (bup-parse-line))
@@ -58,19 +77,10 @@
 (defun bup-visit-directory () (interactive)
   (let ((d))
     (sx (bol)
-	(let* ((y (buffer-nibble 2))
-	       (m (buffer-nibble 2))
-	       (d (buffer-nibble 2))
-	       (time (buffer-nibble 6 1 12))
-	       (host (find-match-string-nosave "\\(\\S *\\)\\s *" 1))
-	       file date
+	(let* ((info (bup-parse-line))
+	       (b (nth 6 info))
 	       )
-	  (goto-char (match-end 0))
-	  (setq file (bs (point) (sxp (eol))))
-	  (setq file (string-sub file ":" ""))
-	  (setq file (string-sub file "/[^/]*$" ""))
-	  (setq d (format "%s/emacs/%s/%s%s/%s%s%s/%s/%s/" backup-root y y m y m d host file))
-	  (find-file-other-window d)
+	  (find-file-other-window b)
 	  )
 	)
     )
@@ -86,8 +96,15 @@
   )
 
 (defun bup-find-file () (interactive)
-  (let ((file (bup-get-file-name)))
-    (find-file file)
+  (let* ((info (bup-parse-line))
+	 (file (nth 5 info))
+	 (shadow (nth 7 info))
+	 )
+    (cond
+     ((file-exists-p file) (find-file file))
+     ((file-exists-p shadow) (find-file-read-only shadow) (message "shadow file (%s)" shadow))
+     ((error "file doesn't exist"))
+     )
     )
   )
 
@@ -152,4 +169,14 @@
 (fset 'boo-hoo 'boo-hoo-compile)
 
 ;(boo-hoo "")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun file-or-shadow (name &optional host)
+  (cond
+   ((file-exists-p name) name)
+   (
+
+(defun file-history-file-on-current-line ()
+  (let ((name (buffer-substring-no-properties (sxp (bol) (fx 1) (fc 1)) (sxp (eol)))))
+  )
 
