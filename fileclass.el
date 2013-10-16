@@ -53,7 +53,8 @@
 
 (defun file-class-linked-file-add (class plist)
   (setq file-class-linked-file-alist
-    (gput file-class-linked-file-alist class plist))
+    (gput file-class-linked-file-alist class
+	  (alist-merge (gget file-class-linked-file-alist class) plist)))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
