@@ -11,7 +11,7 @@
 (define-key global-map "\C-b" b-map)
 
 (mdotimes (i 26)
-  (let* ((c (char-to-string (1+ i))))
+  (let* ((c (char-to-string (- 26 i))))
     (define-key qb-map c (make-sparse-keymap))
     ))
 		
