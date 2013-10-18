@@ -200,9 +200,9 @@
   (qb-define (control-key-vector ?d ?d) '(home-daily-today))
   (qb-define (control-key-vector ?d ?y) '(home-daily-yesterday))
 
-  (qb-define (control-key-vector ?h ?m) '(daily-html-time (current-time)))
-  (qb-define (control-key-vector ?h ?d) '(daily-html-time (current-time)))
-  (qb-define (control-key-vector ?h ?y) '(daily-html-time (yesterday-time)))
+;  (qb-define (control-key-vector ?h ?m) '(daily-html-time (current-time)))
+;  (qb-define (control-key-vector ?h ?d) '(daily-html-time (current-time)))
+;  (qb-define (control-key-vector ?h ?y) '(daily-html-time (yesterday-time)))
   )
 
 (daily-time-set)
