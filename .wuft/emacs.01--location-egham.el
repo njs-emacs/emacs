@@ -1,1 +1,4 @@
-(setq printer-name "//vom/HP2230")
+(setq printer-name "//boo/HPLaser")
+
+;(describe-variable 'lpr-page-header-program)
+;(describe-variable 'lpr-switches)
