@@ -745,3 +745,12 @@ then replace VALUE with the value which follows it in the property list."
 (setq org-open-directory-means-index-dot-org nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar alt-buffer-eval-function nil "Alternate buffer eval function")
+
+(make-local-variable 'alt-buffer-eval-function)
+
+(defun alt-buffer-eval () (interactive)
+ (cond (alt-buffer-eval-function (funcall alt-buffer-eval-function)))
+ )
+(define-key global-map [C-f9] 'alt-buffer-eval)
+
