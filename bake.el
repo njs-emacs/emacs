@@ -125,7 +125,16 @@
 
 (setq bake-recursion-disable nil)
 
-(defun bake-target (&optional command target dir) (interactive "STarget: ")
+(defun bake-look-for-default-target ()
+  (cond
+   ((sx (bol) (rsf "\\(.*?\\):" (sxp (eol)))) (ms 1))
+   )
+  )
+
+(defun bake-target (&optional command target dir)
+  (interactive (list nil
+		     (read-from-minibuffer "Target: " (bake-look-for-default-target))
+		     nil))
   (cond
    ((and (not bake-recursion-disable) (file-exists-p "bake.el"))
     (let ((bake-recursion-disable t))
