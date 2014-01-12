@@ -140,12 +140,23 @@
   (bob)
   )
 
-(defun file-history-sort-time () (interactive)
-  (setq file-history-sort-key 'time)
+(defun file-history-sort-priority () (interactive)
+  (setq file-history-sort-key 'priority)
   (setq file-history-list
     (sort file-history-list
 	  '(lambda (x y)
-	     (time-less-p (file-history-get x 'last-visit) (file-history-get y 'last-visit)))
+	     (> (file-history-get x 'priority) (file-history-get y 'priority)))
+	  ))
+  (file-history-display)
+  (bob)
+  )
+
+(defun file-history-sort-quick () (interactive)
+  (setq file-history-sort-key 'quick)
+  (setq file-history-list
+    (sort file-history-list
+	  '(lambda (x y)
+	     (string< (or (qb-where-is-string x) "z") (or (qb-where-is-string y) "z")))
 	  ))
   (file-history-display)
   (bob)
@@ -217,6 +228,7 @@
   (file-history-electric-key-define "t" 'file-history-sort-time)
   (file-history-electric-key-define "p" 'file-history-sort-priority)
   (file-history-electric-key-define "s" 'file-history-sort-name)
+  (file-history-electric-key-define "b" 'file-history-sort-quick)
   (file-history-electric-key-define "o" 'file-history-find-file-other-window)
   (file-history-electric-key-define "f" 'file-history-find-file)
   (file-history-electric-key-define "w" 'file-history-find-file-other-frame)
