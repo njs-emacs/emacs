@@ -19,13 +19,14 @@
 ;; shell logs are forced into history when they are first created
 
 (defun kill-shell-buffer-yes (&optional save-session save-input)
-  (let ((ts (format-time-string "%y%m%d-%H%M%S"))
+  (let ((ts (format-time-string "%y%m%d-%H%M%S" shell-start-timestamp))
 	(host (downcase system-name))
+	(date (home-daily-today))
 	)
     (cond
      ((or save-session (y-or-n-p "Save session log? "))
       (let (
-	    (name (format "%s/sh-%s-%s.log" home-daily-today host ts))
+	    (name (format "%s/sh-%s-%s.log" date host ts))
 	    (nvc-enable-force t)
 	    )
 	(bob)
@@ -40,7 +41,7 @@
       (let ((cmds (nthcdr 2 comint-input-ring))
 	    (nvc-enable-force t)
 	    (name
-	     (format "%s/sh-%s-%s.input" home-daily-today host ts)
+	     (format "%s/sh-%s-%s.input" date host ts)
 	     ))
 	(with-file name
 	  (insert (format "#~type:{shell.input-history}\n##host:%s\n##nobackup##\n" host))
@@ -128,6 +129,8 @@
   (add-hook 'kill-current-buffer-hook 'bury-buffer-instead t t)
   (setq shell-process (get-buffer-process "*shell*"))
   (setq kill-buffer-query-functions nil)
+  (make-local-variable 'shell-start-timestamp)
+  (setq shell-start-timestamp (current-time))
   )
 
 (add-hook 'shell-mode-hook 'shell-mode-hook-ns)
@@ -141,7 +144,7 @@
   )
 
 (load-overrides "shell")
-(set-default 'comint-input-ring-size 1000)
+(set-default 'comint-input-ring-size 10000)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -326,3 +329,32 @@
 	   )))
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun shell-buffer-info-save (&optional arg) (interactive "P")
+  (let* ((ts (format-time-string "%y%m%d-%H%M%S" shell-start-timestamp))
+	(host (downcase system-name))
+	(log-name (format "sh-%s-%s.log" host ts))
+	(hist-name (format "sh-%s-%s.input" host ts))
+	(nvc-enable-force t)
+	(cmds (nthcdr 2 comint-input-ring))
+	(log (buffer-string))
+	)
+    (with-file log-name
+      (insert
+       (format "#~type:{shell.log}\n##host:%s\n##nobackup##\n" host)
+       log
+       )
+      (save-buffer)
+      (kill-buffer (current-buffer))
+      )
+    (with-file hist-name
+      (insert (format "#~type:{shell.input-history}\n##host:%s\n##nobackup##\n" host))
+      (mapcar '(lambda (x) (and x (insert x "\n"))) cmds)
+      (save-buffer)
+      (kill-buffer (current-buffer))
+      )
+    )
+  )
+(fset 'sbis 'shell-buffer-info-save)
+
+(define-key global-map [M-f8] 'shell-buffer-info-save)
