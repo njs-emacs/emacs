@@ -1,5 +1,6 @@
 (defun path-set (list)
   (setenv "PATH" (mconcat list ";"))
+  (setq exec-path (mapcar 'slash-front list))
   )
 
 (defun delete-string-from-list-regexp (pat list)
