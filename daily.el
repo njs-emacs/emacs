@@ -177,9 +177,9 @@
     )
   )
 
-(defun home-daily-yesterday () (daily-path (format-time-string "%y%m/%d" (yesterday-time))))
-(defun home-daily-today () (daily-path (format-time-string "%y%m/%d")))
-(defun home-daily-month () (daily-path (format-time-string "%y%m")))
+(defun home-daily-yesterday (&optional force-create) (daily-path (format-time-string "%y%m/%d/" (yesterday-time)) force-create))
+(defun home-daily-today (&optional force-create) (daily-path (format-time-string "%y%m/%d/") force-create))
+(defun home-daily-month (&optional force-create) (daily-path (format-time-string "%y%m/") force-create))
 
 (defun daily-time-set () (interactive)
   (defun yesterday-time () (time-subtract (current-time) `(1 ,(- 86400 65536))))
@@ -188,7 +188,6 @@
   (setq home-daily-today (home-daily-today))
   (setq home-daily-yesterday (home-daily-yesterday))
 
-  (make-directory home-daily-today t)
   (daily-qb-define)
   )
 
