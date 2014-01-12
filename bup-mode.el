@@ -171,12 +171,8 @@
 ;(boo-hoo "")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun file-or-shadow (name &optional host)
-  (cond
-   ((file-exists-p name) name)
-   (
-
-(defun file-history-file-on-current-line ()
+(defun bup-file-history-file-on-current-line ()
   (let ((name (buffer-substring-no-properties (sxp (bol) (fx 1) (fc 1)) (sxp (eol)))))
+    )
   )
 
