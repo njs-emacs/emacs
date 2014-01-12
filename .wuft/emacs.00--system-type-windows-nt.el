@@ -11,9 +11,13 @@
 (setq bash-bin-root
   (filename-concat 
    (or (getenv "cgw")
-       (locate-file-in-path "cygwin" `("c:" "d:")))
+       (file-if-exists "c:/MinGW/msys/1.0")
+       (file-if-exists "d:/G/git")
+       (locate-file-in-path "cygwin" `("c:" "d:"))
+       )
    "bin"
    ))
 
 (setq bash-file-name (format "%s/bash.exe" bash-bin-root))
+
 (setenv "ESHELL" bash-file-name)
