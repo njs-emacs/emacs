@@ -179,4 +179,14 @@
 (global-set-key "\M-e\M-l" 'ediff-revision-latest)
 (global-set-key "\M-e\M-v" 'ediff-revision)
 
+(defun ediff-revision-stash () (interactive)
+  "Ediff the current buffer with the most recently stashed version"
+  (funcall
+     (intern (format "ediff-%S-internal" ediff-version-control-package))
+     "stash" "" nil)
+  )
 
+(define-key vc-prefix-map "z" 'ediff-revision-stash)
+(define-key vc-prefix-map "e" 'ediff-revision-latest)
+
+; must run a vanilla ediff-revision before vc-ediff-stash
