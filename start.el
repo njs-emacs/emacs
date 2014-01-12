@@ -10,10 +10,16 @@
 ;(find-file "e:/daily/1209/25/proxy")
 ;(find-file "e:/_/L/lily")
 ;(find-file "e:/_/R/R")
-;(find-file "e:/_/T/torrent/deluge/tc")
+;(find-file "e:/.p/_/T/torrent/deluge/tc")
+
+(find-file (// "boo/e/.p/nl"))
 
 (top-level)
 
+(find-file (// "boo/e/.p/_/T/torrent/deluge/tc"))
+
+(find-file "e:/help")
+(find-file "e:/help/win7")
 (find-file "e:/daily/1212/pi/.emacs.el")
 
 (find-file "f:/a/apache/spix/.emacs.el")
