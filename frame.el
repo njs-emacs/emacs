@@ -13,13 +13,13 @@
   (setq default-frame-alist (alist-put default-frame-alist tag val))
   )
 
-(defun font-name-default-size (size)
-  (format font-name-default-template size)
-  )
+;(defun font-name-default-size (size)
+;  (format font-name-default-template size)
+;  )
 
-(defun font-size (size)
-  (set-frame-font (font-name-default-size size))
-  )
+;(defun font-size (size)
+;  (set-frame-font (font-name-default-size size))
+;  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-overrides "frame-default")
@@ -27,7 +27,7 @@
 (setq default-frame-alist
   (alist-merge default-frame-alist
 	       `(
-		 (font . ,(font-name-default-size 11))
+;		 (font . ,(font-name-default-size 11))
 		 )
 	       ))
 
