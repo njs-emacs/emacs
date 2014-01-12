@@ -512,7 +512,7 @@ Used to enter a file into edit tracking on creation but not at any other time.")
 	 (sx (rsf "##backup##" limit))
 	 (and
 	  (not (rsf "##\\(generated\\|nobackup\\)##" limit))
-	  (not (file-exists-p ".nobackup"))
+	  (not (locate-up-file-directory ".nobackup"))
 	  (nvc-confirm-maybe buffer)
 	  )
 	 )
