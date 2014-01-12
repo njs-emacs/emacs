@@ -23,6 +23,6 @@
   )
   )
 
-(define-key vc-prefix-map "e" 'vc-ediff)
 (define-key vc-prefix-map "x" 'vc-disable)
 
+; see ediff.el for other functions
