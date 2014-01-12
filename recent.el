@@ -20,7 +20,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun slash-back (s) (string-sub s "/" "\\"))
-(defun slash-front (s) (string-sub s "\\" "/"))
+(defun slash-front (s) (string-sub s "\\\\" "/"))
 
 (defun toggle-slashification-region (arg) (interactive "p")
   (cond
