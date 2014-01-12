@@ -12,7 +12,7 @@ membership in NAMES and PATHS"
   (catch 'done
     (mapcar '(lambda (dir)
 	       (mapcar '(lambda (name)
-			  (let ((f (concat dir "/" name)))
+			  (let ((f (concat (or dir ".") "/" name)))
 			    (cond ((file-exists-p f) (throw 'done f)))
 			    )) names)) paths)
     nil
@@ -29,6 +29,7 @@ membership in NAMES and PATHS"
   )
 
 (defun locate-up-file-directory (file)
+  "Locate a directory above the current one that contains a particular FILE."
   (let* ((cd default-directory)
 	 nd
 	 )
@@ -42,6 +43,7 @@ membership in NAMES and PATHS"
   )
 
 (defun locate-up-file (file &optional default)
+  "Locate a file in current directory or directory above."
   (let ((cd (locate-up-file-directory file)))
     (cond (cd (expand-file-name (format "%s/%s" cd file)))
 	  (default)
