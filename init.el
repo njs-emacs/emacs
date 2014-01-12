@@ -1,6 +1,7 @@
 (defun byte-compile-log-warning (&rest args))
 
 (load "plemu" t t)
+(load "cl" t t)
 (load "environ" t t)
 (load "custom" t t)
 (load "quick" t t)
