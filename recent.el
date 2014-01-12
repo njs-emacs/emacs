@@ -734,3 +734,14 @@ then replace VALUE with the value which follows it in the property list."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(highlight-lines-matching-regexp "open" nil)
 ;(apropos "process")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(let ((load-path (cons (format "%s/site-lisp/org-8.2.4" emacs-exec-dir) load-path)))
+  (load "org.el")
+  )
+
+(add-hook 'org-mode-hook 'turn-on-font-lock)
+(setq org-file-apps (append org-file-apps (list (cons t 'emacs))))
+(setq org-open-directory-means-index-dot-org nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
