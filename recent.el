@@ -736,9 +736,9 @@ then replace VALUE with the value which follows it in the property list."
 ;(apropos "process")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(let ((load-path (cons (format "%s/site-lisp/org-8.2.4" emacs-exec-dir) load-path)))
-  (load "org.el")
-  )
+;(let ((load-path (cons (format "%s/site-lisp/org-8.2.4" emacs-exec-dir) load-path)))
+  (load "org")
+;  )
 
 (add-hook 'org-mode-hook 'turn-on-font-lock)
 (setq org-file-apps (append org-file-apps (list (cons t 'emacs))))
