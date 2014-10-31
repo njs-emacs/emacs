@@ -66,7 +66,8 @@
 	      ((eq major-mode 'grep-mode) (kill-buffer x))
 	      ((eq major-mode 'nog-mode) (kill-buffer x))
 	      ))
-   (buffer-list))
+	  (buffer-list))
+  (setq compilation-in-progress nil)
   )
 
 (define-key c-map "d" 'kill-compilation-buffers)
