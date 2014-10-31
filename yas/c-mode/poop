@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: poop
+# key: poop
+# --
+#ifndef __${1:foo}
+#define __$1
+
+#endif
