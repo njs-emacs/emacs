@@ -721,7 +721,7 @@ then replace VALUE with the value which follows it in the property list."
       (setq proc (start-process
 		  (format "git-%s" last)
 		  nil
-		  "D:/S/SmartGitHg4.6/bin/smartgithg.exe"
+		  "D:/S/SmartGitHg5.0.9/bin/smartgithg.exe"
 		  "--open"
 		  d))
       (set-process-sentinel proc 'smart-git-process-sentinel)
