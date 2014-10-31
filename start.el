@@ -3,6 +3,8 @@
 
 (frame-default-height)
 
+(find-file (// "boo/e/.p/.meta/.daily/140810-085057.nl"))
+
 ;(find-file "e:/aa")
 ;(find-file (daily-path ".emacs.el"))
 ;(find-file-other-window "e:/drs/.emacs.el")
@@ -10,13 +12,13 @@
 ;(find-file "e:/daily/1209/25/proxy")
 ;(find-file "e:/_/L/lily")
 ;(find-file "e:/_/R/R")
-;(find-file "e:/.p/_/T/torrent/deluge/tc")
 
-(find-file (// "boo/e/.p/nl"))
+;(find-file (// "boo/e/emacs/yas.el"))
+;(find-file (// "boo/e/.p/tc"))
+;(find-file (// "boo/e/.p/nl"))
 
 (top-level)
 
-(find-file (// "boo/e/.p/_/T/torrent/deluge/tc"))
 
 (find-file "e:/help")
 (find-file "e:/help/win7")
