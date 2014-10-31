@@ -96,7 +96,7 @@
     (c-indent-line)
     ))
 
-(defun comment-region ()
+(defun comment-wrap-region () (interactive)
  (let ((start (sx (and (rsf "/\\*" nil t) (match-beginning 0))))
        (end (sx (and (rsf "\\*/" nil t) (match-end 0)))))
   (and start (list start end))))
