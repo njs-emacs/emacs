@@ -1,3 +1,32 @@
+(make-variable-buffer-local 'perl-run-function)
+(set-default 'perl-run-function 'perl-run-compile)
+
+(defun perl-run-compile (file options)
+  (save-buffer)
+  (let ((hooks perl-compile-start-hooks)
+	) 
+    (save-excursion
+      (set-buffer
+       (compile (perl-command file options)))
+      (run-hooks 'hooks)
+      (setq compile-protect t)
+      (setq font-lock-mode nil)
+      )
+    )
+  )
+
+(defun perl-run-process (file options)
+  (save-buffer)
+  (let ((hooks perl-compile-start-hooks)
+	) 
+    (save-excursion
+      (apply 'start-process "*sex*" "*sex*" perl-exec-file file options)
+      (run-hooks 'hooks)
+      )
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (set-default 'perl-options nil)
 (make-variable-buffer-local 'perl-options)
 
@@ -26,7 +55,7 @@
   (sx 
    (eol)
    (or cmd (setq cmd (sx (rsb "^sub *\\(\\w+\\)") (ms 1))))
-   (compile (format "%s \"%s\" --cmd=%s" perl-exec-file (buffer-file-name) (or cmd "")))
+   (funcall perl-run-function (buffer-file-name) (list (format "--cmd=%s" (or cmd ""))))
    )
   )
 
@@ -49,6 +78,11 @@
 (defun eval-perl-buffer () (interactive)
   (save-buffer)
   (shell-command (perl-command (buffer-file-name)))
+  )
+
+(defun eval-perl-buffer-new () (interactive)
+  (save-buffer)
+  (funcall perl-run-function (buffer-file-name))
   )
 
 ;(put 'perl-mode 'eval-buffer-modal 'eval-perl-buffer)
