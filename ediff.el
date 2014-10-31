@@ -96,7 +96,18 @@
 (defvar diff-args "-B"
   "")
 
-(set-default 'ediff-split-window-function 'split-window-horizontally)
+(defun ns-ediff-load-hook ()
+  (setq ediff-split-window-function 'split-window-horizontally)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  (cond
+   ((ediff-device-type)
+    (ediff-toggle-multiframe)
+    )
+   )
+  )
+
+(add-hook 'ediff-load-hook 'ns-ediff-load-hook)
+
 ;(add-hook 'ediff-cleanup-hook 'ediff-janitor)
 ;(setq ediff-cleanup-hook nil)
 ;(set-default 'ediff-diff-options "-w")
@@ -106,12 +117,6 @@
 ;(define-key vc-prefix-map "e" 'ediff-revision)
 
 (load-overrides "ediff")
-
-(cond
- ((ediff-device-type)
-  (ediff-toggle-multiframe)
-  )
- )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
