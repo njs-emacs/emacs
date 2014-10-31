@@ -753,3 +753,23 @@ then replace VALUE with the value which follows it in the property list."
  )
 (define-key global-map [C-f9] 'alt-buffer-eval)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun all-mode-recenter ()
+  "Move point to the corresponding position in the original buffer."
+  (interactive)
+  (let ((buffer (current-buffer))
+	(pos (all-mode-find (point))))
+    (if pos
+	(pop-to-buffer all-buffer)
+      (error "This text is not from the original buffer"))
+    (goto-char pos)
+    (recenter 0)
+    (pop-to-buffer buffer)
+    )
+  )
+
+(defun ns-all-mode-hook ()
+  (define-key all-mode-map "\C-c\C-l" 'all-mode-recenter)
+  )
+
+(add-hook 'all-mode-hook 'ns-all-mode-hook)
