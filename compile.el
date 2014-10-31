@@ -1,4 +1,4 @@
-(load ".mutated/compile")
+(load-standard "compile")
 
 (autoload 'append-log-entry "log")
 
