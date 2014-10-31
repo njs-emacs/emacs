@@ -58,10 +58,6 @@
 (global-set-key [f8] 'goto-shell)
 (global-set-key [f9] 'eval-buffer-modal)
 
-(global-set-key [f10] 'bake)
-(global-set-key [M-f10] 'bake-target)
-(global-set-key [C-f10] 'bake-clean)
-
 (global-set-key [f11] 'goto-line)
 
 (global-unset-key "\M-\C-e")

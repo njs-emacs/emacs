@@ -308,3 +308,8 @@
     ))
 
 (bake-define-key (kbd "H-a H-c") nil "squeaky" nil)
+
+(global-set-key [f10] 'bake)
+(global-set-key [M-f10] 'bake-target)
+(global-set-key [C-f10] 'bake-clean)
+
