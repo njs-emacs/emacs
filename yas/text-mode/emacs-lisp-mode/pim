@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name : pim
-# key : pim
-# binding : "H-a H-a"
-# --
-${1:test} $1
