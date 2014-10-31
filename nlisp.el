@@ -138,12 +138,6 @@ values in EXP, and execute BODY."
       )
     (nreverse out)))
 
-(defun mapcan (f list)
-  "Apply FUNCTION to each element of LIST, and make a list of the results,
-then remove all nil entries.
-\n(n-lisp function)"
-  (delq nil (mapcar f list)))
-
 (defun mapcar2 (fun lista listb)
   (let (out)
     (while lista
