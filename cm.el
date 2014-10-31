@@ -8,7 +8,7 @@
 ; cmc is compilation buffer info
 ; cmt is target info
 
-(setq cm-pat "^(\\|^\\([^: \n]+\\):\\(line\\|\\)\\s *\\([0-9 ]*\\):\\(.*\\)")
+(setq cm-pat "^(\\|^\\([^: \n]+\\):\\(line\\|\\)\\s *\\([-.0-9 ]*\\):\\(.*\\)")
 
 (defun cmc-compilation-buffer (x) (car x))
 (defun cmc-location (x) (cdr x))
