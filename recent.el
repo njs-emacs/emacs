@@ -736,12 +736,13 @@ then replace VALUE with the value which follows it in the property list."
 ;(apropos "process")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(load "org" t t t)
+(defun ns-org-load-hook ()
+  (add-hook 'org-mode-hook 'turn-on-font-lock)
+  (setq org-file-apps (append org-file-apps (list (cons t 'emacs))))
+  (setq org-open-directory-means-index-dot-org nil)
+  )
 
-(add-hook 'org-mode-hook 'turn-on-font-lock)
-(setq org-file-apps (append org-file-apps (list (cons t 'emacs))))
-(setq org-open-directory-means-index-dot-org nil)
-
+(add-hook 'org-load-hook 'ns-org-load-hook)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar alt-buffer-eval-function nil "Alternate buffer eval function")
 
