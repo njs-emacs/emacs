@@ -6,7 +6,16 @@
   (concat emacs-exec-dir "lisp")
   "The directory which holds the emacs lisp files")
 
-(defun // (x) (concat "//" x))
+(cond
+ ((eq (wuft-get 'system-name) 'boo)
+  (defun // (x)
+    (cond
+     ((replace-regexp-in-string "boo/\\(\\sw\\)" "\\1:" x))
+     ((concat "//" x))
+     )
+    ))
+  (t (defun // (x) (concat "//" x)))
+  )
 
 (setq bash-bin-root
   (filename-concat 
