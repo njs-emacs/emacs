@@ -17,16 +17,21 @@
   (t (defun // (x) (concat "//" x)))
   )
 
-(setq bash-bin-root
+;(// "boo/e/.p/_/T/torrent/deluge/tc")
+
+(defun bash-bin-set (dir)
+  (setq bash-bin-root dir)
+  (setq bash-file-name (format "%s/bash.exe" bash-bin-root))
+  (setenv "ESHELL" bash-file-name)
+  )
+
+(bash-bin-set
   (filename-concat 
    (or (getenv "cgw")
-       (file-if-exists "c:/MinGW/msys/1.0")
+;       (file-if-exists "c:/MinGW/msys/1.0")
        (file-if-exists "d:/G/git")
        (locate-file-in-path "cygwin" `("c:" "d:"))
        )
    "bin"
    ))
 
-(setq bash-file-name (format "%s/bash.exe" bash-bin-root))
-
-(setenv "ESHELL" bash-file-name)
