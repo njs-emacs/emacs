@@ -40,6 +40,7 @@
   (setq major-mode 'nl-mode)
   (setq mode-name "NL")
   (setq grep-spec "*.[pen]l")
+  (define-key emacs-lisp-mode-map [M-f9] 'nl-exec-this)
   (save-excursion
     (bob)
     (while (rsf "^;#~e") (eval (readc)))
@@ -53,3 +54,26 @@
 (make-variable-buffer-local 'nl-exec-program)
 (set-default 'nl-exec-program "wpl -mpl")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun defun-at-point ()
+  (let ((fun
+	 (cond 
+	  ((progn (sx (bol)
+		      (looking-at "^ *(defun \\(.*?\\) *(")))
+		  (match-string 1)
+		  )
+	  ((progn (sx
+		   (rsb "^ *(defun \\(.*?\\) *(")))
+		  (match-string 1)
+		  )
+	  )
+	 )
+	)
+    fun)
+  )
+
+(defun nl-exec-this () (interactive)
+  (let ((fun (defun-at-point)))
+    (compile (format "%s \"%s\" -f%s" nl-exec-program (buffer-file-name) fun))
+    )
+  )
