@@ -1,0 +1,77 @@
+(setq was-map (make-sparse-keymap))
+
+(defun was-insert (s)
+  (sx
+   (bol)
+   (fc 40)
+   (rsf ": ")
+   (kill-regexp ".\\{20\\}")
+   (insert (format "%-20s" s))
+   )
+  )
+
+
+(defun was-do-0 () (interactive)
+  (let ((s (sx (bol)
+	       (find-match-string "\\(.*?\\)\\s *:" 1))))
+    (was-insert s)
+    (next-line 1)
+    )
+  )
+
+(defun was-do-n () (interactive)
+  (let* ((n (- (aref (this-command-keys) 0) ?1))
+	 (s (sx (bol) (fc 23) (dotimes (i n) (rsf ",\\s *"))
+		(find-match-string "\\(.*?\\)\\s *[:,]" 1))))
+    (was-insert s)
+    (next-line 1)
+    )
+  )
+
+(define-key was-map "0" 'was-do-0)
+(define-key was-map "1" 'was-do-n)
+(define-key was-map "2" 'was-do-n)
+(define-key was-map "3" 'was-do-n)
+(define-key was-map "4" 'was-do-n)
+
+(defun was-mode () (interactive) (use-local-map was-map))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun was-fix () (interactive)
+  (bol)
+  (fc 64)
+  (kill-regexp "\\(\\s *\\):" 1)
+  )
+
+(defun was-next () (interactive)
+  (rsf "^\\sw") (bol)
+  )
+
+(defun was-kill () (interactive)
+  (bol)
+  (sx
+   (kill-regexp "\\(.*?\\)\\s *:" 1)
+   (insert (make-string (- (me 1) (mb 1)) ? ))
+   )
+  (was-next)
+  )
+
+(defun was-kill-yank () (interactive)
+  (bol)
+  (let ((s (kill-regexp "\\(.*?\\)\\s *:" 1)))
+    (insert (make-string (length s) 32))
+    (rsf "\\(:.*?\\)\\s *:" nil t 1)
+    (insert (format ", %s" s))
+    )
+  (was-fix)
+  (was-next)
+  )
+
+(defun was-mode () (interactive)
+  (setq was-map (make-sparse-keymap))
+  (define-key was-map "\C-m" 'was-next)
+  (define-key was-map "\C-k" 'was-kill)
+  (define-key was-map "\C-o" 'was-kill-yank)
+  (define-key was-map "\C-i" 'was-fix)
+  (use-local-map was-map)
+  )
