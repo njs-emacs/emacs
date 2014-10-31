@@ -138,14 +138,6 @@ values in EXP, and execute BODY."
       )
     (nreverse out)))
 
-(defun mapcar2 (fun lista listb)
-  (let (out)
-    (while lista
-      (setq out (cons (funcall fun (car lista) (car listb)) out))
-      (setq lista (cdr lista))
-      (setq listb (cdr listb)))
-    (nreverse out)))
-
 (defmacro mdotimes (head &rest body)
   `(let ((result)) (dotimes ,(append head '((nreverse result)))
 		     (setq result (cons ,@body result))
