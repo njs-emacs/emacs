@@ -101,7 +101,8 @@
 
 (define-key dired-mode-map "%!" 'dired-mark-files-shell-command)
 (define-key dired-mode-map "%x" 'dired-mark-files-command)
-(define-key dired-mode-map "\M-e" 'dired-dd-ediff)
+;(define-key dired-mode-map "\M-e" 'dired-dd-ediff)
+(define-key dired-mode-map "\M-e" 'ediff-directories)
 (define-key dired-mode-map "\M- " 'dired-mark)
 (define-key dired-mode-map [M-mouse-1] 'dired-mark)
 
