@@ -36,7 +36,8 @@ containing that file. NOERROR NOMESSAGE arguments are as for 'load' function."
        )
   )
 
-(defun init-local (dir) (interactive "DDirectory: ")
+(defun init-local (&optional dir) (interactive "DDirectory: ")
+  (or dir (setq dir default-directory))
   (init-local-noload dir)
   (or
    (load (expand-file-name "_emacs") t t)
