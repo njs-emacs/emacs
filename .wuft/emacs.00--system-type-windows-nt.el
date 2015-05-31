@@ -30,7 +30,7 @@
    (or (getenv "cgw")
 ;       (file-if-exists "c:/MinGW/msys/1.0")
        (file-if-exists "d:/G/git")
-       (locate-file-in-path "cygwin" `("c:" "d:"))
+;       (locate-file-in-path "cygwin" `("c:" "d:"))
        )
    "bin"
    ))
