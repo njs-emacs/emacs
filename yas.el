@@ -8,41 +8,18 @@
 (setq yas-my-dir (concat user-emacs-home "/yas"))
 (setq yas-snippet-dirs yas-my-dir)
 
-(setq yas-snippet-dirs yas-my-dir)
+(add-mode "\\.ys$" 'snippet-mode)
 
-;(setq yas/root-directory (list yas/my-dir))
-;(yas/load-directory yas/my-dir)
+(qb-define (kbd "C-e C-y") '(car yas/root-directory))
 
-(top-level)
+(setq yas-snippet-dirs
+  (list
+   yas-my-dir
+   )
+  )
+
+(require 'yas-x)
+
+(load-file (// "boo/e/.p/tc/.yas/yas.el"))
 
 (yas-global-mode)
-(yas-minor-mode)
-(yas-reload-all)
-;(add-mode "\\.ys$" 'snippet-mode)
-(qb-define (kbd "C-e C-y") (car yas/root-directory))
-
-
-(yas/initialize)
-
-(top-level)
-
-(describe-function 'yas/expand-snippet)
-
-(menu-bar-mode)
-
-
-pim
-
-test (setq } ) ; OK!
-field with calculated default 21/02/2014 16:34:03
-<>}
-test
-pud
-
-
-yas/root-directory
-
-(symbol-macrolet
-
-yas-snippet-dirs
-yas/root-directory
