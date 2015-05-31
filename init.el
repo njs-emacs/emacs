@@ -105,6 +105,7 @@
 (load "gface" t t)
 (load "vc-x" t t)
 (load "n-all" t t)
+(load "n-register" t t)
 (load "recent" t t)
 
 (define-key global-map "\C-xf" 'find-file)
