@@ -74,8 +74,22 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun insert-comment-line () (interactive)
-  (insert "/* ================================================================ */\n")
+(defun comment-line-string () (interactive)
+  (cond
+   ((eq major-mode 'emacs-lisp-mode) ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
+   ((eq major-mode 'perl-mode) "################################################################")
+   ((or
+     (eq major-mode 'c-mode)
+     (eq major-mode 'c++-mode)
+     )
+    "/* ================================================================ */")
+   (t "################################################################")
+   )
+  )
+
+(defun comment-line-insert () (interactive)
+  (bol)
+  (insert (comment-line-string) "\n")
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -423,15 +437,6 @@ then replace VALUE with the value which follows it in the property list."
 
 ;;;
 
-(defun comment-line-insert (&optional arg) (interactive "p")
-  (cond
-   ((eq arg 4)
-    (insert (format "/*%s*/\n" (make-string 9 9))))
-   (t 
-    (insert (format "/*%s*/\n" (make-string 70 ?*))))
-    )
-  )
-
 (defun map-lines (fun &optional lim)
   (setq lim (or lim (point-max)))
   (sx
@@ -471,11 +476,10 @@ then replace VALUE with the value which follows it in the property list."
 (define-key minibuffer-local-completion-map [select] 'minibuffer-complete-preferred)
 (define-key minibuffer-local-completion-map "\M- "  'preferred-completion)
 
-(define-key global-map (control-key-vector ?=) 'insert-comment-line)
+(define-key global-map (control-key-vector ?=) 'comment-line-insert)
 
 (define-key global-map "\C-x\C-h" 'file-history-show)
 (define-key global-map "\C-x\C-y" 'copy-sexp-as-kill)
-(define-key global-map "\C-xt" 'comment-line-insert)
 
 ; (define-key global-map [mode-line drag-mouse-1] 'mldrag-drag-mode-line)
 
