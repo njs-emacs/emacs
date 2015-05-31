@@ -357,7 +357,7 @@ Used to enter a file into edit tracking on creation but not at any other time.")
 	  )
      (cond
       ((sx (rsf "##nologvisit##" limit)) t)
-      ((file-exists-p ".nologvisit"))
+      ((locate-up-file-directory ".nologvisit"))
       )
      )
    )
