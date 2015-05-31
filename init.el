@@ -77,6 +77,7 @@
   (adjoin 'ns-make-frame-function after-make-frame-functions))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq eval-expression-print-length nil)
 (setq query-replace-highlight t)
 (set-face-background (make-face 'region) "pink")
 
