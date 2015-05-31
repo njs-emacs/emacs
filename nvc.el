@@ -38,6 +38,27 @@
 ;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun reverted-buffer-md5 ()
+  (cond
+   ((file-exists-p (buffer-file-name))
+    (let* ((name (buffer-file-name))
+	   (buf-b (get-buffer-create (concat (buffer-name) "***")))
+	   (str-b)
+	   )
+    (save-excursion
+      (set-buffer buf-b)
+      (erase-buffer)
+      (insert-file-contents name)
+      (prog1 (md5 buf-b)
+	(kill-buffer buf-b)
+	)
+      )
+    )
+    )
+   (t (md5 ""))
+   )
+  )
+
 (defun file-reverted-contents ()
   (cond
    ((file-exists-p (buffer-file-name))
@@ -242,7 +263,7 @@
    ((let*
        ((tag (file-unique-meta-tag))
 	(log-string
-	 (format "%-12s S -------%s %s\t%s %s %s %s\n"
+	 (format "%-12s S -------%s %s\t%-40s    %s %s %s\n"
 		 (format-time-string "%y%m%d-%H%M%S" time)
 		 (if tag "T" "-")
 		 (downcase (system-name))
@@ -260,10 +281,8 @@
 (defun nvc-file-write-force () (interactive)
   (let* ((file (buffer-file-name))
 	 (time (current-time))
-	 (new (buffer-string))
-	 (old (file-reverted-contents))
-	 (md5-new (md5 new))
-	 (md5-old (md5 (or old "")))
+	 (md5-new (md5 (current-buffer)))
+	 (md5-old (reverted-buffer-md5))
 	 )
     (and
      file
@@ -298,10 +317,8 @@ Used to enter a file into edit tracking on creation but not at any other time.")
        )
       )
      (let* ((time (current-time))
-	    (new (buffer-string))
-	    (old (file-reverted-contents))
-	    (md5-new (md5 new))
-	    (md5-old (md5 (or old "")))
+	    (md5-new (md5 (current-buffer)))
+	    (md5-old (reverted-buffer-md5))
 	    (changed (not (string= md5-new md5-old)))
 	    (exists (file-exists-p file))
 	    )
