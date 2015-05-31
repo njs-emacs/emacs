@@ -22,25 +22,34 @@
 (defun bup-parse-line ()
   (sx
    (bol)
-   (let* ((y (buffer-nibble 2))
+   (let* (
+	  (time-string (bs (point) (+ (point) 13)))
+	  (y (buffer-nibble 2))
 	  (m (buffer-nibble 2))
 	  (d (buffer-nibble 2))
 	  (time (buffer-nibble 6 1 12))
 	  (host (find-match-string-nosave "\\(\\S *\\)\\s *" 1))
 	  (file-start (match-end 0))
-	  file date dir dd info shadow
 	  (end (sxp (eol)))
 	  (sum (sx (rsf "\\s *[0-9a-f]\\{32\\} [0-9a-f]\\{32\\}\\s *$" end nil 0 t)))
+	  file date dir dd info shadow bup-file file-name-no-path file-basename file-suffix 
 	  )
      (and sum (setq end sum))
      (setq file (bs file-start end))
      (setq info (nvc-name-info file))
      (setq dd (string-sub file ":" ""))
      (setq dd (string-sub dd "/[^/]*$" ""))
+
      (setq dir (format "%s/emacs/%s/%s%s/%s%s%s/%s/%s" backup-root y y m y m d host (nth 1 info)))
+
+     (setq file-name-no-path (nth 2 info))
+     (setq file-basename (basename file-name-no-path))
+     (setq file-suffix (file-name-suffix file-name-no-path))
+
      (setq shadow (filename-clean
 		   (filename-format "%s/%s/%s/%s" nvc-shadow-root host (nth 1 info) (nth 2 info))))
-     (list y m d time host file dir shadow)
+     (setq bup-file (format "%s/%s@%s%s" dir file-basename time-string file-suffix))
+     (list y m d time host file dir shadow bup-file)
      )
    )
   )
@@ -58,11 +67,20 @@
 	    (or (file-name-suffix name) ""))
     ))
 
+(defun bup-visit-bup () (interactive)
+  (let* ((bp (bup-parse-line))
+	 (bup-file (nth 8 bp))
+	 )
+    (find-file-other-window bup-file)
+    )
+  )
+
 ;; this doesn't work unless the file was edited on the same host
 
 (defun bup-diff () (interactive)
   (let* ((bp (bup-parse-line))
 	 (file (nth 5 bp))
+	 (bup-file (nth 8 bp))
 	 (n (bup-file-name file
 	      (nth 5 (file-attributes file))))
 	 (x (bup-file-name file
@@ -70,7 +88,7 @@
 	 )
     (printf "%s\n%s\n" n x)
 ;    (debug)
-    (ediff-files n x)
+    (ediff-files file bup-file)
     )
   )
 
@@ -120,6 +138,7 @@
 (define-key bup-mode-map "f" 'bup-find-file)
 (define-key bup-mode-map "o" 'bup-find-file-other-window)
 (define-key bup-mode-map "d" 'bup-visit-directory)
+(define-key bup-mode-map "b" 'bup-visit-bup)
 (define-key bup-mode-map "a" 'bup-diff)
 
 
@@ -175,4 +194,3 @@
   (let ((name (buffer-substring-no-properties (sxp (bol) (fx 1) (fc 1)) (sxp (eol)))))
     )
   )
-
