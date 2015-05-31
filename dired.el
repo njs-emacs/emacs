@@ -186,3 +186,13 @@ otherwise, display it in another buffer."
   (find-file ".links")
   )
 (define-key dired-mode-map "YY" 'dired-load-links)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(setq ls-lisp-format-time-list '("%b %e %H:%M" "%b %e  %Y")) 
+(setq ls-lisp-format-time-list '("%Y-%m-%d %H:%M" "%Y-%m-%d      ")) 
+;(setq ls-lisp-format-time-list '("   %m-%d %H:%M" "%y-%m-%d      ")) 
+;(setq ls-lisp-format-time-list '("%Y-%m-%d %H:%M:%S" "%Y-%m-%d %H:%M:%S")) 
+;(setq ls-lisp-format-time-list '("%Y"))
+(setq ls-lisp-use-localized-time-format t)
+;(setq ls-lisp-use-localized-time-format nil)
