@@ -176,6 +176,8 @@ to a function that generates a unique name."
    )
   )
 
+(fset 'grep-hack 'compile)
+
 (defun ngrep (pat &optional spec flags) (interactive "sPattern: ")
   (setq spec (or spec (grep-spec)))
   (cond ((listp spec) (setq spec (cat spec " "))))
@@ -187,7 +189,7 @@ to a function that generates a unique name."
     (setq grep-history (cons cmd grep-history))
     (cond 
      (compilation-wait (wcompile cmd))
-     ((grep cmd))
+     ((grep-hack cmd))
      )
     (save-excursion (set-buffer compilation-last-buffer)
 ;					(setq truncate-lines t)

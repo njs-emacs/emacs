@@ -12,7 +12,7 @@
 	    (or fpat "")
 	    (or path "")
 	    (or max "")
-	    ) 'grep-mode))
+	    )))
 
 (defun fu (pat &rest args)
   "Invoke findgrep(findunless) PAT FPAT PATH FARG MAX.
