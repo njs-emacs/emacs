@@ -16,13 +16,14 @@
 (defun ns-all-mode-hook ()
   (define-key all-mode-map "\C-c\C-l" 'all-mode-recenter)
   (define-key all-mode-map [f1] 'all-mode-recenter)
+  (define-key all-mode-map "\C-n" 'goto-next-face-match)
+  (define-key all-mode-map "\C-p" 'goto-next-face-match-not)
   (remove-hook 'all-load-hook 'ns-all-mode-hook)
   )
 
 (add-hook 'all-load-hook 'ns-all-mode-hook)
 
-(defun property-find-next-face (face)
-  (sx
+(defun property-find-next-face-not** (face)
    (catch 'done
      (while (not (eobp))
        (let* ((plist (text-properties-at (point)))
@@ -31,10 +32,50 @@
 		   (point-max)))
 	      (f (plist-get plist 'face))
 	      )
-	 (cond ((eq f face) (throw 'done (point))))
+	 (or (eq f face) (throw 'done (point)))
 	 (goto-char next-change)))
      )
    )
+
+(defun property-find-next-face** (face)
+  (catch 'done
+    (while (not (eobp))
+      (let* ((plist (text-properties-at (point)))
+	     (next-change
+	      (or (next-property-change (point) (current-buffer))
+		  (point-max)))
+	     (f (plist-get plist 'face))
+	     )
+	(cond ((eq f face) (throw 'done (point))))
+	(goto-char next-change)))
+    )
+  )
+
+(defun property-find-next-face-not* (face)
+  (property-find-next-face** face)
+  (property-find-next-face-not** face)
+  )
+
+(defun property-find-next-face* (face)
+  (property-find-next-face-not** face)
+  (property-find-next-face** face)
+  )
+
+(defun property-find-prev-face* (face)
+  (property-find-prev-face-not** face)
+  (property-find-prev-face** face)
+  )
+
+(defun property-find-next-face (face)
+  (sx (property-find-next-face* face))
+  )
+
+(defun property-find-next-face-not (face)
+  (sx (property-find-next-face-not* face))
+  )
+
+(defun property-find-prev-face (face)
+  (sx (property-find-prev-face* face))
   )
 
 (defun goto-face (face fun)
@@ -49,4 +90,9 @@
   (goto-face face 'property-find-next-face)
   )
 
+(defun goto-next-face-not (face)
+  (goto-face face 'property-find-next-face-not)
+  )
+
 (defun goto-next-face-match () (interactive) (goto-next-face 'match))
+(defun goto-next-face-match-not () (interactive) (goto-next-face-not 'match))
