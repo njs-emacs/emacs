@@ -87,3 +87,18 @@ If optional AFTER is non-nil then ITEM will be tail of first part."
     )
   )
 	 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun path-set-save (path)
+  (let* ((s (unconcat path ";"))
+	 )
+    (setq s (mapcar '(lambda (x) (format "\"%s\"" (slash-back-double x))) s))
+    (format "\
+(defun path-restore ()
+  (path-set
+   `(
+     %s
+     )))" (cat s "\n     "))
+    )
+  )
+
+; (show (path-set-save (getenv "PATH")))
