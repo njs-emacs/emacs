@@ -119,3 +119,7 @@
 
 (defmacro defun-key (k &rest body)
   (list 'define-key 'global-map k (cons 'ilambda body)))
+
+(defun copy-line-as-kill ()
+  (copy-region-as-kill (point^) (point$))
+  )
