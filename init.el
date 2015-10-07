@@ -126,3 +126,4 @@
 (define-key global-map (kbd "s-/") s-slash-map)
 
 (setq create-lockfiles nil)
+(setq list-command-history-max 4096)
