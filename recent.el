@@ -553,7 +553,15 @@ then replace VALUE with the value which follows it in the property list."
   (kill-new (format "emacs:%s??%s" (buffer-file-name) (line-number-at-pos)))
   )
 
+(defun copy-org-link () (interactive)
+  (fset 'zz `(lambda () (interactive)
+	       (insert ,(format "[[file:%s::%d][]]" (buffer-file-name) (line-number-at-pos)))
+	       (fc -2)))
+  )
+
 (define-key global-map (control-key-vector ?z ?c) 'copy-emacs-url)
+(define-key global-map (kbd "C-z C-o") 'copy-org-link)
+(define-key global-map (kbd "C-z C-z") 'zz)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun toggle-region-visible (start end)
