@@ -1,3 +1,7 @@
+(defun slash-back (s) (string-sub s "/" "\\"))
+(defun slash-front (s) (string-sub s "\\\\" "/"))
+(defun slash-back-double (s) (replace-regexp-in-string "\\\\" "\\&\\&" s))
+
 (defun path-set (list)
   (setenv "PATH" (mconcat list ";"))
   (setq exec-path (mapcar 'slash-front list))

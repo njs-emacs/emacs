@@ -19,9 +19,6 @@
 (add-hook 'kill-emacs-hook 'command-history-save)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun slash-back (s) (string-sub s "/" "\\"))
-(defun slash-front (s) (string-sub s "\\\\" "/"))
-
 (defun toggle-slashification-region (arg) (interactive "p")
   (cond
    ((eq arg 2) (replace-regexp "/" "\\\\" nil (region-beginning) (region-end)))
