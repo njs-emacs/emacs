@@ -229,6 +229,10 @@
   (file-history-file-apply 'qb-define-read-key)
   (file-history-redisplay)
   )
+
+(defun file-history-copy () (interactive)
+  (copy-region-as-kill (sxp (bol) (rsf "\t")) (sxp (eol)))
+  )
   
 
 ;;
@@ -251,6 +255,7 @@
   (file-history-electric-key-define "w" 'file-history-find-file-other-frame)
   (file-history-electric-key-define "x" 'file-history-delete-entry)
   (file-history-electric-key-define "d" 'file-history-dired)
+  (file-history-electric-key-define "k" 'file-history-copy)
   (file-history-electric-key-define "q" 'file-history-qb-define)
   (file-history-electric-key-define [mouse-2] 'file-history-mouse-find-file)
   (dotimes (i 9)
