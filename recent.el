@@ -383,8 +383,8 @@ then replace VALUE with the value which follows it in the property list."
 
 (defin 'sxk)
 
-(defun copy-sexp-as-kill (arg) (interactive "P")
-  (copy-region-as-kill (point) (sxp (fx arg)))
+(defun copy-sexp-as-kill (&optional arg) (interactive "P")
+  (copy-region-as-kill (point) (sxp (fx (or arg 1))))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
