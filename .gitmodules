@@ -1,0 +1,3 @@
+[submodule "hydra.git"]
+	path = hydra.git
+	url = git@github.com:flamingant/hydra.git
