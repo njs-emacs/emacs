@@ -762,3 +762,6 @@ then replace VALUE with the value which follows it in the property list."
  )
 (define-key global-map [C-f9] 'alt-buffer-eval)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(recentf-mode 1)
+(setq recentf-max-saved-items nil)

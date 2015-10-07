@@ -162,6 +162,23 @@
   (bob)
   )
 
+(defun fs--sort-by-recentf (f1 f2)
+  "Function for sorting files by recentf order."
+  (let ((1-index (-elem-index f1 recentf-list))
+        (2-index (-elem-index f2 recentf-list)))
+    (when (and 1-index 2-index (< 1-index 2-index)) t)))
+
+(defun file-history-sort-time () (interactive)
+  (setq file-history-sort-key 'time)
+  (setq file-history-list
+    (sort file-history-list
+	  '(lambda (x y)
+	     (fs--sort-by-recentf x y))
+	  ))
+  (file-history-display)
+  (bob)
+  )
+
 (defun file-history-electric-key () (interactive)
   (let* ((keys (this-command-keys)))
     (cond

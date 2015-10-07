@@ -10,6 +10,7 @@
   (define-key my-reg-keymap (kbd "C-.") 'ace-jump-buffer)
   (define-key my-reg-keymap (kbd "C-=") 'ace-window)
 
+  (define-key my-reg-keymap (kbd "C-b") 'recentf-open-files)
   
   )
 
