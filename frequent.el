@@ -173,5 +173,6 @@
 
 (define-key b-map "\C-u\C-u" 'qb-define-current)
 (define-key b-map "\C-u\C-s" 'qb-map-show)
+(define-key b-map "\C-e\C-r" 'recentf-open-files)
 
 ;(qb-delete (control-key-vector ?g ?g))
