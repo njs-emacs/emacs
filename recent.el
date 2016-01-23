@@ -774,3 +774,39 @@ then replace VALUE with the value which follows it in the property list."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (recentf-mode 1)
 (setq recentf-max-saved-items nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define-key global-map [M-f1] 'help)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun buffer-match-name (pat buf)
+  (string-match pat (buffer-name buf)))
+
+(defun buffer-match-filename (pat buf)
+  (let ((name (buffer-file-name buf))) (and name (string-match pat name))))
+
+(defun buffer-list-filter (fun)
+  (delq nil
+	(mapcar (lambda (buf)
+		  (cond ((funcall fun buf) buf)))
+		(buffer-list))))
+
+(defun buffer-filter-by-name (bufregexp &optional not-file-name)
+  (delq nil
+	(mapcar (lambda (buf)
+		  (when (if not-file-name
+			    (string-match bufregexp
+					  (buffer-name buf))
+			  (and (buffer-file-name buf)
+			       (string-match bufregexp
+					     (buffer-file-name buf))))
+		    buf))
+		(buffer-list))))
+
+;;(buffer-list-filter '(lambda (buf) (buffer-match-filename "\\.c" buf)))
+
+(defun buffer-list-c-files () (buffer-filter-by-name "\\.c"))
+
+;; (buffer-list-c-files)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
