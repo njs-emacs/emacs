@@ -118,6 +118,13 @@
 (define-key z-map "\C-b\C-d" 'nvc-ls-bdiff)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-unset-key "\M-z")	; remove zap-to-char
+(global-unset-key "\C-\\")	; remove toggle-input-method
+
+(global-set-key (kbd "C-c C-g") 'magit-status)
+(define-key global-map (kbd "C-;") 'er/expand-region)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C-# map is a scratch map. Expect any key in C-# can be overridden
 
 (load "c-hash-map" t t)
