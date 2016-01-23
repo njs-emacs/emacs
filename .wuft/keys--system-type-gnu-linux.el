@@ -1,7 +1,10 @@
 ;;; these keys are x-windows keys
 ;;; not sure how a provide for telnet terminal 
 
+(define-key global-map "\M-q" 'undo)
 (define-key global-map "\M-`" 'undo)
+(define-key global-map [M-dead-grave] 'undo)
+(define-key global-map [C-dead-grave] 'undo)
 
 (global-set-key [insert] 'other-window)
 (global-set-key [M-delete] 'kill-current-buffer)
