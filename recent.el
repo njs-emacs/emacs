@@ -550,10 +550,24 @@ then replace VALUE with the value which follows it in the property list."
   (kill-new (format "emacs:%s??%s" (buffer-file-name) (line-number-at-pos)))
   )
 
-(defun copy-org-link () (interactive)
-  (fset 'zz `(lambda () (interactive)
-	       (insert ,(format "[[file:%s::%d][]]" (buffer-file-name) (line-number-at-pos)))
-	       (fc -2)))
+(defun copy-org-link (&optional arg)
+  (interactive "P")
+  (let* ((link
+	  (cond
+	   (arg (format "file:%s::%d" (buffer-file-name) (line-number-at-pos)))
+	   ((format "file:%s" (buffer-file-name)))
+	    )
+	  )
+	 (cap (file-name-nondirectory (buffer-file-name)))
+	 )
+    (kill-new (format "[[%s][%s]]" link cap))
+    (message "copied '%s' to kill" link)
+    (fset 'zz `(lambda () (interactive)
+		 (insert ,(format "[[%s][" link))
+		 (sx (insert ,cap "]"))
+		 )
+	  )
+    )
   )
 
 (define-key global-map (control-key-vector ?z ?c) 'copy-emacs-url)
