@@ -116,3 +116,8 @@
 ; "\C-z\C-b" prefix pertains to backup related functions
 
 (define-key z-map "\C-b\C-d" 'nvc-ls-bdiff)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; C-# map is a scratch map. Expect any key in C-# can be overridden
+
+(load "c-hash-map" t t)
