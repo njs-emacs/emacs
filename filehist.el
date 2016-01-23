@@ -311,6 +311,10 @@
 (set-face-foreground 'filehist-5-face "white")
 (set-face-background 'filehist-5-face "blue")
 
+(setq filehist-6-face (make-face 'filehist-6-face))
+(set-face-foreground 'filehist-6-face "red")
+(set-face-background 'filehist-6-face "white")
+
 (setq filehist-face-alist
   `(
     (0 . default)
@@ -319,6 +323,7 @@
     (3 . filehist-3-face)
     (4 . filehist-4-face)
     (5 . filehist-5-face)
+    (6 . filehist-6-face)
     )
   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
