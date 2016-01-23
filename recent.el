@@ -648,6 +648,15 @@ then replace VALUE with the value which follows it in the property list."
     )
   )
 
+(defun frame-width-glitch (&optional arg)
+  (interactive "p")
+  (let ((width (cdr (assoc 'width (frame-parameters)))))
+    (set-frame-width (selected-frame) (1+ width))
+    (set-frame-width (selected-frame) width)
+    )
+  )
+
+(define-key z-map "\C-g" 'frame-width-glitch)
 (define-key z-map "\C-h" 'frame-default-height)
 (define-key z-map "\C-w" 'frame-default-width)
 
