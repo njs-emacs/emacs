@@ -7,7 +7,7 @@
 (make-variable-buffer-local 'python-script-options)
 
 ;(setq python-exec "d:/I/inkscape-48.0.1/python/python")
-(setq python-exec "python2.7")
+(setq python-exec "d:/p/python27/python.exe")
 
 (defun python-command (file)
   (let ((opts (mconcat python-options " ")))
