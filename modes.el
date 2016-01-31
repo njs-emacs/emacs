@@ -1,19 +1,43 @@
 ;; put here because it is common to a number of modes
 ;; must deprecate old style directives in time
 
+;; #+__END__+#
+
 (defun emacs-read-hash-plus ()
   (sx 
    (bob)
    (let ((limit (rsf "#+__END__+#")))
      (while
 	 (or (rsf "^#\\+\\(.*\\)" limit)		; old style
-	     (rsf "#\\+\\(.*?\\)\\+#" limit)		; new
+	     (rsf "^[/# ]*#\\+\\(.*?\\)\\+#" limit)		; new
 	     )
        (eval (read (ms 1))))
      )
    )
   )
 
+(defun emacs-read-hash-minus ()
+  (sx 
+   (bob)
+   (let ((limit (rsf "#+__END__+#")))
+     (while
+	 (rsf "^[/# ]*#-\\(.*?\\)-#" limit)		; only support new
+       (eval (read (ms 1))))
+     )
+   )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar local-before-save-hooks)
+(make-variable-buffer-local 'local-before-save-hooks)
+
+(defun run-local-before-save-hooks ()
+  (run-hooks 'local-before-save-hooks)
+  )
+
+(add-hook 'before-save-hook 'run-local-before-save-hooks)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun force-mode (&optional s)
   "Force a mode appropriate to a file with the named SUFFIX.
 SUFFIX defaults to the suffix of the currently edited file.
