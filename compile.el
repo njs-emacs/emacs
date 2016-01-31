@@ -41,9 +41,9 @@
   (define-key map "" 'compilation-restart-errors)
   )
 
-(defun wcompile (cmd &optional name)
+(defun wcompile (cmd &optional name mode)
   (let ((buffer (get-buffer-create (or name "*compilation*"))))
-    (compile cmd)
+    (compile cmd mode)
     (while (get-buffer-process compilation-last-buffer)
       (message "waiting")
       (sit-for 1)
@@ -185,11 +185,13 @@ to a function that generates a unique name."
 		     (or flags grep-flags)
 		     pat
 		     spec
-		     )))
+		     ))
+	(mode 'grep-mode)
+	)
     (setq grep-history (cons cmd grep-history))
     (cond 
-     (compilation-wait (wcompile cmd))
-     ((grep-hack cmd))
+     (compilation-wait (wcompile cmd mode))
+     ((compile cmd mode))
      )
     (save-excursion (set-buffer compilation-last-buffer)
 ;					(setq truncate-lines t)
