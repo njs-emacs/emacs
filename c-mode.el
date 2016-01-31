@@ -55,9 +55,14 @@
     )
   )
 
-(defun ns-c-mode-hook ()
+(defvar ns-c-mode-hook-run-already nil "Workaround to stop hook being called twice")
+(make-local-variable 'ns-c-mode-hook-run-already)
+
+(defun ns-c-mode-hook-once ()
   (modify-syntax-entry ?_ "w")
   (define-key c-mode-map "\M-p" 'c-abbrev-expand)
+  (define-key c-mode-map ";" 'self-insert-command)
+  (define-key c-mode-map "," 'self-insert-command)
   (define-key c-mode-map ":" 'self-insert-command)
   (define-key c-mode-map "{" 'self-insert-command)
   (define-key c-mode-map "}" 'self-insert-command)
@@ -69,8 +74,21 @@
 
   (setq truncate-lines t)
   (setq grep-spec c-mode-grep-spec)
+  (add-hook 'before-save-hook 'emacs-read-hash-minus)
   (add-hook 'after-save-hook 'ns-gen-c nil t)
+
+  (emacs-read-hash-plus)
+  
 ;  (buffer-ring-add)
+  )
+
+(defun ns-c-mode-hook ()
+  (cond
+   (ns-c-mode-hook-run-already)
+   ((setq ns-c-mode-hook-run-already t)
+    (ns-c-mode-hook-once)
+    )
+   )
   )
 
 (add-hook 'c-mode-hook 'ns-c-mode-hook)
@@ -162,3 +180,7 @@
 (file-class-linked-file-add 'c-mode '((other . c-other-file)
 				      (header . c-other-file)
 				      ))
+
+(defun c-foo () (interactive)
+  (setq c-electric-flag nil)
+  )
