@@ -118,16 +118,25 @@
     (format "key %s mapped to %s" key form)
     ))
 
-(defun qb-select (arg) (interactive "P")
-  (let* ((keys (this-command-keys))
-	 (key (substring keys (cond (arg 2) (1))))
-	 (binding (lookup-key qb-map key))
+(defun qb-select* (key)
+  (let* ((binding (lookup-key qb-map key))
 	 (buffer (eval binding)))
     (cond
      (arg (switch-to-buffer-other-window (buffer buffer)))
      (t (switch-to-buffer (buffer buffer)))
      )
     ))
+
+(defun qb-select (arg) (interactive "P")
+  (let* ((keys (this-command-keys))
+	 (key (substring keys (cond (arg 2) (1))))
+	 )
+    (qb-select* key)
+    ))
+
+(defun qb-select-nostrip (arg) (interactive "P")
+  (qb-select* (this-command-keys))
+  )
 
 (defun qb-define-read-key (item)
   (let* ((map (current-local-map)))
@@ -176,3 +185,7 @@
 (define-key b-map "\C-e\C-r" 'recentf-open-files)
 
 ;(qb-delete (control-key-vector ?g ?g))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(describe-variable 'b-map)
