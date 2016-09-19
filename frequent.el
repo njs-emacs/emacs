@@ -179,6 +179,7 @@
   )
 
 (qb-define "\C-l\C-b" '(nvc-dirname))
+(qb-define "\C-l\C-s" '(nvc-shadow-file-name))
 
 (define-key b-map "\C-u\C-u" 'qb-define-current)
 (define-key b-map "\C-u\C-s" 'qb-map-show)
