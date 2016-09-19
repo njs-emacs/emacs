@@ -550,15 +550,25 @@ then replace VALUE with the value which follows it in the property list."
   (kill-new (format "emacs:%s??%s" (buffer-file-name) (line-number-at-pos)))
   )
 
+(defun region-text ()
+  (cond
+   ((use-region-p) (buffer-substring-no-properties (region-beginning) (region-end)))
+   ))
+
 (defun copy-org-link (&optional arg)
   (interactive "P")
-  (let* ((link
+  
+  (let* ((r (region-text))
+	 (cap (or (region-text)
+		  (format "%s:%d" (file-name-nondirectory (buffer-file-name)) (line-number-at-pos))))
+	 (link
 	  (cond
-	   (arg (format "file:%s::%d" (buffer-file-name) (line-number-at-pos)))
-	   ((format "file:%s" (buffer-file-name)))
+	   ((use-region-p)
+	    (format "file:%s::%s" (buffer-file-name) (or (region-text) (line-number-at-pos)))
 	    )
+	   (t (format "file:%s::%s" (buffer-file-name) (line-number-at-pos)))
+	   )
 	  )
-	 (cap (file-name-nondirectory (buffer-file-name)))
 	 )
     (kill-new (format "[[%s][%s]]" link cap))
     (message "copied '%s' to kill" link)
