@@ -1,8 +1,8 @@
 (define-abbrev-table 'c-abbrev
   '(("l" "lParam")
     ("w" "wParam")
-    ("cW" "(WPARAM) ")
-    ("cL" "(LPARAM) ")
+    ("cW" "(WPARAM)")
+    ("cL" "(LPARAM)")
     ("L" "LPARAM")
     ("W" "WPARAM")
     ("LR" "LRESULT")
@@ -56,6 +56,7 @@
   )
 
 (defvar ns-c-mode-hook-run-already nil "Workaround to stop hook being called twice")
+(set-default 'ns-c-mode-hook-run-already nil)
 (make-local-variable 'ns-c-mode-hook-run-already)
 
 (defun ns-c-mode-hook-once ()
