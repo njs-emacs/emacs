@@ -6,10 +6,10 @@
 (defun emacs-read-hash-plus ()
   (sx 
    (bob)
-   (let ((limit (rsf "#+__END__+#")))
+   (let ((limit (sx (rsf "#\\+__END__\\+#" 10000 nil nil t))))
      (while
-	 (or (rsf "^#\\+\\(.*\\)" limit)		; old style
-	     (rsf "^[/# ]*#\\+\\(.*?\\)\\+#" limit)		; new
+	 (or (rsf "^#\\+\\(.*\\)" limit)	; old style
+	     (rsf "#\\+\\(.*?\\)\\+#" limit)	; new
 	     )
        (eval (read (ms 1))))
      )
@@ -19,9 +19,9 @@
 (defun emacs-read-hash-minus ()
   (sx 
    (bob)
-   (let ((limit (rsf "#+__END__+#")))
+   (let ((limit (sx (rsf "#\\+__END__\\+#" 10000 nil nil t))))
      (while
-	 (rsf "^[/# ]*#-\\(.*?\\)-#" limit)		; only support new
+	 (rsf "#-\\(.*?\\)-#" limit)		; only support new
        (eval (read (ms 1))))
      )
    )
