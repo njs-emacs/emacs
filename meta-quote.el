@@ -15,6 +15,7 @@
 
 (defun mq-linked-file-name-match (name match &optional fun)
   (cond
+   ((not name) nil)
    ((eq match nil) name)
    ((eq match 'eval) (eval fun))
    ((eq match 'list) (or (member name fun) (member (file-name-nondirectory name) fun)))
@@ -41,7 +42,7 @@
   (bob)
   (catch 'done
     (while t
-      (let* ((form (read (current-buffer)))
+      (let* ((form (eval (read (current-buffer))))
 	     (match (car form))
 	     (fun (nth 1 form))
 	     (forms (nthcdr 2 form))
@@ -111,7 +112,23 @@
   (string= (file-name-suffix name) pat)
   )
 
+(defun file-name-partial (pat name)
+  (string= (file-name-suffix name) pat)
+  )
+
 (defun file-name-suffix-rename (name suffix)
   (concat (file-name-base name) suffix)
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mq-cycle (files)
+  (let* ((f (copy-list files))
+	 (r (reverse f))
+	 )
+    (nconc f f)
+    (nconc r r)
+    `(list ,files ()
+	   (next . (cadr (member (file-name-nondirectory name) ',f)))
+	   (prev . (cadr (member (file-name-nondirectory name) ',r)))
+	   ))
+  )
