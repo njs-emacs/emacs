@@ -20,6 +20,7 @@
 
 (require 'yas-x)
 
-(load-file (// "boo/e/.p/tc/.yas/yas.el"))
+;(load-file (// "boo/e/.p/tc/.yas/yas.el"))
+;(load-file (// "boo/e/.p/stub/.yas/yas.el"))
 
 (yas-global-mode)
