@@ -151,11 +151,19 @@
 ;;; the shadow file is never deleted or moved, but is overwritten
 ;;; every time
 
-(defun nvc-shadow-file (file)
-  (let* ((info (nvc-name-info file))
+(defun nvc-shadow-file-name (&optional file)
+  (let* ((file (or file (buffer-file-name)))
+	 (info (nvc-name-info file))
 	 (dir (filename-clean (filename-format "%s/%s/%s" nvc-shadow-root (car info) (cadr info))))
 	 (name (file-name-nondirectory file))
 	 (shadow-file (filename-format "%s/%s" dir name))
+	 )
+    shadow-file
+    ))
+
+(defun nvc-shadow-file (file)
+  (let* ((shadow-file (nvc-shadow-file-name file))
+	 (dir (file-name-directory shadow-file))
 	 )
     (make-directory dir t)
     (write-region (point-min) (point-max) shadow-file)
