@@ -585,6 +585,20 @@ then replace VALUE with the value which follows it in the property list."
 (define-key global-map (kbd "C-z C-z") 'zz)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun copy-gdb-break (&optional arg)
+  (interactive "P")
+  
+  (let* ((file (file-name-nondirectory (buffer-file-name)))
+	 (cap (or (region-text) (format "%d" (line-number-at-pos))))
+	 (break (format "break %s:%s" file cap))
+	 )
+    (kill-new break)
+    (message "copied '%s' to kill" break)
+    )
+  )
+(define-key global-map (kbd "C-z C-v") 'copy-gdb-break)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun toggle-region-visible (start end)
   (add-text-properties start end `(invisible ,(not (invisible-p start))))
   )
