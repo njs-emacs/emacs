@@ -16,6 +16,7 @@
 ;(find-file (// "boo/e/emacs/yas.el"))
 ;(find-file (// "boo/e/.p/tc"))
 ;(find-file (// "boo/e/.p/nl"))
+(find-file (// "boo/e/.p/stub/.emacs.el"))
 
 (top-level)
 
@@ -39,3 +40,4 @@
 (find-file (daily-path "1005/ovaltine/.emacs.el"))
 
 (find-file (daily-path "1212/pi/.emacs.el"))
+
