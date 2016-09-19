@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ts
+# key: ts
+# --
+typedef struct __struct_$1 $1 ;
