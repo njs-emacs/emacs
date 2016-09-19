@@ -24,7 +24,7 @@
     ))
 
 (defun bake-registered-path-list ()
-  (apply 'append (mapcar '(lambda (x) (alist-get x 'path)) bake-tool-list))
+  (apply 'append (mapcar '(lambda (x) (alist-r-get x 'path)) bake-tool-list))
   )
 
 (defun bake-path-clean (p)
@@ -50,7 +50,7 @@
 (setq bake-tool-tag nil)
 (setq bake-tool-info nil)
 
-(defun bake-get (tag) (alist-get bake-tool-info tag))
+(defun bake-get (tag) (alist-r-get bake-tool-info tag))
 (defun bake-put (tag value) (setq bake-tool-info (alist-put bake-tool-info tag value)))
 
 (defun bake-tool-register (tag info)
@@ -58,9 +58,9 @@
   )
 
 (defun bake-tool-unselect ()
-  (let* ((info (alist-get bake-tool-list bake-tool-tag))
-	 (env (alist-get info 'env))
-	 (fun (alist-get info 'unselect))
+  (let* ((info (alist-r-get bake-tool-list bake-tool-tag))
+	 (env (alist-r-get info 'env))
+	 (fun (alist-r-get info 'unselect))
 	 )
     (mapcar '(lambda (x) (setenv (car x) nil)) env)
     (and fun (funcall fun))
@@ -70,12 +70,12 @@
 (defun bake-tool-select (tag &rest args)
   (bake-tool-unselect)
   (setq bake-tool-tag tag)
-  (setq bake-tool-info (alist-get bake-tool-list bake-tool-tag))
+  (setq bake-tool-info (alist-r-get bake-tool-list bake-tool-tag))
   (let* ((info bake-tool-info)
-	 (fun (alist-get info 'select))
-	 (env (alist-get info 'env))
+	 (fun (alist-r-get info 'select))
+	 (env (alist-r-get info 'env))
 	 )
-    (bake-path-replace (alist-get info 'path))
+    (bake-path-replace (alist-r-get info 'path))
     (mapcar '(lambda (x) (setenv (car x) (eval (cdr x)))) env)
     (and fun (funcall fun args))
     )

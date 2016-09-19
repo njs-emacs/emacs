@@ -9,7 +9,7 @@
 
 (defvar rake-args nil)
 
-(defun rake-get (tag) (alist-get rake-args tag))
+(defun rake-get (tag) (alist-r-get rake-args tag))
 (defun rake-put (tag value) (setq rake-args (alist-put rake-args tag value)))
 
 (defun rake-find-directory ()

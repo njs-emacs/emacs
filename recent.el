@@ -667,7 +667,7 @@ then replace VALUE with the value which follows it in the property list."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun frame-default-height (&optional arg) (interactive "p")
-  (let ((v (alist-get default-frame-alist 'height)))
+  (let ((v (alist-r-get default-frame-alist 'height)))
     (cond
      ((eq arg 4) (setq v (/ v 2)))
      ((eq arg 16) (setq v (/ v 4)))
@@ -677,9 +677,9 @@ then replace VALUE with the value which follows it in the property list."
   )
 
 (defun frame-default-width (&optional arg) (interactive "p")
-  (let ((v (or (alist-get default-frame-alist 'width) 80)))
+  (let ((v (or (alist-r-get default-frame-alist 'width) 80)))
     (cond
-     ((eq arg 4) (setq v (* v 2)))
+     ((< arg 4) (setq v (* v arg)))
      ((eq arg 16) (setq v (/ v 2)))
      )
     (set-frame-width (selected-frame) v)

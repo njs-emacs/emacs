@@ -84,10 +84,10 @@ membership in NAMES and PATHS"
     list)
   )
 
-(defun alist-get (list tag)
+(defun alist-r-get (list tag)
   (cdr (assoc tag list)))
 
-(defun alist-get-if (list fun)
+(defun alist-r-get-if (list fun)
   (cdr (assoc-if fun list)))
 
 (defun alist-remprop (list tag)

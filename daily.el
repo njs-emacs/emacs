@@ -52,7 +52,7 @@
   )
 
 (defun daily-linked-file ()
-  (let ((offset (alist-get '((prev . -1) (next . 1)) tag)))
+  (let ((offset (alist-r-get '((prev . -1) (next . 1)) tag)))
     (cond
      (offset (path-replace-until-found 'daily-path-replace offset name 30))
      )
@@ -89,7 +89,7 @@
    ))
 
 (defun monthly-linked-file ()
-  (let ((offset (alist-get '((prev . -1) (next . 1)) tag)))
+  (let ((offset (alist-r-get '((prev . -1) (next . 1)) tag)))
     (cond
      (offset (path-replace-until-found 'monthly-path-replace offset name 12))
      )

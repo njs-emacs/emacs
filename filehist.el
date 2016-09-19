@@ -9,13 +9,13 @@
   )
 
 (defun file-history-get (file tag)
-  (let ((a (alist-get file-history-alist file)))
-    (alist-get a tag)
+  (let ((a (alist-r-get file-history-alist file)))
+    (alist-r-get a tag)
     )
   )
 
 (defun file-history-put (file tag attr)
-  (let ((a (alist-get file-history-alist file)))
+  (let ((a (alist-r-get file-history-alist file)))
     (setq a (alist-put a tag attr))
     (setq file-history-alist (alist-put file-history-alist file a))
     )
@@ -47,7 +47,7 @@
 	  (insert (format "%-8s " (qb-mapping name)))
 	  (cond (priority
 		 (put-text-property (- (point) 1) (- (point) 0) 'face
-				    (alist-get filehist-face-alist priority))))
+				    (alist-r-get filehist-face-alist priority))))
 	  (and name (file-history-paint-line name priority))
 	  (insert "\n")
 	  )

@@ -109,7 +109,7 @@
   )
 
 (defun linked-file-get (tag)
-  (alist-get file-linked-plist tag)
+  (alist-r-get file-linked-plist tag)
   )
 
 (defun linked-file (tag &optional name)

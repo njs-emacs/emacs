@@ -22,7 +22,7 @@
 (file-class-guess-name-add 'nvc nvc-root)
 
 (defun nvc-linked-file ()
-  (let* ((offset (alist-get '((prev . -1) (next . 1)) tag))
+  (let* ((offset (alist-r-get '((prev . -1) (next . 1)) tag))
 	 )
     (cond
      (offset (path-replace-until-found 'nvc-path-replace offset name 30))

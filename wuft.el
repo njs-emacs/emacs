@@ -14,7 +14,7 @@
     ))
 
 (defun wuft-get (tag)
-  (alist-get wuft-alist tag)
+  (alist-r-get wuft-alist tag)
   )
 
 (defun wuft-put (tag value)
