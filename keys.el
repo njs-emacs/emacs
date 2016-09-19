@@ -55,6 +55,8 @@
 (define-key global-map [f6]
   '(lambda () (interactive) (dired-other-window default-directory)))
 
+(global-set-key [f3] 'kmacro-start-macro-or-insert-counter)
+(global-set-key [f4] 'kmacro-end-or-call-macro)
 (global-set-key [f8] 'goto-shell)
 (global-set-key [f9] 'eval-buffer-modal)
 
@@ -77,6 +79,12 @@
 (setq m-map (make-sparse-keymap))
 (global-set-key "\M-m" m-map)
 
+(global-unset-key [f16])
+(global-unset-key [f17])
+(global-unset-key [f18])
+(global-unset-key [f19])
+(global-unset-key [f20])
+
 (load-overrides "keys")
 
 (define-key global-map "\C-v" 'scroll-up)
@@ -86,7 +94,8 @@
 (define-key global-map [C-tab] 'bury-buffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define-key global-map (control-key-vector ?`) 'find-file)
+(define-key global-map (control-key-vector ?`) 'backward-delete-char)
+(define-key global-map "¬" 'backward-char)
 
 (global-set-key [home] 'beginning-of-line)
 (global-set-key [end] 'end-of-line)
