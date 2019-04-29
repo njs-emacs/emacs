@@ -53,7 +53,7 @@
 (defun arg-expand (arg-names)
   (let* (args)
     (setq args
-      (delete nil (mapcar '(lambda (x)
+      (delete nil (mapcar #'(lambda (x)
 			     (let ((xx (eval x)))
 			       (cond (xx (format "-%s=%s" x xx))))) arg-names)))
     (mconcat args " ")
@@ -195,7 +195,7 @@
   (let* ((p (string-parse pat "\\([^%]*\\)%\\(.*\\)" 1 2))
 	 (pp (apply 'format "%s.*%s" p))
 	 (list (file-name-all-completions "" "."))
-	 (list (delete nil (mapcar '(lambda (x)
+	 (list (delete nil (mapcar #'(lambda (x)
 				      (cond ((string-match pp x) x))) list)))
 	 
 	 )
