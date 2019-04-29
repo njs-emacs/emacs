@@ -4,7 +4,7 @@
 (setq file-history-list nil)
 (setq file-history-alist nil)
 
-(defun file-history-recover-list (file tag)
+(defun file-history-recover-list ()
   (setq file-history-list (mapcar 'car file-history-alist))
   )
 
@@ -234,6 +234,10 @@
   (copy-region-as-kill (sxp (bol) (rsf "\t")) (sxp (eol)))
   )
   
+(defun file-history-qb-copy () (interactive)
+  (kill-new (qb-mapping-def (file-history-file-on-current-line)))
+  )
+  
 
 ;;
 ;; want to replace all self-insert-command keys with file-history-electric-key
@@ -257,6 +261,7 @@
   (file-history-electric-key-define "d" 'file-history-dired)
   (file-history-electric-key-define "k" 'file-history-copy)
   (file-history-electric-key-define "q" 'file-history-qb-define)
+  (file-history-electric-key-define "Q" 'file-history-qb-copy)
   (file-history-electric-key-define [mouse-2] 'file-history-mouse-find-file)
   (dotimes (i 9)
     (file-history-electric-key-define
