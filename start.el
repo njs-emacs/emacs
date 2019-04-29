@@ -3,7 +3,18 @@
 
 (frame-default-height)
 
-(find-file (// "boo/e/.p/.meta/.daily/140810-085057.nl"))
+(setq p-home (// "boo/e/.p"))
+(defun p-path (path) (filename-concat p-home path))
+
+(cons-load-path (p-path ".emacs"))
+
+(top-level)
+
+(init-local (p-path "aft"))
+(init-local (p-path "stub"))
+(init-local (p-path "apihook"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;(find-file "e:/aa")
 ;(find-file (daily-path ".emacs.el"))
@@ -16,7 +27,8 @@
 ;(find-file (// "boo/e/emacs/yas.el"))
 ;(find-file (// "boo/e/.p/tc"))
 ;(find-file (// "boo/e/.p/nl"))
-(find-file (// "boo/e/.p/stub/.emacs.el"))
+;(find-file (// "boo/e/.p/stub/.emacs.el"))
+;(find-file (// "boo/e/.p/android/.meta/.emacs.el"))
 
 (top-level)
 
@@ -40,4 +52,14 @@
 (find-file (daily-path "1005/ovaltine/.emacs.el"))
 
 (find-file (daily-path "1212/pi/.emacs.el"))
+
+(find-file "e:/perl/registry/a.pl")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(alist-put default-frame-alist 'background-color "MistyRose")
+(alist-put default-frame-alist 'background-color "#e0d0d0")
+
+(modify-frame-parameters (frame-focus) '((background-color . "MistyRose")))
+(modify-frame-parameters (frame-focus) '((background-color . "#e0d0d0")))
+(modify-frame-parameters (frame-focus) '((background-color . "#d0f0d0")))
 
