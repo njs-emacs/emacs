@@ -80,6 +80,8 @@
 
   (emacs-read-hash-plus)
   
+  (modify-syntax-entry ?_ "w" c++-mode-syntax-table)
+
 ;  (buffer-ring-add)
   )
 
@@ -94,6 +96,17 @@
 
 (add-hook 'c-mode-hook 'ns-c-mode-hook)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun ns-c++-mode-hook-once ()
+  (let ()
+    (modify-syntax-entry ?_ "w" c++-mode-syntax-table)
+    (remove-hook 'c++-mode-hook 'ns-c++-mode-hook-once)
+    )
+  )
+
+(add-hook 'c++-mode-hook 'ns-c++-mode-hook-once)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun c-fun-name () (interactive)
   (save-excursion
     (re-search-backward "^{")
