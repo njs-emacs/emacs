@@ -332,7 +332,7 @@ on completion. If optional HOOK is given, call this before closing the file."
     )
   )
 
-(defun find-kill-head () (interactive)
+(defun find-kill-head () (interactive) "Open file with name in the kill head"
   (find-file (car kill-ring))
   )
 
