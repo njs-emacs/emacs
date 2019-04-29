@@ -64,6 +64,8 @@
 
 (load "todo" t t)
 
+(load "n-mc.el")
+
 (load-overrides "init")
 
 ;(load "d:/.data/e/emacs/init.el" t t t t)
