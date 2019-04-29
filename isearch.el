@@ -6,6 +6,15 @@
   (isearch-yank-string (buffer-substring (point) (1+ (point))))
   )
 
+(defun grep-extern (s)
+  (grep (format "grep %s \"extern.*%s.*;\" *.h" grep-flags s))
+  )
+
+(defun isearch-extern () (interactive)
+  (isearch-done)
+  (grep (format "grep %s \"extern.*%s.*;\" *.h" grep-flags isearch-string))
+  )
+
 (defun isearch-ngrep () (interactive)
   (isearch-done)
   (ngrep isearch-string)
@@ -24,6 +33,7 @@
   (define-key isearch-mode-map "\C-c" 'isearch-yank-char)
   (define-key isearch-mode-map "\C-t" 'isearch-toggle-case-fold)
   (define-key isearch-mode-map "\M-g" 'isearch-ngrep)
+  (define-key isearch-mode-map "\M-x" 'isearch-extern)
   (define-key isearch-mode-map "\M-i" 'isearch-ngrep-i)
   (define-key isearch-mode-map "\C-q" 'isearch-mark-find)
 
