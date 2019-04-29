@@ -174,6 +174,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun qb-and-mini (k form &optional expand)
   (cond (expand (setq form (filename-canonical form))))
+  (cond ((and (stringp form) (not (string-match-string "/$" form)))
+	 (setq form (concat form "/"))))
   (minibuffer-dir (char-to-string k) form)
   (qb-define (control-key-vector ?/ k) form)
   )
