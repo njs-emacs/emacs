@@ -126,7 +126,9 @@
 (global-unset-key "\C-\\")	; remove toggle-input-method
 
 (global-set-key (kbd "C-c C-g") 'magit-status)
-(define-key global-map (kbd "C-;") 'er/expand-region)
+
+(define-key global-map (kbd "C-;") (make-sparse-keymap))
+(define-key global-map (kbd "C-; C-;") 'er/expand-region)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C-# map is a scratch map. Expect any key in C-# can be overridden
