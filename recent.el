@@ -652,7 +652,7 @@ then replace VALUE with the value which follows it in the property list."
 (setq w32-lwindow-modifier 'super)
 
 (setq w32-pass-rwindow-to-system nil)
-(setq w32-rwindow-modifier 'super)
+(setq w32-rwindow-modifier 'alt)
 
 (setq w32-apps-modifier 'hyper)
 
