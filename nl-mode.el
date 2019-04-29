@@ -45,6 +45,8 @@
     (bob)
     (while (rsf "^;#~e") (eval (readc)))
     )
+  (run-hooks 'nl-mode-hook)
+  (kill-local-variable 'xref-backend-functions)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
