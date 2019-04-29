@@ -4,7 +4,6 @@
   (progn (mapcar '(lambda (x) (autoload x file nil t)) syms) nil)
 )
 
-(autoload 'hide "hide.el" "" t)
 (autoload 'time-string "time-string.el" "" t)
 
 (autoload 'query "query")
