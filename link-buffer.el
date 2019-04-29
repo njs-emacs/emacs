@@ -13,6 +13,14 @@
 	(run-hooks 'link-file-visit-hook)
 	))))
 
+(qb-define (control-key-vector ?l ?u)
+	   '(linked-file 'up)
+	   )
+
+(qb-define (control-key-vector ?l ?d)
+	   '(linked-file 'down)
+	   )
+
 (qb-define (control-key-vector ?l ?f)
 	   '(linked-file 'first)
 	   )
@@ -36,6 +44,10 @@
 (qb-define (control-key-vector ?.)
 	   '(linked-file 'next)
 	   )
+
+(dolist (i '(q w e r t y))
+  (qb-define (control-key-vector ?l  (string-to-char (symbol-name i))) `(linked-file ',i)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun link-file-visit-prev (&optional arg) (interactive "P") (link-file-visit 'prev arg))
