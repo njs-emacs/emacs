@@ -48,7 +48,11 @@
     ))
 
 (defun qb-mapping (item) (or (qb-where-is-string item) ""))
- 
+
+(defun qb-mapping-def (item)
+  (format "(qb-define (kbd \"%s\") \"%s\")" (qb-where-is-string item) item)
+  )
+
 (defun map-dump (map fun &optional indent)
   (let ((is (make-string (* 2 (or indent 0)) ? )))
     (mapcar
