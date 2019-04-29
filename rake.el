@@ -86,3 +86,9 @@
 (global-set-key [M-f10] 'rake-target)
 (global-set-key [C-f10] 'rake-clean)
 
+(defun rake-cygwin-choose (d32 d64)
+  (cond
+   ((equal (cygwin-version) "32") d32)
+   ((equal (cygwin-version) "64") d64)
+   )
+  )
