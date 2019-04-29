@@ -27,7 +27,11 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq log-time-string-format "%y%m%d-%H%M%S")
+(make-variable-buffer-local 'log-time-identifier-string-format)
+(set-default 'log-time-identifier-string-format "%m%d_%H%M%S")
+
+(make-variable-buffer-local 'log-time-string-format)
+(set-default 'log-time-string-format "%y%m%d-%H%M%S")
 
 (defun log-full-time-insert (&optional kill) (interactive "P")
   (setq log-time-string (format-time-string log-time-string-format))
