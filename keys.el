@@ -62,11 +62,6 @@
 
 (global-set-key [f11] 'goto-line)
 
-(global-unset-key "\M-\C-e")
-(global-set-key "\M-\C-e\C-b" 'ediff-buffers)
-(global-set-key "\M-\C-e\C-f" 'ediff-files)
-(global-set-key "\M-\C-e\C-d" 'ediff-directories)
-
 (define-key global-map "\ef" f-map)
 
 (setq z-map (make-sparse-keymap))
