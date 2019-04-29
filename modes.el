@@ -90,6 +90,7 @@ force-mode is callable interactively with \\[force-mode]"
 (autoload 'pc-mode "pc-mode")
 
 (add-mode "\\.pro$" 'emacs-lisp-mode)
+(add-mode "\\.eel$" 'emacs-lisp-mode)
 
 (autoload 'nl-mode "nl-mode" "" (interactive))
 (add-mode "\\.nl$" 'nl-mode)
