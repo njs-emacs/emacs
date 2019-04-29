@@ -151,6 +151,10 @@
 (define-key bup-mode-map "a" 'bup-diff)
 (define-key bup-mode-map "q" 'bup-qb-define)
 
+(define-key bup-mode-map "z" 'bup-pipe-z)
+
+(defun bup-pipe-z () (interactive)
+  (shell-command-on-region (region-beginning) (region-end) "perl z.pl"))
 
 (defun bup-mode () (interactive)
   (use-local-map bup-mode-map)
