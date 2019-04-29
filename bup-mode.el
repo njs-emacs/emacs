@@ -136,6 +136,11 @@
     )
   )
 
+(defun bup-qb-define ()
+  (interactive)
+  (qb-define-read-key (bup-get-file-name))
+  )
+
 (setq bup-mode-map (make-sparse-keymap))
 
 (define-key bup-mode-map " " 'next-line)
@@ -144,6 +149,7 @@
 (define-key bup-mode-map "d" 'bup-visit-directory)
 (define-key bup-mode-map "b" 'bup-visit-bup)
 (define-key bup-mode-map "a" 'bup-diff)
+(define-key bup-mode-map "q" 'bup-qb-define)
 
 
 (defun bup-mode () (interactive)
