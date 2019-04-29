@@ -15,6 +15,21 @@
     (if (string-match-string pat (buffer-name buf)) (kill-buffer buf))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun loading ()
+  (catch 'done
+    (let ((i 6) frame)
+      (while (setq frame (backtrace-frame i))
+	(cond
+	 ((eq (cadr frame) 'load-with-code-conversion) (throw 'done t))
+	 )
+	(setq i (1+ i))
+	)
+      (throw 'done nil)
+      )
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun command-history-save (&optional name) (interactive)
   (setq name
     (or name
