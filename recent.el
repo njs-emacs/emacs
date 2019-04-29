@@ -692,6 +692,10 @@ then replace VALUE with the value which follows it in the property list."
     )
   )
 
+(defun frame-width-ediff (&optional arg) (interactive "p")
+  (frame-default-width 3)
+  )
+
 (defun frame-width-glitch (&optional arg)
   (interactive "p")
   (let ((width (cdr (assoc 'width (frame-parameters)))))
@@ -705,6 +709,7 @@ then replace VALUE with the value which follows it in the property list."
 (define-key z-map "\C-g" 'frame-width-glitch)
 (define-key z-map "h" 'frame-default-height) ; don't use C-h
 (define-key z-map "\C-w" 'frame-default-width)
+(define-key z-map "\C-e" 'frame-width-ediff)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(defun rs () (interactive) (insert (prin (read-key-sequence "???"))))
