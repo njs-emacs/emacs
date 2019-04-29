@@ -72,8 +72,14 @@
   (rake* target build-dir command)
   )
 
-(defun rake-clean (&optional build-dir command) (interactive)
-  (rake* "clean" build-dir command)
+(defun rake-clean (&optional build-dir command)
+  (interactive)
+  (cond
+   ((y-or-n-p "Really make clean? ")
+    (rake* "clean" build-dir command)
+    )
+   ((message "Good choice!"))
+   )
   )
 
 (global-set-key [f10] 'rake)
