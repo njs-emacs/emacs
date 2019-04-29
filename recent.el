@@ -1,3 +1,8 @@
+(defun shell-line ()
+  (interactive)
+  (let ((cmd (bs (sxp (bol) (rsf "\\s-*")) (point$)))) (shell-command cmd))
+  )
+
 (defun command-history-save (&optional name) (interactive)
   (setq name
     (or name
