@@ -133,7 +133,8 @@
 
 (defun qb-select (arg) (interactive "P")
   (let* ((keys (this-command-keys))
-	 (key (substring keys (cond (arg 2) (1))))
+;	 (key (substring keys (cond (arg 2) (1))))	; emacs-24
+	 (key (substring keys 1))			; emacs-25
 	 )
     (qb-select* key)
     ))
