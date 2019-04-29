@@ -1,9 +1,16 @@
 ;(setq yas-load-path (concat user-emacs-home "/packages/yasnippet-0.6.1c"))
-(setq yas-load-path (// "boo/e/.p/yasnippet"))
 
-(let ((load-path (cons yas-load-path load-path)))
+(cond
+ ((string= (substring emacs-version 0 2) "24")
+  (setq yas-load-path (// "boo/e/.p/yasnippet"))
+  (let ((load-path (cons yas-load-path load-path)))
+    (require 'yasnippet)
+    )
+  )
+ ((string= (substring emacs-version 0 2) "25")
   (require 'yasnippet)
   )
+ )
 
 (setq yas-my-dir (concat user-emacs-home "/yas"))
 (setq yas-snippet-dirs yas-my-dir)
