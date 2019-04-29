@@ -1,3 +1,13 @@
+;; every form in the file evaluates to a form
+;; (list LIST FUN FORMS ...     ;; !! FUN not currently present
+;; (eval EXPR FORMS ...
+;; (NAME FUN FORMS ...
+;; the FORMS are the mapping of keys to target files
+;;   (key . EXPR) expr is evalled to return the target file
+;;   when key is used
+;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (setq mq-map (make-sparse-keymap))
 (define-key global-map (kbd "M-'") mq-map)
 
@@ -37,27 +47,47 @@
 
 (defvar mq-file-name ".mq.el" "The name of the file containing the meta-quote forms")
 
+(defun mq-buffer () (find-file-noselect (locate-up-file mq-file-name)))
+
 (defun mq-visit-linked-file-name (name tag)
-  (set-buffer (buffer mq-file-name))
-  (bob)
-  (catch 'done
-    (while t
-      (let* ((form (eval (read (current-buffer))))
-	     (match (car form))
-	     (fun (nth 1 form))
-	     (forms (nthcdr 2 form))
-	     a
+  (let ((buffer (mq-buffer)))
+    (sx 
+     (set-buffer buffer)
+     (bob)
+     (catch 'done
+       (while t
+	 (let* ((form (eval (read buffer)))
+		(match (car form))
+		(fun (nth 1 form))
+		(forms (nthcdr 2 form))
+		a
+		)
+	   (cond
+	    ((null form) (throw 'done nil))
+	    ((mq-linked-file-name-match name match fun)
+	     (setq a (assq tag forms))
+	     (and a (throw 'done (eval (cdr a))))
 	     )
-	(cond
-	 ((null form) (throw 'done nil))
-	 ((mq-linked-file-name-match name match fun)
-	  (setq a (assq tag forms))
-	  (and a (throw 'done (eval (cdr a))))
-	  )
+	    )
+	   )
 	 )
-	)
-      )
+       )
+     )
     )
+  )
+
+(defun mq-visit-linked-file-name-poop (name tag)
+  (cond
+   ((eq tag 'buried) mq-prev-buffer)
+   )
+  )
+
+(defun mq-buffer-switch (buffer &optional arg)
+  (setq mq-prev-buffer (current-buffer))
+  (cond
+   (arg (switch-to-buffer-other-window (buffer buffer)))
+   (t (switch-to-buffer (buffer buffer)))
+   )
   )
 
 (defun mq-visit-linked-file (arg)
@@ -65,12 +95,14 @@
   (let* ((keys (this-command-keys))
 	 (key (substring keys (cond (arg 2) (1))))
 	 (tag (lookup-key mq-bmap key))
-	 (buffer (sx (mq-visit-linked-file-name (buffer-file-name) tag)))
+	 (buffer
+	  (or
+	   (mq-visit-linked-file-name (buffer-file-name) tag)
+	   (mq-visit-linked-file-name-poop (buffer-file-name) tag)
+	   )
+	  )
 	 )
-    (cond
-     (arg (switch-to-buffer-other-window (buffer buffer)))
-     (t (switch-to-buffer (buffer buffer)))
-     )
+    (mq-buffer-switch buffer arg)
     )
   )
 
@@ -86,12 +118,20 @@
     (mq-linked-file
      (format "M-%s" c) (intern c))
     ))
-		
+
+(mq-linked-file "<M-backspace>" 'buried)
+
+(global-set-key (kbd "<A-backspace>")
+		'(lambda () (interactive) (mq-buffer-switch mq-prev-buffer)))
+
 (mq-linked-file "M-'" 'other)
 (mq-linked-file "M-[" 'up)
 (mq-linked-file "M-/" 'down)
 (mq-linked-file "M-#" 'next)
 (mq-linked-file "M-;" 'prev)
+(mq-linked-file "M-." 'first)
+
+(mq-linked-file "M-SPC" 'meta)
 
 ;(mq-linked-file "M-," 'nil)
 ;(mq-linked-file "M-." 'nil)
@@ -127,8 +167,51 @@
 	 )
     (nconc f f)
     (nconc r r)
-    `(list ,files ()
+    `(list ,files
+;	   ()
+	   (first . (car ',f))
 	   (next . (cadr (member (file-name-nondirectory name) ',f)))
 	   (prev . (cadr (member (file-name-nondirectory name) ',r)))
 	   ))
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar mq-active nil "A set of symbols representing enabled clauses")
+
+(defun mq-active-toggle (tag)
+  (cond
+   ((memq tag mq-active) (setq mq-active (delq tag mq-active)))
+   ((add-to-list 'mq-active tag))
+   )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mq-show () (interactive)
+  (let ((name (buffer-file-name))
+	(map nil))
+    (set-buffer (mq-buffer))
+    (bob)
+    (catch 'done
+      (while t
+	(let* ((form (eval (read (current-buffer))))
+	       (match (car form))
+	       (fun (nth 1 form))
+	       (forms (nthcdr 2 form))
+	       a
+	       )
+	  (cond
+	   ((null form) (throw 'done nil))
+	   ((mq-linked-file-name-match name match fun)
+	    (dolist (i forms) (setq map (alist-put map (car i) (eval (cdr i)))))
+	    )
+	   )
+	  )
+	)
+      )
+    (setq map (nreverse map))
+    (show (cat (flatten (mapcar '(lambda (x) (format "%-10s %s" (car x) (cdr x))) map)) "\n"))
+    )
+  )
+
+(define-key mq-map (kbd "C-h") 'mq-show)
+
