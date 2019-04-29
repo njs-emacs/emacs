@@ -8,6 +8,12 @@
   (mapcar '(lambda (buf) (cond ((funcall fun buf) (kill-buffer buf)))) (buffer-list))
   )
 
+(defun kill-buffers-by-name (pat)
+  "Kill all buffers matching PATTERN."
+  (interactive)
+  (dolist (buf (buffer-list))
+    (if (string-match-string pat (buffer-name buf)) (kill-buffer buf))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun command-history-save (&optional name) (interactive)
   (setq name
