@@ -1,7 +1,20 @@
 (setq load-overrides-path-list nil)
 
 (defun cons-load-path (s)
-  (setq load-path (adjoin (expand-file-name s) load-path)))
+  (let ((s (expand-file-name s)))
+    (setq load-path (delete s load-path))
+    (setq load-path (cons s load-path))
+    )
+  )
+
+(defun cons-load-path-if-exists (s)
+  (let ((s (expand-file-name s)))
+    (cond ((file-exists-p s)
+	   (setq load-path (delete s load-path))
+	   (setq load-path (cons s load-path))
+	   ))
+    )
+  )
 
 (defun override-adjoin (dir) 
   (setq load-overrides-path-list
