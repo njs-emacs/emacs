@@ -897,7 +897,7 @@ then replace VALUE with the value which follows it in the property list."
   (string-match-string "cygwin\\([0-9]+\\)" (getenv "PATH") 1)
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-key global-map (kbd "M-j") bookmark-map)
 (define-key bookmark-map (kbd "M-SPC") 'bookmark-bmenu-list)
 (define-key bookmark-map (kbd "M-j") 'bookmark-jump)
@@ -906,3 +906,8 @@ then replace VALUE with the value which follows it in the property list."
 (define-key global-map [M-up] 'bookmark-jump)
 (define-key global-map [M-down] 'ace)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq diredp-hide-details-initially-flag nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defin 'with-output-file)
