@@ -3,6 +3,12 @@
   (let ((cmd (bs (sxp (bol) (rsf "\\s-*")) (point$)))) (shell-command cmd))
   )
 
+(defun kill-buffers-matching (fun)
+  "Kill all buffers for which (FUN buffer) returns non-nil."
+  (mapcar '(lambda (buf) (cond ((funcall fun buf) (kill-buffer buf)))) (buffer-list))
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun command-history-save (&optional name) (interactive)
   (setq name
     (or name
