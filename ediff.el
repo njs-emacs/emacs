@@ -139,6 +139,7 @@
 (global-set-key "\M-e\M-b" 'ediff-buffers)
 (global-set-key "\M-e\M-f" 'ediff-files)
 (global-set-key "\M-e\M-d" 'ediff-directories)
+(global-set-key "\M-e\M-r" 'ediff-regions-linewise)
 
 (defun ediff-base-with-variants (a b &rest list)
   (dolist (i list)
