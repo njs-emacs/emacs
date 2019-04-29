@@ -558,16 +558,21 @@ then replace VALUE with the value which follows it in the property list."
 
 (defun copy-org-link (&optional arg)
   (interactive "P")
-  
   (let* ((r (region-text))
+	 (line (line-number-at-pos))
 	 (cap (or (region-text)
-		  (format "%s:%d" (file-name-nondirectory (buffer-file-name)) (line-number-at-pos))))
+		  (cond
+		   ((equal arg '(4))
+		    (format "%d" line)
+		    )
+		   (t (format "%s:%d" (file-name-nondirectory (buffer-file-name)) line))
+		   )))
 	 (link
 	  (cond
 	   ((use-region-p)
-	    (format "file:%s::%s" (buffer-file-name) (or (region-text) (line-number-at-pos)))
+	    (format "file:%s::%s" (buffer-file-name) (or (region-text) line))
 	    )
-	   (t (format "file:%s::%s" (buffer-file-name) (line-number-at-pos)))
+	   (t (format "file:%s::%s" (buffer-file-name) line))
 	   )
 	  )
 	 )
