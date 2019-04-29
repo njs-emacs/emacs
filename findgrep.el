@@ -2,7 +2,8 @@
 ;
 ; searches invoked from emacs will use this or a similar interface
 ; which invokes the compile method
-;
+; e:/perl/findgrep.pl
+; e:/perl/lib/findgrep.pm
 
 (defun *f* (cmd pat &optional fpat path max)
   (compile
@@ -14,24 +15,26 @@
 	    (or max "")
 	    )))
 
-(defun fu (pat &rest args)
+(defun *fup (pat) (setq ff-last-pat (or pat (car regexp-search-ring))))
+
+(defun fu (&optional pat &rest args)
   "Invoke findgrep(findunless) PAT FPAT PATH FARG MAX.
 Show files not containing pattern"
-  (apply '*f* "findunless" (setq ff-last-pat pat) args))
+  (apply '*f* "findunless" (*fup pat) args))
 
-(defun ff (pat &rest args)
+(defun ff (&optional pat &rest args)
   "Invoke findgrep(findgrep) PAT FPAT PATH FARG MAX"
-  (apply '*f* "findgrep" (setq ff-last-pat pat) args))
+  (apply '*f* "findgrep" (*fup pat) args))
 
-(defun ff1 (pat &rest args)
+(defun ff1 (&optional pat &rest args)
   "Invoke findgrep(findgrep) PAT FPAT PATH FARG MAX
 Find first occurrence of pattern"
-  (apply '*f* "findgrepf" (setq ff-last-pat pat) args))
+  (apply '*f* "findgrepf" (*fup pat) args))
 
 (defun fg-first (pat &rest args)
   "Invoke findgrep(findgrep) PAT FPAT PATH FARG MAX
 Find first occurrence of pattern"
-  (apply '*f* "findgrepf" (setq ff-last-pat pat) args))
+  (apply '*f* "findgrepf" (*fup pat) args))
 
 (defun ffe (pat &rest args) "alias for ff (emacs lisp files)" (interactive "Spattern: ") (apply 'ff pat "\\.el" args))
 (defun ffl (pat &rest args) "alias for ff (nlisp files)" (interactive "Spattern: ") (apply 'ff pat "\\.nl" args))
