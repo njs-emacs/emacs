@@ -270,8 +270,6 @@ values in EXP, and execute BODY."
 	 (pre (get major-mode 'pre-eval-buffer-hook))
 	 (fun (get major-mode 'eval-buffer-modal))
 	 (post (get major-mode 'post-eval-buffer-hook)))
-    (sx
-     (bob)
      (and arg (debug))
      (run-hooks pre)
      (setq result
@@ -283,7 +281,6 @@ values in EXP, and execute BODY."
      (run-hooks 'eval-buffer-exit-hooks)
      (run-hooks 'post)
      result
-     )
      ))
 
 (defun load-or-eval (file)
