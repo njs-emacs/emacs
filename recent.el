@@ -893,3 +893,8 @@ then replace VALUE with the value which follows it in the property list."
 ;; (buffer-list-c-files)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun cygwin-version ()
+  (string-match-string "cygwin\\([0-9]+\\)" (getenv "PATH") 1)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
