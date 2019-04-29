@@ -33,14 +33,14 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq file-class-guess-name-alist)
+(setq file-class-guess-name-alist nil)
 
 (defun file-class-guess-name-add (class pattern)
   (setq file-class-guess-name-alist
     (gput file-class-guess-name-alist class pattern))
   )
 
-(setq file-class-guess-pattern-alist)
+(setq file-class-guess-pattern-alist nil)
 
 (defun file-class-guess-pattern-add (class pattern)
   (setq file-class-guess-pattern-alist
