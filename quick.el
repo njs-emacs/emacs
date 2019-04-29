@@ -46,6 +46,8 @@
 (defun eob () (goto-char (point-max)))
 (defun bob () (goto-char (point-min)))
 
+(defun point+ (&rest args) (apply '+ (point) args))
+
 (defun point^ () (sxp (bol)))
 (defun point$ () (sxp (eol)))
 
