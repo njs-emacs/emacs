@@ -181,12 +181,12 @@ to a function that generates a unique name."
 (defun ngrep (pat &optional spec flags) (interactive "sPattern: ")
   (setq spec (or spec (grep-spec)))
   (cond ((listp spec) (setq spec (cat spec " "))))
-  (let ((cmd (format "grep %s \"%s\" %s" 
+  (let ((cmd (format "grep %s -e \"%s\" %s" 
 		     (or flags grep-flags)
 		     pat
 		     spec
 		     ))
-	(mode 'grep-mode)
+	(mode 'compilation-mode)
 	)
     (setq grep-history (cons cmd grep-history))
     (cond 
@@ -296,8 +296,7 @@ to a function that generates a unique name."
   (run-hook-with-args 'compilation-mode-special-hooks)
   )
 
-(or (assoc 'compilation-mode-hook-ns compilation-mode-hook)
-    (setq compilation-mode-hook 'compilation-mode-hook-ns))
+(setq compilation-mode-hook (adjoin 'compilation-mode-hook-ns compilation-mode-hook))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "bake" t t)
