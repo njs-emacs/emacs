@@ -898,3 +898,11 @@ then replace VALUE with the value which follows it in the property list."
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define-key global-map (kbd "M-j") bookmark-map)
+(define-key bookmark-map (kbd "M-SPC") 'bookmark-bmenu-list)
+(define-key bookmark-map (kbd "M-j") 'bookmark-jump)
+
+(define-key global-map [M-f2] 'bookmark-bmenu-list)
+(define-key global-map [M-up] 'bookmark-jump)
+(define-key global-map [M-down] 'ace)
+
