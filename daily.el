@@ -204,5 +204,10 @@
 ;  (qb-define (control-key-vector ?h ?y) '(daily-html-time (yesterday-time)))
   )
 
+(defun home-daily-org-file ()
+  (concat
+   (home-daily-today)
+   (format-time-string "%y%m%d.org" (current-time))))
+
 (daily-time-set)
 
