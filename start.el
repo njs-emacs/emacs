@@ -8,11 +8,12 @@
 
 (cons-load-path (p-path ".emacs"))
 
+(init-local (p-path "stub"))
+(init-local (p-path "apihook"))
+
 (top-level)
 
 (init-local (p-path "aft"))
-(init-local (p-path "stub"))
-(init-local (p-path "apihook"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
