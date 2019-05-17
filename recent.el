@@ -655,15 +655,6 @@ then replace VALUE with the value which follows it in the property list."
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun chelp () (interactive)
-; (shell-command-on-region (mark) (point) (format "perl chelp.pl"))
- (shell-command-on-region (sxp (bol)) (sxp (eol)) (format "perl chelp.pl"))
- (other-window 1)
- (cond ((rsf "##here##") (bol) (kill-line 1)))
- )
-
-(define-key global-map "\C-z\C-h" 'chelp)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun line-comment-set-state (state)
   (sx (bol) (kill-regexp "#*") (and state (insert "#")))
   )
