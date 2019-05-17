@@ -230,8 +230,10 @@
     (cond
      (buf (save-excursion
 	    (set-buffer buf)
-	    (revert-buffer nil t t)
-	    (setq buffer-read-only t)
+	    (let ((read-only buffer-read-only))
+	      (revert-buffer nil t t)
+	      (setq buffer-read-only read-only)
+	      )
 	    ))))
   )
 
