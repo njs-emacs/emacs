@@ -70,6 +70,7 @@
 
 (define-key z-map "\C-t" 'toggle-truncate-lines)
 (define-key z-map "\C-i" 'init-local)
+(define-key z-map "\C-r" 'read-only-mode)
 
 (setq m-map (make-sparse-keymap))
 (global-set-key "\M-m" m-map)
