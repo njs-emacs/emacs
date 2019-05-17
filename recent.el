@@ -655,22 +655,6 @@ then replace VALUE with the value which follows it in the property list."
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun line-comment-set-state (state)
-  (sx (bol) (kill-regexp "#*") (and state (insert "#")))
-  )
-
-(defun toggle-radio () (interactive)
- (let ((tag (sx (bol) (find-match-string "#~R{\\(.*\\)}"))))
-  (sx (bob)
-   (while (rsf tag)
-     (line-comment-set-state t)
-     )
-   )
-  (line-comment-set-state nil)
-  ))
-(define-key global-map "\C-z\C-r" 'toggle-radio)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq w32-pass-lwindow-to-system nil)
 (setq w32-lwindow-modifier 'super)
 
