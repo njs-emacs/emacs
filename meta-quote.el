@@ -93,7 +93,8 @@
 (defun mq-visit-linked-file (arg)
   (interactive "P")
   (let* ((keys (this-command-keys))
-	 (key (substring keys (cond (arg 2) (1))))
+;	 (key (substring keys (cond (arg 2) (1))))	; not in emacs 25
+	 (key (substring keys 1))
 	 (tag (lookup-key mq-bmap key))
 	 (buffer
 	  (or
