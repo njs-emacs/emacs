@@ -58,13 +58,20 @@
      ,@body)
   )
 
+(defun compilation-buffer-for-kill-p (buffer)
+  (set-buffer buffer)
+  (or
+   (string-match "\\*Org Shell" (buffer-name))
+   (eq major-mode 'compilation-mode)
+   (eq major-mode 'grep-mode)
+   (eq major-mode 'nog-mode))
+  )
+
 (defun kill-compilation-buffers () (interactive)
   (mapcar '(lambda (x)
 	     (set-buffer x)
 	     (cond
-	      ((eq major-mode 'compilation-mode) (kill-buffer x))
-	      ((eq major-mode 'grep-mode) (kill-buffer x))
-	      ((eq major-mode 'nog-mode) (kill-buffer x))
+	      ((compilation-buffer-for-kill-p x) (kill-buffer x))
 	      ))
 	  (buffer-list))
   (setq compilation-in-progress nil)
