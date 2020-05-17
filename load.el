@@ -42,13 +42,21 @@ containing that file. NOERROR NOMESSAGE arguments are as for 'load' function."
        )
   )
 
+(defun load-if-local (f)
+  "Load FILE only if it exists in the current directory."
+  (and (file-exists-p f)
+       (not (file-directory-p f))
+       (load (expand-file-name f))
+       )
+  )
+
 (defun init-local (&optional dir) (interactive "DDirectory: ")
   (or dir (setq dir default-directory))
   (init-local-noload dir)
   (or
-   (load (expand-file-name "_emacs") t t)
-   (load (expand-file-name ".emacs") t t)
-   (load (expand-file-name ".emacs.el") t t)
+   (load-if-local "_emacs")
+   (load-if-local ".emacs")
+   (load-if-local ".emacs.el")
    )
   )
 
