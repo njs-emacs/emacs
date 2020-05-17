@@ -8,10 +8,14 @@
 
 (cons-load-path (p-path ".emacs"))
 
-(init-local (p-path "stub"))
-(init-local (p-path "apihook"))
-
 (top-level)
+(init-local (p-path "stub"))
+(init-local "e:/ca")
+(init-local "e:/#/avisynth")
+(init-local (p-path  "apihook"))
+(init-local (p-path "hook/cbt"))
+(init-local (p-path "hook/msg"))
+
 
 (init-local (p-path "aft"))
 
@@ -64,3 +68,11 @@
 (modify-frame-parameters (frame-focus) '((background-color . "#e0d0d0")))
 (modify-frame-parameters (frame-focus) '((background-color . "#d0f0d0")))
 
+zonk
+2r
+
+(abbrev-symbol "wpa" zonk-abbrev)
+(abbrev-expansion "wpa" zonk-abbrev)
+(abbrev-insert 'wpa)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
