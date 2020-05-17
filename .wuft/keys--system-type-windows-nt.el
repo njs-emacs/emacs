@@ -7,6 +7,7 @@
 (global-set-key [C-M-insert] 'bury-other)
 
 (global-set-key [f12] 'exec-macro)
+(global-set-key [C-f12] 'command-history)
 (global-set-key [S-f12] 'command-history-mode)
 (global-set-key [M-f12] 'repeat-complex-command)
 
