@@ -704,6 +704,13 @@ then replace VALUE with the value which follows it in the property list."
 
 (defun frame-width-ediff (&optional arg) (interactive "p")
   (frame-default-width 3)
+  (let ((x (car (frame-position (selected-frame)))))
+    (cond ((< x 0)
+	   (set-frame-position (selected-frame) -4000 0)
+	   )
+	  ((set-frame-position (selected-frame) 0 0))
+	  )
+    )
   )
 
 (defun frame-width-glitch (&optional arg)
