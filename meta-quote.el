@@ -25,6 +25,7 @@
 
 (defun mq-linked-file-name-match (name match &optional fun)
   (cond
+   ((eq match t) t)
    ((not name) nil)
    ((eq match nil) name)
    ((eq match 'eval) (eval fun))
@@ -125,14 +126,19 @@
 (global-set-key (kbd "<A-backspace>")
 		'(lambda () (interactive) (mq-buffer-switch mq-prev-buffer)))
 
+(mq-linked-file "M-SPC" 'meta)
+
 (mq-linked-file "M-'" 'other)
-(mq-linked-file "M-[" 'up)
-(mq-linked-file "M-/" 'down)
+(mq-linked-file "M-/" 'alt)
+
 (mq-linked-file "M-#" 'next)
 (mq-linked-file "M-;" 'prev)
-(mq-linked-file "M-." 'first)
 
-(mq-linked-file "M-SPC" 'meta)
+(mq-linked-file "M-." 'down)
+(mq-linked-file "M-," 'up)
+
+(mq-linked-file "M-[" 'first)
+(mq-linked-file "M-]" 'last)
 
 ;(mq-linked-file "M-," 'nil)
 ;(mq-linked-file "M-." 'nil)
