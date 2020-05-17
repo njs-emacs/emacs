@@ -596,9 +596,12 @@ then replace VALUE with the value which follows it in the property list."
 	 (cap (or (region-text)
 		  (cond
 		   ((equal arg '(4))
-		    (format "%d" line)
+		    (format "%s:%d" (file-name-nondirectory (buffer-file-name)) line))
+		   ((equal arg '(1))
+		    (format "%d" line))
+		   (t
+		    (format "%s" (file-name-nondirectory (buffer-file-name)))
 		    )
-		   (t (format "%s:%d" (file-name-nondirectory (buffer-file-name)) line))
 		   )))
 	 (link
 	  (cond
