@@ -61,16 +61,20 @@
 (global-set-key [f9] 'eval-buffer-modal)
 
 (global-set-key [f11] 'goto-line)
+(global-set-key [f12] 'command-history)
 
 (define-key global-map "\ef" f-map)
 
 (setq z-map (make-sparse-keymap))
-(define-key global-map "\C-z" z-map)
-(define-key z-map "\C-z" 'undo)
 
 (define-key z-map "\C-t" 'toggle-truncate-lines)
 (define-key z-map "\C-i" 'init-local)
 (define-key z-map "\C-r" 'read-only-mode)
+
+(setq zz-map (make-sparse-keymap))
+(define-key global-map "\C-z" z-map)
+(define-key z-map "\C-z" zz-map)
+(define-key zz-map "\C-z" 'undo)
 
 (setq m-map (make-sparse-keymap))
 (global-set-key "\M-m" m-map)
@@ -135,3 +139,7 @@
 ;; C-# map is a scratch map. Expect any key in C-# can be overridden
 
 (load "c-hash-map" t t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq slash-map (make-sparse-keymap))
+(global-set-key (kbd "C-\\") slash-map)
