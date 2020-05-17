@@ -541,6 +541,7 @@ then replace VALUE with the value which follows it in the property list."
 (define-key z-map "\C-l" 'font-lock-mode)
 (define-key z-map "\C-k" 'find-kill-head)
 
+(define-key global-map (kbd "C-z C-z") 'zz)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; take over help key
 
@@ -620,7 +621,6 @@ then replace VALUE with the value which follows it in the property list."
 
 (define-key global-map (control-key-vector ?z ?c) 'copy-emacs-url)
 (define-key global-map (kbd "C-z C-o") 'copy-org-link)
-(define-key global-map (kbd "C-z C-z") 'zz)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun copy-gdb-break (&optional arg)
