@@ -896,3 +896,8 @@ then replace VALUE with the value which follows it in the property list."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defin 'with-output-file)
+
+(setq blink-cursor-delay 1.0)
+(setq blink-cursor-blinks 5)
+(setq blink-cursor-interval 0.5)
+;(setq blink-cursor-interval 1.0)
