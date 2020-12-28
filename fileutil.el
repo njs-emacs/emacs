@@ -323,12 +323,20 @@ on completion. If optional HOOK is given, call this before closing the file."
   )
 
 (defun find-file-at-point (&optional point) (interactive)
-  (find-file-other-window (clever-filename-at-point point))
+  (let ((file (clever-filename-at-point point)))
+    (cond 
+     (file (find-file-other-window file))
+     ((message "Can't find an existing file there"))
+     )
+    )
   )
 
 (defun find-file-at-point-mouse (arg) (interactive "e")
   (let ((file (sx (mouse-set-point arg) (clever-filename-at-point (point)))))
-    (find-file-other-window file)
+    (cond 
+     (file (find-file-other-window file))
+     ((message "Can't find an existing file there"))
+     )
     )
   )
 
