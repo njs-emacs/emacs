@@ -23,6 +23,14 @@
 ;  )
 ; )
 
-(let ((height (/ (display-pixel-height) 12)))
+(defun display-pixel-height-fixed (&optional x)
+;  1200
+;  (display-pixel-height)
+  (nth 3 (alist-get  'geometry (nth 0 (display-monitor-attributes-list))))
+  )
+
+(let ((height (/ (display-pixel-height-fixed) 12))
+      )
   (setq default-frame-alist (alist-merge default-frame-alist `((height . ,height))))
   )
+
