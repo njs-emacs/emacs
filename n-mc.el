@@ -6,7 +6,8 @@
 (define-key mc/initiator-map (kbd "C-a") 'mc/edit-beginnings-of-lines)
 (define-key mc/initiator-map (kbd "C-e") 'mc/edit-ends-of-lines)
 
-(define-key mc/initiator-map (kbd "C-s") 'mc/mark-all-in-region)
+;(define-key mc/initiator-map (kbd "C-s") 'mc/mark-all-in-region)
+(define-key mc/initiator-map (kbd "C-s") 'mc/mark-all-in-region-regexp)
 
 (define-key mc/initiator-map (kbd "C-n") 'mc/mark-next-like-this)
 (define-key mc/initiator-map (kbd "C-p") 'mc/mark-previous-symbol-like-this)
