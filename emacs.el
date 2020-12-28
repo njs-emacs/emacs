@@ -23,17 +23,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (minibuffer-dir "/" (format "//%s/" (downcase system-name)))
 
-(qb-and-mini ?e user-emacs-home)
-(qb-and-mini ?l emacs-lisp-dir)
-
-(qb-define (control-key-vector ?e ?/) "~")
-(qb-define (control-key-vector ?x ?x) "*Messages*")
-
-(qb-define "\C-e\C-p" perl-e-path)
-(qb-define "\C-e\C-b" backup-root)
-(qb-define "\C-e\C-h" (filename-format "%s/emacs/emacs.log" backup-root))
-(qb-define "\C-e\C-e" "~/.emacs/")
-(qb-define "\C-e\C-k" (concat ehome "/ahk/a.ahk"))
+(load "qb-def" nil t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(define-abbrev global-abbrev-table "dir" "directory")

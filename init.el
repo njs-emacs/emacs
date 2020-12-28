@@ -114,12 +114,6 @@
 
 (define-key global-map "\C-xf" 'find-file)
 
-(qb-define (control-key-vector ?e ?x) (concat ehome "/help/home.org"))
-(qb-define (control-key-vector ?e ?t) (concat ehome "/help/tmp"))
-
-(qb-define (control-key-vector ?d ?.) (daily-path ".emacs.el") t)
-(qb-define (control-key-vector ?d ?e) (daily-path "0.el") t)
-
 (qi-define (control-key-vector ?g ?#) "#\#nobackup##")
 
 (setq h-slash-map (make-sparse-keymap))
