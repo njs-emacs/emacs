@@ -10,7 +10,11 @@
 
 (top-level)
 (init-local (p-path "stub"))
+
+(init-local "e:/.d/j/jquery")
+
 (init-local "e:/ca")
+(init-local "f:/_media/.meta/150812")
 (init-local "e:/#/avisynth")
 (init-local (p-path  "apihook"))
 (init-local (p-path "hook/cbt"))
