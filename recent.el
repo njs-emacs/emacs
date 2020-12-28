@@ -721,7 +721,8 @@ then replace VALUE with the value which follows it in the property list."
     )
   )
 
-(define-key global-map (kbd "<scroll>") 'frame-width-glitch)
+;(global-unset-key (kbd "<scroll>"))
+;(define-key global-map (kbd "<scroll>") 'frame-width-glitch)
 
 (define-key z-map "\C-g" 'frame-width-glitch)
 (define-key z-map "h" 'frame-default-height) ; don't use C-h
