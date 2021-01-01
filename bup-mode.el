@@ -254,6 +254,15 @@
 
 (qb-define (kbd "C-b C-m") '(bup-month))
 
+(defun bup-week () (interactive)
+  (let* ((time (time-days-subtract 7))
+	 (from (format-time-string "%y%m%d" time))
+	 )
+    (bup-tail-from from)
+    ))
+
+(qb-define (kbd "C-b C-w") '(bup-week))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun bup-refresh ()
   (interactive)
