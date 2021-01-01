@@ -153,6 +153,8 @@
 
 (define-key bup-mode-map "z" 'bup-pipe-z)
 
+(define-key bup-mode-map "r" 'bup-refresh)
+
 (defun bup-pipe-z () (interactive)
   (shell-command-on-region (region-beginning) (region-end) "perl z.pl"))
 
@@ -211,3 +213,51 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; want mode which filters emacs.log and can sort
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun time-days-subtract (n &optional time)
+  (or time (setq time (current-time)))
+  (days-to-time (- (time-to-number-of-days time) n))
+  )
+
+(defun bup-tail-insert (buffer args)
+  (cond (buffer-read-only (toggle-read-only)))
+  (erase-buffer)
+  (shell-command
+   (format
+    "d:/p/perl/bin/perl e:/_backup/.meta/bup-tail.pl --cmd=tail %s"
+    args)
+   buffer)
+  (toggle-read-only)
+  )
+
+(defun bup-tail (name args)
+  (let* ((buffer (get-buffer-create (format "*bup-%s*" name)))
+	 )
+    (switch-to-buffer buffer)
+    (bup-tail-insert buffer args)
+    (bup-mode)
+    buffer
+    ))
+
+(defun bup-tail-from (from)
+  (let* ((args (format "--from=%s" from)))
+    (bup-tail from args)
+    ))
+
+(defun bup-month () (interactive)
+  (let* ((time (time-days-subtract 30))
+	 (from (format-time-string "%y%m%d" time))
+	 )
+    (bup-tail-from from)
+    ))
+
+(qb-define (kbd "C-b C-m") '(bup-month))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun bup-refresh ()
+  (interactive)
+  (let ((args (find-match-string "##args: \\(.*\\)" 1)))
+    (bup-tail-insert (current-buffer) args)
+    )
+  )
