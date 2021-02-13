@@ -9,7 +9,14 @@
 (cons-load-path (p-path ".emacs"))
 
 (top-level)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (init-local (p-path "stub"))
+(find-file "e:/daily/21/2102/2102.org")
+(find-file "e:/daily/21/2101/2101.org")
+
+(init-local "e:/.d/f/fop")
+
+(defun setup-2101 () (interactive)
 
 (init-local "e:/.d/j/jquery")
 
@@ -80,3 +87,18 @@ zonk
 (abbrev-insert 'wpa)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(custom-set-faces
+ '(outline-1 ((((background light)) (:foreground "Blue"))))
+; '(outline-2 ((((background light)) (:foreground "DodgerBlue"))))
+ '(outline-2 (
+	      (((background light)) (:foreground "DarkGreen")))
+	     )
+ '(outline-3 (
+;	      (((background light)) (:foreground "DarkViolet")))
+	      (((background light)) (:foreground "Cyan4")))
+	     )
+ )
+
+(set-face-background 'default "#CCCCCC" (window-frame (frame-selected-window)))
+(set-face-background 'default "#dddddd" (window-frame (frame-selected-window)))
+(set-face-background 'default "#eeeeee" (window-frame (frame-selected-window)))
