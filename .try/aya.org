@@ -1,0 +1,85 @@
+* aya refresh [[https://github.com/abo-abo/auto-yasnippet][yasnippet]]
+  H-y			aya-expand
+    H-y			aya-1
+    H-y			aya-2
+
+** example 1
+   count_of_~red = get_total("~red");
+   count_of_red = get_total("red");
+   count_of_2 = get_total("2");
+   count_of_343 = get_total("343");
+
+   $fred = makefile($fred) ;
+   $fred = makefile($fred) ;
+   $q = makefile($q) ;
+   $3 = makefile($3) ;
+   $eew = makefile($eew) ;
+
+   multiline examples
+   are OK
+   here is another example
+
+   multiline fud
+   are OK
+   here is another pud
+
+   multiline parameters
+   are OK
+   here is another parameter (typed in separately)
+
+*** one-line
+    field$ = document.getElementById("");
+    field = document.getElementById("");
+
+    field2ds = document.getElementById("2ds");
+
+    fieldee = document.getElementById("ee");
+
+*** the template placeholders don't have to be 'real'
+    field(~this) = field(~that)
+    this and that are just placeholder names tot actual parameters to
+    functions
+
+    field(this) = field(that)
+    would delete this line now unless it remains meaningful
+
+        field(THIS) = field(THAT)
+    field(A) = field(B)
+    field(C) = field(D)
+
+    field(a) = field(d)
+    field(dd) = field()
+    field(q) = field(d)
+    field(d) = field(dd)
+eee
+dddd
+    field(q) = field(s)
+
+
+    
+
+*** 3
+    when parameter A is replaced with B
+    then C becomes A and B becomes C
+
+    when parameter ~A is replaced with ~B
+    then ~C becomes ~A and ~B becomes ~C
+    
+    when parameter A is replaced with B
+    then C becomes A and B becomes C
+    
+    when parameter Arlo is replaced with Bob
+    then Carl becomes Arlo and Bob becomes Carl
+
+** useful?
+   would say it's a feature that comes in handy in particular circumstances
+   but most of the time it would require good facility to instinctively
+   use it and not a manual repetition using copy/yank OR a heavier method
+   using elisp, kmacro, yasnippet, or external method
+   
+
+
+
+
+
+
