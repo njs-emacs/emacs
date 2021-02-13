@@ -29,6 +29,7 @@
 ; anything loaded before keys should not define-keys
 
 (load "keys" t t)
+(load "keytrans" t t)
 (load "nlisp" t t)
 
 (load "macros" t t)
