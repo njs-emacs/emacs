@@ -119,3 +119,28 @@ otherwise acts by side-effect"
    ((symbolp o) (get o tag))
    )
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun alist-slice (alist keys)
+  "Return a copy of ALIST containing only elements matching thos in KEYS" 
+  (let* ((o (mapcar '(lambda (x) (cons x (alist-get x alist))) keys)))
+    o)
+  )
+
+(defun alist-sort (alist &optional fun)
+  "Sort ALIST using FUN as compare function (by default by key lexical value)
+list is modified as side effect, so you should assign this function result.
+"
+  (or fun (setq fun '(lambda (x y) (string> (car x) (car y)))))
+  (setq alist (sort alist fun))
+  alist)
+
+(defun alist-to-args (alist)
+  "Convert ALIST to a list of program parameter elements"
+  (mconcat
+   (mapcar '(lambda (x) (format "--%s=\"%s\"" (car x) (cdr x))) alist)
+   " "
+   )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
