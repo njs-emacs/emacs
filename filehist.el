@@ -29,7 +29,7 @@
   )
 
 (defun file-history-paint-line (name priority)
-  (insert "\t" (or name "?"))
+  (insert "\t" (format "%s" (or name "?")))
   )
 
 ;;;;;;;;;;;;;;;;
@@ -126,6 +126,20 @@
   (setq file-history-sort-key 'name)
   
   (setq file-history-list (sort file-history-list 'string-lessp))
+  (file-history-display)
+  )
+
+(defun suffix-lessp (a b)
+  (string-lessp 
+   (file-name-suffix a)
+   (file-name-suffix b)
+   )
+  )
+
+(defun file-history-sort-suffix () (interactive)
+  (setq file-history-sort-key 'suffix)
+  
+  (setq file-history-list (sort file-history-list 'suffix-lessp))
   (file-history-display)
   )
 
@@ -238,7 +252,7 @@
   (kill-new (qb-mapping-def (file-history-file-on-current-line)))
   )
   
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; want to replace all self-insert-command keys with file-history-electric-key
 ;;
@@ -250,10 +264,15 @@
   (file-history-electric-key-define "+" 'file-history-priority-raise)
   (file-history-electric-key-define "-" 'file-history-priority-lower)
   (file-history-electric-key-define "l" 'file-history-redisplay)
+
+  (file-history-electric-key-define "b" 'file-history-sort-quick)
   (file-history-electric-key-define "t" 'file-history-sort-time)
   (file-history-electric-key-define "p" 'file-history-sort-priority)
   (file-history-electric-key-define "s" 'file-history-sort-name)
-  (file-history-electric-key-define "b" 'file-history-sort-quick)
+  (file-history-electric-key-define "n" 'file-history-sort-name)
+  (file-history-electric-key-define "." 'file-history-sort-suffix)
+  (file-history-electric-key-define "S" 'file-history-sort-suffix)
+
   (file-history-electric-key-define "o" 'file-history-find-file-other-window)
   (file-history-electric-key-define "f" 'file-history-find-file)
   (file-history-electric-key-define "w" 'file-history-find-file-other-frame)
@@ -262,17 +281,30 @@
   (file-history-electric-key-define "k" 'file-history-copy)
   (file-history-electric-key-define "q" 'file-history-qb-define)
   (file-history-electric-key-define "Q" 'file-history-qb-copy)
+  (file-history-electric-key-define "F" 'file-history-font-lock)
   (file-history-electric-key-define [mouse-2] 'file-history-mouse-find-file)
   (dotimes (i 9)
     (file-history-electric-key-define
      (char-to-string (+ ?0 i)) 'file-history-set-priority))
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq file-history-font-lock-extras nil)
+(setq file-history-font-lock-keywords nil)
+
+(defun file-history-font-lock () (interactive)
+  (setq font-lock-keywords file-history-font-lock-keywords)
+  (setq font-lock-defaults '(file-history-font-lock-keywords t t))
+  (font-lock-mode t)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun file-history-mode () (interactive)
   (or (boundp 'file-history-map) (file-history-map-init))
   (use-local-map file-history-map)
   (setq major-mode 'file-history-mode)
   (setq mode-name "HISTORY")
+  (file-history-font-lock)
   )
 
 (defun file-history-open () (interactive)
