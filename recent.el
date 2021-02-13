@@ -919,3 +919,39 @@ then replace VALUE with the value which follows it in the property list."
 (setq blink-cursor-blinks 5)
 (setq blink-cursor-interval 0.5)
 ;(setq blink-cursor-interval 1.0)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq time-base32-hist nil)
+
+(defun time-base32 (&optional time)
+  (let ((n (floor (float-time time)))
+	(s)
+	)
+    (while (> n 0)
+      (setq i (% n 32))
+      (setq s (concat (substring "abcdefghijklmnopqrstuvwxyz234567" i (1+ i)) s))
+      (setq n (lsh n -5))
+      )
+;    (substring s 1)
+    (push s time-base32-hist)
+    s		; gives characteristic 'bp7' prefix
+    )
+  )
+
+
+
+(defun tsx-clip () (interactive)
+  (call-shell "wperl e:/ahk/clip.pl tsx")
+  (clipboard-yank)
+  )
+
+(defun tsx-clip (&optional kill) (interactive)
+  (setq log-time-string (time-base32))
+  (insert log-time-string)
+  (and kill (kill-new log-time-string))
+  )
+
+(define-key global-map [C-f7] 'tsx-clip)
+;time-base32-hist
+
+
