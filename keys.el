@@ -132,8 +132,11 @@
 
 (global-set-key (kbd "C-c C-g") 'magit-status)
 
-(define-key global-map (kbd "C-;") (make-sparse-keymap))
-(define-key global-map (kbd "C-; C-;") 'er/expand-region)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq c-colon-map (make-sparse-keymap))
+
+(define-key global-map (kbd "C-;") c-colon-map)
+(define-key c-colon-map (kbd "C-;") 'er/expand-region)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; C-# map is a scratch map. Expect any key in C-# can be overridden
