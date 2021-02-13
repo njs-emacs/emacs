@@ -989,3 +989,5 @@ then replace VALUE with the value which follows it in the property list."
   (font-lock-mode t)
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(autoload 'bg-hydra "bg-hydra" "" (interactive))
