@@ -10,3 +10,6 @@
 
 (define-key ctrl-hash-map [C-home] 'beginning-of-defun)
 (define-key ctrl-hash-map [C-end] 'end-of-defun)
+
+(define-key ctrl-hash-map (kbd "C-#") 'avy-goto-line)
+(define-key ctrl-hash-map (kbd "C-.") 'avy-goto-word-or-subword-1)
