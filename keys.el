@@ -146,3 +146,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq slash-map (make-sparse-keymap))
 (global-set-key (kbd "C-\\") slash-map)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define-key global-map (kbd "<s-f9>") 'emacs-read-hash-plus)
+(define-key slash-map (kbd "C-e") 'emacs-read-hash-plus)
+
