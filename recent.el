@@ -887,12 +887,27 @@ then replace VALUE with the value which follows it in the property list."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-key global-map (kbd "M-j") bookmark-map)
+
 (define-key bookmark-map (kbd "M-SPC") 'bookmark-bmenu-list)
 (define-key bookmark-map (kbd "M-j") 'bookmark-jump)
 
-(define-key global-map [M-f2] 'bookmark-bmenu-list)
+(define-key global-map [C-f1] 'org-capture)
+(define-key global-map [C-f2] 'bookmark-bmenu-list)
+
+(define-key global-map [M-f1] 'org-cycle-agenda-files)
+(define-key global-map [M-f2]
+  '(lambda () (interactive)
+     (find-file org-default-notes-file)
+     )
+  )
+(global-set-key [M-f3] 'org-agenda)
+
 (define-key global-map [M-up] 'bookmark-jump)
 (define-key global-map [M-down] 'ace)
+
+(global-set-key (kbd "C-c a") 'org-agenda)
+
+(define-key global-map "\C-h" 'backward-char)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq diredp-hide-details-initially-flag nil)
