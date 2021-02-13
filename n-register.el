@@ -1,28 +1,31 @@
-(defun my-reg-init ()
-  (setq my-reg-keymap (copy-keymap ctl-x-r-map))
-  (define-key my-reg-keymap (kbd "C-k") 'kmacro-to-register)
-  (define-key global-map (kbd "C-'") my-reg-keymap)
-  (define-key my-reg-keymap (kbd "C-'") 'bookmark-jump)
-  (define-key my-reg-keymap (kbd "C-;") 'bookmark-set)
-  (define-key my-reg-keymap (kbd "C-/") 'bookmark-bmenu-list)
+(defun c-quote-keymap-init ()
+  (setq c-quote-keymap (copy-keymap ctl-x-r-map))
+  (define-key global-map (kbd "C-'") c-quote-keymap)
 
-  (define-key my-reg-keymap (kbd "C-#") 'ace-jump-line-mode)
-  (define-key my-reg-keymap (kbd "C-.") 'ace-jump-buffer)
-  (define-key my-reg-keymap (kbd "C-=") 'ace-window)
-  (define-key my-reg-keymap (kbd "C-w") 'ace-jump-word-mode)
+  (define-key c-quote-keymap (kbd "C-k") 'kmacro-to-register)
+  (define-key c-quote-keymap (kbd "C-'") 'bookmark-jump)
+  (define-key c-quote-keymap (kbd "C-;") 'bookmark-set)
+  (define-key c-quote-keymap (kbd "C-/") 'bookmark-bmenu-list)
 
-  (define-key my-reg-keymap (kbd "C-j") 'jump-to-register)
+  (define-key c-quote-keymap (kbd "C-#") 'ace-jump-line-mode)
+  (define-key c-quote-keymap (kbd "C-.") 'ace-jump-buffer)
+  (define-key c-quote-keymap (kbd "C-=") 'ace-window)
+  (define-key c-quote-keymap (kbd "C-w") 'ace-jump-word-mode)
+
+  (define-key c-quote-keymap (kbd "C-j") 'jump-to-register)
   
-  (define-key my-reg-keymap (kbd "C-b") 'recentf-open-files)
-  (define-key my-reg-keymap (kbd "C-h") nil)
-  (define-key my-reg-keymap (kbd "C-c") 'command-history)
+  (define-key c-quote-keymap (kbd "C-b") 'recentf-open-files)
+  (define-key c-quote-keymap (kbd "C-c") 'command-history)
 
-  (define-key my-reg-keymap (kbd "C-n") 'mc/mark-next-like-this)
-  (define-key my-reg-keymap (kbd "C-p") 'mc/mark-previous-like-this)
-  (define-key my-reg-keymap (kbd "C-s") 'mc/edit-lines)
+  (define-key c-quote-keymap (kbd "C-n") 'mc/mark-next-like-this)
+  (define-key c-quote-keymap (kbd "C-p") 'mc/mark-previous-like-this)
+  (define-key c-quote-keymap (kbd "C-s") 'mc/edit-lines)
+
+  (define-key c-quote-keymap (kbd "C-l") 'avy-goto-line)
+
   )
 
-(my-reg-init)
+(c-quote-keymap-init)
 
 ; Global Bindings Starting With C-x r:
 ;
