@@ -27,7 +27,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun daily-date-path (name &optional time format force-create)
   (and format (setq name (format-time-string name time)))
-  (daily-path (format "%s/%s" (format-time-string "%y%m/%d" time) name) force-create)
+  (daily-path (format "%s/%s" (format-time-string "%y/%y%m/%d" time) name) force-create)
+  )
+
+(defun daily-month-path (name &optional time format force-create)
+  (and format (setq name (format-time-string name time)))
+  (daily-path (format "%s/%s" (format-time-string "%y/%y%m" time) name) force-create)
   )
 
 (defun daily-date-path-create (name &optional time format)
@@ -36,6 +41,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun daily-path-replace (offset &optional name)
+  (error "fix this")
   "Replace daily path part of file. Does not modify any date stamp in the filename part" 
   (or name (setq name (buffer-file-name)))
   (let* ((i (string-match "\\([0-9][0-9][0-9][0-9]\\)/" name))
@@ -45,12 +51,28 @@
 	 (time (encode-time 0 0 0 (string-to-int d) (string-to-int m) (+ 2000 (string-to-int y))))
 	 (itime (time-add time (days-to-time offset)))
 	 (dtime (decode-time itime))
-	 (ftime (format-time-string "%y%m/%d" itime))
+	 (ftime (format-time-string "%y/%y%m/%d" itime))
 	 )
     (concat (substring name 0 i) ftime (substring name (+ i 7)))
     )
   )
 
+(defun monthly-path-replace (offset &optional name)
+  (error "fix this")
+  "Replace daily path part of file. Does not modify any date stamp in the filename part" 
+  (or name (setq name (buffer-file-name)))
+  (let* ((i (string-match "\\([0-9][0-9][0-9][0-9]\\)/" name))
+	 (y (read (substring name i (+ i 2))))
+	 (m (read (substring name (+ i 2) (+ i 4))))
+	 )
+    (setq mm (+ (+ (* 12 y) (1- m)) offset))
+    (setq m (1+ (mod mm 12)))
+    (setq y (/ mm 12))
+    (concat (substring name 0 i) (format "%02d%02d" y m) (substring name (+ i 4)))
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun daily-linked-file ()
   (let ((offset (alist-r-get '((prev . -1) (next . 1)) tag)))
     (cond
@@ -68,20 +90,6 @@
 (file-class-guess-name-add 'daily (daily-path "[0-9]\\{4\\}/[0-9]\\{2\\}/"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun monthly-path-replace (offset &optional name)
-  "Replace daily path part of file. Does not modify any date stamp in the filename part" 
-  (or name (setq name (buffer-file-name)))
-  (let* ((i (string-match "\\([0-9][0-9][0-9][0-9]\\)/" name))
-	 (y (read (substring name i (+ i 2))))
-	 (m (read (substring name (+ i 2) (+ i 4))))
-	 )
-    (setq mm (+ (+ (* 12 y) (1- m)) offset))
-    (setq m (1+ (mod mm 12)))
-    (setq y (/ mm 12))
-    (concat (substring name 0 i) (format "%02d%02d" y m) (substring name (+ i 4)))
-    )
-  )
-
 (file-class-linked-file-add
  'monthly
  '(
@@ -115,11 +123,11 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun daily-html-month (&optional time)
-  (daily-date-path "%y%m/%y%m.html" time t)
+  (daily-month-path "%y%m.html" time t)
   )
 
 (defun daily-html-time (&optional time)
-  (daily-date-path "%y%m/%d/%y%m%d.html" time t)
+  (daily-date-path "%y%m%d.html" time t)
   )
 
 (defun daily-html+ (s i)
@@ -177,9 +185,9 @@
     )
   )
 
-(defun home-daily-yesterday (&optional force-create) (daily-path (format-time-string "%y%m/%d/" (yesterday-time)) force-create))
-(defun home-daily-today (&optional force-create) (daily-path (format-time-string "%y%m/%d/") force-create))
-(defun home-daily-month (&optional force-create) (daily-path (format-time-string "%y%m/") force-create))
+(defun home-daily-yesterday (&optional force-create) (daily-path (format-time-string "%y/%y%m/%d/" (yesterday-time)) force-create))
+(defun home-daily-today (&optional force-create) (daily-path (format-time-string "%y/%y%m/%d/") force-create))
+(defun home-daily-month (&optional force-create) (daily-path (format-time-string "%y/%y%m/") force-create))
 
 (defun daily-time-set () (interactive)
   (defun yesterday-time () (time-subtract (current-time) `(1 ,(- 86400 65536))))
@@ -210,4 +218,20 @@
    (format-time-string "%y%m%d.org" (current-time))))
 
 (daily-time-set)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun load-all-month ()
+  (let* ((ym (format-time-string "%y%m"))
+	 (list (directory-files "." nil "^[0-9][0-9]$")))
+    (dolist (i list)
+      (let ((file (format "%s/%s%s.el" i ym i)))
+	(cond
+	 ((file-exists-p file)
+	  (load-file-in-directory file)
+	  )
+	 )
+	)
+      )
+    )
+  )
 
