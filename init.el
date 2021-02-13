@@ -66,6 +66,7 @@
 (load "todo" t t)
 
 (load "n-mc.el")
+(load "ngen.el")
 
 (load-overrides "init")
 
