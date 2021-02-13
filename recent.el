@@ -977,3 +977,15 @@ then replace VALUE with the value which follows it in the property list."
   )
        
 (define-key global-map [f5] 'google)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun line-re (s) (concat "^.*" s ".*$"))
+
+(defun var-re (s) (let ((ss "\\(\\sw\\|\\s_\\)*")) (concat ss s ss)))
+(defun var-re-begin (s) (let ((ss "\\(\\sw\\|\\s_\\)*")) (concat s ss)))
+
+(defun font-lock-quick (list)
+  (setq font-lock-keywords list)
+  (font-lock-mode t)
+  )
+
