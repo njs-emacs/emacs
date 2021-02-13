@@ -1,0 +1,22 @@
+(setq calendar-holidays
+  `(
+    (holiday-fixed 1 1 "New Year's Day")
+    (holiday-fixed 2 14 "Valentine's Day")
+    (holiday-fixed 3 17 "St. Patrick's Day")
+    (holiday-fixed 4 1 "April Fools' Day")
+; (holiday-float 5 0 2 "Mother's Day")
+; (holiday-float 6 0 3 "Father's Day")
+    (holiday-fixed 10 31 "Halloween")
+; (holiday-easter-etc)
+    (holiday-fixed 12 25 "Christmas")
+    (solar-equinoxes-solstices)
+    (holiday-fixed 3 31 "Clocks go forward")
+    (holiday-fixed 10 31 "Clocks go back")
+    
+    (holiday-fixed 1 6 "Jason Birthday")
+    (holiday-fixed 3 12 "Darien Birthday")
+    (holiday-fixed 3 12 "Darien Birthday")
+    (holiday-fixed 6 16 "Sara Birthday")
+    (holiday-fixed 7 7 "Tina Birthday")
+    )
+  )
