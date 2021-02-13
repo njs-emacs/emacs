@@ -827,6 +827,8 @@ then replace VALUE with the value which follows it in the property list."
   (add-hook 'org-mode-hook 'turn-on-font-lock)
   (setq org-file-apps (append org-file-apps (list (cons t 'emacs))))
   (setq org-open-directory-means-index-dot-org nil)
+  (org-defkey org-mode-map (kbd "C-'") nil)
+  (org-defkey org-mode-map (kbd "C-,") nil)
   )
 
 (add-hook 'org-load-hook 'ns-org-load-hook)
