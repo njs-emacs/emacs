@@ -955,3 +955,25 @@ then replace VALUE with the value which follows it in the property list."
 ;time-base32-hist
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun url-escape (x)
+  (setq x (replace-regexp-in-string " " "+" x))
+  )
+
+(defun google (q &optional lucky)
+  (interactive "sGoogle: \nP")
+  (let* ((q (url-escape q))
+	 (url (concat
+	       "https://www.google.com/search?hl=en&nfpr=1&q="
+	       q
+	       (cond
+		(lucky "&btnI=I%27m+Feeling+Lucky")
+		("&btnG=Google")
+		)
+	      )))
+;    (debug)
+    (browse-url url)
+    )
+  )
+       
+(define-key global-map [f5] 'google)
