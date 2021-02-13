@@ -151,3 +151,11 @@
 (define-key global-map (kbd "<s-f9>") 'emacs-read-hash-plus)
 (define-key slash-map (kbd "C-e") 'emacs-read-hash-plus)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; "disable" secondary selection
+
+(global-unset-key (kbd "<M-drag-mouse-1>"))   ; was mouse-set-secondary
+(global-unset-key (kbd "<M-down-mouse-1>"))   ; was mouse-drag-secondary
+(global-unset-key (kbd "<M-mouse-1>"))	  ; was mouse-start-secondary
+(global-unset-key (kbd "<M-mouse-2>"))	  ; was mouse-yank-secondary
+(global-unset-key (kbd "<M-mouse-3>"))	  ; was mouse-secondary-save-then-kill
