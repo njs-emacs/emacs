@@ -1,24 +1,3 @@
-NO define-transient-command
-
-(define-transient-command symbol-overlay-transient ()
-  "Symbol Overlay transient"
-  ["Symbol Overlay"
-   ["Overlays"
-    ("." "Add/Remove at point" symbol-overlay-put)
-    ("k" "Remove All" symbol-overlay-remove-all)
-    ]
-   ["Move to Symbol"
-    ("n" "Next" symbol-overlay-switch-forward)
-    ("p" "Previous" symbol-overlay-switch-backward)
-    ]
-   ["Other"
-    ("m" "Hightlight symbol-at-point" symbol-overlay-mode)
-    ]
-   ]
-  )
-(global-set-key (kbd "s-.") 'symbol-overlay-transient)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defhydra symbol-overlay-hydra (:color pink :hint nil :timeout 30)
       "
   _p_   ^^   _b_  back         _h_  highlight  _i_  isearch
@@ -48,3 +27,5 @@ _<_   _>_    _d_  definition   _R_  remove     _Q_  query-replace
 (global-set-key (kbd "s-.") 'symbol-overlay-hydra/body)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(where-is 'symbol-overlay-put)
+
