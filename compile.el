@@ -29,18 +29,6 @@
   (setq compilation-parsing-end 1)
   )
 
-(setq c-map (make-sparse-keymap))
-(define-key esc-map "c" c-map)
-
-(let ((map c-map))
-  (define-key map "g" 'grep)
-  (define-key map "x" 'xgrep)
-  (define-key map "0" '(lambda () (interactive)
-			 (bake-target "clean")
-			 ))
-  (define-key map "" 'compilation-restart-errors)
-  )
-
 (defun wcompile (cmd &optional name mode)
   (let ((buffer (get-buffer-create (or name "*compilation*"))))
     (compile cmd mode)
@@ -76,8 +64,6 @@
 	  (buffer-list))
   (setq compilation-in-progress nil)
   )
-
-(define-key c-map "d" 'kill-compilation-buffers)
 
 (setq compilation-wait nil)
 
@@ -210,8 +196,6 @@ to a function that generates a unique name."
   (ngrep (car regexp-search-ring))
   )
 
-(define-key global-map "\M-c\M-p" 'ngrep-last-search)
-
 (defvar rgrep-spec-hist nil)
 
 (defvar rgrep-path-default ".")
@@ -243,10 +227,6 @@ to a function that generates a unique name."
 		    (format "-name \\%s" (grep-spec))))
 	)
   )
-
-(define-key global-map "\M-c\M-r" 'rgrep)
-(define-key global-map "\M-c\M-s" 'sgrep)
-(define-key global-map "\M-c\M-k" 'kgrep)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun compile-visit (spec) (interactive "SSpec: ")

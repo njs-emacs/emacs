@@ -11,12 +11,6 @@
       (locate-up-file ".stub.html" default-stub-html-file))
   )
 
-(qi-define (control-key-vector ?h ?h)
-	   '(file-contents (stub-html-file)))
-
-(qb-define (control-key-vector ?h ?h)
-	   '(stub-html-file))
-
 (make-local-variable 'insert-link-yank-before-hook)
 (set-default 'insert-link-yank-before-hook nil)
 
@@ -32,8 +26,10 @@
 
 (setq html-img-base "")
 
-(global-set-key (control-key-vector ?o ?h ?a) 'insert-link-yank)
-(global-set-key (control-key-vector ?o ?h ?i) 'insert-link-img)
+;; replace these with yasnippets
 
-(qi-define "\C-h\C-i" "<img src=\"" "\">")
+;(define-key qi-map (kbd "C-t C-a") 'insert-link-yank)
+;(define-key qi-map (kbd "C-t C-i") 'insert-link-img)
+
+;(qi-define "\C-h\C-i" "<img src=\"" "\">")
 

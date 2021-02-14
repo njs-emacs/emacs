@@ -143,20 +143,6 @@
    )
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun perl-stub-sub ()
-   (cond 
-    ((eq arg 1)
-     (list (format "sub _%s {" (format-time-string "%m%d_%H%M"))
-	   " }\n")
-     )
-    (t
-     (list (format "sub _%s {\n    " (format-time-string "%m%d_%H%M"))
-	   "\n}\n")
-     )
-   )
-   )
-
-(qi-define "\C-p\C-s" '(perl-stub-sub))
+;; perl-stub-sub replaced with yasnippet
 
 (wuft-load "perl")

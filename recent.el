@@ -51,21 +51,31 @@
 (add-hook 'kill-emacs-hook 'command-history-save)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun toggle-slashification-region (arg) (interactive "p")
-  (cond
-   ((eq arg 2) (replace-regexp "/" "\\\\" nil (region-beginning) (region-end)))
-   ((eq arg 3) (replace-regexp "\\\\" "/" nil (region-beginning) (region-end)))
-   ((let ((a (or (sx (rsf "/" (region-end))) 99999999))
-	  (b (or (sx (rsf "\\\\" (region-end))) 99999999))
-	  )
-      (cond ((< a b) (toggle-slashification-region 2))
-	    ((toggle-slashification-region 3))
-	    )
-      ))
-   )
+(defun toggle-slashification (arg start end)
+  (sx (goto-char start)
+      (cond
+       ((eq arg 2) (replace-regexp "/" "\\\\" nil start end))
+       ((eq arg 3) (replace-regexp "\\\\" "/" nil start end))
+       (
+	(let ((a (or (sx (rsf "/" end)) 99999999))
+	      (b (or (sx (rsf "\\\\" end)) 99999999))
+	      )
+	  (cond ((< a b) (toggle-slashification 2 start end))
+		((toggle-slashification 3 start end))
+		)
+	  ))
+       )
+      )
   )
 
-(define-key global-map (control-key-vector ?z ?/) 'toggle-slashification-region)
+(defun toggle-slashification-region (arg)
+  (interactive "p")
+  (cond ((region-active-p) (toggle-slashification arg (region-beginning) (region-end)))
+	((toggle-slashification arg (point^) (point$)))
+	)
+  )
+
+(define-key z-map (kbd "C-/") 'toggle-slashification-region)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun rc-mode () (interactive)
@@ -523,25 +533,7 @@ then replace VALUE with the value which follows it in the property list."
 
 (define-key global-map "\M-_" 'kill-paren)
 
-(define-key global-map "\M-{" (ilambda (goto-char (ps-fun))))
-(define-key global-map "\M-}" (ilambda (goto-char (pe-fun))))
-
 ;;;;;;;;;;;;;;;;
-(define-key z-map (vector (control-key ?.)) 'dired-quick-dot)
-
-(define-key z-map "\C-p" 'print-it)
-(define-key z-map "\C-f" 'filename-to-kill)
-
-(define-key z-map "\C-j" 'join-line)
-(define-key z-map "\C-u" 'upcase-region)
-(define-key z-map "\C-d" 'downcase-region)
-
-(define-key z-map "\C-s" 'toggle-case-fold-search)
-
-(define-key z-map "\C-l" 'font-lock-mode)
-(define-key z-map "\C-k" 'find-kill-head)
-
-(define-key global-map (kbd "C-z C-z") 'zz)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; take over help key
 
@@ -566,7 +558,7 @@ then replace VALUE with the value which follows it in the property list."
     )
   )
 
-(define-key global-map "\C-z\C-f" 'buffer-file-name-to-kill)
+(define-key z-map "C-f" 'buffer-file-name-to-kill)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun assoc-re (pat list)
   (let* ((fun '(lambda (x) (string-match pat (car x))))
@@ -622,8 +614,8 @@ then replace VALUE with the value which follows it in the property list."
     )
   )
 
-(define-key global-map (control-key-vector ?z ?c) 'copy-emacs-url)
-(define-key global-map (kbd "C-z C-o") 'copy-org-link)
+(define-key z-map (control-key-vector ?c) 'copy-emacs-url)
+(define-key z-map (kbd "C-o") 'copy-org-link)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun copy-gdb-break (&optional arg)
@@ -637,7 +629,7 @@ then replace VALUE with the value which follows it in the property list."
     (message "copied '%s' to kill" break)
     )
   )
-(define-key global-map (kbd "C-z C-v") 'copy-gdb-break)
+(define-key z-map (kbd "C-v") 'copy-gdb-break)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun toggle-region-visible (start end)
@@ -991,3 +983,6 @@ then replace VALUE with the value which follows it in the property list."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'bg-hydra "bg-hydra" "" (interactive))
+
+(bulkload-directory (filename-concat user-emacs-home "recent"))
+

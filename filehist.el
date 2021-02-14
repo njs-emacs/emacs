@@ -257,6 +257,12 @@
 ;; want to replace all self-insert-command keys with file-history-electric-key
 ;;
 
+(defun file-history-jump ()
+  (interactive)
+  (avy-goto-line)
+  (file-history-find-file)
+  )
+
 (defun file-history-map-init ()
   (setq file-history-map (make-sparse-keymap))
   (setq file-history-electric-map (make-sparse-keymap))
@@ -264,6 +270,8 @@
   (file-history-electric-key-define "+" 'file-history-priority-raise)
   (file-history-electric-key-define "-" 'file-history-priority-lower)
   (file-history-electric-key-define "l" 'file-history-redisplay)
+
+  (file-history-electric-key-define "j" 'file-history-jump)
 
   (file-history-electric-key-define "b" 'file-history-sort-quick)
   (file-history-electric-key-define "t" 'file-history-sort-time)

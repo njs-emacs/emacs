@@ -24,12 +24,16 @@
 (setq nvc-disable-file-name-pattern-list
   (list
    "/ext/[^/]*\\.h$"
+   ".emacs-bmk-bmenu-state.el"
+   "e:/home/nick/.emacs"
+   "\.bmk"
    )
   )
 
 (defun nvc-file-enable (file)
-  (not (member-if '(lambda (x) (string-match x file))
-		  nvc-disable-file-name-pattern-list)))
+  (not
+   (member-if '(lambda (x) (string-match x file))
+	      nvc-disable-file-name-pattern-list)))
 
 ; ##limit## 
 
@@ -322,7 +326,7 @@ Used to enter a file into edit tracking on creation but not at any other time.")
      (or
       nvc-enable-force
       (and 
-       (nvc-buffer-enable (current-buffer))
+       (nvc-buffer-enable)
        (nvc-file-enable file)
        )
       )
@@ -520,7 +524,7 @@ Used to enter a file into edit tracking on creation but not at any other time.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq nvc-confirm-size-limit 1000000)
 
-(defun nvc-confirm-maybe (buffer)
+(defun nvc-confirm-maybe ()
   (let* ((size (buffer-size)))
     (and
      (or (< size nvc-confirm-size-limit)
@@ -530,17 +534,18 @@ Used to enter a file into edit tracking on creation but not at any other time.")
     )
   )
 
-(defun nvc-buffer-enable (buffer)
+(defun nvc-buffer-enable ()
   (sx (bob)
       (let* ((limit (min (point-max) 1000000))
 	     (limit (or (sx (rsf "##limit##" limit)) limit))
+	     (name (buffer-file-name))
 	     )
 	(or
 	 (sx (rsf "##backup##" limit))
 	 (and
 	  (not (rsf "##\\(generated\\|nobackup\\)##" limit))
 	  (not (locate-up-file-directory ".nobackup"))
-	  (nvc-confirm-maybe buffer)
+	  (nvc-confirm-maybe)
 	  )
 	 )
 	)

@@ -116,13 +116,5 @@
 
 (define-key global-map "\C-xf" 'find-file)
 
-(qi-define (control-key-vector ?g ?#) "#\#nobackup##")
-
-(setq h-slash-map (make-sparse-keymap))
-(setq s-slash-map (make-sparse-keymap))
-
-(define-key global-map (kbd "H-/") h-slash-map)
-(define-key global-map (kbd "s-/") s-slash-map)
-
 (setq create-lockfiles nil)
 (setq list-command-history-max 4096)

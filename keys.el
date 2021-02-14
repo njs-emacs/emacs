@@ -65,17 +65,7 @@
 
 (define-key global-map "\ef" f-map)
 
-(setq z-map (make-sparse-keymap))
-
-(define-key z-map "\C-t" 'toggle-truncate-lines)
-(define-key z-map "\C-i" 'init-local)
-(define-key z-map "\C-r" 'read-only-mode)
-
-(setq zz-map (make-sparse-keymap))
-(define-key global-map "\C-z" z-map)
-(define-key z-map "\C-z" zz-map)
-(define-key zz-map "\C-z" 'undo)
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq m-map (make-sparse-keymap))
 (global-set-key "\M-m" m-map)
 
@@ -108,15 +98,6 @@
 (define-key dired-mode-map "\C-t" 'today-make-directory)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq hash-map (make-sparse-keymap))
-
-(global-set-key (vector (control-key ?#)) hash-map)
-
-(define-key hash-map (control-key-vector ?#) 'find-file-at-point)
-(define-key hash-map "\C-i" 'insert-register)
-(define-key hash-map "\C-c" 'copy-to-register)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-key global-map [S-down-mouse-1] 'mouse-yank-at-click)
 
 (global-unset-key [C-down-mouse-1])
@@ -124,32 +105,13 @@
 
 ; "\C-z\C-b" prefix pertains to backup related functions
 
-(define-key z-map "\C-b\C-d" 'nvc-ls-bdiff)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-unset-key "\M-z")	; remove zap-to-char
-(global-unset-key "\C-\\")	; remove toggle-input-method
 
 (global-set-key (kbd "C-c C-g") 'magit-status)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq c-colon-map (make-sparse-keymap))
-
-(define-key global-map (kbd "C-;") c-colon-map)
-(define-key c-colon-map (kbd "C-;") 'er/expand-region)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; C-# map is a scratch map. Expect any key in C-# can be overridden
-
-(load "c-hash-map" t t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq slash-map (make-sparse-keymap))
-(global-set-key (kbd "C-\\") slash-map)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-key global-map (kbd "<s-f9>") 'emacs-read-hash-plus)
-(define-key slash-map (kbd "C-e") 'emacs-read-hash-plus)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; "disable" secondary selection
@@ -159,3 +121,6 @@
 (global-unset-key (kbd "<M-mouse-1>"))	  ; was mouse-start-secondary
 (global-unset-key (kbd "<M-mouse-2>"))	  ; was mouse-yank-secondary
 (global-unset-key (kbd "<M-mouse-3>"))	  ; was mouse-secondary-save-then-kill
+
+(bulkload-directory (filename-concat user-emacs-home "keys"))
+

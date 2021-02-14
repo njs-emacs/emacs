@@ -96,3 +96,6 @@
   )
 
 (define-key qi-map (kbd "C-s") 'insert-car-regexp-search-ring)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(qi-define (control-key-vector ?g ?#) "#\#nobackup##")

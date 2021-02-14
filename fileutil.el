@@ -121,18 +121,25 @@ For example (file-name-suffix \"emacs/modes.el\") returns \".el\""
   (let ((suffix (file-name-suffix name)))
     (if suffix (substring name 0 (- (length suffix))) name)))
 
-(defun file-contents (name)
+(defun file-contents (name &optional size)
   "Returns the contents of file with name NAME."
   (let ((buffer (get-file-buffer name)))
     (cond 
-     (buffer (save-excursion (set-buffer buffer) (buffer-string)))
+     (buffer (save-excursion (set-buffer buffer) (buffer-substring-no-properties 1 (or size (point-max)))))
      ((file-exists-p name)
       (setq buffer (find-file-noselect name))
-      (prog1 (save-excursion (set-buffer buffer) (buffer-string))
+      (prog1 (save-excursion (set-buffer buffer) (buffer-substring-no-properties 1 (or size (point-max))))
 	(kill-buffer buffer)))
      ))
   )
 
+(defun file-contains-pattern (file pat &optional limit)
+  (let* ((fc (file-contents file limit)))
+    (string-match-string pat fc)
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defmacro with-file (file &rest body)
   `(save-window-excursion
      (find-file ,file)
@@ -354,6 +361,32 @@ on completion. If optional HOOK is given, call this before closing the file."
    (t (setq f (file-name-directory f)))
    )
   (car (reverse (filename-unconcat f)))
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun bulkload-1 (file)
+  (cond ((file-contains-pattern file "## *nobulkload *##"))
+	((load file))
+	)
+  )
+
+(defun bulkload () (interactive)
+  (let* ((d default-directory)
+	 (files (directory-files "." nil ".el"))
+	 )
+    (add-to-list 'load-path d)
+    (mapcar 'bulkload-1 files)
+    )
+  )
+
+(defun bulkload-directory (dir)
+  (let* ((dir (expand-file-name dir))
+	 (default-directory dir)
+	 (files (directory-files "." nil ".el"))
+	 )
+    (add-to-list 'load-path dir)
+    (mapcar 'bulkload-1 files)
+    )
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
