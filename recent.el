@@ -75,8 +75,6 @@
 	)
   )
 
-(define-key z-map (kbd "C-/") 'toggle-slashification-region)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun rc-mode () (interactive)
   (setq major-mode 'rc-mode)
@@ -518,7 +516,6 @@ then replace VALUE with the value which follows it in the property list."
 
 (define-key global-map (control-key-vector ?=) 'comment-line-insert)
 
-(define-key global-map "\C-x\C-h" 'file-history-show)
 (define-key global-map "\C-x\C-y" 'copy-sexp-as-kill)
 
 ; (define-key global-map [mode-line drag-mouse-1] 'mldrag-drag-mode-line)
@@ -946,7 +943,6 @@ then replace VALUE with the value which follows it in the property list."
 (define-key global-map [C-f7] 'tsx-clip)
 ;time-base32-hist
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun url-escape (x)
   (setq x (replace-regexp-in-string " " "+" x))
@@ -983,6 +979,3 @@ then replace VALUE with the value which follows it in the property list."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'bg-hydra "bg-hydra" "" (interactive))
-
-(bulkload-directory (filename-concat user-emacs-home "recent"))
-
