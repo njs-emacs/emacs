@@ -123,9 +123,6 @@
 
 (mq-linked-file "<M-backspace>" 'buried)
 
-(global-set-key (kbd "<A-backspace>")
-		'(lambda () (interactive) (mq-buffer-switch mq-prev-buffer)))
-
 (mq-linked-file "M-SPC" 'meta)
 
 (mq-linked-file "M-'" 'other)
