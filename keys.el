@@ -77,7 +77,6 @@
 
 (load-overrides "keys")
 
-(define-key global-map "\C-v" 'scroll-up)
 (define-key global-map "\M-v" 'scroll-down)
 
 (define-key global-map "\M-o" 'other-window)
@@ -111,9 +110,6 @@
 (global-set-key (kbd "C-c C-g") 'magit-status)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define-key global-map (kbd "<s-f9>") 'emacs-read-hash-plus)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; "disable" secondary selection
 
 (global-unset-key (kbd "<M-drag-mouse-1>"))   ; was mouse-set-secondary
@@ -121,6 +117,3 @@
 (global-unset-key (kbd "<M-mouse-1>"))	  ; was mouse-start-secondary
 (global-unset-key (kbd "<M-mouse-2>"))	  ; was mouse-yank-secondary
 (global-unset-key (kbd "<M-mouse-3>"))	  ; was mouse-secondary-save-then-kill
-
-(bulkload-directory (filename-concat user-emacs-home "keys"))
-
