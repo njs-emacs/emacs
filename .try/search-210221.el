@@ -26,9 +26,8 @@
     )
   )
 
-
 (defmacro min-cond (&rest forms)
-  (let (r min minf)
+  (let (r min minf minr)
      (while forms
        (let* ((form (pop forms))
 	      (e (sx (eval (car form))))
@@ -36,25 +35,21 @@
 	 (cond
 	  (e
 	   (cond
-	    ((or (not min) (< e min)) (setq min e) (setq minf form))
+	    ((or (not min) (< e min))
+	     (setq min e)
+	     (setq minf form)
+	     (setq minr (eval `(progn ,@(cdr form))))
+	     )
 	    )
 	   )
 	  )
 	 )
        )
-     (setq r (cond (minf `(progn ,@(cdr minf)))))
-     r
+     (goto-char (or min (point-max)))
+     minr
      )
   )
 
-
-(defun shx ()
-  (debug)
-  (min-cond
-   ((rsf "	\\(\\S +\\)" nil 1) (ms 1))
-   ((rsf "=============" nil 1) (ms 0))
-   )
-  )
 
 (shx)
 

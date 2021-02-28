@@ -10,21 +10,30 @@
 ; if startkey returns nil, the current point is used
 ; but if startkey returns (point) the endkey function doesn't get called
 
+(defmacro sit-after (&rest forms)
+  `(prog1 (progn ,@forms) (sit-for .1))
+  )
+			  
+(defun sort-defkey-startkey1 ()
+  (sx
+   (fc 1) (fx 2)
+   (bs (point) (sxp (fx 1)))
+   )
+  )
+
 (defun sort-defkey-startkey ()
-  (fc 1)
-  (fx 2)
-  (sit-for 0.1)
-  nil
+  (let ((x (sort-defkey-startkey1)))
+    (message "%s" x)
+    (sit-for 0.5)
+    x
+    )
   )
 
 (defun sort-defkey-endkey ()
-  (fx 1)
-  (sit-for 0.1)
-  nil
   )
 
 (defun sort-defkey-compare (a b)
-;  (message (format "[%s] [%s]" a b))
+  (message (format "[%s] [%s]" a b))
   (string< a b)
   )
 
@@ -38,6 +47,7 @@
   'sort-defkey-endrec
   'sort-defkey-startkey
   'sort-defkey-endkey
-;  'sort-defkey-compare
+  'sort-defkey-compare
   )
   ))
+
