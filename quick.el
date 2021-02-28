@@ -67,11 +67,11 @@
 (fset 'bdc (symbol-function 'backward-delete-char))
 (fset 'bs (symbol-function 'buffer-substring-no-properties))
 (defun bss (&optional start end)
-  (buffer-substring (or start (point)) (or end (point-max))))
+  (bs (or start (point)) (or end (point-max))))
 (defun bsp (length &optional start)
   (setq start (or start (point)))
-  (buffer-substring start (+ start length)))
-(defun bs$ () (buffer-substring (point^) (point$)))
+  (bs start (+ start length)))
+(defun bs$ () (bs (point^) (point$)))
 
 (fset 're (symbol-function 'recursive-edit))
 
