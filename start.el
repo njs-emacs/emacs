@@ -14,7 +14,7 @@
 (find-file "e:/daily/21/2102/2102.org")
 (find-file "e:/daily/21/2101/2101.org")
 
-(init-local "e:/.d/f/fop")
+(init-local "e:/ca/htdocs/pop")
 
 (defun setup-2101 () (interactive)
 
