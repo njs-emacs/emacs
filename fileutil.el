@@ -374,8 +374,9 @@ on completion. If optional HOOK is given, call this before closing the file."
   (let* ((d default-directory)
 	 (files (directory-files "." nil ".el"))
 	 )
-    (add-to-list 'load-path d)
+    (setq load-path (cons dir load-path))
     (mapcar 'bulkload-1 files)
+    (setq load-path (cdr load-path))
     )
   )
 
@@ -384,8 +385,9 @@ on completion. If optional HOOK is given, call this before closing the file."
 	 (default-directory dir)
 	 (files (directory-files "." nil ".el"))
 	 )
-    (add-to-list 'load-path dir)
+    (setq load-path (cons dir load-path))
     (mapcar 'bulkload-1 files)
+    (setq load-path (cdr load-path))
     )
   )
 
