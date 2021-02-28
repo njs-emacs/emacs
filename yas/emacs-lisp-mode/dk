@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : dk
+# key : dk
+# binding: A-M-1
+# --
+;(define-key global-map (kbd "A-M-$1") 'nil)
+$0
