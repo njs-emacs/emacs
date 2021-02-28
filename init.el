@@ -34,6 +34,7 @@
 
 (load "macros" t t)
 (load "frequent" t t)
+(load "dreg" t t)
 (load "qi" t t)
 (load "link-buffer" t t)
 
@@ -112,9 +113,13 @@
 (load "n-all" t t)
 (load "n-register" t t)
 (load "yas" t t)
-(load "recent" t t)
 
 (define-key global-map "\C-xf" 'find-file)
 
 (setq create-lockfiles nil)
 (setq list-command-history-max 4096)
+
+(bulkload-directory (filename-concat user-emacs-home "keys"))
+(bulkload-directory (filename-concat user-emacs-home "recent"))
+
+(load "recent" t t)
