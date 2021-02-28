@@ -65,3 +65,20 @@
 
 (define-key key-translation-map (kbd "<mute-grave>") nil)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; don't do this...
+; (define-key key-translation-map (kbd "<kp-1>") (kbd "C-~"))
+
+; do this
+(define-key function-key-map (kbd "<kp-1>") (kbd "C-<"))
+(define-key function-key-map (kbd "<kp-2>") (kbd "C->"))
+(define-key function-key-map (kbd "<kp-3>") (kbd "C-?"))
+(define-key function-key-map (kbd "<kp-4>") (kbd "C-:"))
+(define-key function-key-map (kbd "<kp-5>") (kbd "C-h"))
+(define-key function-key-map (kbd "<kp-6>") (kbd "C-~"))
+(define-key function-key-map (kbd "<kp-7>") (kbd "C-{"))
+(define-key function-key-map (kbd "<kp-8>") (kbd "C-}"))
+(define-key function-key-map (kbd "<kp-9>") (kbd "C-x C-h"))
+
+;(describe-variable 'function-key-map)
+
