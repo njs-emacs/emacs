@@ -203,13 +203,17 @@
   (minibuffer-dir "d" home-daily-today)
   (minibuffer-dir "m" home-daily-month)
 
-  (qb-define (control-key-vector ?d ?m) '(home-daily-month))
-  (qb-define (control-key-vector ?d ?d) '(home-daily-today))
-  (qb-define (control-key-vector ?d ?y) '(home-daily-yesterday))
+  (qb-define (kbd "C-d C-m") '(home-daily-month))
+  (qb-define (kbd "C-d C-d") '(home-daily-today))
+  (qb-define (kbd "C-d C-y") '(home-daily-yesterday))
 
-;  (qb-define (control-key-vector ?h ?m) '(daily-html-time (current-time)))
-;  (qb-define (control-key-vector ?h ?d) '(daily-html-time (current-time)))
-;  (qb-define (control-key-vector ?h ?y) '(daily-html-time (yesterday-time)))
+;  (qb-define (kbd "C-h C-m") '(daily-html-time (current-time)))
+;  (qb-define (kbd "C-h C-d") '(daily-html-time (current-time)))
+;  (qb-define (kbd "C-h C-y") '(daily-html-time (yesterday-time)))
+  )
+
+(defun home-daily-today-file (file)
+  (daily-path (concat (format-time-string "%y/%y%m/%d/") file) t)
   )
 
 (defun home-daily-org-file ()
