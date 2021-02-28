@@ -42,7 +42,7 @@
     )
   )
 
-(defun ngen-read (line plist)
+(defun ngen-read-cache (line plist)
   (with-current-buffer (ngen-buffer)
     (let* ((found))
       (ngen-cache plist)
@@ -51,6 +51,15 @@
       (bol)
       (bs (point^) (point$))
       )
+    )
+  )
+
+(defun ngen-read (line state)
+  (let* ((method (alist-get 'method state)))
+    (cond
+     (method (funcall method line state))
+     (t (ngen-read-cache line state))
+     )
     )
   )
 
@@ -77,6 +86,23 @@
 
 (defun ngen-insert-current (offset) (interactive "P")
   (insert (ngen-current offset))
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun zunk (line state)
+  (format (or (alist-get 'format state) "%d") line)
+  )
+
+(defun zunka (line state)
+  (let* ((format (or (alist-get 'format state) "%s"))
+	 (s
+	  (cond
+	   ((< line 26) (format "%c" (+ line ?A)))
+	   )
+	  )
+	 )
+    (format format s)
+    )
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
