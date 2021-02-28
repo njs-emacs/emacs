@@ -1,0 +1,36 @@
+;; ctrl-super key bindings
+
+;(define-key global-map (kbd "C-s-q") 'nil)
+;(define-key global-map (kbd "C-s-w") 'nil)
+;(define-key global-map (kbd "C-s-e") 'nil)
+;(define-key global-map (kbd "C-s-r") 'nil)
+;(define-key global-map (kbd "C-s-a") 'nil)
+;(define-key global-map (kbd "C-s-s") 'nil)
+;(define-key global-map (kbd "C-s-d") 'nil)
+;(define-key global-map (kbd "C-s-f") 'nil)
+;(define-key global-map (kbd "C-s-z") 'nil)
+;(define-key global-map (kbd "C-s-x") 'nil)
+;(define-key global-map (kbd "C-s-c") 'nil)
+;(define-key global-map (kbd "C-s-v") 'nil)
+;(define-key global-map (kbd "C-s-1") 'nil)
+;(define-key global-map (kbd "C-s-2") 'nil)
+;(define-key global-map (kbd "C-s-3") 'nil)
+;(define-key global-map (kbd "C-s-4") 'nil)
+
+;(define-key global-map (kbd "C-s-/") 'nil)
+;(define-key global-map (kbd "C-s-'") 'nil)
+;(define-key global-map (kbd "C-s-]") 'nil)
+;(define-key global-map (kbd "C-s-[") 'nil)
+;(define-key global-map (kbd "C-s-#") 'nil)
+;(define-key global-map (kbd "C-s-;") 'nil)
+;(define-key global-map (kbd "C-s-=") 'nil)
+;(define-key global-map (kbd "C-s--") 'nil)
+
+;(define-key global-map (kbd "<C-s-delete>") 'nil)
+;(define-key global-map (kbd "<C-s-end>") 'nil)
+;(define-key global-map (kbd "<C-s-insert>") 'nil)
+;(define-key global-map (kbd "<C-s-home>") 'nil)
+;(define-key global-map (kbd "<C-s-prior>") 'nil)
+;(define-key global-map (kbd "<C-s-next>") 'nil)
+
+

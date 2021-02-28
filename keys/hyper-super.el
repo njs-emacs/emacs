@@ -1,0 +1,36 @@
+;; hyper-super key bindings
+
+;(define-key global-map (kbd "H-s-q") 'nil)
+;(define-key global-map (kbd "H-s-w") 'nil)
+;(define-key global-map (kbd "H-s-e") 'nil)
+;(define-key global-map (kbd "H-s-r") 'nil)
+;(define-key global-map (kbd "H-s-a") 'nil)
+;(define-key global-map (kbd "H-s-s") 'nil)
+;(define-key global-map (kbd "H-s-d") 'nil)
+;(define-key global-map (kbd "H-s-f") 'nil)
+;(define-key global-map (kbd "H-s-z") 'nil)
+;(define-key global-map (kbd "H-s-x") 'nil)
+;(define-key global-map (kbd "H-s-c") 'nil)
+;(define-key global-map (kbd "H-s-v") 'nil)
+;(define-key global-map (kbd "H-s-1") 'nil)
+;(define-key global-map (kbd "H-s-2") 'nil)
+;(define-key global-map (kbd "H-s-3") 'nil)
+;(define-key global-map (kbd "H-s-4") 'nil)
+
+;(define-key global-map (kbd "H-s-/") 'nil)
+;(define-key global-map (kbd "H-s-'") 'nil)
+;(define-key global-map (kbd "H-s-]") 'nil)
+;(define-key global-map (kbd "H-s-[") 'nil)
+;(define-key global-map (kbd "H-s-#") 'nil)
+;(define-key global-map (kbd "H-s-;") 'nil)
+;(define-key global-map (kbd "H-s-=") 'nil)
+;(define-key global-map (kbd "H-s--") 'nil)
+
+;(define-key global-map (kbd "<H-s-delete>") 'nil)
+;(define-key global-map (kbd "<H-s-end>") 'nil)
+;(define-key global-map (kbd "<H-s-insert>") 'nil)
+;(define-key global-map (kbd "<H-s-home>") 'nil)
+;(define-key global-map (kbd "<H-s-prior>") 'nil)
+;(define-key global-map (kbd "<H-s-next>") 'nil)
+
+
