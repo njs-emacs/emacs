@@ -1,0 +1,6 @@
+;-*- mode: emacs-lisp -*-
+
+(apropos "prev.*book.*file")
+(apropos "prev.*book.*file")
+
+(bmkp-switch-bookmark-file-create (expand-file-name "keydefs.bmk"))

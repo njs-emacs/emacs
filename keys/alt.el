@@ -9,3 +9,5 @@
 
 ;; (define-key global-map (kbd "A-.") "p name\nc\n")
 
+(define-key global-map (kbd "A-s") 'magit-stage-this-file)
+(define-key global-map (kbd "A-c") 'magit-commit-create)
