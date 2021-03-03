@@ -1,6 +1,8 @@
 (require 'hydra)
 
-(defvar safe-key-symbol-alist
+(defvar safe-key-symbol-alist nil)
+
+(setq safe-key-symbol-alist
   '(
     ("{" . "lbrace")
     ("}" . "rbrace")
