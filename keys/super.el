@@ -1,6 +1,6 @@
 (require 'auto-yasnippet)
-(global-set-key (kbd "s-w") #'aya-create)
-(global-set-key (kbd "s-q") #'aya-expand)
+(define-key global-map (kbd "s-w") #'aya-create)
+(define-key global-map (kbd "s-q") #'aya-expand)
 
 (define-key global-map (kbd "s-SPC") 'ace-jump-line-mode)
 

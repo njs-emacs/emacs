@@ -5,3 +5,4 @@
 
 (define-key c-gt-map (kbd "c") 'magit-commit-create)
 
+

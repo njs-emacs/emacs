@@ -18,3 +18,4 @@
 
 (define-key c-lbrace-map (kbd "c") 'magit-commit-create)
 
+(define-key c-lbrace-map (kbd "C-p") 'hydra-text-scale/body)

@@ -1,5 +1,5 @@
 (setq c-bquote-map (make-sparse-keymap))
-(define-key global-map (kbd "C-`") c-bquote-map)
+(global-set-key (kbd "C-`") c-bquote-map)
 
 (define-key c-bquote-map (kbd "E") 'keydef-edit-init)
 

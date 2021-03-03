@@ -1,5 +1,5 @@
 (setq m-c-map (make-sparse-keymap))
-(define-key global-map (kbd "M-c") m-c-map)
+(global-set-key (kbd "M-c") m-c-map)
 
 (define-key m-c-map "d" 'kill-compilation-buffers)
 

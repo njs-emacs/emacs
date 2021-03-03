@@ -3,10 +3,10 @@
 (setq m-pause-map (make-sparse-keymap))
 (setq c-m-pause-map (make-sparse-keymap))
 
-(define-key global-map (kbd "<pause>") pause-map)
-(define-key global-map (kbd "<C-pause>") c-pause-map)
-(define-key global-map (kbd "<M-pause>") m-pause-map)
-(define-key global-map (kbd "<C-M-pause>") c-m-pause-map)
+(global-set-key (kbd "<pause>") pause-map)
+(global-set-key (kbd "<C-pause>") c-pause-map)
+(global-set-key (kbd "<M-pause>") m-pause-map)
+(global-set-key (kbd "<C-M-pause>") c-m-pause-map)
 
 (defmacro pause-macro-create (map key &rest body)
   `(define-key ,map ,key (lambda (arg) (interactive "P") ,@body))

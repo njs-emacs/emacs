@@ -1,5 +1,5 @@
 (setq c-v-map (make-sparse-keymap))
-(define-key global-map (kbd "C-v") c-v-map)
+(global-set-key (kbd "C-v") c-v-map)
 
 (define-key c-v-map (kbd "E") 'keydef-edit-init)
 

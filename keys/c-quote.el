@@ -1,9 +1,9 @@
 (defun c-quote-map-init ()
   (setq c-quote-map (copy-keymap ctl-x-r-map))
 
-  (define-key c-quote-map (kbd "E") 'keydef-edit-init)
+  (global-set-key (kbd "C-'") c-quote-map)
 
-  (define-key global-map (kbd "C-'") c-quote-map)
+  (define-key c-quote-map (kbd "E") 'keydef-edit-init)
 
   (define-key c-quote-map (kbd "C-k") 'kmacro-to-register)
   (define-key c-quote-map (kbd "C-'") 'bookmark-jump)

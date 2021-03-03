@@ -1,5 +1,5 @@
 (setq c-slash-map (make-sparse-keymap))
-(define-key global-map (kbd "C-/") c-slash-map)
+(global-set-key (kbd "C-/") c-slash-map)
 
 (define-key c-slash-map (kbd "E") 'keydef-edit-init)
 

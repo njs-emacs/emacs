@@ -1,5 +1,5 @@
 (setq c-comma-map (make-sparse-keymap))
-(define-key global-map (kbd "C-,") c-comma-map)
+(global-set-key (kbd "C-,") c-comma-map)
 
 (define-key c-comma-map (kbd "E") 'keydef-edit-init)
 
@@ -17,7 +17,4 @@
 (define-key c-comma-map (kbd "C-,") 'mc/mark-all-dwim)
 
 (define-key c-comma-map (kbd "C-o") 'mc--mark-symbol-at-point)
-
-;;; !!!!
-(global-set-key (kbd "s-,") c-comma-map)
 

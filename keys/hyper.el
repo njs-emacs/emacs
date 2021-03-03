@@ -18,12 +18,12 @@
 ;(define-key global-map (read-kbd-macro "H-h H-f") 'describe-function)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-set-key (kbd "H-w") #'aya-create)
-(global-set-key (kbd "H-y") #'aya-expand)
+(define-key global-map (kbd "H-w") #'aya-create)
+(define-key global-map (kbd "H-y") #'aya-expand)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; remap kp-insert to AppsKey in Autohotkey
-(global-set-key (kbd "<H-kp-space>") 'describe-key-briefly)
+(define-key global-map (kbd "<H-kp-space>") 'describe-key-briefly)
 
 (define-key global-map (kbd "H-s-SPC") 'ace-jump-line-mode)
 (define-key global-map (kbd "<H-s-delete>") 'ace-jump-buffer)
