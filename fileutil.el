@@ -121,16 +121,34 @@ For example (file-name-suffix \"emacs/modes.el\") returns \".el\""
   (let ((suffix (file-name-suffix name)))
     (if suffix (substring name 0 (- (length suffix))) name)))
 
+;;;(defun file-contents (name &optional size)
+;;;  "Returns the contents of file with name NAME."
+;;;  (let ((buffer (get-file-buffer name)))
+;;;    (cond 
+;;;     (buffer (save-excursion (set-buffer buffer) (buffer-substring-no-properties 1 (or size (point-max)))))
+;;;     ((file-exists-p name)
+;;;      (setq buffer (find-file-noselect name))
+;;;      (prog1 (save-excursion (set-buffer buffer) (buffer-substring-no-properties 1 (or size (point-max))))
+;;;	(kill-buffer buffer)))
+;;;     ))
+;;;  )
+
 (defun file-contents (name &optional size)
   "Returns the contents of file with name NAME."
-  (let ((buffer (get-file-buffer name)))
-    (cond 
-     (buffer (save-excursion (set-buffer buffer) (buffer-substring-no-properties 1 (or size (point-max)))))
-     ((file-exists-p name)
-      (setq buffer (find-file-noselect name))
-      (prog1 (save-excursion (set-buffer buffer) (buffer-substring-no-properties 1 (or size (point-max))))
-	(kill-buffer buffer)))
-     ))
+  (save-excursion 
+    (let ((buffer (get-file-buffer name)))
+      (cond 
+       (buffer
+	(set-buffer buffer)
+	(buffer-substring-no-properties 1 (or size (point-max))))
+       ((file-exists-p name)
+	(setq buffer (get-buffer-create name))
+	(set-buffer buffer)
+	(insert-file-contents-literally name nil)
+	(prog1 (buffer-substring-no-properties 1 (or size (point-max)))
+	  (kill-buffer buffer)))
+       ))
+    )
   )
 
 (defun file-contains-pattern (file pat &optional limit)
