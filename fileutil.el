@@ -396,6 +396,7 @@ on completion. If optional HOOK is given, call this before closing the file."
     (mapcar 'bulkload-1 files)
     (setq load-path (cdr load-path))
     )
+  nil
   )
 
 (defun bulkload-directory (dir)
@@ -407,6 +408,7 @@ on completion. If optional HOOK is given, call this before closing the file."
     (mapcar 'bulkload-1 files)
     (setq load-path (cdr load-path))
     )
+  nil
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
