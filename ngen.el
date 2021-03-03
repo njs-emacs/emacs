@@ -120,8 +120,8 @@
   ("i" (ngen-insert-current -2) (format "     -2 (%s)" (ngen-current -2)) :exit t)
   ("u" (ngen-insert-current -3) (format "     -3 (%s)" (ngen-current -3)) :exit t)
 
-  ("[" (ngen-current-move -1) (format "Back    -> %-12s" (ngen-current -1)) :column "Move:")
-  ("]" (ngen-current-move 1)  (format "Forward -> %-12s" (ngen-current  1)))
+  ("b" (ngen-current-move -1) (format "Back    -> %-12s" (ngen-current -1)) :column "Move:")
+  ("m" (ngen-current-move 1)  (format "Forward -> %-12s" (ngen-current  1)))
 
   ("q" nil "quit" :column ":")
   )
