@@ -11,6 +11,9 @@
 (top-level)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (init-local (p-path "stub"))
+(init-local "e:/ca")
+
+(find-file "e:/daily/21/2103/2103.org")
 (find-file "e:/daily/21/2102/2102.org")
 (find-file "e:/daily/21/2101/2101.org")
 
