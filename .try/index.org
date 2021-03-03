@@ -1,0 +1,8 @@
+* tooltips
+  (tooltip-show "foo\nbar\nbaz" t)
+  (tooltip-show "foo\nbar\nbaz")
+  tooltip-delay
+  tooltip-short-delay
+  tooltip-frame-parameters
+  [[https://www.youtube.com/watch?v=VLUMW0sR4Vk][Tooltips on Emacs commands and variables in org-mode]]
+
