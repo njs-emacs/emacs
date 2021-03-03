@@ -27,6 +27,7 @@
     ("/" . "slash")
     ("\\" . "bslash")
     ("'" . "squote")
+    ("`" . "bquote")
     ("\"" . "dquote")
     ))
 
