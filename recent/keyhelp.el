@@ -2,6 +2,9 @@
 
 (defvar safe-key-symbol-alist
   '(
+    ("{" . "lbrace")
+    ("}" . "rbrace")
+
     ("[" . "lbracket")
     ("]" . "rbracket")
     
