@@ -127,7 +127,12 @@
   )
 
 (define-key global-map (kbd "M-n M-n") 'ngen-insert-current)
-(define-key global-map (kbd "M-n M-m") 'ngen-hydra/body)
+(define-key global-map (kbd "M-n M-b") '(lambda () (interactive) (ngen-current-move -1)))
+(define-key global-map (kbd "M-n M-m") '(lambda () (interactive) (ngen-current-move 1)))
+(define-key global-map (kbd "M-n M-b") '(lambda () (interactive) (ngen-current-move -1)))
+(define-key global-map (kbd "M-n M-f") '(lambda () (interactive) (ngen-current-move 1)))
+
+(define-key global-map (kbd "M-n M-/") 'ngen-hydra/body)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun ngen-state-insert ()
