@@ -66,7 +66,12 @@
 (defun ngen-get (tag) (alist-get tag ngen-state))
 (defun ngen-put (tag val) (setq ngen-state (alist-put ngen-state tag val)))
 
-(defun ngen-current-move (val) (ngen-put 'current (+ (ngen-get 'current) val)))
+(defun ngen-current-move (val)
+  (let ((new (+ (ngen-get 'current) val)))
+    (ngen-put 'current new)
+    (message "new ngen value: %s" (ngen-current))
+    )
+)
 
 (defvar-local ngen-state nil "Name generation state")
 
