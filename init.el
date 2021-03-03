@@ -119,6 +119,8 @@
 (setq create-lockfiles nil)
 (setq list-command-history-max 4096)
 
+(require 'org)
+
 (bulkload-directory (filename-concat user-emacs-home "keys"))
 (bulkload-directory (filename-concat user-emacs-home "recent"))
 
