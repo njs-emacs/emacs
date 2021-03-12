@@ -70,6 +70,7 @@
 ; (define-key key-translation-map (kbd "<kp-1>") (kbd "C-~"))
 
 ; do this
+
 (define-key function-key-map (kbd "<kp-1>") (kbd "C-<"))
 (define-key function-key-map (kbd "<kp-2>") (kbd "C->"))
 (define-key function-key-map (kbd "<kp-3>") (kbd "C-?"))
@@ -78,7 +79,28 @@
 (define-key function-key-map (kbd "<kp-6>") (kbd "C-~"))
 (define-key function-key-map (kbd "<kp-7>") (kbd "C-{"))
 (define-key function-key-map (kbd "<kp-8>") (kbd "C-}"))
-(define-key function-key-map (kbd "<kp-9>") (kbd "C-x C-h"))
+(define-key function-key-map (kbd "<kp-9>") (kbd "C-+"))
+
+(define-key function-key-map (kbd "<C-kp-1>") (kbd "C-<"))
+(define-key function-key-map (kbd "<C-kp-2>") (kbd "C->"))
+(define-key function-key-map (kbd "<C-kp-3>") (kbd "C-?"))
+(define-key function-key-map (kbd "<C-kp-4>") (kbd "C-:"))
+(define-key function-key-map (kbd "<C-kp-5>") (kbd "C-x C-h"))
+(define-key function-key-map (kbd "<C-kp-6>") (kbd "C-~"))
+(define-key function-key-map (kbd "<C-kp-7>") (kbd "C-{"))
+(define-key function-key-map (kbd "<C-kp-8>") (kbd "C-}"))
+(define-key function-key-map (kbd "<C-kp-9>") (kbd "C-+"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; <kp-divide>
+;; <kp-multiply>
+;; <kp-subtract>
+;; <kp-add>
+;; <kp-decimal>
+;; <kp-0>
+;; <kp-enter>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;(describe-variable 'function-key-map)
 

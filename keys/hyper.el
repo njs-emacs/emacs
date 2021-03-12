@@ -3,27 +3,29 @@
 (defun org-master-file-edit ()
   (interactive) (find-file-other-window org-master-file))
 
-(define-key global-map (kbd "<H-f1>") 'org-master-file-edit)
+(def-key global-map (kbd "<H-f1>") 'org-master-file-edit)
 
-(define-key global-map (kbd "<H-return>") 'bookmark-bmenu-list)
+(def-key global-map (kbd "<H-return>") 'bookmark-bmenu-list)
 
 ; moved from e:/.p/stub/.emacs.el
 
-;(define-key global-map (kbd "H-5 H-5") 'help)
-;(define-key help-map (kbd "H-5") 'describe-function)
-;(define-key help-map (kbd "H-4") 'describe-variable)
-;(define-key help-map (kbd "H-6") 'where-is)
-;(define-key help-map (kbd "H-8") 'describe-key-briefly)
+;(def-key global-map (kbd "H-5 H-5") 'help)
+;(def-key help-map (kbd "H-5") 'describe-function)
+;(def-key help-map (kbd "H-4") 'describe-variable)
+;(def-key help-map (kbd "H-6") 'where-is)
+;(def-key help-map (kbd "H-8") 'describe-key-briefly)
 
-;(define-key global-map (read-kbd-macro "H-h H-f") 'describe-function)
+;(def-key global-map (read-kbd-macro "H-h H-f") 'describe-function)
+
+;(define-key global-map (kbd "H-c") (kbd "C-c C-c"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define-key global-map (kbd "H-w") #'aya-create)
-(define-key global-map (kbd "H-y") #'aya-expand)
+(def-key global-map (kbd "H-w") #'aya-create)
+(def-key global-map (kbd "H-y") #'aya-expand)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; remap kp-insert to AppsKey in Autohotkey
-(define-key global-map (kbd "<H-kp-space>") 'describe-key-briefly)
+(def-key global-map (kbd "<H-kp-space>") 'describe-key-briefly)
 
-(define-key global-map (kbd "H-s-SPC") 'ace-jump-line-mode)
-(define-key global-map (kbd "<H-s-delete>") 'ace-jump-buffer)
+(def-key global-map (kbd "H-s-SPC") 'ace-jump-line-mode)
+(def-key global-map (kbd "<H-s-delete>") 'ace-jump-buffer)

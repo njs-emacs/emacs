@@ -1,32 +1,40 @@
 (setq c-z-map (make-sparse-keymap))
-(global-set-key "\C-z" c-z-map)
+(setq z-map c-z-map)			; compatibility
 
-(define-key c-z-map "\C-t" 'toggle-truncate-lines)
-(define-key c-z-map "\C-i" 'init-local)
-(define-key c-z-map "\C-r" 'read-only-mode)
+(global-set-key (kbd "C-z") c-z-map)
 
-(define-key c-z-map "\C-b\C-d" 'nvc-ls-bdiff)
+(def-key c-z-map (kbd "C-t") 'toggle-truncate-lines)
+(def-key c-z-map (kbd "C-i") 'init-local)
+(def-key c-z-map (kbd "C-r") 'read-only-mode)
 
-(define-key c-z-map (kbd "C-.") 'dired-quick-dot)
+(def-key c-z-map (kbd "C-b C-d") 'nvc-ls-bdiff)
 
-(define-key c-z-map "\C-p" 'print-it)
-(define-key c-z-map "\C-f" 'filename-to-kill)
+(def-key c-z-map (kbd "C-.") 'dired-quick-dot)
 
-(define-key c-z-map "\C-j" 'join-line)
-(define-key c-z-map "\C-u" 'upcase-region)
-(define-key c-z-map "\C-d" 'downcase-region)
+(def-key c-z-map (kbd "C-p") 'print-it)
+(def-key c-z-map (kbd "C-f") 'filename-to-kill)
 
-(define-key c-z-map "\C-s" 'toggle-case-fold-search)
+(def-key c-z-map (kbd "C-j") 'join-line)
+(def-key c-z-map (kbd "C-u") 'upcase-region)
+(def-key c-z-map (kbd "C-d") 'downcase-region)
 
-(define-key c-z-map "\C-l" 'font-lock-mode)
-(define-key c-z-map "\C-k" 'find-kill-head)
+(def-key c-z-map (kbd "C-s") 'toggle-case-fold-search)
+
+(def-key c-z-map (kbd "C-l") 'font-lock-mode)
+(def-key c-z-map (kbd "C-k") 'find-kill-head)
+
+(def-key c-z-map (kbd "C-[") 'emacs-read-hash-plus)
+(def-key c-z-map (kbd "C-]") 'emacs-read-hash-minus)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq zc-z-map (make-sparse-keymap))
-(define-key c-z-map "\C-z" zc-z-map)
+(def-key c-z-map "\C-z" zc-z-map)
 
-(define-key zc-z-map "\C-z" 'undo)
+(def-key zc-z-map "\C-z" 'undo)
 
-(define-key c-z-map (kbd "C-/") 'toggle-slashification-region)
+(def-key c-z-map (kbd "C-/") 'toggle-slashification-region)
 
-(setq z-map c-z-map)		; compatibility
+;
+;(define-key c-z-map (kbd "C-=") last-kbd-macro)
+
+

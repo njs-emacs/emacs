@@ -11,12 +11,9 @@
 
 (define-key global-map [s-mouse-1] 'mc/add-cursor-on-click)
 
-
 ;; (define-key global-map (kbd "s-.") "->")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-key global-map (kbd "<s-f9>") 'emacs-read-hash-plus)
-
 
 ;; (dregf "define-key.*s-" elfs "ever")
