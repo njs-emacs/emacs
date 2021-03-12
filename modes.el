@@ -6,39 +6,45 @@
 (defvar emacs-read-hash-enable t "Enable emacs-read-hash-plus forms")
 
 (defun emacs-read-hash-plus (&optional arg) (interactive "P")
-  (cond
-   ((or arg emacs-read-hash-enable)
-    (sx 
-     (bob)
-     (let ((limit (sx (rsf "#\\+__END__\\+#" 10000 nil nil t))))
-       (while
-	   (or (rsf "^#\\+\\(.*\\)" limit)	; old style
-	       (rsf "#\\+\\(.*?\\)\\+#" limit)	; new
-	       )
-	 (eval (read (ms 1))))
+  (let ((n 0))
+    (cond
+     ((or arg emacs-read-hash-enable)
+      (sx
+       (bob)
+       (let ((limit (sx (rsf "#\\+__END__\\+#" 10000 nil nil t))))
+	 (while
+	     (or (rsf "^#\\+\\(.*\\)" limit)	; old style
+		 (rsf "#\\+\\(.*?\\)\\+#" limit)	; new
+		 )
+	   (setq n (1+ n))
+	   (eval (read (ms 1))))
+	 )
        )
+      (message "loaded %d local '#+' forms" n)
+      )
+     ((message "local '#+' forms DISABLED"))
      )
-    (message "loaded local '#+' forms")
     )
-   ((message "local '#+' forms DISABLED"))
-   )
   )
 
 (defun emacs-read-hash-minus (&optional arg) (interactive "P")
-  (cond
-   ((or arg emacs-read-hash-enable)
-    (sx 
-     (bob)
-     (let ((limit (sx (rsf "#\\+__END__\\+#" 10000 nil nil t))))
-       (while
-	   (rsf "#-\\(.*?\\)-#" limit)		; only support new
-	 (eval (read (ms 1))))
+  (let ((n 0))
+    (cond
+     ((or arg emacs-read-hash-enable)
+      (sx
+       (bob)
+       (let ((limit (sx (rsf "#\\+__END__\\+#" 10000 nil nil t))))
+	 (while
+	     (rsf "#-\\(.*?\\)-#" limit)		; only support new
+	   (setq n (1+ n))
+	   (eval (read (ms 1))))
+	 )
        )
+      (message "loaded %d local '#-' forms" n)
+      )
+     ((message "local '#+' forms DISABLED"))
      )
-    (message "loaded local '#-' forms")
     )
-   ((message "local '#+' forms DISABLED"))
-   )
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
