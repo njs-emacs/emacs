@@ -158,6 +158,14 @@ For example (file-name-suffix \"emacs/modes.el\") returns \".el\""
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun get-or-make-directory (name)
+  "Returns directory NAME, creating it if neccessary."
+  (cond ((file-directory-p name) name)
+	((make-directory name))
+	)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defmacro with-file (file &rest body)
   `(save-window-excursion
      (find-file ,file)
