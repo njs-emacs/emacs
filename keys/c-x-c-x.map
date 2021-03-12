@@ -1,0 +1,6 @@
+(setq c-x-c-x-keymap (make-sparse-keymap))
+(global-set-key (kbd "C-x C-x") c-x-c-x-keymap)
+
+(define-key c-x-c-x-keymap (kbd "C-x") 'exchange-point-and-mark)
+
+(define-key c-x-c-x-keymap (kbd "C-.") 'goto-last-change)
