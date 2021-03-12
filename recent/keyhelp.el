@@ -10,6 +10,10 @@
     ("[" . "lbracket")
     ("]" . "rbracket")
     
+    ("+" . "plus")
+    ("*" . "star")
+    ("_" . "underline")
+
     (":" . "colon")
     (";" . "semicolon")
     ("@" . "at")
@@ -107,7 +111,7 @@
   `   \\   |            :   @   ~  ]  {  }
   _q_   _e_                ;   '   #
       j                <   >   ?
-  z   v                ,   .   /
+  z   v                ,   .   /   *  _  +
 "
   ("C-g"	nil)
   ("q"		nil :color blue)
@@ -124,7 +128,12 @@
 		 (list kcs `(describe-bindings ,kck))
 		 )))
 	  `(
+	    "z"
 	    "v"
+	    "j"
+	    "*"
+	    "_"
+	    "+"
 	    "j"
 	    "`"
 	    "\\"
