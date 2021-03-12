@@ -1,6 +1,7 @@
 ;; mainly moved to keys/c-comma.el
 
-(global-set-key (kbd "s-<mouse-1>") 'mc/add-cursor-on-click)
+(define-key global-map (kbd "s-<mouse-1>") 'mc/add-cursor-on-click)
+(define-key global-map [s-mouse-1] 'mc/add-cursor-on-click)
 
 ;;(top-level)
 
