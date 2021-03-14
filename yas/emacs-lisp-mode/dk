@@ -2,6 +2,6 @@
 # name : dk
 # key : dk
 # binding: A-M-1
+# expand-env: ((yo (format-time-string "%c")))
 # --
-;(define-key global-map (kbd "A-M-$1") 'nil)
-$0
+;(def-key `(sx (bob) (find-match-string "\\S *-map"))` (kbd "$1") '$0)
