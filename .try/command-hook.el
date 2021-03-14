@@ -6,7 +6,7 @@
 ;;
 ;; some files should be excluded, and treated like non-file buffers
 ;; some switches to files where no editing took place should be
-;; renoved.
+;; removed.
 ;; In any case the log may come in handy as an addition to the old
 ;; emacs.log file which does not always deliver good results
 ;;
@@ -15,6 +15,12 @@
 (defun delete-line ()
   (bol)
   (delete-region (point) (sxp (fl 1)))
+  )
+ 
+(defun delete-last-line ()
+  (eob)
+  (fl -1)
+  (delete-line)
   )
  
 (defun ch-in ()
@@ -35,6 +41,10 @@
   (setq name (daily-date-path (format-time-string "boo-%y%m%d.bch")))
   (set-buffer (get-buffer" *bch"))
   (write-region (point-min) (point-max) name)
+
+  (setq name (daily-date-path (format-time-string "boo-%y%m%d.kch")))
+  (set-buffer (get-buffer" *kch"))
+  (write-region (point-min) (point-max) name)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -48,9 +58,8 @@
      (confirmed
       (save-excursion
 	(set-buffer (get-buffer-create " *bch"))
-	(end-of-buffer)
+	(eob)
 	(insert (format "(pre %S %s %d)\n" name n ch-buffer-key-count))
-	(end-of-buffer)
 ;	(sit-for 0.1)
 	)
       )
@@ -71,7 +80,7 @@
       (setq ch-buffer-key-count (1+ ch-buffer-key-count))
       (save-excursion
 	(set-buffer (get-buffer-create " *bch"))
-	(end-of-buffer)
+	(eob)
 	(fl -1)
 	(bol)
 	(setq prev (read (current-buffer)))
@@ -107,6 +116,51 @@
 
 ;(ch-out)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq kch-buffer-name " *kch")
+(defvar kch-buffer-current nil)
+(defvar kch-current-keys nil)
+
+(defun kch-pre ()
+  (let* ((buffer (current-buffer))
+	 (name (or (buffer-file-name)
+		  (format "<%s>" (buffer-name))))
+	 (n (buffer-chars-modified-tick))
+	 (cmd (cond ((symbolp this-command) this-command)
+		    ("?")
+		    ))
+	 (keys (key-description (this-command-keys)))
+	 (confirmed
+	  (cond
+	   ((buffer-file-name)))
+	  )
+	 )
+    (cond
+     (confirmed
+      (save-excursion
+	(set-buffer (get-buffer-create kch-buffer-name))
+	(eob)
+	(cond ((not (eq kch-buffer-current buffer))
+	       (insert (format "%s\n" name))
+	       ))
+	(cond ((equal keys kch-current-keys)
+	       (delete-last-line)
+	       )
+	      ((setq kch-current-count 0))
+	      )
+	(setq kch-current-count (1+ kch-current-count))
+	(setq kch-current-keys keys)
+	(setq kch-buffer-current buffer)
+	(insert (format "[%d] %-24s %s\n" kch-current-count keys cmd))
+	)
+      )
+     )
+    )
+  )
+
+;(add-hook 'pre-command-hook 'kch-pre)
+;(remove-hook 'pre-command-hook 'ch-pre)
+
 (top-level)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -118,34 +172,6 @@
 (remove-hook 'pre-command-hook 'pch)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun kch-pre ()
-  (let* ((name (or (buffer-file-name)
-		  (format "<%s>" (buffer-name))))
-	 (n (buffer-chars-modified-tick))
-	 (cmd (cond ((symbolp this-command) this-command)
-		    ("?")
-		    ))
-	 (keys (key-description (this-command-keys)))
-	 (confirmed
-	  (cond
-	   ((buffer-file-name))))
-	 )
-    (cond
-     (confirmed
-      (save-excursion
-	(set-buffer (get-buffer-create " *kch"))
-	(end-of-buffer)
-	(insert (format "%s %s %-10s %s\n" name n keys cmd))
-	(end-of-buffer)
-	)
-      )
-     )
-    )
-  )
-
-(add-hook 'pre-command-hook 'kch-pre)
-(remove-hook 'pre-command-hook 'ch-pre)
-
 (add-hook 'pre-command-hook 'ch-pre)
 (remove-hook 'pre-command-hook 'ch-pre)
 
