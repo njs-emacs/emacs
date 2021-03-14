@@ -12,7 +12,8 @@
 (global-set-key [M-f12] 'repeat-complex-command)
 
 
-(global-set-key [kp-subtract] 'goto-line)
+;;(global-set-key [kp-subtract] 'goto-line)
+;;(global-set-key [kp-subtract] nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mouse-bury-buffer (click) (interactive "e")

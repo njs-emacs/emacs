@@ -14,6 +14,10 @@
     ("*" . "star")
     ("_" . "underline")
 
+    ("^" . "caret")
+    ("!" . "bang")
+    ("$" . "dollar")
+
     (":" . "colon")
     (";" . "semicolon")
     ("@" . "at")
