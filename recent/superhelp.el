@@ -72,6 +72,17 @@ on symbol-at-point with no user input."
     )
   )
 
+(defun region-symbol () (let ((text (region-text))) (and text (intern text))))
+
+(defun s-def-key (key)
+  "Map key to symbol-at-point"
+  (interactive "KKey: ")
+  (let* ((sym (or (region-symbol) (symbol-at-point))))
+    (debug)
+    (def-key global-map key sym)
+    )
+  )
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defhydra hydra-superhelp (:hint nil :color pink :base-map superhelp-base-map)
@@ -79,7 +90,7 @@ on symbol-at-point with no user input."
 _c_:   Auto		_a_:   Apropos		_k_:   Key
 _f_:   Function		_x_:   Execute		_q_:   Quit
 _v_:   Variable		_t_:   Completions
-_b_:   Binding
+_b_:   Binding		_m_:   Map
 "
   ("t" (s-completions))
 
@@ -92,11 +103,13 @@ _b_:   Binding
   ("k" (s-where-is))
 
   ("a" (s-apropos))
+  ("t" (s-completions))
 
   ("e" (s-call-interactively) :color blue)
   ("x" (s-call-interactively) :color blue)
 
   ("k" describe-key)
+  ("m" s-def-key)
 
   ("q" nil :color blue)
   )
