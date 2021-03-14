@@ -91,7 +91,7 @@ membership in NAMES and PATHS"
   (cdr (assoc-if fun list)))
 
 (defun alist-remprop (list tag)
-  (delete-if '(lambda (x) (cars-equal x tag)) list))
+  (delete-if '(lambda (x) (equal (car x) tag)) list))
 
 (defun alist-merge (list &rest lists)
   (dolist (i lists)
