@@ -45,3 +45,6 @@ https://pictogrammers.github.io/@mdi/font/5.4.55/  ---> https://materialdesignic
 
 
 sd=ds
+
+
+(insert-image-file "e:/ca/htdocs/help/keypad3.svg")
