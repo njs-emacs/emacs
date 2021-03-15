@@ -35,11 +35,12 @@
 
 
 (setq ch-buffer-key-count 0)
+(setq ch-buffer-name " *bch")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun ch-save () (interactive)
   (setq name (daily-date-path (format-time-string "boo-%y%m%d.bch")))
-  (set-buffer (get-buffer" *bch"))
+  (set-buffer (get-buffer ch-buffer-name))
   (write-region (point-min) (point-max) name)
 
   (setq name (daily-date-path (format-time-string "boo-%y%m%d.kch")))
@@ -57,7 +58,7 @@
     (cond
      (confirmed
       (save-excursion
-	(set-buffer (get-buffer-create " *bch"))
+	(set-buffer (get-buffer-create ch-buffer-name))
 	(eob)
 	(insert (format "(pre %S %s %d)\n" name n ch-buffer-key-count))
 ;	(sit-for 0.1)
@@ -79,7 +80,7 @@
      (confirmed
       (setq ch-buffer-key-count (1+ ch-buffer-key-count))
       (save-excursion
-	(set-buffer (get-buffer-create " *bch"))
+	(set-buffer (get-buffer-create ch-buffer-name))
 	(eob)
 	(fl -1)
 	(bol)
