@@ -14,4 +14,4 @@
 
 (def-key global-map (kbd "A-1") (ilambda (bob) (query-replace-regexp "define-key" "def-key")))
 
-
+(def-key global-map (kbd "A-m") 'eval-noname)

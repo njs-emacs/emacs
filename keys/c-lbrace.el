@@ -19,3 +19,7 @@
 (def-key c-lbrace-map (kbd "c") 'magit-commit-create)
 
 (def-key c-lbrace-map (kbd "C-p") 'hydra-text-scale/body)
+
+(def-key c-lbrace-map (kbd "e") 'ediff-regions-linewise)
+
+(def-key c-lbrace-map (kbd "<return>") 'eval-noname)
