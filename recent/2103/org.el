@@ -17,9 +17,20 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun org-agenda-add-current-file () (interactive)
-  (add-to-list 'org-agenda-files (buffer-file-name)))
+  (add-to-list 'org-agenda-files (buffer-file-name))
+  (message "%s added to org-agenda-files" (buffer-file-name))
+  )
 
 (defun org-agenda-remove-current-file () (interactive)
   (setq org-agenda-files (delete (buffer-file-name) org-agenda-files))
+  (message "%s removed from org-agenda-files" (buffer-file-name))
+  )
+  
+(defun org-agenda-switch-current-file () (interactive)
+  (cond
+   ((member (buffer-file-name) org-agenda-files)
+    (org-agenda-remove-current-file))
+   ((org-agenda-add-current-file))
+   )
   )
   
