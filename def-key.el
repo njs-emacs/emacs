@@ -17,12 +17,16 @@
     (erase-buffer)
     (mapcar
      '(lambda (x)
-	(insert
-	 (format
-	  "(def-key %s (kbd \"%s\") '%S)\n"
-	  (car x)
-	  (key-description (cadr x))
-	  (eval (caddr x)))))
+	(condition-case erc
+	    (let ()
+	      (insert
+	       (format
+		"(def-key %s (kbd \"%s\") '%S)\n"
+		(car x)
+		(key-description (cadr x))
+		(eval (caddr x)))))
+	  (error nil)
+	  ))
 	def-key-history)
     (shell-command-on-region (point-min) (point-max) "sort -u" 1 t)
     buffer
