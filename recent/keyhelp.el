@@ -55,7 +55,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun key-to-file-name (name &optional prefix)
-  (format "e:/emacs/keys/%s%s.el" (or prefix "") name)
+  (format "e:/emacs/keys/%s%s.el" (downcase (or prefix "")) name)
   )
 
 (defun key-to-safe-file-name (k &optional prefix)
@@ -63,31 +63,36 @@
   )
 
 (defun c-key-to-safe-file-name (k)
-  (key-to-safe-file-name (substring k 2) "c-")
+  (key-to-safe-file-name (substring k 2) "C-")
   )
 
-(defun keycode-to-safe-symbol (key)
-  (let* ((list (mapcar '(lambda (x) (cons (aref (kbd (concat "C-" (car x))) 0) x))
+(defun keycode-to-safe-symbol (key mod)
+  (let* ((list (mapcar '(lambda (x) (cons (aref (kbd (concat mod (car x))) 0) x))
 		      safe-key-symbol-alist))
 	 (item (alist-get key list))
 	 )
     (cond (item (cdr item))
-	  ((char-to-string (+ key #x60)))
+	  ((char-to-string (logand key #xff)))
 	  )
     ))
 
-;(keycode-to-safe-symbol (aref (kbd "C-?") 0))
-;(keycode-to-safe-symbol (aref (kbd "C-e") 0))
+;(keycode-to-safe-symbol (aref (kbd "C-?") 0) "C-")
+;(keycode-to-safe-symbol (aref (kbd "C-e") 0) "C-")
+
+;(keycode-to-safe-symbol (aref (kbd "M-e") 0) "M-")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun keydef-edit-init ()
   (interactive)
+    
   (let* ((keys (this-command-keys))
 	 (key (aref keys 0))
-	 (name (keycode-to-safe-symbol key))
+	 (kd (key-description keys))
+	 (mod (string-match-string "\\([CMHAs]-\\)" kd 1))
+	 (name (keycode-to-safe-symbol key mod))
 	 )
     (cond
-     (name (find-file-other-window (key-to-file-name name "c-")))
+     (name (find-file-other-window (key-to-file-name name mod)))
      )
     )
   )
