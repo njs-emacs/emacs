@@ -3,4 +3,4 @@
 
 (define-key help-x-map (kbd "C-k")
   (ilambda ()
-    (find-file-other-window "e:/ca/htdocs/help/keypad2.svg")))
+    (find-file-other-window "e:/ca/htdocs/help/keypad3.svg")))
