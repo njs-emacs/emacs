@@ -26,11 +26,14 @@
 (defun ch-in ()
   (add-hook 'pre-command-hook 'ch-pre)
   (add-hook 'post-command-hook 'ch-post)
+  (add-hook 'pre-command-hook 'kch-pre)
+
   )
 
 (defun ch-out ()
   (remove-hook 'pre-command-hook 'ch-pre)
   (remove-hook 'post-command-hook 'ch-post)
+  (remove-hook 'pre-command-hook 'ch-pre)
   )
 
 
@@ -84,33 +87,37 @@
 	(eob)
 	(fl -1)
 	(bol)
-	(setq prev (read (current-buffer)))
-	(bol)
-	(delete-region (point) (sxp (fl 1)))
-	(let* ((obn (cadr prev))
-	       (ob (get-file-buffer obn))
-	       (on (caddr prev))
-	       )
-;	  (message "%s %S %s" prev ob nb)
-	  (cond
-	   ((eq ob nb)
-	    (cond ((eq on n))
-		  (t
-		   (cond ((> ch-buffer-key-count 0) (fl -1) (delete-line)))
-		   (insert (format "(post %S %s %d)\n" name n ch-buffer-key-count)))
-		  )
+	(cond
+	 ((looking-at "(pre")
+	  (setq prev (read (current-buffer)))
+	  (bol)
+	  (delete-region (point) (sxp (fl 1)))
+	  (let* ((obn (cadr prev))
+		 (ob (get-file-buffer obn))
+		 (on (caddr prev))
+		 )
+;;;	  (message "%s %S %s" prev ob nb)
+	    (cond
+	     ((eq ob nb)
+	      (cond ((eq on n))
+		    (t
+		     (cond ((> ch-buffer-key-count 0) (fl -1) (delete-line)))
+		     (insert (format "(post %S %s %d)\n" name n ch-buffer-key-count)))
+		    )
+	      )
+	     (t
+	      (setq ch-buffer-key-count 0)
+	      (insert (format "(post %S %s %d)\n" name n ch-buffer-key-count))
+	      )
+	     )
 	    )
-	   (t
-	    (setq ch-buffer-key-count 0)
-	    (insert (format "(post %S %s %d)\n" name n  ch-buffer-key-count))
-	    )
-	   )
 	  )
+	 )
 	)
       )
      )
     )
-   )
+  )
 
 ;(ch-in)
 ;(setq ch-save-timer (run-with-timer 600 600 'ch-save))
@@ -124,6 +131,7 @@
 
 (defun kch-pre ()
   (let* ((buffer (current-buffer))
+	 (mode major-mode)
 	 (name (or (buffer-file-name)
 		  (format "<%s>" (buffer-name))))
 	 (n (buffer-chars-modified-tick))
@@ -131,18 +139,25 @@
 		    ("?")
 		    ))
 	 (keys (key-description (this-command-keys)))
-	 (confirmed
+	 (enabled
 	  (cond
-	   ((buffer-file-name)))
+	   ((buffer-file-name))
+	   (t)
+	   )
+	  )
+	 (disabled
+	  (cond
+	   ((string-match "Minibuf" name))
+	   )
 	  )
 	 )
     (cond
-     (confirmed
+     ((and enabled (not disabled))
       (save-excursion
 	(set-buffer (get-buffer-create kch-buffer-name))
 	(eob)
 	(cond ((not (eq kch-buffer-current buffer))
-	       (insert (format "%s\n" name))
+	       (insert (format "%s [%s]\n" name mode))
 	       ))
 	(cond ((equal keys kch-current-keys)
 	       (delete-last-line)
@@ -159,43 +174,47 @@
     )
   )
 
-;(add-hook 'pre-command-hook 'kch-pre)
-;(remove-hook 'pre-command-hook 'ch-pre)
-
-(top-level)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun pch ()
-  (message "%s %s %s" (buffer-file-name) this-command (this-command-keys)))
-
-(add-hook 'pre-command-hook 'pch)
-(remove-hook 'pre-command-hook 'pch)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(add-hook 'pre-command-hook 'ch-pre)
-(remove-hook 'pre-command-hook 'ch-pre)
+(defun kch-recenter () (interactive)
+  (let* ()
+    (switch-to-buffer-other-frame " *kch")
+    (eob)
+    (recenter)
+    )
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
- (add-hook 'post-command-hook 'ch-post)
-(remove-hook 'post-command-hook 'ch-post)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-post-command-hook
-
-this-command
-
-this-command
-
-(key-description "\C-d")
-modif
-change.* hook
-(buffer-modified-tick)
-(buffer-chars-modified-tick)
-
+;;(defun pch ()
+;;  (message "%s %s %s" (buffer-file-name) this-command (this-command-keys)))
+;;
+;;(add-hook 'pre-command-hook 'pch)
+;;(remove-hook 'pre-command-hook 'pch)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;(add-hook 'pre-command-hook 'ch-pre)
+;;(remove-hook 'pre-command-hook 'ch-pre)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (add-hook 'post-command-hook 'ch-post)
+;;(remove-hook 'post-command-hook 'ch-post)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;
+;;post-command-hook
+;;
+;;this-command
+;;
+;;this-command
+;;
+;;(key-description "\C-d")
+;;modif
+;;change.* hook
+;;(buffer-modified-tick)
+;;(buffer-chars-modified-tick)
+;;
 ; https://www.gnu.org/software/emacs/manual/html_node/elisp/Change-Hooks.html#Change-Hooks
 ; before-change-functions
 ; after-change-functions
+
