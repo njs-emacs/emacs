@@ -1,3 +1,5 @@
+;;;; FIX THIS - RUINED
+
 ;; every form in the file evaluates to a form
 ;; (list LIST FUN FORMS ...     ;; !! FUN not currently present
 ;; (eval EXPR FORMS ...
@@ -23,13 +25,23 @@
   (define-key mq-bmap (kbd key) tag)
   )
 
+(defun mq-file-match (name list)
+  (or
+   (member-if '(lambda (y) (equal name (expand-file-name y))) list)
+   (member (file-name-nondirectory name) list)
+   )
+  )
+
 (defun mq-linked-file-name-match (name match &optional fun)
   (cond
    ((eq match t) t)
    ((not name) nil)
    ((eq match nil) name)
    ((eq match 'eval) (eval fun))
-   ((eq match 'list) (or (member name fun) (member (file-name-nondirectory name) fun)))
+   ; fun may be a list of files to try and match
+   ((eq match 'list)
+    (debug)
+    (mq-file-match name fun))
    ((stringp name)
     (setq fun
       (cond
@@ -48,10 +60,10 @@
 
 (defvar mq-file-name ".mq.el" "The name of the file containing the meta-quote forms")
 
-(defun mq-buffer () (find-file-noselect (locate-up-file mq-file-name)))
+(defun mq-file-buffer () (find-file-noselect (locate-up-file mq-file-name)))
 
 (defun mq-visit-linked-file-name (name tag)
-  (let ((buffer (mq-buffer)))
+  (let ((buffer (mq-file-buffer)))
     (sx 
      (set-buffer buffer)
      (bob)
@@ -174,8 +186,8 @@
     `(list ,files
 ;	   ()
 	   (first . (car ',f))
-	   (next . (cadr (member (file-name-nondirectory name) ',f)))
-	   (prev . (cadr (member (file-name-nondirectory name) ',r)))
+	   (next . (cadr (mq-file-match name ',f)))
+	   (prev . (cadr (mq-file-match name ',r)))
 	   ))
   )
 
@@ -193,7 +205,7 @@
 (defun mq-show () (interactive)
   (let ((name (buffer-file-name))
 	(map nil))
-    (set-buffer (mq-buffer))
+    (set-buffer (mq-file-buffer))
     (bob)
     (catch 'done
       (while t
