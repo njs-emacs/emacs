@@ -34,3 +34,7 @@
    )
   )
   
+
+(def-key org-mode-map (kbd "C-v C-a") 'org-agenda-switch-current-file)
+
+(add-to-list 'org-file-apps '(directory . emacs))
