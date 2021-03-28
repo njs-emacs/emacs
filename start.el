@@ -8,11 +8,13 @@
 
 (cons-load-path (p-path ".emacs"))
 
-(top-level)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (init-local (p-path "stub"))
 (init-local "e:/ca")
+(init-local "e:/ca/htdocs/help")
+(init-local "e:/.d/l/lily")
 
+(top-level)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (find-file "e:/daily/21/2103/2103.org")
 (find-file "e:/daily/21/2102/2102.org")
 (find-file "e:/daily/21/2101/2101.org")
