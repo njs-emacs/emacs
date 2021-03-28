@@ -23,3 +23,10 @@
 (def-key c-lbrace-map (kbd "e") 'ediff-regions-linewise)
 
 (def-key c-lbrace-map (kbd "<return>") 'eval-noname)
+
+(def-key c-lbrace-map (kbd "C-l") 'kch-recenter)
+(def-key c-lbrace-map (kbd "<end>") 'kch-recenter)
+
+(def-key c-lbrace-map (kbd "<next>") 'insert-key-description)
+
+
