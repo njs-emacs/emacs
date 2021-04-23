@@ -93,6 +93,7 @@
   )
 
 (setq elfs "\\.(el|emacs)$")
+(setq eelfs "\\.(eel|el|emacs)$")
 (setq htfs "\\.(html|css|php|js)$")
 (setq plfs "\\.p[lm]$")
 (setq cfs "\\.[ch]$")
