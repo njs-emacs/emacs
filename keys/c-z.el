@@ -40,3 +40,4 @@
 ;(define-key c-z-map (kbd "C-=") last-kbd-macro)
 
 
+;; see also e:/emacs/recent.el
