@@ -120,7 +120,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun edb (a b) (interactive 
+(defun ediff-buffer-b (a b) (interactive 
    (let (bf)
      (list (setq bf (ediff-other-buffer ""))
 	   (read-buffer "Buffer B to compare: "
@@ -135,11 +135,12 @@
 
 ;#~ no ediff-map as this would imply that ediff owns prefix key
 
-(global-set-key "\M-e\M-e" 'edb)
-(global-set-key "\M-e\M-b" 'ediff-buffers)
-(global-set-key "\M-e\M-f" 'ediff-files)
-(global-set-key "\M-e\M-d" 'ediff-directories)
-(global-set-key "\M-e\M-r" 'ediff-regions-linewise)
+(def-key-global (kbd "M-e M-e") 'ediff-buffer-b)
+(def-key-global (kbd "M-e M-b") 'ediff-buffers)
+(def-key-global (kbd "M-e M-f") 'ediff-files)
+(def-key-global (kbd "M-e M-d") 'ediff-directories)
+(def-key-global (kbd "M-e M-r") 'ediff-regions-linewise)
+(def-key-global (kbd "M-e M-v") 'ediff-revision)
 
 (defun ediff-base-with-variants (a b &rest list)
   (dolist (i list)
