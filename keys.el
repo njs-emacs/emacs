@@ -117,3 +117,51 @@
 (global-unset-key (kbd "<M-mouse-1>"))	  ; was mouse-start-secondary
 (global-unset-key (kbd "<M-mouse-2>"))	  ; was mouse-yank-secondary
 (global-unset-key (kbd "<M-mouse-3>"))	  ; was mouse-secondary-save-then-kill
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(def-key-global (kbd "C-h") 'backward-delete-char-untabify)
+(def-key-global (kbd "C-x C-h") 'help)
+(def-key-global (kbd "C-x C-q") 'find-file)
+
+(def-key-global (kbd "C-x C-y") 'copy-sexp-as-kill)
+
+(def-key-global (kbd "M-u t") 'visit-tags-table)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'bookmark)
+(define-key global-map (kbd "M-j") bookmark-map)
+
+(define-key bookmark-map (kbd "M-SPC") 'bookmark-bmenu-list)
+(define-key bookmark-map (kbd "M-j") 'bookmark-jump)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'move-text)
+
+(def-key-global [M-up] 'move-text-up)
+(def-key-global [M-down] 'move-text-down)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq w32-pass-lwindow-to-system nil)
+(setq w32-lwindow-modifier 'super)
+
+(setq w32-pass-rwindow-to-system nil)
+(setq w32-rwindow-modifier 'alt)
+
+(setq w32-apps-modifier 'hyper)
+
+(defmacro dq (key &rest body)
+  `(define-key global-map ,key
+     (quote (lambda () (interactive) ,@body))
+     ))
+
+(defmacro hyper-quick (key &rest body)
+  `(define-key global-map (kbd ,(format "H-%s" key))
+     (quote (lambda () (interactive) ,@body))
+     ))
+
+(defmacro super-quick (key &rest body)
+  `(define-key global-map (kbd ,(format "s-%s" key))
+     (quote (lambda () (interactive) ,@body))
+     ))
+
