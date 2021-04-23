@@ -24,4 +24,4 @@
 
 (define-key global-map [M-f5] 'bg-hydra/body)
 
-(list-colors-display)
+;(list-colors-display)
