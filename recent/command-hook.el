@@ -12,6 +12,12 @@
 ;;
 ;; there are definite problems when switching into a non-file buffer
 
+;(ch-in)
+;(setq ch-save-timer (run-with-timer 600 600 'ch-save))
+
+;(ch-out)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun delete-line ()
   (bol)
   (delete-region (point) (sxp (fl 1)))
@@ -118,11 +124,6 @@
      )
     )
   )
-
-;(ch-in)
-;(setq ch-save-timer (run-with-timer 600 600 'ch-save))
-
-;(ch-out)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq kch-buffer-name " *kch")
