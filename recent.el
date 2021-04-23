@@ -130,6 +130,8 @@
   (insert (comment-line-string) "\n")
   )
 
+(def-key-global (kbd "C-=") 'comment-line-insert)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun print-it () (interactive)
   (sx
@@ -160,11 +162,15 @@
   (dired default-directory)
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun toggle-tab-width () (interactive) "Toggle tab width between 4 and 8"
   (setq tab-width (if (eq tab-width 8) 4 8))
   (redraw-display)
   )
 
+(def-key-global (kbd "M-u TAB") 'toggle-tab-width)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(defun search-kill (&optional arg)
 ;  (re-search-forward (car kill-ring))
 ;  )
@@ -218,6 +224,7 @@
    )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun kill-paren () (interactive)
   (cond
    ((looking-at "\\s(")
@@ -232,6 +239,9 @@
    )
   )
 
+(def-key-global (kbd "M-_") 'kill-paren)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun ts-file (pat) (interactive "sPattern: ")
   (let* ((p (string-parse pat "\\([^%]*\\)%\\(.*\\)" 1 2))
 	 (pp (apply 'format "%s.*%s" p))
@@ -244,11 +254,13 @@
     )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun cfind (arg &optional path)
   (compile
    (format "find %s %s 2>/dev/null | sed 's/$/:1:/'" (or path ".") arg))
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq completion-rank
   '(
     (".*\\.KTM$" nil (".*\\.P$"))
@@ -260,7 +272,7 @@
   )
 
 (defun assoc-string-match (key list)
-  "Return member of LIST which has a car which string-mathes KEY"
+  "Return member of LIST which has a car which string-matches KEY"
   (assoc-if '(lambda (pat) (string-match pat key)) list)
   )
 
@@ -287,6 +299,9 @@
     )
   )
 
+(define-key minibuffer-local-completion-map [select] 'minibuffer-complete-preferred)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defmacro global-rep (old new)
  (list 'sx '(bob) (list 'while (list 'rep old new))))
 
@@ -327,12 +342,16 @@
 
 (defun xman () (interactive) (manual-entry (x-get-cut-buffer)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun show-result (arg) (interactive "P")
   (let ((fun (cond (arg (intern (format "show-%s" arg)))
 		   ('prin))))
     (show (funcall fun eval-result)))
   )
 
+(def-key-global (kbd "M-u M-u") 'show-result)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun %S (x) (format "%S" x))
 
 (defun buffer (&optional object)
@@ -347,6 +366,7 @@ If OBJECT is a file name, open the file and return the resulting buffer."
    ((or (get-buffer object) (find-file-noselect object)))
    ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun rename-buffer-as-backup (&optional buffer) (interactive)
   (let* ((old (buffer-object buffer)))
     (cond (old
@@ -355,6 +375,9 @@ If OBJECT is a file name, open the file and return the resulting buffer."
 	   (save-excursion (set-buffer old) (rename-buffer new))
 	   ))))
 
+(def-key-global (kbd "M-f M-b") 'rename-buffer-as-backup)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun next (prop)
   "Assume point is within a list expression of form (SYM . VALUE)
 and VALUE is a member of the list which is stored in property PROP for SYM,
@@ -456,6 +479,8 @@ then replace VALUE with the value which follows it in the property list."
     )
   )
 
+(define-key minibuffer-local-completion-map "\M- "  'preferred-completion)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun retabify (n)
   (let ((tab-width n))
@@ -486,6 +511,10 @@ then replace VALUE with the value which follows it in the property list."
      (nreverse result)
      )))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; this was a promising idea for very quick emacs-lisp snippets
+;; but needs a rewrite
+
 (defmacro qm (k &rest body)
   (let* ((name (intern (format "-*qm*-%s" k)))
 	 (fun  (apply 'list 'lambda nil '(interactive)
@@ -501,6 +530,7 @@ then replace VALUE with the value which follows it in the property list."
 	 (concat "\M-q" (cond ((numberp k) (char-to-string k)) (k))) body)
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun insert-time-string () (interactive)
   (insert (format-time-string "%y%m%d%H%M%S " (current-time)))
   )
@@ -511,34 +541,11 @@ then replace VALUE with the value which follows it in the property list."
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define-key minibuffer-local-completion-map [select] 'minibuffer-complete-preferred)
-(define-key minibuffer-local-completion-map "\M- "  'preferred-completion)
-
-(define-key global-map (control-key-vector ?=) 'comment-line-insert)
-
-(define-key global-map "\C-x\C-y" 'copy-sexp-as-kill)
-
 ; (define-key global-map [mode-line drag-mouse-1] 'mldrag-drag-mode-line)
-
-(define-key global-map "\M-f\M-b" 'rename-buffer-as-backup)
-
-(define-key global-map "\M-u\M-u" 'show-result)
-
-(define-key global-map "\M-u\t" 'toggle-tab-width)
-
-(defun-key "\M-ut" 'visit-tags-table)
-
-(define-key global-map "\M-_" 'kill-paren)
 
 ;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; take over help key
-
-(define-key global-map "\C-h" 'backward-delete-char-untabify)
-(define-key global-map "\C-x\C-h" 'help)
-(define-key global-map "\C-x\C-q" 'find-file)
-
-(define-key global-map "\C-]" nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; not sure i like this
@@ -555,7 +562,7 @@ then replace VALUE with the value which follows it in the property list."
     )
   )
 
-(define-key z-map "C-f" 'buffer-file-name-to-kill)
+(def-key z-map "C-f" 'buffer-file-name-to-kill)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun assoc-re (pat list)
   (let* ((fun '(lambda (x) (string-match pat (car x))))
@@ -611,8 +618,8 @@ then replace VALUE with the value which follows it in the property list."
     )
   )
 
-(define-key z-map (control-key-vector ?c) 'copy-emacs-url)
-(define-key z-map (kbd "C-o") 'copy-org-link)
+(def-key z-map (kbd "C-c") 'copy-emacs-url)
+(def-key z-map (kbd "C-o") 'copy-org-link)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun copy-gdb-break (&optional arg)
@@ -626,7 +633,7 @@ then replace VALUE with the value which follows it in the property list."
     (message "copied '%s' to kill" break)
     )
   )
-(define-key z-map (kbd "C-v") 'copy-gdb-break)
+(def-key z-map (kbd "C-v") 'copy-gdb-break)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun toggle-region-visible (start end)
@@ -645,30 +652,6 @@ then replace VALUE with the value which follows it in the property list."
     (apply 'toggle-region-visible (search-pattern-bounds s1 s2))
     )
   )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq w32-pass-lwindow-to-system nil)
-(setq w32-lwindow-modifier 'super)
-
-(setq w32-pass-rwindow-to-system nil)
-(setq w32-rwindow-modifier 'alt)
-
-(setq w32-apps-modifier 'hyper)
-
-(defmacro dq (key &rest body)
-  `(define-key global-map ,key
-     (quote (lambda () (interactive) ,@body))
-     ))
-
-(defmacro hyper-quick (key &rest body)
-  `(define-key global-map (kbd ,(format "H-%s" key))
-     (quote (lambda () (interactive) ,@body))
-     ))
-
-(defmacro super-quick (key &rest body)
-  `(define-key global-map (kbd ,(format "s-%s" key))
-     (quote (lambda () (interactive) ,@body))
-     ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun frame-default-height (&optional arg) (interactive "p")
@@ -713,14 +696,13 @@ then replace VALUE with the value which follows it in the property list."
 ;(global-unset-key (kbd "<scroll>"))
 ;(define-key global-map (kbd "<scroll>") 'frame-width-glitch)
 
-(define-key z-map "\C-g" 'frame-width-glitch)
-(define-key z-map "h" 'frame-default-height) ; don't use C-h
-(define-key z-map "\C-w" 'frame-default-width)
-(define-key z-map "\C-e" 'frame-width-ediff)
+(def-key z-map "\C-g" 'frame-width-glitch)
+(def-key z-map "h" 'frame-default-height) ; don't use C-h
+(def-key z-map "\C-w" 'frame-default-width)
+(def-key z-map "\C-e" 'frame-width-ediff)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(defun rs () (interactive) (insert (prin (read-key-sequence "???"))))
-;(define-key global-map [M-f1] 'rs)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun rsf-fold-maybe (pat limit fold)
@@ -749,7 +731,7 @@ then replace VALUE with the value which follows it in the property list."
   (insert (format-time-string "%y%m%d-%H%M%S" (visited-file-modtime)))
   )
 
-(define-key global-map [M-f7] 'insert-file-timestamp)
+(def-key-global [M-f7] 'insert-file-timestamp)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun not-this-file ()
@@ -797,7 +779,7 @@ then replace VALUE with the value which follows it in the property list."
       (setq proc (start-process
 		  (format "git-%s" last)
 		  nil
-		  "D:/S/SmartGit6.5/bin/smartgithg.exe"
+		  "C:/Program Files/SmartGit/bin/smartgit.exe"
 		  "--open"
 		  d))
       (set-process-sentinel proc 'smart-git-process-sentinel)
@@ -806,7 +788,7 @@ then replace VALUE with the value which follows it in the property list."
     )
   )
 
-(define-key global-map [M-f11] 'smart-git-here)
+(def-key-global [M-f11] 'smart-git-here)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(highlight-lines-matching-regexp "open" nil)
 ;(apropos "process")
@@ -829,14 +811,11 @@ then replace VALUE with the value which follows it in the property list."
 (defun alt-buffer-eval () (interactive)
  (cond (alt-buffer-eval-function (funcall alt-buffer-eval-function)))
  )
-(define-key global-map [C-f9] 'alt-buffer-eval)
+(def-key-global [C-f9] 'alt-buffer-eval)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (recentf-mode 1)
 (setq recentf-max-saved-items nil)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define-key global-map [M-f1] 'help)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun buffer-match-name (pat buf)
@@ -875,28 +854,19 @@ then replace VALUE with the value which follows it in the property list."
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define-key global-map (kbd "M-j") bookmark-map)
-
-(define-key bookmark-map (kbd "M-SPC") 'bookmark-bmenu-list)
-(define-key bookmark-map (kbd "M-j") 'bookmark-jump)
-
-(define-key global-map [C-f1] 'org-capture)
-(define-key global-map [C-f2] 'bookmark-bmenu-list)
-
-(define-key global-map [M-f1] 'org-cycle-agenda-files)
-(define-key global-map [M-f2]
-  '(lambda () (interactive)
-     (find-file org-default-notes-file)
-     )
+(defun org-default-notes-file-visit ()
+  (interactive)
+  (find-file org-default-notes-file)
   )
-(global-set-key [M-f3] 'org-agenda)
 
-(define-key global-map [M-up] 'bookmark-jump)
-(define-key global-map [M-down] 'ace)
+(def-key-global [C-f1] 'org-capture)
+(def-key-global [C-f2] 'bookmark-bmenu-list)
 
-(global-set-key (kbd "C-c a") 'org-agenda)
+(def-key-global [M-f1] 'org-cycle-agenda-files)
+(def-key-global [M-f2] 'org-default-notes-file-visit)
+(def-key-global [M-f3] 'org-agenda)
 
-(define-key global-map "\C-h" 'backward-char)
+(def-key-global (kbd "C-c a") 'org-agenda)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq diredp-hide-details-initially-flag nil)
@@ -927,8 +897,6 @@ then replace VALUE with the value which follows it in the property list."
     )
   )
 
-
-
 (defun tsx-clip () (interactive)
   (call-shell "wperl e:/ahk/clip.pl tsx")
   (clipboard-yank)
@@ -940,7 +908,8 @@ then replace VALUE with the value which follows it in the property list."
   (and kill (kill-new log-time-string))
   )
 
-(define-key global-map [C-f7] 'tsx-clip)
+(def-key-global [C-f7] 'tsx-clip)
+
 ;time-base32-hist
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -964,7 +933,7 @@ then replace VALUE with the value which follows it in the property list."
     )
   )
        
-(define-key global-map [f5] 'google)
+(def-key-global [f5] 'google)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun line-re (s) (concat "^.*" s ".*$"))
