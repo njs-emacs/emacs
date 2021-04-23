@@ -9,9 +9,10 @@
 (cons-load-path (p-path ".emacs"))
 
 (init-local (p-path "stub"))
-(init-local "e:/ca")
 (init-local "e:/ca/htdocs/help")
 (init-local "e:/.d/l/lily")
+(init-local "e:/.d/s/svg")
+(init-local "e:/ca")
 
 (top-level)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -20,8 +21,6 @@
 (find-file "e:/daily/21/2101/2101.org")
 
 (init-local "e:/ca/htdocs/pop")
-
-(defun setup-2101 () (interactive)
 
 (init-local "e:/.d/j/jquery")
 
@@ -52,6 +51,8 @@
 ;(find-file (// "boo/e/.p/android/.meta/.emacs.el"))
 
 (top-level)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 (find-file "e:/help")
