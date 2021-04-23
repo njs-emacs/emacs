@@ -1,3 +1,5 @@
+; old code to ediff nvc backup versions
+
 (setq bdiff-mru-buffer nil)
 
 (make-local-variable 'bdiff-state)
