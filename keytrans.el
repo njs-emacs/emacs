@@ -1,6 +1,8 @@
 ; collection of all key-translation-map bindings we want to disable
 ; so that we can use the ALT key modifier effectively
 
+; look here -> d:/E/emacs-25/share/emacs/25.1/lisp/bindings.el::1070
+
 ;(describe-variable 'key-translation-map)
 ;(lookup-key key-translation-map (kbd "A-~"))
 
@@ -75,35 +77,69 @@
 (define-key function-key-map (kbd "<kp-multiply>") (kbd "C-*"))
 (define-key function-key-map (kbd "<kp-subtract>") (kbd "C-_"))
 (define-key function-key-map (kbd "<kp-add>") (kbd "C-+"))
-(define-key function-key-map (kbd "<kp-enter>") (kbd "C-^"))
-(define-key function-key-map (kbd "<kp-decimal>") (kbd "C-$"))
+(define-key function-key-map (kbd "<kp-decimal>") (kbd "C-^"))
 (define-key function-key-map (kbd "<kp-7>") (kbd "C-{"))
 (define-key function-key-map (kbd "<kp-8>") (kbd "C-}"))
 (define-key function-key-map (kbd "<kp-9>") (kbd "C-!"))
 (define-key function-key-map (kbd "<kp-4>") (kbd "C-:"))
-(define-key function-key-map (kbd "<kp-5>") (kbd "C-h"))
+(define-key function-key-map (kbd "<kp-5>") (kbd "C-$"))
 (define-key function-key-map (kbd "<kp-6>") (kbd "C-~"))
 (define-key function-key-map (kbd "<kp-1>") (kbd "C-<"))
 (define-key function-key-map (kbd "<kp-2>") (kbd "C->"))
 (define-key function-key-map (kbd "<kp-3>") (kbd "C-?"))
-(define-key function-key-map (kbd "<kp-0>") nil)
-(define-key function-key-map (kbd "<kp-decimal>") (kbd "C-u"))
+(define-key function-key-map (kbd "<kp-0>") (kbd "C-h"))
+
+(define-key function-key-map (kbd "<kp-enter>") (kbd "RET"))
+
+(setq function-key-to-kp-alist
+  `(
+    ( ?7 . "C-{")
+    ( ?8 . "C-}")
+    ( ?9 . "C-!")
+    ( ?4 . "C-:")
+    ( ?5 . "C-$")
+    ( ?6 . "C-~")
+    ( ?1 . "C-<")
+    ( ?2 . "C->")
+    ( ?3 . "C-?")
+    )
+  )
+
+(defun kps (s)
+  (let ((list
+	 (mapcar '(lambda (x)
+		   (or
+		    (alist-get x function-key-to-kp-alist)
+		    (format "C-%c" x)
+		    ))
+		 (string-to-list s))
+	 ))
+    (kbd (mconcat list " "))
+    )
+  )
+
+(defun ks3 (s) (kps s))
+
+;(key-description (kps "88"))
+;(key-description (kps "^88"))
 
 (define-key function-key-map (kbd "<C-kp-divide>") (kbd "C-/"))
 (define-key function-key-map (kbd "<C-kp-multiply>") (kbd "C-*"))
 (define-key function-key-map (kbd "<C-kp-subtract>") (kbd "C-_"))
 (define-key function-key-map (kbd "<C-kp-add>") (kbd "C-+"))
-(define-key function-key-map (kbd "<C-kp-enter>") (kbd "C-^"))
-(define-key function-key-map (kbd "<C-kp-decimal>") (kbd "C-$"))
+(define-key function-key-map (kbd "<C-kp-decimal>") (kbd "C-^"))
 (define-key function-key-map (kbd "<C-kp-7>") (kbd "C-{"))
 (define-key function-key-map (kbd "<C-kp-8>") (kbd "C-}"))
 (define-key function-key-map (kbd "<C-kp-9>") (kbd "C-!"))
 (define-key function-key-map (kbd "<C-kp-4>") (kbd "C-:"))
-(define-key function-key-map (kbd "<C-kp-5>") (kbd "C-x C-h"))
+(define-key function-key-map (kbd "<C-kp-5>") (kbd "C-$"))
 (define-key function-key-map (kbd "<C-kp-6>") (kbd "C-~"))
 (define-key function-key-map (kbd "<C-kp-1>") (kbd "C-<"))
 (define-key function-key-map (kbd "<C-kp-2>") (kbd "C->"))
 (define-key function-key-map (kbd "<C-kp-3>") (kbd "C-?"))
+(define-key function-key-map (kbd "<C-kp-0>") (kbd "C-x C-h"))
+
+(define-key function-key-map (kbd "<C-kp-enter>") (kbd "C-%"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; <kp-divide>
@@ -120,3 +156,9 @@
 ;(describe-key (kbd "C--"))
 
 ;(dregf "kp-7" elfs "ever")
+
+; (lookup-key function-key-map (kbd "C-:"))
+; (lookup-key function-key-map (kbd "<kp-7>"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(define-key function-key-map (kbd "<kp-up>") (kbd "C-:"))
