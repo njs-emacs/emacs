@@ -79,7 +79,7 @@ on symbol-at-point with no user input."
   (interactive "KKey: ")
   (let* ((sym (or (region-symbol) (symbol-at-point))))
     (debug)
-    (def-key global-map key sym)
+    (define-key global-map key sym)
     )
   )
 
