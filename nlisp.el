@@ -258,7 +258,7 @@ values in EXP, and execute BODY."
 (defvar eval-buffer-function nil "Local buffer eval function")
 (make-variable-buffer-local 'eval-buffer-function)
 
-(put 'emacs-lisp-mode 'eval-buffer-modal 'eval-current-buffer)
+(put 'emacs-lisp-mode 'eval-buffer-modal 'eval-buffer)
 (put 'ps-mode 'eval-buffer-modal 'eval-ps-buffer)
 (put 'text-mode 'eval-buffer-modal 'eval-text-buffer)
 (put 'c-mode 'eval-buffer-modal 'eval-c-buffer)
@@ -343,7 +343,7 @@ values in EXP, and execute BODY."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq l-map (make-sparse-keymap))
 
-(define-key l-map "b" 'eval-current-buffer)
+(define-key l-map "b" 'eval-buffer)
 (define-key l-map "r" 'eval-region)
 (define-key l-map "k" 'top-level)
 
