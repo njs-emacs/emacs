@@ -3,6 +3,8 @@
 
 (global-set-key (kbd "C-z") c-z-map)
 
+(def-key-map "C-z" 'c-z-map)
+
 (def-key c-z-map (kbd "C-t") 'toggle-truncate-lines)
 (def-key c-z-map (kbd "C-i") 'init-local)
 (def-key c-z-map (kbd "C-r") 'read-only-mode)

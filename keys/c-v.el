@@ -1,6 +1,8 @@
 (setq c-v-map (make-sparse-keymap))
 (global-set-key (kbd "C-v") c-v-map)
 
+(def-key-map "C-v" 'c-v-map)
+
 (def-key c-v-map (kbd "E") 'keydef-edit-init)
 
 ; [[file:e:/.p/.emacs/extra.el::127][extra.el]]

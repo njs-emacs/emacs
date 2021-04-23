@@ -1,6 +1,8 @@
 (setq c-bang-map (make-sparse-keymap))
 (global-set-key (kbd "C-!") c-bang-map)
 
+(def-key-map "C-!" 'c-bang-map)
+
 (def-key c-bang-map (kbd "E") 'keydef-edit-init)
 
 ;(define-key c-bang-map (kbd "a") "hello")

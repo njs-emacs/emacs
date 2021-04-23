@@ -1,17 +1,18 @@
 (setq c-lbrace-map (make-sparse-keymap))
 (global-set-key (kbd "C-{") c-lbrace-map)
 
+(def-key-map "C-{" 'c-lbrace-map)
+
 (def-key c-lbrace-map (kbd "E") 'keydef-edit-init)
 
-(def-key c-lbrace-map (kbd "SPC") 'ace-swap-window)
-(def-key c-lbrace-map (kbd "C-m") 'ace-jump-line-mode)
+(def-key c-lbrace-map (kbd "#") 'ace-jump-buffer)
+(def-key c-lbrace-map (kbd "'") 'ace-jump-same-mode-buffers)
 (def-key c-lbrace-map (kbd "/") 'ace-jump-word-mode)
+(def-key c-lbrace-map (kbd "C-m") 'ace-jump-line-mode)
+(def-key c-lbrace-map (kbd "SPC") 'ace-swap-window)
 (def-key c-lbrace-map (kbd "k") 'ace-delete-window)
 
-(def-key c-lbrace-map (kbd "#") 'ace-jump-buffer)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(def-key c-lbrace-map (kbd "'") 'ace-jump-same-mode-buffers)
 
 (def-key c-lbrace-map (kbd "j") 'ffx)
 (def-key c-lbrace-map (kbd "n") 'ffn)
@@ -27,6 +28,7 @@
 (def-key c-lbrace-map (kbd "C-l") 'kch-recenter)
 (def-key c-lbrace-map (kbd "<end>") 'kch-recenter)
 
-(def-key c-lbrace-map (kbd "<next>") 'insert-key-description)
+(def-key c-lbrace-map (kbd "<insert>") 'insert-key-description)
 
-
+(def-key c-lbrace-map (kbd "<next>") 'mark-paragraph)
+(def-key c-lbrace-map (kbd "<C-next>") 'copy-paragraph)

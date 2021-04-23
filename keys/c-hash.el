@@ -1,6 +1,8 @@
 (setq c-hash-map (make-sparse-keymap))
 (global-set-key (kbd "C-#") c-hash-map)
 
+(def-key-map "C-#" 'c-hash-map)
+
 (def-key c-hash-map (kbd "SPC") 'mark-word)
 (def-key c-hash-map (kbd "C-SPC") 'mark-sexp)
 (def-key c-hash-map (kbd "C-s") 'magit-update-index)

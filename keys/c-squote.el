@@ -3,6 +3,8 @@
 
   (global-set-key (kbd "C-'") c-quote-map)
 
+  (def-key-map "C-'" 'c-quote-map)
+
   (def-key c-quote-map (kbd "E") 'keydef-edit-init)
 
   (def-key c-quote-map (kbd "C-k") 'kmacro-to-register)

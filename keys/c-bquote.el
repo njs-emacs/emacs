@@ -1,6 +1,8 @@
 (setq c-bquote-map (make-sparse-keymap))
 (global-set-key (kbd "C-`") c-bquote-map)
 
+(def-key-map "C-`" 'c-bquote-map)
+
 (def-key c-bquote-map (kbd "E") 'keydef-edit-init)
 
 (def-key c-bquote-map (kbd "C-c") 'avy-copy-region)

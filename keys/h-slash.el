@@ -2,6 +2,8 @@
 
 (global-set-key (kbd "H-/") h-slash-map)
 
+(def-key-map "H-/" 'h-slash-map)
+
 (def-key h-slash-map (kbd "E") 'keydef-edit-init)
 
 ;(def-key global-map (kbd "H-/ H-/") "->")

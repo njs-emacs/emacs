@@ -2,3 +2,5 @@
 
 (global-set-key (kbd "C-\\") bslash-map)
 
+(def-key-map "C-\\" 'bslash-map)
+

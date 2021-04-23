@@ -1,3 +1,11 @@
+(defvar def-key-map-alist nil "Reverse mapping of keymap to prefix")
+(defvar def-key-pretty nil "Format elements in def-key-show in even columns")
+(defvar def-key-sort nil "Sort order def-key-show")
+
+(defun def-key-map (key map)
+  (setq def-key-map-alist (alist-put def-key-map-alist map key))
+  )
+
 (defvar def-key-history nil "Saved history of unevalled args to def-key")
 
 (defmacro def-key (keymap key def)

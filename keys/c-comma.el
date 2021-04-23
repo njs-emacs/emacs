@@ -1,6 +1,8 @@
 (setq c-comma-map (make-sparse-keymap))
 (global-set-key (kbd "C-,") c-comma-map)
 
+(def-key-map "C-," 'c-comma-map)
+
 (def-key c-comma-map (kbd "E") 'keydef-edit-init)
 
 (def-key c-comma-map (kbd "C-.") 'mc/mark-more-like-this-extended)
