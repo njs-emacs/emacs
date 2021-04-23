@@ -86,3 +86,18 @@ for ($1;$2;$3) {
   $0
 }
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; snippets can be used to do a live translation/encode/decode of
+; typed text
+;
+(defun fsdump (s fmt)
+  (apply 'concat
+	 (mapcar '(lambda (x) (format fmt x))
+		      (string-to-list s))))
+
+keys:  $1
+char:  ${1:$(fsdump yas-text "  %-2c")}
+dec:   ${1:$(fsdump yas-text "%3d ")}
+hex:   ${1:$(fsdump yas-text " %02x ")}
+
+

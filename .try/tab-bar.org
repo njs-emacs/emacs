@@ -1,0 +1,340 @@
+Possible completions are:
+tab-bar-close-other-tabs 	tab-bar-close-tab
+tab-bar-close-tab-by-name 	tab-bar-handle-mouse
+tab-bar-history-back 	tab-bar-history-forward
+tab-bar-history-mode 	tab-bar-mode
+tab-bar-move-tab 	tab-bar-move-tab-to
+tab-bar-move-tab-to-frame 	tab-bar-new-tab
+tab-bar-new-tab-to 	tab-bar-rename-tab
+tab-bar-rename-tab-by-name 	tab-bar-select-tab
+tab-bar-select-tab-by-name 	tab-bar-switch-to-next-tab
+tab-bar-switch-to-prev-tab 	tab-bar-switch-to-recent-tab
+tab-bar-switch-to-tab 	tab-bar-undo-close-tab
+
+C-x t C-f	find-file-other-tab
+C-x t RET	tab-bar-select-tab-by-name
+C-x t 0		tab-close
+C-x t 1		tab-close-other
+C-x t 2		tab-new
+C-x t b		switch-to-buffer-other-tab
+C-x t d		dired-other-tab
+C-x t f		find-file-other-tab
+C-x t m		tab-move
+C-x t o		tab-next
+C-x t r		tab-rename
+
+
+		tab-bar-close-other-tabs 
+		tab-bar-close-tab-by-name
+		tab-bar-history-back     
+		tab-bar-history-mode     
+		tab-bar-move-tab         
+		tab-bar-move-tab-to-frame
+		tab-bar-new-tab-to       
+		tab-bar-rename-tab-by-name
+		tab-bar-select-tab-by-name
+		tab-bar-switch-to-prev-tab
+		tab-bar-switch-to-tab    
+		tab-bar-close-tab	   
+		tab-bar-handle-mouse	   
+		tab-bar-history-forward	   
+		tab-bar-mode		   
+		tab-bar-move-tab-to	   
+		tab-bar-new-tab		   
+		tab-bar-rename-tab	   
+		tab-bar-select-tab	   
+		tab-bar-switch-to-next-tab  
+		tab-bar-switch-to-recent-tab
+		tab-bar-undo-close-tab      
+
+<C-S-tab>	tab-previous
+C-x t o		tab-next
+
+C-x t RET	tab-bar-select-tab-by-name
+C-x t 0		tab-close
+C-x t 1		tab-close-other
+C-x t 2		tab-new
+C-x t m		tab-move
+C-x t r		tab-rename
+
+
+
+
+
+
+
+
+tab-bar-close-other-tabs
+  Command: Close all tabs on the selected frame, except the selected
+           one.
+tab-bar-close-tab
+  Command: Close the tab specified by its absolute position ARG.
+tab-bar-close-tab-by-name
+  Command: Close the tab by NAME.
+
+
+
+
+Type RET on a type label to view its full documentation.
+
+auto-raise-tab-bar-buttons
+  Variable: Non-nil means raise tab-bar buttons when the mouse moves
+            over them.
+  Properties: variable-documentation
+auto-resize-tab-bars
+  Variable: Non-nil means automatically resize tab-bars.
+  Properties: variable-documentation
+showhide-tab-bar
+  Properties: event-symbol-element-mask event-symbol-elements
+              modifier-cache
+tab-bar
+  Group: Frame-local tabs.
+  Face: Tab bar face.
+  Properties: face-defface-spec face-modified face face-documentation
+              custom-version group-documentation custom-group
+              event-symbol-element-mask event-symbol-elemwents
+              modifier-cache custom-loads
+tab-bar--current-tab
+  Function: (not documented)
+tab-bar--current-tab-index
+  Function: (not documented)
+tab-bar--history-change
+  Function: (not documented)
+tab-bar--reusable-frames
+  Function: (not documented)
+tab-bar--tab
+  Function: (not documented)
+tab-bar--tab-index
+  Function: (not documented)
+tab-bar--tab-index-by-name
+  Function: (not documented)
+tab-bar--tab-index-recent
+  Function: (not documented)
+tab-bar--tabs-recent
+  Function: (not documented)
+tab-bar-back-button
+  Variable: Button for going back in tab history.
+  Properties: variable-documentation
+tab-bar-border
+  Variable: Border below tab-bar in pixels.
+  Properties: variable-documentation
+tab-bar-button-margin
+  Variable: Margin around tab-bar buttons in pixels.
+  Properties: variable-documentation
+tab-bar-button-relief
+  Variable: Relief thickness of tab-bar buttons.
+  Properties: variable-documentation
+tab-bar-close-button
+  Variable: Button for closing the clicked tab.
+  Properties: variable-documentation
+tab-bar-close-button-show
+  User option: Defines where to show the close tab button.
+  Properties: standard-value custom-type custom-set custom-version
+              variable-documentation custom-requests
+tab-bar-close-last-tab-choice
+  User option: Defines what to do when the last tab is closed.
+  Properties: standard-value custom-type custom-version
+              variable-documentation custom-requests
+tab-bar-close-other-tabs
+  Command: Close all tabs on the selected frame, except the selected
+           one.
+tab-bar-close-tab
+  Command: Close the tab specified by its absolute position ARG.
+tab-bar-close-tab-by-name
+  Command: Close the tab by NAME.
+tab-bar-close-tab-select
+  User option: Defines what tab to select after closing the specified
+               tab.
+  Properties: standard-value custom-type custom-version
+              variable-documentation custom-requests
+tab-bar-closed-tabs
+  Variable: A list of closed tabs to be able to undo their closing.
+  Properties: variable-documentation
+tab-bar-faces
+  Group: Faces used in the tab bar.
+  Properties: custom-group group-documentation custom-version
+              custom-loads
+tab-bar-forward-button
+  Variable: Button for going forward in tab history.
+  Properties: variable-documentation
+tab-bar-get-buffer-tab
+  Function: Return a tab owning a window whose buffer is
+            BUFFER-OR-NAME.
+tab-bar-handle-mouse
+  Command: Text-mode emulation of switching tabs on the tab bar.
+tab-bar-height
+  Function: Return the number of lines occupied by the tab bar of
+            FRAME.
+tab-bar-history--pre-change
+  Function: (not documented)
+tab-bar-history-back
+  Command: Restore a previous window configuration used in the current
+           tab.
+  Variable: History of back changes in every tab per frame.
+  Properties: variable-documentation
+tab-bar-history-forward
+  Command: Cancel restoration of the previous window configuration.
+  Variable: History of forward changes in every tab per frame.
+  Properties: variable-documentation
+tab-bar-history-limit
+  Variable: The number of history elements to keep.
+  Properties: variable-documentation
+tab-bar-history-mode
+  Command: Toggle tab history mode for the tab bar.
+  User option: Non-nil if Tab-Bar-History mode is enabled.
+  Properties: standard-value custom-set custom-type
+              variable-documentation custom-requests
+tab-bar-history-mode-hook
+  Variable: Hook run after entering or leaving ‘tab-bar-history-mode’.
+  Properties: variable-documentation
+tab-bar-history-old
+  Variable: Window configuration before the current command.
+  Properties: variable-documentation
+tab-bar-history-old-minibuffer-depth
+  Variable: Minibuffer depth before the current command.
+  Properties: variable-documentation
+tab-bar-history-omit
+  Variable: When non-nil, omit window-configuration changes from the
+            current command.
+  Properties: variable-documentation
+tab-bar-keymap-cache
+  Variable: (not documented)
+  Properties: risky-local-variable
+tab-bar-lines
+  Properties: x-frame-parameter
+tab-bar-make-keymap
+  Function: Generate an actual keymap from ‘tab-bar-map’.
+tab-bar-make-keymap-1
+  Function: Generate an actual keymap from ‘tab-bar-map’, without
+            caching.
+tab-bar-map
+  Variable: Keymap for the tab bar.
+  Properties: variable-documentation
+tab-bar-mode
+  Command: Toggle the tab bar in all graphical frames (Tab Bar mode).
+  User option: Non-nil if Tab-Bar mode is enabled.
+  Properties: standard-value custom-set variable-documentation
+              custom-type
+tab-bar-mode-hook
+  Variable: Hook run after entering or leaving ‘tab-bar-mode’.
+  Properties: variable-documentation
+tab-bar-move-tab
+  Command: Move the current tab ARG positions to the right.
+tab-bar-move-tab-to
+  Command: Move tab from FROM-INDEX position to new position at
+           TO-INDEX.
+tab-bar-move-tab-to-frame
+  Command: Move tab from FROM-INDEX position to new position at
+           TO-INDEX.
+tab-bar-new-button
+  Variable: Button for creating a new tab.
+  Properties: variable-documentation
+tab-bar-new-button-show
+  User option: If non-nil, show the "New tab" button in the tab bar.
+  Properties: standard-value custom-type custom-set custom-version
+              variable-documentation custom-requests
+tab-bar-new-tab
+  Command: Create a new tab ARG positions to the right.
+  Properties: event-symbol-element-mask event-symbol-elements
+              modifier-cache
+tab-bar-new-tab-choice
+  User option: Defines what to show in a new tab.
+  Properties: standard-value custom-type custom-version
+              variable-documentation custom-requests
+tab-bar-new-tab-to
+  Command: Add a new tab at the absolute position TO-INDEX.
+  User option: Defines where to create a new tab.
+  Properties: standard-value custom-type custom-version
+              variable-documentation custom-requests
+tab-bar-position
+  User option: Specify on which side from the tool bar the tab bar
+               shall be.
+  Properties: standard-value custom-set custom-version
+              variable-documentation custom-type
+tab-bar-rename-tab
+  Command: Rename the tab specified by its absolute position ARG.
+tab-bar-rename-tab-by-name
+  Command: Rename the tab named TAB-NAME.
+tab-bar-select-tab
+  Command: Switch to the tab by its absolute position ARG in the tab
+           bar.
+tab-bar-select-tab-by-name
+  Command: Switch to the tab by NAME.
+tab-bar-select-tab-modifiers
+  User option: List of modifier keys for selecting a tab by its index
+               digit.
+  Properties: standard-value custom-type custom-set custom-version
+              variable-documentation custom-requests
+tab-bar-separator
+  Variable: String that delimits tabs.
+  Properties: variable-documentation
+tab-bar-separator-image-expression
+  Variable: Expression evaluating to the image spec for a tab-bar
+            separator.
+  Properties: variable-documentation
+tab-bar-show
+  User option: Defines when to show the tab bar.
+  Properties: standard-value custom-type custom-set custom-version
+              variable-documentation custom-requests
+tab-bar-switch-to-next-tab
+  Command: Switch to ARGth next tab.
+tab-bar-switch-to-prev-tab
+  Command: Switch to ARGth previous tab.
+tab-bar-switch-to-recent-tab
+  Command: Switch to ARGth most recently visited tab.
+tab-bar-switch-to-tab
+  Command: Switch to the tab by NAME.
+tab-bar-tab
+  Face: Tab bar face for selected tab.
+  Properties: face-defface-spec face-modified face face-documentation
+              custom-version
+tab-bar-tab-hints
+  User option: Show absolute numbers on tabs in the tab bar before the
+               tab name.
+  Properties: standard-value custom-type custom-set custom-version
+              variable-documentation custom-requests
+tab-bar-tab-inactive
+  Face: Tab bar face for non-selected tab.
+  Properties: face-defface-spec face-modified face face-documentation
+              custom-version
+tab-bar-tab-name-all
+  Function: Generate tab name from buffers of all windows.
+tab-bar-tab-name-current
+  Function: Generate tab name from the buffer of the selected window.
+tab-bar-tab-name-current-with-count
+  Function: Generate tab name from the buffer of the selected window.
+tab-bar-tab-name-ellipsis
+  Variable: (not documented)
+tab-bar-tab-name-function
+  User option: Function to get a tab name.
+  Properties: standard-value custom-type custom-set custom-version
+              variable-documentation custom-requests
+tab-bar-tab-name-truncated
+  Function: Generate tab name from the buffer of the selected window.
+tab-bar-tab-name-truncated-max
+  User option: Maximum length of the tab name from the current buffer.
+  Properties: standard-value custom-type custom-version
+              variable-documentation custom-requests
+tab-bar-tab-post-open-functions
+  User option: List of functions to call after creating a new tab.
+  Properties: standard-value custom-type custom-version
+              variable-documentation custom-requests
+tab-bar-tab-pre-close-functions
+  User option: List of functions to call before closing a tab.
+  Properties: standard-value custom-type custom-version
+              variable-documentation custom-requests
+tab-bar-tab-prevent-close-functions
+  User option: List of functions to call to determine whether to close
+               a tab.
+  Properties: standard-value custom-type custom-version
+              variable-documentation custom-requests
+tab-bar-tabs
+  Function: Return a list of tabs belonging to the selected frame.
+tab-bar-tabs-function
+  Variable: Function to get a list of tabs to display in the tab bar.
+  Properties: variable-documentation
+tab-bar-undo-close-tab
+  Command: Restore the last closed tab.
+toggle-tab-bar-mode-from-frame
+  Command: Toggle tab bar on or off, based on the status of the
+           current frame.
