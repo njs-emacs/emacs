@@ -24,6 +24,8 @@ containing that file. NOERROR NOMESSAGE arguments are as for 'load' function."
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar local-home nil "Active \"home\" directory, set by 'init-local")
+
 (defun init-local-noload (dir)
   (or (string-match "[/\\]$" dir) (setq dir (concat dir "/")))
   (setq local-home (expand-file-name dir))
