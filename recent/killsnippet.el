@@ -28,7 +28,10 @@
 	 (ms (alist-get mode kill-snippet-mode-alist))
 	 (sort (sort (mapcar 'car ms) 'string>)) 
 	 )
-    (string-to-char (substring (car sort) (length kill-snippet-prefix)))
+    (cond
+     (sort (string-to-char (substring (car sort) (length kill-snippet-prefix))))
+     ((1- ?a))
+     )
     )
   )
 
@@ -221,7 +224,7 @@ When an instant expansion required for possible one off snippet."
 
 (setq kill-snippet-map (make-sparse-keymap))
 
-(def-key global-map (kbd "s-y") kill-snippet-map)
+(define-key global-map (kbd "s-y") kill-snippet-map)
 
 (def-key kill-snippet-map (kbd "s-y") 'kill-snippet-active-expand)
 (def-key kill-snippet-map (kbd "s-e") 'kill-snippet-edit)
