@@ -9,7 +9,6 @@
 ;; All the code is in the boo script, special boobies may
 ;; be present which offer standard services
 ;;
-;; bum - execute code for side-effects only
 
 (defvar go-boo-script "boo.pl" "The script file to execute for boo commands")
 (make-local-variable 'go-boo-script)
@@ -75,6 +74,10 @@ Output is handled the same as shell-command-on-region."
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar-local boo-always-bol t
+  "When non-nil always start expression at beginning-of-line regardless of where point is currently"
+  )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun boo-boo (fun &optional loop)
   "Execute boobie FUN on region (with optional LOOP) and replace
  the region with the output."
@@ -97,6 +100,9 @@ Output is handled the same as shell-command-on-region."
      ((bolp)
       (setq start (point) end (point$))
       )
+     (boo-always-bol
+      (setq start (point^) end (point$))
+      )
      (t
       (setq start (point) end (point$))
       )
@@ -109,12 +115,23 @@ Output is handled the same as shell-command-on-region."
     )
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun boo-bum ()
-  "Execute (boo-boo \"bum\") on boo-region. This will normally
-be used to execute boobies for side-effects only (using bum boobie)."
-  (interactive)
-  (boo-boo "bum")
+(defun boo-history-add (fun)
+  (cond ((eq fun (car boo-history)))
+	((setq boo-history (cons fun boo-history))))
+  )
+
+(defun boo-boo-ni (fun &optional loop)
+  "Execute boobie FUN on region (with optional LOOP) and replace
+ the region with the output."
+  (cond ((equal fun "") (setq fun go-boo-prev)))
+  (boo-history-add fun)
+  (boo-boo fun loop)
+  )
+
+(defun boo-boo-again (&optional loop)
+  "Execute previous boobie FUN again."
+  (interactive (list current-prefix-arg))
+  (boo-boo (car boo-history) loop)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -126,22 +143,59 @@ This is the shortcut generic content-regeneration boobie 'boom."
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define-key global-map (kbd "<s-f10>") 'boo-boo)
-(define-key global-map (kbd "<s-f11>") 'boo-boom)
-(define-key global-map (kbd "<s-insert>") 'boo-boom)
-(define-key global-map (kbd "<s-f12>") 'boo-bum)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; bo functions - execute code for side-effects only
+;; bosr - simple syntax - replace expression with result
+;; bosa - simple syntax - append result to expression
+;; bofr - full syntax - replace expression with result
+;; bofa - full syntax - append result to expression
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun boo-bosa ()
+  "Execute (boo-boo \"bosa\") on boo-region. This will normally
+be used to execute boobies for side-effects only (using bosa boobie).
+Simple syntax Append result"
+  (interactive)
+  (boo-boo-ni "bosa")
+  )
+
+(defun boo-bosr ()
+  "Execute (boo-boo \"bosr\") on boo-region. This will normally
+be used to execute boobies for side-effects only (using bosr boobie).
+Simple syntax Replace result"
+  (interactive)
+  (boo-boo-ni "bosr")
+  )
+
+(defun boo-bofa ()
+  "Execute (boo-boo \"bofa\") on boo-region. This will normally
+be used to execute boobies for side-effects only (using bofa boobie).
+Full syntax Append result"
+  (interactive)
+  (boo-boo-ni "bofa")
+  )
+
+(defun boo-bofr ()
+  "Execute (boo-boo \"bofr\") on boo-region. This will normally
+be used to execute boobies for side-effects only (using bofr boobie).
+Full syntax Replace result"
+  (interactive)
+  (boo-boo-ni "bofr")
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; non-interactive functions
 
 (defun boo-ni (text &optional fun loop)
   "Execute boobie FUN on TEXT (with optional LOOP).
-Return the output from bum boobie, and append to the \" *bum*\" buffer."
+Return the output from bum boobie, and append to the \" *boo-ni*\" buffer."
   (let* ((script (boo-get-script-or-die))	 
 	 (fun (or fun (car boo-history)))
 	 (file-name (buffer-file-name))
 	 buffer start end cmd
 	 )
+    (cond ((eq fun (car boo-history))) ((setq boo-history (cons fun boo-history))))
     (setq cmd (boo-command-build))
     (setq buffer (get-buffer-create " *boo-ni*"))
     (sx
@@ -156,9 +210,16 @@ Return the output from bum boobie, and append to the \" *bum*\" buffer."
     )
   )
 
-(defun boo-ni-bum (text &optional loop)
-  "Execute boobie 'bum' on TEXT (with optional LOOP).
-Return the output from bum boobie, and append to the \" *bum*\" buffer."
-  (boo-ni text "bum" loop)
+(defun boo-ni-bosr (text &optional loop)
+  "Execute boobie 'bosr' on TEXT (with optional LOOP).
+Return the output from bosr boobie, and append to the \" *boo-ni*\" buffer."
+  (boo-ni text "bosr" loop)
   )
 
+(defun boo-ni-bofr (text &optional loop)
+  "Execute boobie 'bofr' on TEXT (with optional LOOP).
+Return the output from bofr boobie, and append to the \" *boo-ni*\" buffer."
+  (boo-ni text "bofr" loop)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
