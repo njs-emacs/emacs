@@ -59,6 +59,10 @@
    )
   )
 
+(defun perl-exec-replay (&optional arg) (interactive "P")
+  (funcall perl-run-function (buffer-file-name)
+    (list (format "--replay=%s" (or arg 0)))))
+
 (defun perl-compile (&optional options) (interactive "i")
   (save-buffer)
   (let ((hooks perl-compile-start-hooks)
@@ -93,6 +97,7 @@
   (setq grep-spec "*.p[lm]")
   (emacs-read-hash-plus)
   (define-key perl-mode-map [M-f9] 'perl-exec-this)
+  (define-key perl-mode-map [S-f9] 'perl-exec-replay)
   (setq log-short-time-insert-format "%d_%H%M")
   )
 
