@@ -17,10 +17,14 @@
 
 (def-key c-bquote-map (kbd "C-e") 'avy-goto-end-of-line)
 (def-key c-bquote-map (kbd "C-a") 'avy-goto-line)
+
 (def-key c-bquote-map (kbd "C-s") 'avy-goto-symbol-1)
+(def-key c-bquote-map (kbd "C-` C-s") 'avy-copy-symbol-1)
+(def-key c-bquote-map (kbd "C-` C-` C-s") 'avy-copy-symbol-1-other-window)
 
 (def-key c-bquote-map (kbd "C-q") 'avy-goto-word-this-line)
 (def-key c-bquote-map (kbd "C-w") 'avy-goto-word-1)
 (def-key c-bquote-map (kbd "C-r") 'avy-goto-char-2)
 
 
+(def-key c-bquote-map (kbd "C-[") 'avy-sexp-copy)

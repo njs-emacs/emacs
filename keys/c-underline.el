@@ -4,4 +4,4 @@
 (def-key-map "C-_" 'c-underline-map)
 
 (def-key c-underline-map (kbd "E") 'keydef-edit-init)
-
+(def-key c-underline-map (kbd "C-_") 'magit)
