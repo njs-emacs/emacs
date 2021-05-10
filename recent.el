@@ -654,8 +654,44 @@ then replace VALUE with the value which follows it in the property list."
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun frame-width-set-monitor-aware (new-width &optional frame)
+  (let* ((frame (or frame (selected-frame)))
+	 (geometry (frame-monitor-geometry frame))
+	 (old-width (frame-width))
+	 (display-x (nth 0 geometry))
+	 (display-width (nth 2 geometry))
+	 (frame-pos (frame-position frame))
+	 (frame-x (car frame-pos))
+	 (frame-pixel-width (frame-native-width frame))
+	 (char-width (frame-char-width frame))
+	 (fudge 8)
+	 (spill
+	  (- (+
+	      fudge frame-x frame-pixel-width
+	      (* (- new-width old-width) char-width)
+	      )
+	     display-width
+	     )
+	  )
+	 )
+    (cond ((> spill 0)
+	   (set-frame-position frame (- frame-x spill) (cdr frame-pos))
+	   )
+	  )
+    (set-frame-width (selected-frame) new-width)
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun frame-default-width-get ()
+  (or (alist-r-get default-frame-alist 'width) 80))
+
+(defun frame-default-height-get ()
+  (or (alist-r-get default-frame-alist 'height) 100))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun frame-default-height (&optional arg) (interactive "p")
-  (let ((v (alist-r-get default-frame-alist 'height)))
+  (let ((v (frame-default-height-get)))
     (cond
      ((eq arg 4) (setq v (/ v 2)))
      ((eq arg 16) (setq v (/ v 4)))
@@ -665,26 +701,32 @@ then replace VALUE with the value which follows it in the property list."
   )
 
 (defun frame-default-width (&optional arg) (interactive "p")
-  (let ((v (or (alist-r-get default-frame-alist 'width) 80)))
+  (let ((v (frame-default-width-get)))
     (cond
      ((< arg 4) (setq v (* v arg)))
      ((eq arg 16) (setq v (/ v 2)))
      )
-    (set-frame-width (selected-frame) v)
+    (frame-width-set-monitor-aware v)
     )
   )
 
-(defun frame-width-ediff (&optional arg) (interactive "p")
-  (frame-default-width 3)
-  (let ((x (car (frame-position (selected-frame)))))
-    (cond ((< x 0)
-	   (set-frame-position (selected-frame) -4000 0)
-	   )
-	  ((set-frame-position (selected-frame) 0 0))
-	  )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun frame-width-ediff (&optional arg)
+  (interactive "p")
+  (let* ((width (frame-width))
+	 (count (cond ((or ediff-3way-comparison-job ediff-merge-job) 3) (2)))
+	 (max-width (* (frame-default-width-get) count))
+	 )
+    (cond
+     ((< width max-width)
+      (frame-width-set-monitor-aware max-width (selected-frame))
+      )
+     (t (set-frame-width (selected-frame) (frame-default-width-get)))
+     )
     )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun frame-width-glitch (&optional arg)
   (interactive "p")
   (let ((width (cdr (assoc 'width (frame-parameters)))))
