@@ -6,15 +6,17 @@
 (setq p-home (// "boo/e/.p"))
 (defun p-path (path) (filename-concat p-home path))
 
+(load-file (// "boo/e/mew/.emacs.el"))
+
 (cons-load-path (p-path ".emacs"))
 
 (init-local (p-path "stub"))
+(top-level)
+(init-local "e:/ca")
 (init-local "e:/ca/htdocs/help")
 (init-local "e:/.d/l/lily")
 (init-local "e:/.d/s/svg")
-(init-local "e:/ca")
 
-(top-level)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (find-file "e:/daily/21/2103/2103.org")
 (find-file "e:/daily/21/2102/2102.org")
