@@ -100,4 +100,25 @@ char:  ${1:$(fsdump yas-text "  %-2c")}
 dec:   ${1:$(fsdump yas-text "%3d ")}
 hex:   ${1:$(fsdump yas-text " %02x ")}
 
+;; use kill-snippet-add-active to use these snippets
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+# -*- mode: snippet -*-
+# name : tap (key is top)
+# key : top
+# expand-env: ((sym (thing-at-point 'symbol)) (yas-wrap-around-region t))
+# binding : s-/ s-.
+################################################################
+# using (thing-at-point 'symbol) in body didn't work
+################################################################
+# --
+(setq ${1:`sym`} $0) ; OK!
+${2:`(format-time-string "field with calculated default %c")`}
+${3:`(format "<%s>" sym)`}
+
+;; kill-snippets don't use expand-env and bindings correctly
+;; and the template body would have to be escaped to be
+;; a valid parameter to yas-define-snippets
+;;
+;; snippets like this will always be better handled in a snippet file
+;; kill-snippet is like autosnippets, quick and disposable
