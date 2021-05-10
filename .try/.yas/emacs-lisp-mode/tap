@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name : tap (key is top)
+# key : top
+# expand-env: ((sym (thing-at-point 'symbol)) (yas-wrap-around-region t))
+# binding : s-/ s-.
+################################################################
+# using (thing-at-point 'symbol) in body didn't work
+################################################################
+# --
+(setq ${1:`sym`} $0) ; OK!
+${2:`(format-time-string "field with calculated default %c")`}
+${3:`(format "<%s>" sym)`}

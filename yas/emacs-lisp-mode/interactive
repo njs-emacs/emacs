@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name : in
+# key : in
+# binding:
+# expand-env: ((yas-indent-line 'auto))
+# --
+(interactive)

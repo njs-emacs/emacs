@@ -3,6 +3,5 @@
 # key : dk
 # binding: A-M-1
 # expand-env: ((yo (format-time-string "%c")))
-# useful : A
 # --
 ;(def-key `(sx (bob) (find-match-string "\\S *-map"))` (kbd "$1") '$0)
