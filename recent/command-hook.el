@@ -14,8 +14,15 @@
 
 ;(ch-in)
 ;(setq ch-save-timer (run-with-timer 600 600 'ch-save))
+;(command-hook-start)
 
 ;(ch-out)
+
+(defun command-hook-start ()
+  (ch-in)
+  (setq ch-save-timer (run-with-timer 600 600 'ch-save))
+  (message "command-hook is running")
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun delete-line ()
@@ -168,7 +175,7 @@
 	(setq kch-current-count (1+ kch-current-count))
 	(setq kch-current-keys keys)
 	(setq kch-buffer-current buffer)
-	(insert (format "[%d] %-24s %s\n" kch-current-count keys cmd))
+	(insert (format "%s [%d] %-24s %s\n" (format-time-string "%y%m%d-%H%M%S.%2N") kch-current-count keys cmd))
 	)
       )
      )
