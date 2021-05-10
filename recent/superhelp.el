@@ -83,13 +83,19 @@ on symbol-at-point with no user input."
     )
   )
 
+(defun copy-symbol-at-point () (interactive)
+  (let ((s (symbol-name (symbol-at-point))))
+    (kill-new s)
+    (message "Copied '%s' to kill" s)
+    )
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defhydra hydra-superhelp (:hint nil :color pink :base-map superhelp-base-map)
       "
 _c_:   Auto		_a_:   Apropos		_k_:   Key
 _f_:   Function		_x_:   Execute		_q_:   Quit
-_v_:   Variable		_t_:   Completions
+_v_:   Variable		_t_:   Completions	_p_:   Copy
 _b_:   Binding		_m_:   Map
 "
   ("t" (s-completions))
@@ -111,6 +117,7 @@ _b_:   Binding		_m_:   Map
   ("k" describe-key)
   ("m" s-def-key)
 
+  ("p" copy-symbol-at-point :color blue)
   ("q" nil :color blue)
   )
 
