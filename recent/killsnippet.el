@@ -20,9 +20,6 @@
 	  )
   )
 
-; (kill-snippet-make-name ?a)
-; (kill-snippet-make-name "b")
-
 (defun kill-snippet-last-tag (&optional mode)
   (let* ((mode (or mode major-mode))
 	 (ms (alist-get mode kill-snippet-mode-alist))
@@ -50,9 +47,6 @@
   (kill-snippet-make-name (kill-snippet-next-tag mode))
   )
 
-; (kill-snippet-next-name 'perl-mode)
-; (kill-snippet-last-name 'perl-mode)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun kill-snippet-delete (name &optional mode)
   (let* ((mode (or mode major-mode))
@@ -63,10 +57,6 @@
 		 (alist-remprop ms name)))
     )
   )
-
-(kill-snippet-delete "ksc" 'perl-mode)
-(kill-snippet-delete "ksb" 'perl-mode)
-(kill-snippet-delete "ksd" 'perl-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun kill-snippet-compare (a b) (equal (cadr a) (cadr b)))
@@ -236,3 +226,14 @@ When an instant expansion required for possible one off snippet."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(describe-variable 'yas-indent-line)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; (kill-snippet-delete "ksc" 'perl-mode)
+;;; (kill-snippet-delete "ksb" 'perl-mode)
+;;; (kill-snippet-delete "ksd" 'perl-mode)
+;;; (kill-snippet-next-name 'perl-mode)
+;;; (kill-snippet-last-name 'perl-mode)
+;;; (kill-snippet-make-name ?a)
+;;; (kill-snippet-make-name "b")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
