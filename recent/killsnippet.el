@@ -13,6 +13,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq kill-snippet-prefix "ks")
 
+(defun kill-snippet-binding (tag)
+  (format "s-k s-%c" tag)
+  )
+
 (defun kill-snippet-make-name (tag)
   (format "%s%s"
 	  kill-snippet-prefix
@@ -89,7 +93,7 @@ so beware."
 	 (ms (alist-get mode kill-snippet-mode-alist))
 	 (tag (kill-snippet-next-tag mode))
 	 (name (or name (kill-snippet-make-name tag)))
-	 (new (list name s nil nil nil nil nil (format "s-k s-%c" tag)))
+	 (new (list name s nil nil nil nil nil (kill-snippet-binding tag)))
 	 )
 
     (setq ms (alist-remprop ms name))
@@ -222,7 +226,6 @@ When an instant expansion required for possible one off snippet."
 (def-key kill-snippet-map (kbd "s-a") 'kill-snippet-add-active)
 (def-key kill-snippet-map (kbd "s-r") 'kill-snippet-replace-active)
 (def-key kill-snippet-map (kbd "s-x") 'kill-snippet-define-all)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(describe-variable 'yas-indent-line)
