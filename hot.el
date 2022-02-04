@@ -1,5 +1,8 @@
-(defmacro ows (ow &rest body)
-  `)
+; have clickable hot zones
+
+(defun hot-remove () (interactive)
+  (put-text-property 1 (1- (point-max)) 'invisible nil)
+  )
 
 (defun hot-eval (expr)
   (let* ((w (current-window))
@@ -53,7 +56,7 @@
    )
  )
 
-(defun hot-fontify-buffer () (interactive)
+(defun hot-buffer-fontify () (interactive)
   (sx 
    (bob)
    (put-text-property 1 (1- (point-max)) 'invisible nil)
@@ -63,13 +66,27 @@
    )
   )
 
-(defun hot-mode () (interactive)
-  (setq mode-name "hot")
-  (hot-fontify-buffer)
+(defun hot-buffer-unfontify ()
+ (remove-list-of-text-properties (point-min) (point-max)
+				 '(invisible expr face mouse-face keymap))
+ )
+
+(define-minor-mode hot-mode
+  "."
+  :init-value nil
+  :lighter " !H! "
+  (cond 
+   (hot-mode
+    (hot-buffer-fontify)
+    )
+   (t
+    (hot-buffer-unfontify)
+    )
+   )
   )
 
-(defun hot-remove () (interactive)
-  (put-text-property 1 (1- (point-max)) 'invisible nil)
-  )
+;; ##this## (message "OK") ##
 
+;(hot-buffer-unfontify)
+;(hot-buffer-fontify)
 
