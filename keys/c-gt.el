@@ -3,8 +3,8 @@
 
 (def-key-map "C->" 'c-gt-map)
 
-(def-key c-gt-map (kbd "E") 'keydef-edit-init)
+;(def-key c-gt-map (kbd "E") 'keydef-edit-init)
 
-(def-key c-gt-map (kbd "c") 'magit-commit-create)
+;(def-key c-gt-map (kbd "c") 'magit-commit-create)
 
 

@@ -5,5 +5,3 @@
 
 (def-key c-tilde-map (kbd "E") 'keydef-edit-init)
 
-(def-key c-tilde-map (kbd "C-x") 'er/expand-region)
-

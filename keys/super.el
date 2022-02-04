@@ -1,8 +1,16 @@
 (require 'auto-yasnippet)
-(define-key global-map (kbd "s-w") #'aya-create)
-(define-key global-map (kbd "s-q") #'aya-expand)
 
-(define-key global-map (kbd "s-SPC") 'ace-jump-line-mode)
+;; windows 10 has problems with s-w key
+
+;;(define-key global-map (kbd "s-w") #'aya-create)
+;;(define-key global-map (kbd "s-q") #'aya-expand)
+
+(define-key global-map (kbd "s-a s-q") #'aya-create)
+(define-key global-map (kbd "s-a s-a") #'aya-expand)
+
+;; windows 10 traps s-SPC key
+
+(define-key global-map (kbd "<s-end>") 'ace-jump-line-mode)
 
 (define-key global-map (kbd "<s-delete>") 'undo)
 

@@ -29,6 +29,9 @@
 (def-key c-z-map (kbd "C-]") 'emacs-read-hash-minus)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; this is a keymap bound to C-z C-z
+;; triple C-z ==> undo
+
 (setq zc-z-map (make-sparse-keymap))
 (def-key c-z-map "\C-z" zc-z-map)
 

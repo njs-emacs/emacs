@@ -3,5 +3,5 @@
 
 (def-key-map "C-*" 'c-star-map)
 
-(def-key c-star-map (kbd "E") 'keydef-edit-init)
+;(def-key c-star-map (kbd "E") 'keydef-edit-init)
 

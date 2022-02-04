@@ -5,4 +5,4 @@
 
 (def-key c-dot-map (kbd "E") 'keydef-edit-init)
 
-(def-key c-dot-map (kbd "C-.") 'symbol-overlay-put)
+(def-key c-dot-map (kbd "C-/") 'symbol-overlay-put)

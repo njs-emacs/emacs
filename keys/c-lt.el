@@ -3,6 +3,6 @@
 
 (def-key-map "C-<" 'c-lt-map)
 
-(def-key c-lt-map (kbd "E") 'keydef-edit-init)
+;(def-key c-lt-map (kbd "E") 'keydef-edit-init)
 
 (def-key c-lt-map (kbd "l") 'org-agenda-list)

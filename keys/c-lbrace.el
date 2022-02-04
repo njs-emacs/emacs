@@ -3,7 +3,7 @@
 
 (def-key-map "C-{" 'c-lbrace-map)
 
-(def-key c-lbrace-map (kbd "E") 'keydef-edit-init)
+;(def-key c-lbrace-map (kbd "E") 'keydef-edit-init)
 
 (def-key c-lbrace-map (kbd "#") 'ace-jump-buffer)
 (def-key c-lbrace-map (kbd "'") 'ace-jump-same-mode-buffers)
@@ -17,7 +17,7 @@
 (def-key c-lbrace-map (kbd "j") 'ffx)
 (def-key c-lbrace-map (kbd "n") 'ffn)
 
-(def-key c-lbrace-map (kbd "c") 'magit-commit-create)
+;(def-key c-lbrace-map (kbd "c") 'magit-commit-create)
 
 (def-key c-lbrace-map (kbd "C-p") 'hydra-text-scale/body)
 

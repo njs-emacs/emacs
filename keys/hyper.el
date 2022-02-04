@@ -1,8 +1,3 @@
-(defvar org-master-file "e:/.org/home.org")
-
-(defun org-master-file-edit ()
-  (interactive) (find-file-other-window org-master-file))
-
 (def-key global-map (kbd "<H-f1>") 'org-master-file-edit)
 
 (def-key global-map (kbd "<H-return>") 'bookmark-bmenu-list)

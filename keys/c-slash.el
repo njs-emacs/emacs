@@ -3,7 +3,7 @@
 
 (def-key-map "C-/" 'c-slash-map)
 
-(def-key c-slash-map (kbd "E") 'keydef-edit-init)
+;(def-key c-slash-map (kbd "E") 'keydef-edit-init)
 
 (def-key c-slash-map (kbd "C-/") 'symbol-overlay-rename)
 (def-key c-slash-map (kbd "C-f") 'org-insert-file-link)

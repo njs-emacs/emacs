@@ -3,6 +3,6 @@
 
 (def-key-map "C-?" 'c-question-map)
 
-(def-key c-question-map (kbd "E") 'keydef-edit-init)
+;(def-key c-question-map (kbd "E") 'keydef-edit-init)
 
-(def-key c-question-map (kbd "c") 'magit-commit-create)
+;(def-key c-question-map (kbd "c") 'magit-commit-create)
