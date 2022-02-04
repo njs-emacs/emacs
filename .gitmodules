@@ -1,3 +1,6 @@
 [submodule "hydra.git"]
 	path = hydra.git
 	url = git@github.com:flamingant/hydra.git
+[submodule "org-fs-tree"]
+	path = org-fs-tree
+	url = https://github.com/ScriptDevil/org-fs-tree.git
