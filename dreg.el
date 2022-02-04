@@ -122,3 +122,27 @@
 	       ))
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun dreg-shuffle () (interactive)
+  (let* ((where (sexp-where))
+	 )
+    (cond
+     ((= where 3)
+      (sx (replace-thing-at-point-fun 'sexp 'dreg-shuffle-replace-3))
+      )
+     )
+    )
+  )
+
+(defun dreg-shuffle-replace-3 (x)
+  (let ((foo (read (read x))))
+    (case foo
+      (ever "\"month\"")
+      (month "\"year\"")
+      (year "\"ever\"")
+      )
+    )
+  )
+
+
+(define-key dreg-mode-keymap (kbd "M-#") 'dreg-shuffle)
