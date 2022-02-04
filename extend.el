@@ -144,16 +144,24 @@ list is modified as side effect, so you should assign this function result.
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun chop-list (list n)
-  "Chop LIST into a list of lists of N elements from original"
-  (let* ((out) (list (copy-sequence list)))
-      (while list
-	(let ((next list))
-	  (setq list (nthcdr n list))
-	  (let ((cdr (nthcdr (1- n) next))) (and cdr (setcdr cdr nil)))
-	  (setq out (cons next out))
-	  )
-	)
-      (nreverse out)))
+(defun glist-put (list key val &optional fun) 
+  (let ((cell (assoc key list fun)))
+    (cond
+     (cell (setcdr cell val))
+     ((setq list (cons (cons key val) list)))
+     )
+    list)
+  )
 
-;(chop-list '(1 2 3 4 5 6) 3)
+(defmacro glist-put-sym (place key val &optional fun)
+  `(setq ,place
+     (glist-put ,place ,key ,val ,fun)
+     ))
+
+(defun glist-get (list key &optional fun) 
+  (let ((cell (assoc key list fun)))
+    (cdr cell)
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
