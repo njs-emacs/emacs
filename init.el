@@ -121,6 +121,7 @@
 (setq list-command-history-max 4096)
 
 (require 'org)
+(require 'thingatpt)
 
 (bulkload-directory (filename-concat user-emacs-home "keys"))
 (bulkload-directory (filename-concat user-emacs-home "recent"))
