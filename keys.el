@@ -107,7 +107,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-unset-key "\M-z")	; remove zap-to-char
 
-(global-set-key (kbd "C-c C-g") 'magit-status)
+(global-set-key (kbd "C-c C-g") 'magit-here)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; "disable" secondary selection
