@@ -81,14 +81,17 @@
 (defun linked-file-class-get (tag name)
   (let* (
 	 (class (file-class name))
-	 (fun
+	 (form
 	  (or
 	   (gget1 file-class-linked-file-alist class tag)
 	   (gget1 file-class-linked-file-alist class t)
 	   )
 	  )
 	 )
-    (cond (fun (funcall fun)))
+    (cond
+     ((functionp form) (funcall form))
+     (form)
+     )
     )
   )
 
