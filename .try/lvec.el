@@ -2,20 +2,6 @@
 ; system that can be used to synchronise elements with external
 ; sequences like manual sections etc.
 
-(defmacro v* (sym op &rest args) `(setq ,sym (funcall ',op ,sym ,@args)))
-(defmacro iv* (sym op &rest args)
-  `(lambda () (interactive)
-     (setq ,sym (funcall ',op ,sym ,@args))
-     (message "%s value is %s" ',sym ,sym)
-     )
-  )
-
-(number-to-register 0 ?w) 
-
-(setq jj 0)
-(v* jj 1+)
-(v* jj + 2)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; lvec gives a vector of section/version/level numbers
 ; 
@@ -40,17 +26,42 @@
 
 (defvar-local lvec-base nil "lvec")
 (defvar-local lvec-save nil "lvec")
-(defvar-local lvec nil "lvec")
-(defvar-local lvec-format-list nil "lvec")
-(defvar-local lvec-format-template nil "lvec")
+(defvar-local lvec '(0 0 0 0) "lvec")
 
-(setq lvec-base `(1 1 1 ?a))
-(setq lvec-save `(4 1 2 ?a))
-(setq lvec lvec-save)
+(defvar-local lvec-format-list '("%s" "%s" "%s" "%c") "lvec")
+(defvar-local lvec-format-template "%s_%s_%s%s" "lvec")
+
+(set-default 'lvec-format-list '("%s" "%s" "%s" "%c"))
+(set-default 'lvec-format-template "%s_%s_%s%s")
+
+(defun lvec-format-one (n &optional value)
+  (format (nth n lvec-format-list) (or value (nth n lvec)))
+  )
+
+(defun lvec-format (&optional format)
+  (setq format (or format (apply 'format lvec-format-template lvec-format-list)))
+  (apply 'format format lvec)
+  )
+
+(defun lvec-set (&rest args)
+  (setq lvec-base args)
+  )
+
+(defun lvec-reset (&rest args)
+  (cond (args (setq lvec-base args)))
+  (setq lvec (copy-list lvec-base))
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq lvec-format-list '("%s" "%s" "%s" "%c"))
 (setq lvec-format-template "%s_%s_%s%s")
 
-(defhydra hydra-lvec (:color pink)
+(defun lvec-insert () (interactive)
+  (insert (lvec-format))
+  )
+
+(defun lvec-defhydra () (interactive)
+       (defhydra lvec-hydra (:color pink)
       "LVec %(format \"%s\" lvec) %(lvec-format)\n
 "
   ("q" (setcar (nthcdr 0 lvec) (1+ (nth 0 lvec))) (lvec-format-one 0 (1+ (nth 0 lvec))) :column "Increment:")
@@ -72,26 +83,22 @@
 ;  ("b" (setcar (nthcdr 4 lvec) (nth 4 lvec-base)))
 
   ("g" () "quit" :exit t :column "Other:")
-  ("/" (setq lvec lvec-save) "revert")
+  ("/" (setq lvec lvec-base) "revert")
 
-  )
+  ))
 
-(defun lvec-format-one (n &optional value)
-  (format (nth n lvec-format-list) (or value (nth n lvec)))
-  )
+; (lvec-format)
+;  (lvec-format-one 3)
 
-(defun lvec-format (&optional format)
-  (setq format (or format (apply 'format lvec-format-template lvec-format-list)))
-  (apply 'format format lvec)
-  )
-
-
-(lvec-format)
-(lvec-format-one 3)
-
-
-
-
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(def-key global-map (kbd "s-e h") 'lvec-defhydra)
+(def-key global-map (kbd "s-e h") 'lvec-hydra/body)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 
+;; 
+;; (setq lvec-base `(1 1 1 ?a))
+;; (setq lvec-format-list '("%s" "%s" "%s" "%c"))
+;; (setq lvec-format-template "%s_%s_%s%s")
+;; 
+;; 
 
