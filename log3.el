@@ -79,8 +79,6 @@
   (insert (file-id-create-modtime))
   )
 
-(global-set-key [S-f7] 'file-id-insert)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; this doesn't work but is an attempt to solve the problem of
 ; unambibuously identifying files across the network
