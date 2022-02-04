@@ -144,3 +144,16 @@ list is modified as side effect, so you should assign this function result.
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun chop-list (list n)
+  "Chop LIST into a list of lists of N elements from original"
+  (let* ((out) (list (copy-sequence list)))
+      (while list
+	(let ((next list))
+	  (setq list (nthcdr n list))
+	  (let ((cdr (nthcdr (1- n) next))) (and cdr (setcdr cdr nil)))
+	  (setq out (cons next out))
+	  )
+	)
+      (nreverse out)))
+
+;(chop-list '(1 2 3 4 5 6) 3)
