@@ -82,9 +82,8 @@
 ;(keycode-to-safe-symbol (aref (kbd "M-e") 0) "M-")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun keydef-edit-init ()
-  (interactive)
-    
+(defun keydef-edit-init (key)
+  (interactive "kPrefix: ")
   (let* ((keys (this-command-keys))
 	 (key (aref keys 0))
 	 (kd (key-description keys))
@@ -97,6 +96,7 @@
     )
   )
 
+(def-key global-map (kbd "C-# C-k") 'keydef-edit-init)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun get-help-buffer-key-prefix ()
   (sx (set-buffer "*Help*")

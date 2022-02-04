@@ -5,16 +5,36 @@
 ;;; After a boo insertion, the kill will be what was marked
 ;;; and the region is not active, even though mark and point are set
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mode* (&optional mode) (or mode major-mode))
+
+(defun mode-put (prop value &optional mode)
+  (put (mode* mode) prop value)
+  )
+
+(defun mode-get (prop &optional mode)
+  (get (mode* mode) prop)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar kill-snippet-mode-alist nil
   "Kill snippets organised by major-mode")
 
 ;(setq kill-snippet-mode-alist nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun kill-snippet-mru (&optional mode)
+  (or
+   (mode-get 'kill-snippet-mru mode)
+   (error "No most recent kill-snippet in %s" (mode*))
+   )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq kill-snippet-prefix "ks")
 
 (defun kill-snippet-binding (tag)
-  (format "s-k s-%c" tag)
+;  (format "s-k s-%c" tag)
+  (format "H-k H-%s" tag)
   )
 
 (defun kill-snippet-make-name (tag)
@@ -24,31 +44,32 @@
 	  )
   )
 
-(defun kill-snippet-last-tag (&optional mode)
+(defun kill-snippet-last-name (&optional mode)
+  (let ((tag (kill-snippet-mru mode)))
+    (kill-snippet-make-name tag)
+    )
+  )
+
+(defun kill-snippet-highest-busy-tag (&optional mode)
   (let* ((mode (or mode major-mode))
 	 (ms (alist-get mode kill-snippet-mode-alist))
 	 (sort (sort (mapcar 'car ms) 'string>)) 
 	 )
     (cond
      (sort (string-to-char (substring (car sort) (length kill-snippet-prefix))))
-     ((1- ?a))
      )
     )
   )
 
-(defun kill-snippet-last-name (&optional mode)
-  (kill-snippet-make-name (kill-snippet-last-tag mode))
-  )
-
-(defun kill-snippet-next-tag (&optional mode)
-  (let* ((last (kill-snippet-last-tag mode))
+(defun kill-snippet-lowest-free-tag (&optional mode)
+  (let* ((last (kill-snippet-highest-busy-tag mode))
 	 )
-    (1+ last)
+    (cond (last (1+ last)) (?a))
     )
   )
 
 (defun kill-snippet-next-name (&optional mode)
-  (kill-snippet-make-name (kill-snippet-next-tag mode))
+  (kill-snippet-make-name (kill-snippet-lowest-free-tag mode))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -82,17 +103,14 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun kill-snippet-add (s &optional mode name)
+(defun kill-snippet-add (s &optional tag mode)
   "Add a kill-snippet S to the mode list for MODE.
-The NAME will default to \"ks<x>\" where <x> is a,b,...
-is the auto generated character.
-If NAME is provided this will affect autogeneration of names going forward,
-so beware."
+TAG defaults to one higher than highest tag named so far."
   (kill-snippet-sanity-confirm s)
   (let* ((mode (or mode major-mode))
 	 (ms (alist-get mode kill-snippet-mode-alist))
-	 (tag (kill-snippet-next-tag mode))
-	 (name (or name (kill-snippet-make-name tag)))
+	 (tag (or tag (kill-snippet-lowest-free-tag mode)))
+	 (name (kill-snippet-make-name tag))
 	 (new (list name s nil nil nil nil nil (kill-snippet-binding tag)))
 	 )
 
@@ -103,16 +121,18 @@ so beware."
       (alist-put kill-snippet-mode-alist mode ms)
       )
     (funcall 'yas-define-snippets mode ms)
+    (mode-put 'kill-snippet-mru tag mode)
     (message "new snippet name is '%s'" name)
     )
   )
 
-(defun kill-snippet-remove (&optional mode name)
-  "Remove kill-snippet NAME from mode list for MODE.
-The NAME will default to the last defined.
+(defun kill-snippet-remove (&optional tag mode)
+  "Remove kill-snippet identified by TAG from mode list for MODE.
+The TAG will default to the last defined.
 MODE defaults to current major-mode."
   (let* ((mode (or mode major-mode))
-	 (name (or name (kill-snippet-last-name mode)))
+	 (tag (kill-snippet-mru mode))
+	 (name (kill-snippet-make-name tag))
 	 )
     (kill-snippet-delete name mode)
     )
@@ -135,19 +155,35 @@ when the candidate does not look like a good snippet."
     s)
   )
     
-(defun kill-snippet-add-active ()
+(defun kill-snippet-add-active (&optional tag)
   "Add the current active candidate to the current major-mode kill-snippet list."
-  (interactive)
-  (kill-snippet-add (kill-snippet-active))
+  (interactive 
+    (list (read-from-minibuffer "Tag: " (char-to-string (kill-snippet-lowest-free-tag))))
+    )
+  (cond ((string= tag "") (setq tag nil)))
+  (kill-snippet-add (kill-snippet-active) tag)
   )
 
-(defun kill-snippet-replace-active ()
-  "Replace the last defined kill-snippet with the current active candidate."
-  (interactive)
-  (kill-snippet-remove)
-  (kill-snippet-add-active)
+(defun kill-snippet-replace-active (&optional tag)
+  "Replace a kill-snippet corresponding to TAG with the current active candidate.
+TAG defaults to most recently defined."
+  (interactive 
+    (list (read-from-minibuffer "Tag: " (kill-snippet-mru)))
+    )
+  (let* ((mode major-mode)
+	 (ms (alist-get mode kill-snippet-mode-alist))
+	 (name (kill-snippet-make-name tag))
+	 (x (alist-get name ms nil nil 'equal))
+	 )
+    (cond (x
+	   (setcar x (kill-snippet-active))
+	   (funcall 'yas-define-snippets mode ms)
+	   )
+	  )
+    )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun kill-snippet-define (&optional mode)
   "Define yasnippets for the kill-snippet list for MODE."
   (interactive "SMode: ")
@@ -195,6 +231,7 @@ When an instant expansion required for possible one off snippet."
 ;;;
 ;;; f9		- eval this buffer
 ;;; s-y s-x	- define all snippets for corresponding modes
+;;; yas-describe-tables - show all active snippets
 
 ")
 
@@ -222,7 +259,7 @@ When an instant expansion required for possible one off snippet."
 
 (def-key kill-snippet-map (kbd "s-y") 'kill-snippet-active-expand)
 (def-key kill-snippet-map (kbd "s-e") 'kill-snippet-edit)
-(def-key kill-snippet-map (kbd "s-d") 'kill-snippet-define)
+(def-key kill-snippet-map (kbd "s-d") 'kill-snippet-define-for-mode)
 (def-key kill-snippet-map (kbd "s-a") 'kill-snippet-add-active)
 (def-key kill-snippet-map (kbd "s-r") 'kill-snippet-replace-active)
 (def-key kill-snippet-map (kbd "s-x") 'kill-snippet-define-all)
@@ -239,4 +276,10 @@ When an instant expansion required for possible one off snippet."
 ;;; (kill-snippet-make-name ?a)
 ;;; (kill-snippet-make-name "b")
 
+;;; (mode-put 'kill-snippet-mru "c" 'perl-mode)
+;;; (kill-snippet-last-name 'perl-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; mark a region or otherwise the current line is used
+;; kill-snippet-add-active defines a snippet in the current mode
+;; use (yas-describe-tables)

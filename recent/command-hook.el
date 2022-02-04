@@ -18,10 +18,11 @@
 
 ;(ch-out)
 
-(defun command-hook-start ()
+(defun command-hook-start () (interactive)
   (ch-in)
   (setq ch-save-timer (run-with-timer 600 600 'ch-save))
   (message "command-hook is running")
+  (add-hook 'kill-emacs-hook 'ch-save)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -137,6 +138,23 @@
 (defvar kch-buffer-current nil)
 (defvar kch-current-keys nil)
 
+(defun kch-recenter () (interactive)
+  (let* ()
+    (cond ((string= (buffer-name) kch-buffer-name))
+	  ((switch-to-buffer-other-frame kch-buffer-name))
+	  )
+    (eob)
+    (recenter -10)
+    )
+  )
+
+(setq kch-local-keymap (make-sparse-keymap))
+(define-key kch-local-keymap (kbd "<C-f5>") 'kch-recenter)
+(suppress-keymap kch-local-keymap)
+
+(defvar kch-self-suppress t "Suppress logging commands when kch buffer selected")
+;(setq kch-self-suppress (not kch-self-suppress))
+
 (defun kch-pre ()
   (let* ((buffer (current-buffer))
 	 (mode major-mode)
@@ -156,6 +174,7 @@
 	 (disabled
 	  (cond
 	   ((string-match "Minibuf" name))
+	   ((and kch-self-suppress (string-match kch-buffer-name name)))
 	   )
 	  )
 	 )
@@ -163,6 +182,7 @@
      ((and enabled (not disabled))
       (save-excursion
 	(set-buffer (get-buffer-create kch-buffer-name))
+	(use-local-map kch-local-keymap)
 	(eob)
 	(cond ((not (eq kch-buffer-current buffer))
 	       (insert (format "%s [%s]\n" name mode))
@@ -179,14 +199,6 @@
 	)
       )
      )
-    )
-  )
-
-(defun kch-recenter () (interactive)
-  (let* ()
-    (switch-to-buffer-other-frame " *kch")
-    (eob)
-    (recenter)
     )
   )
 

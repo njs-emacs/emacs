@@ -9,6 +9,27 @@
 ;; All the code is in the boo script, special boobies may
 ;; be present which offer standard services
 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; the boo.pl script expects the code to be in the input stream
+;; so if we want to invoke a generator directly without using a boobie
+;; (which expects an input stream)
+;;
+;; boo-ni-bosr and boo-ni-bofr can synthesize an input stream from
+;; parameter text
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; These methods are just an alternative to using emacs lisp
+;; to generate content. They can utilize the more expressive 
+;; power of the perl language.
+;;
+;; They should be allowed to mature
+;;
+;; They also should go through a systematic renaming away from the
+;; term 'boo'
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defvar go-boo-script "boo.pl" "The script file to execute for boo commands")
 (make-local-variable 'go-boo-script)
