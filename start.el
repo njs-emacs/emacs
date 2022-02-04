@@ -11,10 +11,21 @@
 (cons-load-path (p-path ".emacs"))
 
 (init-local (p-path "stub"))
+(tab-bar-mode)
 (top-level)
-(init-local "e:/ca")
-(init-local "e:/ca/htdocs/help")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (init-local "e:/.d/l/lily")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(init-local "e:/mew/")
+(init-local "e:/mew/boo.10")
+
+(init-local "e:/borough/barnet")
+(init-local "e:/borough/camden")
+(init-local "e:/ca")
+(init-local "e:/ca/210627/garage")
+(init-local "e:/ca/htdocs/help")
 (init-local "e:/.d/s/svg")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,7 +43,6 @@
 (init-local (p-path  "apihook"))
 (init-local (p-path "hook/cbt"))
 (init-local (p-path "hook/msg"))
-
 
 (init-local (p-path "aft"))
 
@@ -86,13 +96,6 @@
 (modify-frame-parameters (frame-focus) '((background-color . "MistyRose")))
 (modify-frame-parameters (frame-focus) '((background-color . "#e0d0d0")))
 (modify-frame-parameters (frame-focus) '((background-color . "#d0f0d0")))
-
-zonk
-2r
-
-(abbrev-symbol "wpa" zonk-abbrev)
-(abbrev-expansion "wpa" zonk-abbrev)
-(abbrev-insert 'wpa)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (custom-set-faces
