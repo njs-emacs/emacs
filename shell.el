@@ -105,6 +105,7 @@
      (bob)
      (prog1 (funcall (or read 'buffer-string))
        (set-buffer-modified-p nil)
+       (copy-region-as-kill (point-min) (point-max))
        (kill-buffer* buf))
      )
    ))
