@@ -117,6 +117,7 @@
    ((eq major-mode 'emacs-lisp-mode) ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
    ((eq major-mode 'perl-mode) "################################################################")
    ((or
+     (eq major-mode 'js-mode)
      (eq major-mode 'c-mode)
      (eq major-mode 'c++-mode)
      )
@@ -556,13 +557,20 @@ then replace VALUE with the value which follows it in the property list."
        )
       )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun copy-buffer-file-name-to-kill () (interactive)
+  (kill-new (file-name-nondirectory (buffer-file-name)))
+  )
+
+(define-key global-map (kbd "C-z C-y") 'copy-buffer-file-name-to-kill)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun buffer-file-name-to-kill () (interactive)
   (let ((s (buffer-file-name)))
     (kill-new s)
     )
   )
 
-(def-key z-map "C-f" 'buffer-file-name-to-kill)
+(def-key z-map (kbd "C-f") 'buffer-file-name-to-kill)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun assoc-re (pat list)
   (let* ((fun '(lambda (x) (string-match pat (car x))))
@@ -836,16 +844,6 @@ then replace VALUE with the value which follows it in the property list."
 ;(apropos "process")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun ns-org-load-hook ()
-  (add-hook 'org-mode-hook 'turn-on-font-lock)
-  (setq org-file-apps (append org-file-apps (list (cons t 'emacs))))
-  (setq org-open-directory-means-index-dot-org nil)
-  (org-defkey org-mode-map (kbd "C-'") nil)
-  (org-defkey org-mode-map (kbd "C-,") nil)
-  )
-
-(add-hook 'org-load-hook 'ns-org-load-hook)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar alt-buffer-eval-function nil "Alternate buffer eval function")
 
 (make-local-variable 'alt-buffer-eval-function)
@@ -856,7 +854,7 @@ then replace VALUE with the value which follows it in the property list."
 (def-key-global [C-f9] 'alt-buffer-eval)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(recentf-mode 1)
+;(recentf-mode 1)
 (setq recentf-max-saved-items nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -894,21 +892,6 @@ then replace VALUE with the value which follows it in the property list."
 (defun cygwin-version ()
   (string-match-string "cygwin\\([0-9]+\\)" (getenv "PATH") 1)
   )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun org-default-notes-file-visit ()
-  (interactive)
-  (find-file org-default-notes-file)
-  )
-
-(def-key-global [C-f1] 'org-capture)
-(def-key-global [C-f2] 'bookmark-bmenu-list)
-
-(def-key-global [M-f1] 'org-cycle-agenda-files)
-(def-key-global [M-f2] 'org-default-notes-file-visit)
-(def-key-global [M-f3] 'org-agenda)
-
-(def-key-global (kbd "C-c a") 'org-agenda)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq diredp-hide-details-initially-flag nil)
@@ -990,3 +973,22 @@ then replace VALUE with the value which follows it in the property list."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'bg-hydra "bg-hydra" "" (interactive))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun generic-arg-alist-find (args-pattern)
+  "Find an alist which follows a pattern match on the current line,
+ or the first match in the buffer. Used to override default compilation or buffer evaluation functions."
+
+  (sx
+   (bol)
+   (cond 
+    ((rsf args-pattern) (eval (readc)))
+    ((bob)
+     (cond
+      ((rsf args-pattern) (eval (readc)))
+      )
+     )
+    )
+  )
+ )
+
