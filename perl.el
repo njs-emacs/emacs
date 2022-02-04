@@ -138,6 +138,18 @@
   )
   
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun perl-sub-rename (name) (interactive)
+  (look-or-rsb "sub ")
+  (kill-sexp 1)
+  (insert name)
+  )
+
+(defun perl-sub-rename-ts () (interactive)
+  (perl-sub-rename (format-time-string log-time-identifier-string-format))
+  )
+
+;;; (define-key perl-mode-map 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (file-class-linked-file-add 'perl-mode '((other . perl-other-file)))
 
 (defun perl-other-file (&optional file)
