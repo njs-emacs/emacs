@@ -1,0 +1,18 @@
+* keys
+   C-c C-c	fug-intern
+   C-c C-e	fug-electric-mode
+   C-c C-k	fug-outout-kill
+   C-c C-n	fug-goto-next
+   C-c C-p	fug-goto-prev
+   C-c C-q	fug-state-sane
+   C-c C-x	fug-exec
+
+* intro
+   fug-mode is inspired by an emacs-rock video which introduced
+   restclient-mode, a mode which allows a set of requests to be prepared
+   in a buffer and passed to a server on request
+   In fug-mode each request line consists of an expression which
+   defines a debugger command and other parameters for example
+   a key binding specification
+   When fug-electric-mode is active single keys activate fug commands
+   Otherwise the C-c prefix is used, and normal editing is enabled
