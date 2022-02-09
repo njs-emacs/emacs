@@ -92,11 +92,25 @@
     )
   )
 
+(defun hf-apply (fun &rest args)
+  (let* ((event last-input-event)
+	 (link (hf-get-link event))
+	 (name (bs (nth 1 link) (nth 2 link)))
+	 )
+    (apply fun name args)
+    )
+  )
+
+(defun hf-copy-to-kill () (interactive)
+  (hf-apply '(lambda (x) (kill-new x)))
+  )
+
+(setq hf-map (make-sparse-keymap))
+
 (define-key hf-map (kbd "C-SPC") 'hf-click)
 (define-key hf-map (kbd "C-m") 'hf-magit)
 (define-key hf-map (kbd "C-x") 'hf-explore)
-
-(setq hf-map (make-sparse-keymap))
+(define-key hf-map (kbd "C-k") 'hf-copy-to-kill)
 
 (define-key hf-map [mouse-1] 'hf-click)
 (define-key hf-map [mouse-2] 'hf-click)
