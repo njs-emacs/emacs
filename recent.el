@@ -992,3 +992,26 @@ then replace VALUE with the value which follows it in the property list."
   )
  )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun shell-execute-text (s &optional name)
+  (setq name
+    (or name (format "%s/bash-%d.tmp" (temporary-file-directory) (emacs-pid))))
+
+  (save-excursion
+    (setq buffer (find-file-noselect name))
+    (set-buffer buffer)
+    (set-buffer-file-coding-system 'unix)
+    (erase-buffer)
+    (insert s)
+    (let ((nvc-enable nil))
+      (write-file name)
+      )
+    )
+  (shell-command (format "bash %s" name))
+  )
+
+(defun shell-execute-region-text (start end)
+  (interactive "r")
+  (shell-execute-text (bs start end))
+  )
+
