@@ -1,15 +1,17 @@
+(defun region-beginning-if-active (&optional otherwise)
+  (cond ((region-active-p) (region-beginning))
+	(otherwise))	
+  )
+
+(defun region-end-if-active (&optional otherwise)
+  (cond ((region-active-p) (region-end))
+	(otherwise))
+  )
+
 (defun avy-goto-word-this-line (&optional arg)
   (interactive "P")
   (avy-with avy-goto-word-0
     (avy-goto-word-0 arg (point^) (point$))))
-
-(defun region-beginning-if-active ()
-  (cond ((region-active-p) (region-beginning)))
-  )
-
-(defun region-end-if-active ()
-  (cond ((region-active-p) (region-end)))
-  )
 
 (defun avy-ns-region-begin (&optional beg)
   (or beg (region-beginning-if-active) (window-start))
