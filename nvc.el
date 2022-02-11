@@ -362,7 +362,7 @@ Used to enter a file into edit tracking on creation but not at any other time.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; log file visit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun nvc-no-log-visit ()
+(defun nvc-no-log-visit-tagged ()
   ;; the nologvisit tag must be in first 1000 characters
   (sx
    (bob)
@@ -390,12 +390,13 @@ Used to enter a file into edit tracking on creation but not at any other time.")
   )
 
 (defun nvc-log-visit ()
-  (setq nvc-no-log-visit (nvc-no-log-visit))
-  (cond
-   (nvc-no-log-visit)
-   (nvc-global-enable
-    (nvc-log-visit* (buffer-file-name) (current-time)))
-   )
+  (let ((no-log (or nvc-no-log-visit (nvc-no-log-visit-tagged))))
+    (cond
+     (no-log)
+     (nvc-global-enable
+      (nvc-log-visit* (buffer-file-name) (current-time)))
+     )
+    )
   )
 
 (add-hook 'find-file-hooks 'nvc-log-visit)
