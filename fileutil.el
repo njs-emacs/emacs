@@ -222,11 +222,15 @@ on completion. If optional HOOK is given, call this before closing the file."
     (rename-file old new)
     ))
 
+(defun cd-absolute-maybe (dir)
+  (cond (dir (cd-absolute (expand-file-name dir)))))
+
 (defmacro save-cd (dir &rest body)
   `(let ((save default-directory))
-       (cd (expand-file-name ,dir))
-       ,@body
-       (cd save)
+       (cd-absolute-maybe ,dir)
+       (prog1 (progn ,@body)
+	 (cd save)
+	 )
        ))
 
 (defun dir-path () (nreverse (unconcat default-directory "/")))
