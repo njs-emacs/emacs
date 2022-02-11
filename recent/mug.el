@@ -41,10 +41,24 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-arg-reader-apply (fun) (funcall fun (point^) (point$)))
 
+(defun mug-locate-command-line ()
+  (let ()
+    (sx
+     (cond
+      ((looking-at mug-header-pattern))
+      ((rsb mug-header-pattern))
+      ((error "Can't find a command line"))
+      )
+     (point^)
+     )
+    )
+  )
+
 (defun mug-read-command-line ()
   (let ((command-line
 	 (sx
 	  (cond
+	   (mug-active-command (goto-char mug-active-command))
 	   ((looking-at mug-header-pattern))
 	   ((rsb mug-header-pattern))
 	   ((error "Can't find a command line"))
@@ -75,39 +89,51 @@
     )
   )
 
-(defun mug-exec-here (point &optional echo)
+(defun mug-exec-here (arg &optional echo)
   (sx
-   (goto-char point)
-   (bol)
    (let* ((command-line (mug-read-command-line))
 	  (command (mug-read-command))
 	  (plist (cdr command-line))
-	  (result (eval command))
+	  (cd (plist-get plist :cd))
+	  result
 	  )
+     (cond ((plist-get plist :debug) (debug)))
+     (setq result (save-cd cd (eval command)))
      (cond
-      ((or echo (plist-get plist :echo))
+      ((or (eq arg 0) echo (plist-get plist :show))
+       (show result)
+       )
+      ((or (eq arg 4) echo (plist-get plist :echo))
        (message result)
        )
+      ((or (eq arg 16) (plist-get plist :insert))
+       (goto-char (region-end-if-active (point$)))
+       (insert "\n" result "\n")
+       )
       )
-     )
+   result
+   )
    )
   )
 
-(defun mug-exec ()
-  (interactive)
+(symbol-function 'mug-exec-here)
+
+(defun mug-exec (&optional arg)
+  (interactive "p")
    (cond
-    ((mug-exec-here (point)))
+    ((mug-exec-here arg))
     )
    )
 
-(defun mug-exec-echo ()
-  (interactive)
+(defun mug-exec-echo (&optional arg)
+  (interactive "p")
    (cond
-    ((mug-exec-here (point) t))
+    ((mug-exec-here arg t))
     )
    )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; these functions are for compatibily. They don't really do anything
 (defun mug-intern ()
   (interactive)
   (let* ((command-line (mug-read-command-line))
@@ -150,10 +176,12 @@
 		       (kbd (format "C-c C-%s" (car x))) (cdr x))
 	   )
 	`(
+	  ("a" . mug-active-command-mark)
+	  ("j" . mug-active-command-jump)
 	  ("e" . mug-intern)
           ("c" . mug-exec)
           ("x" . mug-exec-echo)
-	  ("h" . mug-visit-org-file)
+	  ("o" . mug-visit-org-file)
 	  )
 	)
 
@@ -173,6 +201,7 @@
 
 (defun mug-mode ()
   (interactive)
+  (emacs-lisp-mode)
   (use-local-map mug-mode-map)
   (setq major-mode 'mug-mode)
   (setq mode-name "mug")
@@ -185,3 +214,40 @@
 (put 'mug-mode 'eval-buffer-modal 'mug-eval-buffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar mug-active-command nil
+  "mug-active-command overrides the usual nearest command. When active it will be hilighted")
+
+(defun mug-active-command-end ()
+  (sxp (goto-char mug-active-command) (eol))
+  )
+
+(defun mug-active-command-mark ()
+  (interactive)
+  (cond
+   (mug-active-command
+    (message "active command cleared")
+    (put-text-property mug-active-command (mug-active-command-end) 'face nil)
+    (setq mug-active-command nil)
+    (setq mug-active-command-end nil)
+    )
+   (t
+    (setq mug-active-command
+      (set-marker (make-marker) (mug-locate-command-line)))
+    (put-text-property mug-active-command (mug-active-command-end) 'face 'info-index-match)
+    (message "active command set to %s" mug-active-command)
+    )
+   )
+  )
+
+(defun mug-active-command-jump ()
+  (interactive)
+  (cond
+   (mug-active-command
+    (goto-char mug-active-command)
+    )
+   (t
+    (error "mug-active-command is not active")
+    )
+   )
+  )
+
