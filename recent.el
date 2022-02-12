@@ -993,21 +993,51 @@ then replace VALUE with the value which follows it in the property list."
  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun shell-execute-text (s &optional name)
-  (setq name
-    (or name (format "%s/bash-%d.tmp" (temporary-file-directory) (emacs-pid))))
+(defun get-buffer-string (buffer &optional start end)
+  (sx (set-buffer buffer)
+      (buffer-substring-no-properties (or start (point-min))
+				      (or end (point-max)))
+      )
+  )
 
-  (save-excursion
-    (setq buffer (find-file-noselect name))
-    (set-buffer buffer)
-    (set-buffer-file-coding-system 'unix)
-    (erase-buffer)
-    (insert s)
-    (let ((nvc-enable nil))
-      (write-file name)
+; (get-buffer-string "*Shell Command Output*")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defmacro with-suppressed-message (&rest body)
+  "Suppress new messages temporarily in the echo area and the `*Messages*' buffer while BODY is evaluated."
+  (declare (indent 0))
+  (let ((message-log-max nil))
+    `(with-temp-message (or (current-message) "") ,@body)))
+
+(defun shell-execute-text (s &rest plist)
+  (let* ((nvc-global-enable nil)
+	 (file-name (or (plist-get plist :file-name)
+			(format "%s/bash-%d.tmp" (temporary-file-directory) (emacs-pid))))
+	 (shell-name (or (plist-get plist :shell-name) "*shell-execute*"))
+	 (shell-buffer (get-buffer-create shell-name))
+	 )
+
+    (save-excursion
+      (setq buffer (find-file-noselect file-name))
+      (set-buffer buffer)
+      (set-buffer-file-coding-system 'unix)
+      (erase-buffer)
+      (insert s)
+;      (with-suppressed-message (write-file file-name))
+      (write-region nil nil file-name nil 0)
+      (set-buffer-modified-p nil)
+      )
+    (shell-command (format "bash %s" file-name) shell-buffer)
+    (prog1
+	(get-buffer-string shell-buffer)
+      (cond
+       ((plist-get plist :show))
+       ((plist-get plist :kill)
+	(kill-buffer shell-buffer)
+	)
+       ((replace-buffer-in-windows shell-buffer))
+       )
       )
     )
-  (shell-command (format "bash %s" name))
   )
 
 (defun shell-execute-region-text (start end)
@@ -1015,3 +1045,14 @@ then replace VALUE with the value which follows it in the property list."
   (shell-execute-text (bs start end))
   )
 
+(defun def-key-buffer (key form &optional map)
+  (define-key (or map global-map) key
+    `(lambda () (interactive) (switch-to-buffer (eval ,form)))
+    )
+  )
+
+(def-key-buffer (kps "11") 'org-agenda-buffer)
+
+(define-key global-map (kps "^" "`") 'help)
+
+(def-key-buffer (kps "^1") 'org-agenda-buffer)
