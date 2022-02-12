@@ -77,7 +77,7 @@
 (define-key function-key-map (kbd "<kp-multiply>") (kbd "C-*"))
 (define-key function-key-map (kbd "<kp-subtract>") (kbd "C-_"))
 (define-key function-key-map (kbd "<kp-add>") (kbd "C-+"))
-(define-key function-key-map (kbd "<kp-decimal>") (kbd "C-^"))
+
 (define-key function-key-map (kbd "<kp-7>") (kbd "C-{"))
 (define-key function-key-map (kbd "<kp-8>") (kbd "C-}"))
 (define-key function-key-map (kbd "<kp-9>") (kbd "C-!"))
@@ -87,7 +87,9 @@
 (define-key function-key-map (kbd "<kp-1>") (kbd "C-<"))
 (define-key function-key-map (kbd "<kp-2>") (kbd "C->"))
 (define-key function-key-map (kbd "<kp-3>") (kbd "C-?"))
-(define-key function-key-map (kbd "<kp-0>") (kbd "C-h"))
+
+(define-key function-key-map (kbd "<kp-0>") (kbd "C-^"))
+(define-key function-key-map (kbd "<kp-decimal>") (kbd "C-h"))
 
 (define-key function-key-map (kbd "<kp-enter>") (kbd "RET"))
 
@@ -111,7 +113,7 @@
     )
   )
 
-(defun kps (s)
+(defun kps (s &optional suffix)
   (let ((list
 	 (mapcar '(lambda (x)
 		   (or
@@ -120,13 +122,14 @@
 		    ))
 		 (string-to-list s))
 	 ))
+    (cond (suffix (setq list (nconc list (list suffix)))))
     (kbd (mconcat list " "))
     )
   )
 
 (defun ks3 (s) (kps s))
 
-;(key-description (kps "88"))
+;(key-description (kps "88" "abc"))
 ;(key-description (kps "^88"))
 
 (define-key function-key-map (kbd "<C-kp-divide>") (kbd "C-/"))
