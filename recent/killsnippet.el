@@ -245,7 +245,7 @@ When an instant expansion required for possible one off snippet."
       )
     (insert "  )\n")
     )
-  (insert " )\n")
+  (insert " )\n\n(kill-snippet-define-all)\n\n")
   (emacs-lisp-mode)
   )
 
