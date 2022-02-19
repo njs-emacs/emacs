@@ -19,7 +19,9 @@
     )
   )
 
-(defun git-stage-and-commit (file message)
+(defvar git-stage-and-commit-refresh nil "Refresh magit after git-stage-and-commit etc")
+
+(defun git-stage-and-commit (file message &optional arg)
   (interactive (list
 		(read-from-minibuffer
 		 "File: " (file-name-nondirectory (buffer-file-name)) nil nil
@@ -27,13 +29,22 @@
 		(read-from-minibuffer
 		 "Message: " (format "%s " (file-name-nondirectory (buffer-file-name)))
 		 )
+		(prefix-numeric-value current-prefix-arg)
 		))
-  (git-call (format "add \"%s\"" file))
-  (git-call (format "commit -m \"%s\"" message))
-  (cond
-   (t)
-   ((magit-refresh-if-open))
-   )
+  (let* ((refresh 
+	  (cond
+	   (git-stage-and-commit-refresh)
+	   ((eq arg 4))
+	   )
+	  )
+	 )
+    (debug)
+    (git-call (format "add \"%s\"" file))
+    (git-call (format "commit -m \"%s\"" message))
+    (cond
+     (refresh (magit-refresh-if-open))
+     )
+    )
   )
 
 (define-key global-map (kbd "C-x C-v C-c") 'git-stage-and-commit)
