@@ -4,8 +4,16 @@
 
 (def-key c-rbracket-map (kbd "C-c") 'vc-git--quick-commit)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun magit-buffer-name (&optional directory)
+  (setq directory
+    (or directory
+	(filename-directory-last (expand-file-name (concat (magit-git-dir directory) "..")))))
+  (format "magit: %s" directory)
+  )
+
 (defun magit-buffer-open-p (&optional directory)
-  (get-buffer (format "magit: %s" (filename-directory-last)))
+  (get-buffer (magit-buffer-name directory))
   )
 
 (defun magit-refresh-if-open (&optional directory)
@@ -19,6 +27,7 @@
     )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar git-stage-and-commit-refresh nil "Refresh magit after git-stage-and-commit etc")
 
 (defun git-stage-and-commit (file message &optional arg)
@@ -38,7 +47,6 @@
 	   )
 	  )
 	 )
-    (debug)
     (git-call (format "add \"%s\"" file))
     (git-call (format "commit -m \"%s\"" message))
     (cond
