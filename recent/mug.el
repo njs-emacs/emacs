@@ -103,7 +103,7 @@
       ((or (eq arg 0) echo (plist-get plist :echo))
        (message result)
        )
-      ((or (eq arg 4) echo (plist-get plist :show))
+      ((or (eq arg 4) (plist-get plist :show))
        (show result)
        )
       ((or (eq arg 16) (plist-get plist :insert))
