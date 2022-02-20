@@ -30,13 +30,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar git-stage-and-commit-refresh nil "Refresh magit after git-stage-and-commit etc")
 
+(defun git-get-stage-target-dwim ()
+  (cond
+   ((eq major-mode 'magit-status-mode) (bs$))
+   ((file-name-nondirectory (buffer-file-name)))
+   )
+  )
+
 (defun git-stage-and-commit (file message &optional arg)
   (interactive (list
 		(read-from-minibuffer
-		 "File: " (file-name-nondirectory (buffer-file-name)) nil nil
+		 "File: " (git-get-stage-target-dwim) nil nil
 		 )
 		(read-from-minibuffer
-		 "Message: " (format "%s " (file-name-nondirectory (buffer-file-name)))
+		 "Message: " (format "%s " (git-get-stage-target-dwim))
 		 )
 		(prefix-numeric-value current-prefix-arg)
 		))
@@ -55,5 +62,5 @@
     )
   )
 
-(define-key global-map (kbd "C-x C-v C-c") 'git-stage-and-commit)
+;(define-key global-map (kbd "C-x C-v C-c") 'git-stage-and-commit)
 
