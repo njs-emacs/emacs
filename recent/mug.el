@@ -101,7 +101,7 @@
      (setq result (save-cd cd (eval command)))
      (cond
       ((or (eq arg 0) echo (plist-get plist :echo))
-       (message result)
+       (message (sprint result))
        )
       ((or (eq arg 4) (plist-get plist :show))
        (show result)
