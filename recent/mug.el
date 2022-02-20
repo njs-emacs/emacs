@@ -38,6 +38,19 @@
   (mug-stringify (read (format "(%s)" (bs start end))))
   )
 
+(defun mug-arg-reader-sexp (start end)
+  (let ((s (bs start end)))
+;    (debug)
+    (list (read s))
+    )
+  )
+
+(defun mug-arg-reader-quote (start end)
+  (let ((s (bs start end)))
+    (list `(quote ,(read s)))
+    )
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-arg-reader-apply (fun) (funcall fun (point^) (point$)))
 
