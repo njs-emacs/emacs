@@ -144,8 +144,6 @@
    )
   )
 
-(symbol-function 'mug-exec-here)
-
 (defun mug-exec (&optional arg)
   (interactive "p")
    (cond
