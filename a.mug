@@ -7,24 +7,35 @@ update-index --assume-unchanged a.mug
 update-index --no-assume-unchanged a.mug
 
 #~ (git-call (format "commit -m \"%s\"" a))
-
+add local variable mug-arg-reader-default
+add interactive-arg-read
+add :extra arg keyword
+removed diagnostic expression
+renamed    .try/pg.mug -> .try/mug.mug
 remove some trailing blank lines
-
+make show/insert/echo independent
+add code to reset defaults - defvar-local is clumsy
+restore priorty insert, show, echo
+add to mug sandbox
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #~ (git-call (format "add %s" a))
 
 .try/pg.el
 
 #~(git-stage-and-commit a b 4) :reader mug-arg-reader-list :extra "sWell: "
+#~(git-stage-and-commit a b 4) :reader mug-arg-reader-list
 
 
-
+show.el "need to save-excursion into *show* buffer"
+recent/mug.el ""
 .try/pg.el "clear up debate about emacsql (it isn't great)"
-recent/mug.el "added mug-always-show and other parameter overrides"
 .try/pg.mug "emacs evaluation mugs"
-a.mug 
+a.mug "cleanup"
 
 ;(dregf "unchanged" "\\.mug")
 
 #~(git-stage-and-commit a b 4) :reader mug-arg-reader-list :extra "sWell: "
 
 a.mug
+
+#~(git-stage-and-commit a b 4) :reader mug-arg-reader-list :extra "sWell: "
