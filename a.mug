@@ -1,0 +1,30 @@
+(setq mug-always-show t)
+
+#~ (git-call a) :show t
+status
+
+update-index --assume-unchanged a.mug
+update-index --no-assume-unchanged a.mug
+
+#~ (git-call (format "commit -m \"%s\"" a))
+
+remove some trailing blank lines
+
+#~ (git-call (format "add %s" a))
+
+.try/pg.el
+
+#~(git-stage-and-commit a b 4) :reader mug-arg-reader-list :extra "sWell: "
+
+
+
+.try/pg.el "clear up debate about emacsql (it isn't great)"
+recent/mug.el "added mug-always-show and other parameter overrides"
+.try/pg.mug "emacs evaluation mugs"
+a.mug 
+
+;(dregf "unchanged" "\\.mug")
+
+#~(git-stage-and-commit a b 4) :reader mug-arg-reader-list :extra "sWell: "
+
+a.mug
