@@ -1,14 +1,16 @@
 (require 'reap)
 
 (defun show-buf (buf contents &optional print)
-  (set-buffer buf)
   (or print (setq print 'prin))
   (or (get-buffer-window-any-frame buf) (display-buffer buf))
-  (erase-buffer)
-  (dolist (i contents) (insert (funcall print i)))
-  (setq major-mode 'show)
-  (setq mode-name "show")
-  (setq reap-protect nil)
+  (sx 
+   (set-buffer buf)
+   (erase-buffer)
+   (dolist (i contents) (insert (funcall print i)))
+   (setq major-mode 'show)
+   (setq mode-name "show")
+   (setq reap-protect nil)
+   )
   buf
   )
 
