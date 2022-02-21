@@ -12,5 +12,3 @@
     (shell-execute-text shell-cmd) 
     )
   )
-
-
