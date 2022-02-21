@@ -1,3 +1,37 @@
+; here is a even more low-level inferior process method
+
+(defun psql-process-start (command)
+ (start-process-shell-command
+ "emacsql-psql" 
+ (get-buffer-create "*psql*")
+ command
+))
+
+(setq psql (psql-process-start "psql -n -d emacshist -U postgres -h boo"))
+
+(process-send-string psql "\\l\n")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(goo "psql -n -d emacshist -U postgres -h boo")
+
+
+(goo "stty raw && \"psql\" \"emacshist\" \"postgres\" \"-n\" \"-h\" \"boo\"")
+(goo "\"psql\" \"-n\" \"-d\" \"emacshist\" \"-U\" \"postgres\" \"-h\" \"boo\"")
+(goo "stty raw && psql -n -d emacshist -U postgres -h boo")
+
+(setq psql (goo "psql -n -d emacshist -U postgres -h boo"))
+
+(process-send-string psql "\\l\n")
+
+
+
+; emacsql is not really what we want. 
+; the way emacsql creates and uses querys and commands isn't what we want
+; what we want is something similar to existing inferior processes
+; which send and receive sql commands and responses
+;
+; plus it seems ever so slightly buggy so let's just forget it
+
 (load "emacsql")
 (load "emacsql-sqlite")
 (load "emacsql-psql")
@@ -10,6 +44,8 @@
 
 (setq db (emacsql-psql "emacshist" :username "postgres" :hostname "boo"))
 (setq db (emacsql-psql "emacshist"))
+
+(setq db emacsql-last-connection)
 
 (call-shell "psql -U postgres")
 
@@ -26,7 +62,7 @@
 (defun goo (command)
  (start-process-shell-command
  "emacsql-psql" 
- (get-buffer " *emacsql-psql*")
+ (get-buffer-create "*psql*")
  command
 ))
 
@@ -34,18 +70,21 @@
 (goo "stty raw && \"psql\" \"emacshist\" \"postgres\" \"-n\" \"-h\" \"boo\"")
 (goo "\"psql\" \"-n\" \"-d\" \"emacshist\" \"-U\" \"postgres\" \"-h\" \"boo\"")
 (goo "stty raw && psql -n -d emacshist -U postgres -h boo")
-(goo "psql -n -d emacshist -U postgres -h boo")
+
+(setq psql (goo "psql -n -d emacshist -U postgres -h boo"))
+
+(process-send-string psql "\\l\n")
 
 "stty raw && \"psql\" \"-n\" \"-d\" \"emacshist\" \"-U\" \"pos...")
 (get-buffer-process (get-buffer " *emacsql-psql*"))
-
-(kill-process (get-process "emacsql-psql<1>"))
+-process (get-process "emacsql-psql<1>"))
 (kill-process (get-process "emacsql-psql"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun emacsql-psql-command (args)
   (let* ((psql emacsql-psql-executable)
 	 (args-string (mapconcat #'shell-quote-argument (cons psql args) " "))
-         (command (concat "stty raw && " args-string))
+;         (command (concat "stty raw && " args-string))
+         (command (concat "stty raw ;" args-string))
 	 )
     command)
   )
@@ -70,7 +109,7 @@
     (let* ((buffer (generate-new-buffer " *emacsql-psql*"))
            (psql emacsql-psql-executable)
            (command (emacsql-psql-command args))
-	(zz (debug))
+;	(zz (debug))
            (process (start-process-shell-command
                      "emacsql-psql" buffer command))
            (connection (make-instance 'emacsql-psql-connection
@@ -79,6 +118,7 @@
       (setf (process-sentinel process)
             (lambda (proc _) (kill-buffer (process-buffer proc))))
       (when debug (emacsql-enable-debugging connection))
+      (setq emacsql-last-connection connection)
       (mapc (apply-partially #'emacsql-send-message connection)
             '("\\pset pager off"
               "\\pset null nil"
@@ -92,4 +132,22 @@
       (emacsql connection
                [:set (= default-transaction-isolation 'SERIALIZABLE)])
       (emacsql-register connection))))
+
+
+(setq blop (emacsql db [:select [time file] :from lastvisit]))
+(emacsql db [:select [name] :from pg_settings])
+(emacsql db [:select [min_val] :from pg_settings])
+(emacsql db [:select [max_val] :from pg_settings])
+(setq emacsql-global-timeout nil)
+
+(process-send-string (get-process "emacsql-psql") "\\l\n")
+(process-send-string (get-process "emacsql-psql") "select max(time) from lastvisit;\n")
+
+(cl-defmethod emacsql-waiting-p ((connection emacsql-psql-connection))
+  (debug)
+  (with-current-buffer (emacsql-buffer connection)
+    (cond ((= (buffer-size) 1) (string= "]" (buffer-string)))
+          ((> (buffer-size) 1) (string= "\n]"
+                                        (buffer-substring
+                                         (- (point-max) 2) (point-max)))))))
 
