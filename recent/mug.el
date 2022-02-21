@@ -21,6 +21,7 @@
 (defvar-local mug-always-show nil "Always act if mug command has :show t or show prefix arg was given")
 (defvar-local mug-always-echo nil "Always act if mug command has :echo t or echo prefix arg was given")
 (defvar-local mug-always-insert nil "Always act if mug command has insert prefix arg given")
+(defvar-local mug-arg-reader-default 'mug-arg-reader-generic "Default arg reader for mug commands in file")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-stringify (list) 
@@ -104,7 +105,7 @@
 	 (plist (cdr command-line))
 	 (arg-spec (or (plist-get plist :args) '(&optional a b c d e)))
 	 (fun `(lambda ,arg-spec ,body))
-	 (arg-reader (or (plist-get plist :reader) 'mug-arg-reader-generic))
+	 (arg-reader (or (plist-get plist :reader) mug-arg-reader-default))
 	 (start (region-beginning-if-active (point^)))
 	 (end (region-end-if-active (point$)))
 	 (args (funcall arg-reader start end))
