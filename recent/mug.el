@@ -21,6 +21,11 @@
 (defvar-local mug-always-show nil "Always act if mug command has :show t or show prefix arg was given")
 (defvar-local mug-always-echo nil "Always act if mug command has :echo t or echo prefix arg was given")
 (defvar-local mug-always-insert nil "Always act if mug command has insert prefix arg given")
+
+(set-default 'mug-always-show nil)
+(set-default 'mug-always-echo nil)
+(set-default 'mug-always-insert nil)
+
 (defvar-local mug-arg-reader-default 'mug-arg-reader-generic "Default arg reader for mug commands in file")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
