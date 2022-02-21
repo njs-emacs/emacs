@@ -127,20 +127,19 @@
 	  )
      (cond ((plist-get plist :debug) (debug)))
      (setq result (save-cd cd (eval command)))
-     (cond
-      ((or (eq arg 0) mug-always-echo echo (plist-get plist :echo))
-       (message (sprint result))
-       )
-      ((or (eq arg 4) mug-always-show (plist-get plist :show))
-       (show result)
-       )
-      ((or (eq arg 16) mug-always-insert (plist-get plist :insert))
-       (goto-char (region-end-if-active (point$)))
-       (insert "\n" result "\n")
-       )
-      )
-   result
-   )
+
+     (cond ((or (eq arg 0) mug-always-echo echo (plist-get plist :echo))
+	    (message (sprint result))
+	    ))
+     (cond ((or (eq arg 4) mug-always-show (plist-get plist :show))
+	    (show result)
+	    ))
+     (cond ((or (eq arg 16) mug-always-insert (plist-get plist :insert))
+	    (goto-char (region-end-if-active (point$)))
+	    (insert "\n" result "\n")
+	    ))
+     result
+     )
    )
   )
 
