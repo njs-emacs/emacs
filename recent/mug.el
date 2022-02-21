@@ -8,6 +8,13 @@
 ;;; mapping commands to global keys makes no sense
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun interactive-arg-read (spec)
+  (call-interactively `(lambda (&rest args) (interactive ,spec) args))
+  )
+
+; (interactive-arg-read "SThis: \nSThat: ")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar mug-header-pattern "^#~+\\s *")
 (setq mug-header-pattern "^#~+\\s *")
 
