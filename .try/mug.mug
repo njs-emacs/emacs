@@ -15,3 +15,45 @@
 (list-processes)
 (progd (+ 1 2))
 (+ 1 2)
+
+(describe-function 'interactive)
+
+;; interesting use of extra args
+
+#~(debug) :reader mug-arg-reader-list :extra (list (car kill-ring))
+#~(debug) :reader mug-arg-reader-list :extra "sString: "
+#~(debug) :reader mug-arg-reader-list :extra "cChar: "
+#~(debug) :reader mug-arg-reader-list :extra "kKey: "
+#~(debug) :reader mug-arg-reader-list :extra "nNumber: "
+#~(debug) :reader mug-arg-reader-list :extra "XValue: "
+#~(debug) :reader mug-arg-reader-list :extra "GFile: "
+#~(debug) :reader mug-arg-reader-list :extra "FFile: "
+#~(debug) :reader mug-arg-reader-list :extra "fFile: "
+#~(debug) :reader mug-arg-reader-list :extra "bBuffer: "
+
+(setq mug-arg-reader-default 'mug-arg-reader-list)
+
+foo
+
+; ################################################################
+(setq mug-always-show (not mug-always-show))
+(setq mug-always-insert (not mug-always-insert))
+
+#~(debug) :extra "bBuffer: "
+#~(format "|%s | %s |" a b) :extra "bBuffer: "
+
+bar
+bar mug.mug
+bar subr.el
+bar z.mug
+bar z.mug
+
+
+bar mug.mug
+bar pg.el
+
+bar mug.mug
+
+bar .try
+
+bar mug.mug
