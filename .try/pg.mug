@@ -1,0 +1,17 @@
+#~(debug (eval a)) :reader mug-arg-reader-readc
+#~(debug (eval a)) :reader mug-arg-reader-list
+#~(eval a) :reader mug-arg-reader-sexp :echo t
+#~ (eval (car `(list ,a))) :reader mug-arg-reader-sexp :echo t
+#~ (progd a) :reader mug-arg-reader-sexp :echo t
+#~ a :reader mug-arg-reader-quote :echo t
+
+#~ a :reader mug-arg-reader-sexp :echo t
+#~ (process-buffer a) :reader mug-arg-reader-sexp :echo t
+
+(get-process "emacsql-psql")
+(get-process "emacsql-psql<1>")
+(get-process "emacsql-psql<2>")  ; non-existent process returns nil
+
+(list-processes)
+(progd (+ 1 2))
+(+ 1 2)
