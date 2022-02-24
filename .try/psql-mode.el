@@ -20,6 +20,13 @@
      )
   )
 
+(defmacro psql-swx (process &rest body)
+  `(let ((buffer (process-buffer ,process)))
+     (swx (switch-to-buffer-other-frame buffer)
+	 ,@body)
+     )
+  )
+
 (defin 'psql-sx)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -34,16 +41,22 @@
 
 (defun psql-filter (process text)
   (psql-sx process
-    (insert (format "<<%s" psql-filter-state))
+;    (insert (format "<<%s" psql-filter-state))
     (setq psql-filter-state 'dirty)
-    (insert "[[" text "]]")
+    (goto-char (point-max))
+    (insert text)
+;    (insert (format "%d\n" (length text)))
+    (goto-char (point-max))
+
+;    (insert "[[" text "]]")
+    
     (setq psql-filter-buffer (concat psql-filter-buffer text))
     (let ((o (string-match psql-sentinel-string psql-filter-buffer)))
       (cond
        (o (psql-response-found process o))
        )
       )
-    (insert (format "%s>>" psql-filter-state))
+;    (insert (format "%s>>" psql-filter-state))
     )
   )
   
@@ -53,8 +66,14 @@
   (setq psql-timeout-timer nil)
   )
 
-(defun psql-timeout-expire (timer process)
-  (setq psql-timeout-timer nil)
+(defun psql-timeout-expire (process)
+  (psql-sx process
+    (end-of-buffer)
+    (message "whoops")
+    (insert "whoops\n")
+    (setq psql-timeout-timer nil)
+    (setq psql-filter-state 'timeout)
+    )
   )
 
 (defun psql-command-reset (process)
@@ -88,8 +107,9 @@
 		   (eq psql-filter-state 'timeout)
 		   quit-flag
 		   ))
-	(sit-for 0.01)
+	(sit-for 0.1)
 	))
+    (message "quit? %s %s" quit-flag psql-filter-state)
     (cond
      ((eq psql-filter-state 'done) psql-response)
      ((eq psql-filter-state 'timeout) 'timeout)
@@ -126,6 +146,7 @@
   (let* ((buffer (get-buffer-create "*psql*"))
 	 (process (start-process-shell-command "psql" buffer command)))
     (process-put process 'type 'shell)
+    (process-put process 'command command)
     (psql-process-mode buffer process)
     )
   )
@@ -134,7 +155,23 @@
   (let* ((buffer (get-buffer-create "*psql*"))
 	 (process (apply 'start-process "psql" buffer "psql" args)))
     (process-put process 'type 'noshell)
+    (process-put process 'args args)
     (psql-process-mode buffer process)
     )
   )
 
+(defun psql-restart (process)
+  (let* ((type (process-get process 'type))
+	 (buffer (process-buffer process)))
+    (and (process-live-p process) (kill-process process))
+    (cond
+     ((eq type 'noshell)
+      (apply 'psql-process-start-noshell (process-get process 'args))
+      )
+     ((eq type 'shell)
+      (psql-process-start-shell (process-get process 'command))
+      )
+     )
+    )
+  )
+	 
