@@ -193,48 +193,6 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; maybe use avy instead
-
-(defun mug-define-key (key)
-  (interactive "Kkey: ")
-  (define-key mug-mode-map (concat (kbd "C-v") key)
-    `(lambda (arg) (interactive "p")
-       (goto-marker ,(set-marker (make-marker) (point^)))
-       (mug-exec arg)
-       )
-    )
-  )
-       
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar mug-mode-map (make-sparse-keymap))
-;(setq mug-mode-map (make-sparse-keymap))
-(defvar mug-electric-keymap (make-sparse-keymap) "Key map to use when mug-electric-mode is active")
-
-(defvar mug-prefix-map (make-sparse-keymap))
-(def-key mug-prefix-map (kbd "x") 'mug-exec)
-
-(define-key mug-mode-map (kbd "C-c C-e") 'mug-electric-mode)
-(define-key mug-mode-map (kbd "C-c C-t") 'mug-avy-template-activate)
-(define-key mug-mode-map (kbd "C-c C-v") 'mug-avy-execute)
-
-(mapcar '(lambda (x)
-	   (define-key mug-electric-keymap
-		       (kbd (car x)) (cdr x))
-	   (define-key mug-mode-map
-		       (kbd (format "C-c C-%s" (car x))) (cdr x))
-	   )
-	`(
-	  ("a" . mug-active-command-mark)
-	  ("j" . mug-active-command-jump)
-	  ("e" . mug-intern)
-          ("c" . mug-exec)
-          ("x" . mug-exec-echo)
-	  ("o" . mug-visit-org-file)
-	  ("k" . mug-define-key)
-	  )
-	)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-minor-mode mug-electric-mode
   "."
   :init-value nil
@@ -378,4 +336,45 @@
      )
     )
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; maybe use avy instead
+
+(defun mug-define-key (key)
+  (interactive "Kkey: ")
+  (define-key mug-mode-map (concat (kbd "C-v") key)
+    `(lambda (arg) (interactive "p")
+       (goto-marker ,(set-marker (make-marker) (point^)))
+       (mug-exec arg)
+       )
+    )
+  )
+       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar mug-mode-map (make-sparse-keymap))
+(defvar mug-electric-keymap (make-sparse-keymap) "Key map to use when mug-electric-mode is active")
+
+(defvar mug-prefix-map (make-sparse-keymap))
+(def-key mug-prefix-map (kbd "x") 'mug-exec)
+
+(define-key mug-mode-map (kbd "C-c C-e") 'mug-electric-mode)
+(define-key mug-mode-map (kbd "C-c C-t") 'mug-avy-template-activate)
+(define-key mug-mode-map (kbd "C-c C-v") 'mug-avy-execute)
+
+(mapcar '(lambda (x)
+	   (define-key mug-electric-keymap
+		       (kbd (car x)) (cdr x))
+	   (define-key mug-mode-map
+		       (kbd (format "C-c C-%s" (car x))) (cdr x))
+	   )
+	`(
+	  ("a" . mug-active-command-mark)
+	  ("j" . mug-active-command-jump)
+	  ("e" . mug-intern)
+          ("c" . mug-exec)
+          ("x" . mug-exec-echo)
+	  ("o" . mug-visit-org-file)
+	  ("k" . mug-define-key)
+	  )
+	)
 
