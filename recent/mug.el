@@ -214,6 +214,8 @@
 (def-key mug-prefix-map (kbd "x") 'mug-exec)
 
 (define-key mug-mode-map (kbd "C-c C-e") 'mug-electric-mode)
+(define-key mug-mode-map (kbd "C-c C-t") 'mug-avy-template-activate)
+(define-key mug-mode-map (kbd "C-c C-v") 'mug-avy-execute)
 
 (mapcar '(lambda (x)
 	   (define-key mug-electric-keymap
@@ -314,5 +316,66 @@
     (error "mug-active-command is not active")
     )
    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mug-avy-candidates ()
+  (let ((avy-all-windows nil))
+    (let (r)
+      (sx (bob)
+	  (while (rsf "^\.")
+	    (cond
+	     ((looking-at-at "#~" (point^)))
+	     (t (setq r (cons (point^) r)))
+	     )
+	    )
+	  )
+      (nreverse r)
+      )
+    )
+  )
+
+(defun mug-avy-template-candidates ()
+  (let ((avy-all-windows nil))
+    (let (r)
+      (sx (bob)
+	  (while (rsf "^\.")
+	    (cond
+	     ((looking-at-at "#~" (point^)) (setq r (cons (point^) r)))
+	     )
+	    )
+	  )
+      (nreverse r)
+      )
+    )
+  )
+
+(defun mug-avy-execute (&optional arg)
+  (interactive "p")
+  (let ((x (avy-process
+	    (mug-avy-candidates)
+	    (avy--style-fn 'at-full))
+	   ))
+    (cond
+     (x (goto-char x)
+	(mug-exec arg)
+	)
+     )
+    )
+  )
+
+(defun mug-avy-template-activate (&optional arg)
+  (interactive "p")
+  (let ((x (avy-process
+	    (mug-avy-template-candidates)
+	    (avy--style-fn 'at-full))
+	   ))
+    (cond
+     (x
+      (goto-char x)
+      (mug-active-command-mark t)
+      )
+     )
+    )
   )
 
