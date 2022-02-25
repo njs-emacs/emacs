@@ -6,7 +6,6 @@
 (defvar-local psql-filter-accumulator nil "Filter buffer")
 (defvar-local psql-filter-timer nil "Filter timer")
 (defvar-local psql-filter-state nil "Filter state")
-(defvar-local psql-filter-mark nil "Buffer insertion point")
 (defvar-local psql-filter-insert-mute nil "Mute filter insertion")
 (defvar-local psql-create-form nil "")
 
@@ -116,7 +115,7 @@
 
     (setq psql-filter-plist plist)
     (setq psql-filter-state 'clean)
-    (setq psql-filter-mark (set-marker (make-marker) (point)))
+
     (psql-command-reset process)
     (process-send-string process send)
 ;;    (psql-timeout-set process)
