@@ -171,6 +171,9 @@
 			 (cond ((equal (overlay-get o property) value) o))) overlays))
   )
 
+(defun looking-at-at (pat point)
+  (sx (goto-char point) (looking-at pat)))
+
 (defun bol-looking-at (pat)
   (sx (fl 0) (looking-at pat)))
 
