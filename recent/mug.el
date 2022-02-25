@@ -310,9 +310,18 @@
 
 (defun mug-avy-execute (&optional arg)
   (interactive "p")
-  (let ((x (avy-process
+  (let* (
+;	 (avy-keys (number-sequence ?a ?z))
+;	 (avy-keys '(?q ?a ?z ?w ?s ?x ?e ?d ?c ?r ?f ?v ?t ?g ?b ?y ?h ?n))
+;	 (avy-keys '(?q ?a ?z ?w ?s ?x))
+;	 (avy-keys '(?a ?s))
+;	 (avy-keys '(?a ?s ?d ?f))
+	 (x (avy-process
 	    (mug-avy-candidates)
-	    (avy--style-fn 'at-full))
+	    (avy--style-fn 'de-bruijn)
+;	    (avy--style-fn 'at-full)
+;	    (avy--style-fn 'at)
+)
 	   ))
     (cond
      (x (goto-char x)
