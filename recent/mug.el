@@ -122,7 +122,7 @@
     )
   )
 
-(defun mug-exec-here (arg &optional echo)
+(defun mug-exec-here (&optional arg echo)
   (sx
    (let* ((command-line (mug-read-command-line))
 	  (command (mug-read-command))
@@ -193,7 +193,21 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; maybe use avy instead
+
+(defun mug-define-key (key)
+  (interactive "Kkey: ")
+  (define-key mug-mode-map (concat (kbd "C-v") key)
+    `(lambda (arg) (interactive "p")
+       (goto-marker ,(set-marker (make-marker) (point^)))
+       (mug-exec arg)
+       )
+    )
+  )
+       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar mug-mode-map (make-sparse-keymap))
+;(setq mug-mode-map (make-sparse-keymap))
 (defvar mug-electric-keymap (make-sparse-keymap) "Key map to use when mug-electric-mode is active")
 
 (defvar mug-prefix-map (make-sparse-keymap))
@@ -214,6 +228,7 @@
           ("c" . mug-exec)
           ("x" . mug-exec-echo)
 	  ("o" . mug-visit-org-file)
+	  ("k" . mug-define-key)
 	  )
 	)
 
