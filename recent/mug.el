@@ -261,8 +261,14 @@
 (put 'mug-mode 'eval-buffer-modal 'mug-eval-buffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar mug-active-command nil
+(defvar-local mug-active-command nil
   "mug-active-command overrides the usual nearest command. When active it will be hilighted")
+
+(defvar-local mug-active-command-end nil
+  "Used to maintain highlight on active template")
+
+(make-variable-buffer-local 'mug-active-command)
+(make-variable-buffer-local 'mug-active-command-end)
 
 (defun mug-active-command-end ()
   (sxp (goto-char mug-active-command) (eol))
