@@ -274,14 +274,26 @@
   (sxp (goto-char mug-active-command) (eol))
   )
 
-(defun mug-active-command-mark ()
-  (interactive)
+(defun mug-active-command-clear ()
   (cond
    (mug-active-command
-    (message "active command cleared")
     (put-text-property mug-active-command (mug-active-command-end) 'face nil)
     (setq mug-active-command nil)
     (setq mug-active-command-end nil)
+    )
+   )
+  )
+
+(defun mug-active-command-mark (&optional force)
+  (interactive)
+  (cond
+   (mug-active-command
+    (mug-active-command-clear)
+    (cond 
+     (force
+      (mug-active-command-mark))
+     (t (message "active command cleared"))
+     )
     )
    (t
     (setq mug-active-command
