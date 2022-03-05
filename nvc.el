@@ -389,12 +389,28 @@ Used to enter a file into edit tracking on creation but not at any other time.")
    )
   )
 
+(defun nvc-is-backup-file (name)
+  (let ((case-fold-search t))
+    (cond
+     ((string-match-p "e:/_backup/shadow" name))
+     ((string-match-p "e:/_backup/emacs/[0-9]" name))
+     )
+    )
+  )
+
 (defun nvc-log-visit ()
-  (let ((no-log (or nvc-no-log-visit (nvc-no-log-visit-tagged))))
+  (let* ((name (buffer-file-name))
+	 (no-log (or nvc-no-log-visit (nvc-no-log-visit-tagged))))
     (cond
      (no-log)
      (nvc-global-enable
-      (nvc-log-visit* (buffer-file-name) (current-time)))
+      (nvc-log-visit* name (current-time)))
+     )
+    (cond
+     ((nvc-is-backup-file name)
+      (setq buffer-read-only t)
+      (message "Setting read-only on shadow file %s" name)
+      )
      )
     )
   )
