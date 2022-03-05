@@ -1,1 +1,3 @@
+#+CLASS: index
+
 * this is a yasnippet sandbox containing any experimental snippets

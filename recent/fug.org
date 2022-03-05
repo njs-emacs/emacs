@@ -1,3 +1,10 @@
+#+CLASS: help
+
+* fug-mode
+  (dregf "^#~" nil "month")
+  (dregf "fug-mode" nil "year")
+   [[file:e:/borough/barnet/fug.el][fug.el]]
+
 * keys
    C-c C-c	fug-intern
    C-c C-e	fug-electric-mode
