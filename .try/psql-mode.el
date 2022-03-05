@@ -221,6 +221,7 @@
   )
 
 (define-key psql-mode-map (kbd "C-c C-c") 'psql-restart)
+(define-key psql-mode-map (kbd "C-c C-s") 'psql-filter-insert-mute-toggle)
 	 
 ;; interactive psql-restart does not restore 'psql symbol
 ;; 
