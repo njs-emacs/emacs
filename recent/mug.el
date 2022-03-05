@@ -193,34 +193,6 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(define-minor-mode mug-electric-mode
-  "."
-  :init-value nil
-  :lighter " E "
-  :keymap mug-electric-keymap
-  (cond 
-   (mug-electric-mode
-    )
-   (t
-    )
-   )
-  )
-
-(defun mug-mode ()
-  (interactive)
-  (emacs-lisp-mode)
-  (use-local-map mug-mode-map)
-  (setq major-mode 'mug-mode)
-  (setq mode-name "mug")
-  (setq mug-buffer-mru (current-buffer))
-;  (add-hook 'kill-buffer-hook 'mug-mode-kill-hook t t)
-  )
-
-(setq auto-mode-alist (alist-put auto-mode-alist "\\.mug$" 'mug-mode))
-
-(put 'mug-mode 'eval-buffer-modal 'mug-eval-buffer)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar-local mug-active-command nil
   "mug-active-command overrides the usual nearest command. When active it will be hilighted")
 
@@ -382,3 +354,30 @@
 	  )
 	)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define-minor-mode mug-electric-mode
+  "."
+  :init-value nil
+  :lighter " E "
+  :keymap mug-electric-keymap
+  (cond 
+   (mug-electric-mode
+    )
+   (t
+    )
+   )
+  )
+
+(defun mug-mode ()
+  (interactive)
+  (emacs-lisp-mode)
+  (use-local-map mug-mode-map)
+  (setq major-mode 'mug-mode)
+  (setq mode-name "mug")
+  (setq mug-buffer-mru (current-buffer))
+;  (add-hook 'kill-buffer-hook 'mug-mode-kill-hook t t)
+  )
+
+(setq auto-mode-alist (alist-put auto-mode-alist "\\.mug$" 'mug-mode))
+
+(put 'mug-mode 'eval-buffer-modal 'mug-eval-buffer)
