@@ -1,3 +1,5 @@
+; renamed z.2202.el to put at end of loaded file list
+
 (defun *2202-org-init ()
   (interactive)
   (org-capture-template-add "t" '("todo" entry (file+headline "" "Tasks") "* TODO %?\n  %T"))
@@ -8,7 +10,7 @@
   (org-capture-template-add "i" '("interesting" entry (file "") "* %? %^g"))
   )
 
-;(*2202-org-init)
+(*2202-org-init)
 
 ;(apropos "org-capture-template-put")
 
@@ -29,3 +31,5 @@
   (local-set-key (kbd "H-1") "©a	Z")
   )
 
+;;; (symbol-file 'org-mode)
+;;; load-file-name
