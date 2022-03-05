@@ -172,8 +172,8 @@
 (setq ediff-revision-1 "")
 (setq ediff-revision-2 "")
 
-(defun ediff-revision-latest () (interactive)
-  (let* ((file (file-name-nondirectory (buffer-file-name)))
+(defun ediff-revision-latest (&optional file) (interactive)
+  (let* ((file (or file (file-name-nondirectory (buffer-file-name))))
 	 (rev1 ediff-revision-1)
 	 (rev2 ediff-revision-2)
 	 startup-hooks)
