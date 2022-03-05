@@ -36,6 +36,8 @@
   (org-defkey org-mode-map (kbd "C-,") nil)
 
   (org-defkey org-mode-map (kbd "C-c C-;") c-colon-map)
+
+  (org-defkey org-mode-map (kbd "C-c l") 'org-store-link)
   )
 
 (ns-org-load-hook)
