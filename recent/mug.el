@@ -206,6 +206,8 @@
 (make-variable-buffer-local 'mug-active-command)
 (make-variable-buffer-local 'mug-active-command-end)
 
+(set-default 'mug-active-command nil)
+
 (defun mug-active-command-end ()
   (sxp (goto-char mug-active-command) (eol))
   )
