@@ -51,6 +51,10 @@
    )
   )
 
+(defun mug-arg-reader-list-ns (start end)
+  (read (format "(%s)" (bs start end)))
+  )
+
 (defun mug-arg-reader-list (start end)
   (mug-stringify (read (format "(%s)" (bs start end))))
   )
