@@ -38,7 +38,7 @@
   (org-defkey org-mode-map (kbd "C-c C-;") c-colon-map)
   )
 
-(add-hook 'org-load-hook 'ns-org-load-hook)
+(ns-org-load-hook)
 
 ;; org-directory is a variable defined in ‘org.el’.
 ;; Its value is "~/org"
