@@ -1,4 +1,5 @@
 (require 'org)
+(require 'org-capture)
 
 ; (setq org-directory "~/org")
 
