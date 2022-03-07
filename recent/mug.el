@@ -88,10 +88,11 @@
     )
   )
 
-(defun mug-read-command-line ()
+(defun mug-read-command-line (&optional tloc)
   (let ((command-line
 	 (sx
 	  (cond
+	   (tloc (goto-char tloc))
 	   (mug-active-command (goto-char mug-active-command))
 	   ((looking-at mug-header-pattern))
 	   ((rsb mug-header-pattern))
@@ -108,8 +109,8 @@
     command-line)
   )
 
-(defun mug-read-command ()
-  (let* ((command-line (mug-read-command-line))
+(defun mug-read-command (&optional tloc)
+  (let* ((command-line (mug-read-command-line tloc))
 	 (body (car command-line))
 	 (plist (cdr command-line))
 	 (arg-spec (or (plist-get plist :args) '(&optional a b c d e)))
@@ -126,10 +127,10 @@
     )
   )
 
-(defun mug-exec-here (&optional arg echo)
+(defun mug-exec-here (&optional tloc arg echo)
   (sx
-   (let* ((command-line (mug-read-command-line))
-	  (command (mug-read-command))
+   (let* ((command-line (mug-read-command-line tloc))
+	  (command (mug-read-command tloc))
 	  (plist (cdr command-line))
 	  (cd (plist-get plist :cd))
 	  result
@@ -157,14 +158,14 @@
 (defun mug-exec (&optional arg)
   (interactive "p")
    (cond
-    ((mug-exec-here arg))
+    ((mug-exec-here nil arg))
     )
    )
 
 (defun mug-exec-echo (&optional arg)
   (interactive "p")
    (cond
-    ((mug-exec-here arg t))
+    ((mug-exec-here nil arg t))
     )
    )
 
@@ -235,7 +236,7 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun mug-avy-candidates ()
+(defun mug-avy-arg-candidates ()
   (let ((avy-all-windows nil))
     (let (r)
       (sx (bob)
@@ -248,6 +249,13 @@
 	  )
       (nreverse r)
       )
+    )
+  )
+
+(defun mug-avy-arg-pick ()
+  (sxp (avy-process
+	(mug-avy-arg-candidates)
+	(avy--style-fn 'at-full))
     )
   )
 
@@ -266,55 +274,72 @@
     )
   )
 
+(defun mug-avy-template-pick ()
+  (sxp (avy-process
+	(mug-avy-template-candidates)
+	(avy--style-fn 'at-full))
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; avy customizations :: 41a6226 Fri Feb 25 13:18:00 2022 +0000
 
-(defun mug-avy-execute (&optional arg)
+(defun mug-avy-template-activate (&optional prefix)
   (interactive "p")
-  (let* (
-	 (x (avy-process
-	    (mug-avy-candidates)
-	    (avy--style-fn 'at-full)
-)
-	   ))
+  (let ((tloc (mug-avy-template-pick)))
     (cond
-     (x (goto-char x)
-	(mug-exec arg)
-	)
+     (tloc
+      (sx
+       (goto-char tloc)
+       (mug-active-command-mark t)
+       )
+      )
      )
     )
   )
 
-(defun mug-avy-template-activate (&optional arg)
+(defun mug-avy-execute (&optional prefix)
   (interactive "p")
-  (let ((x (avy-process
-	    (mug-avy-template-candidates)
-	    (avy--style-fn 'at-full))
-	   ))
+  (let* ((aloc (mug-avy-arg-pick))
+	 (tloc nil)
+	 )
     (cond
-     (x
-      (goto-char x)
-      (mug-active-command-mark t)
+     (aloc
+      (sx
+       (goto-char aloc)
+       (mug-exec-here tloc prefix)
+       )
       )
      )
     )
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun mug-avy-template-execute (&optional arg)
+(defun mug-avy-template-execute (&optional prefix)
   (interactive "p")
-  (let ((x (avy-process
-	    (mug-avy-template-candidates)
-	    (avy--style-fn 'at-full))
-	   ))
+  (let ((tloc (mug-avy-template-pick)))
     (cond
-     (x
-      (goto-char x)
+     (tloc
+      (mug-exec-here tloc prefix)
       )
      )
     )
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mug-avy-avy (&optional prefix)
+  (interactive "p")
+  (let ((aloc (mug-avy-arg-pick))
+	(tloc (mug-avy-template-pick)))
+    (cond
+     (tloc
+      (sx (goto-char aloc) (mug-exec-here tloc prefix))
+      )
+     )
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; maybe use avy instead
 
 (defun mug-define-key (key)
@@ -339,6 +364,7 @@
 (define-key mug-mode-map (kbd "C-c C-v") 'mug-avy-execute)
 
 (define-key mug-mode-map (kbd "C-c C-y") 'mug-avy-template-execute)
+(define-key mug-mode-map (kbd "C-c C-u") 'mug-avy-avy)
 
 
 (mapcar '(lambda (x)
@@ -350,7 +376,6 @@
 	`(
 	  ("a" . mug-active-command-mark)
 	  ("j" . mug-active-command-jump)
-	  ("e" . mug-intern)
           ("c" . mug-exec)
           ("x" . mug-exec-echo)
 	  ("o" . mug-visit-org-file)
