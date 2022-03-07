@@ -320,6 +320,21 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mug-avy-template-execute (&optional arg)
+  (interactive "p")
+  (let ((x (avy-process
+	    (mug-avy-template-candidates)
+	    (avy--style-fn 'at-full))
+	   ))
+    (cond
+     (x
+      (goto-char x)
+      )
+     )
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; maybe use avy instead
 
 (defun mug-define-key (key)
@@ -342,6 +357,9 @@
 (define-key mug-mode-map (kbd "C-c C-e") 'mug-electric-mode)
 (define-key mug-mode-map (kbd "C-c C-t") 'mug-avy-template-activate)
 (define-key mug-mode-map (kbd "C-c C-v") 'mug-avy-execute)
+
+(define-key mug-mode-map (kbd "C-c C-y") 'mug-avy-template-execute)
+
 
 (mapcar '(lambda (x)
 	   (define-key mug-electric-keymap
