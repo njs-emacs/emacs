@@ -169,26 +169,6 @@
    )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; these functions are for compatibily. They don't really do anything
-(defun mug-intern ()
-  (interactive)
-  (let* ((command-line (mug-read-command-line))
-	 (plist (cdr command-line))
-	 (key (plist-get plist :key))
-	 )
-;    (debug)
-    )
-  )
-
-(defun mug-eval-buffer ()
-  (interactive)
-  (sx (bob)
-      (while (rsf mug-header-pattern)
-	(sx (bol) (mug-intern) (sit-for .5)))
-      )
-  )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq mug-install-directory "e:/borough/barnet")
 
 (defun mug-visit-org-file ()
