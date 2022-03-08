@@ -417,3 +417,5 @@
 (setq auto-mode-alist (alist-put auto-mode-alist "\\.mug$" 'mug-mode))
 
 (put 'mug-mode 'eval-buffer-modal 'mug-eval-buffer)
+
+;;(yas--define-parents 'mug-mode '(emacs-lisp-mode))
