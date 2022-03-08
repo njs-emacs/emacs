@@ -8,6 +8,10 @@
 ;;; mapping commands to global keys makes no sense
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun bit-set-p (v mask &optional match)
+  (= (logand v mask) (or match mask))
+  )
+
 (defun interactive-arg-read (spec)
   (call-interactively `(lambda (&rest args) (interactive ,spec) args))
   )
@@ -20,10 +24,12 @@
 
 (defvar-local mug-always-show nil "Always act if mug command has :show t or show prefix arg was given")
 (defvar-local mug-always-echo nil "Always act if mug command has :echo t or echo prefix arg was given")
+(defvar-local mug-always-kill nil "Always act if mug command has :kill t or kill prefix arg was given")
 (defvar-local mug-always-insert nil "Always act if mug command has insert prefix arg given")
 
 (set-default 'mug-always-show nil)
 (set-default 'mug-always-echo nil)
+(set-default 'mug-always-kill nil)
 (set-default 'mug-always-insert nil)
 
 (defvar-local mug-arg-reader-default 'mug-arg-reader-generic "Default arg reader for mug commands in file")
@@ -133,21 +139,22 @@
 	  (command (mug-read-command tloc))
 	  (plist (cdr command-line))
 	  (cd (plist-get plist :cd))
+	  (echo (or mug-always-echo (plist-get plist :echo) (not (bit-set-p arg 1))))
+	  (kill (or mug-always-kill (plist-get plist :kill) (bit-set-p arg 2)))
+	  (show (or mug-always-show (plist-get plist :show) (bit-set-p arg 4)))
+	  (insert (or mug-always-insert (plist-get plist :insert) (bit-set-p arg 16)))
 	  result
 	  )
      (cond ((plist-get plist :debug) (debug)))
      (setq result (save-cd cd (eval command)))
 
+     (and kill (kill-new result))
+     (and show (show result))
+     (and echo (message (sprint result)))
      (cond
-      ((or (eq arg 16) mug-always-insert (plist-get plist :insert))
+      (insert 
        (goto-char (region-end-if-active (point$)))
        (insert "\n" result)
-       )
-      ((or (eq arg 4) mug-always-show (plist-get plist :show))
-       (show result)
-       )
-      ((or (eq arg 0) mug-always-echo echo (plist-get plist :echo))
-       (message (sprint result))
        )
       )
      result
