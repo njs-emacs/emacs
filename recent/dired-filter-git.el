@@ -63,26 +63,28 @@
     )
   )
 
-(setq dired-filter-git-state-cache
-  (sort dired-filter-git-state-cache
-	'(lambda (a b)
-	   (let* ((fun '(lambda (x) (alist-get x `((u . 1) (c . 1) (r . 0)))))
-		  (aa (funcall fun (nth 1 a)))
-		  (bb (funcall fun (nth 1 b)))
-		  )
-	     (cond
-	      ((< aa bb))
-	      ((and (= aa bb)
-		    (time-less-p
-		     (file-attribute-modification-time (nth 2 b))
-		     (file-attribute-modification-time (nth 2 a))
-		     )
+(defun dired-filter-git-state-cache-sort ()
+  (setq dired-filter-git-state-cache
+    (sort dired-filter-git-state-cache
+	  '(lambda (a b)
+	     (let* ((fun '(lambda (x) (alist-get x `((u . 1) (c . 1) (r . 0)))))
+		    (aa (funcall fun (nth 1 a)))
+		    (bb (funcall fun (nth 1 b)))
 		    )
+	       (cond
+		((< aa bb))
+		((and (= aa bb)
+		      (time-less-p
+		       (file-attribute-modification-time (nth 2 b))
+		       (file-attribute-modification-time (nth 2 a))
+		       )
+		      )
+		 )
+		)
 	       )
-	      )
 	     )
-	   )
-	)
+	  )
+    )
   )
 
 (defun git-state-insert (state)
