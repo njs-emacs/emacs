@@ -155,6 +155,10 @@
 (defvar kch-self-suppress t "Suppress logging commands when kch buffer selected")
 ;(setq kch-self-suppress (not kch-self-suppress))
 
+(defun kch-blocked-command (command)
+  (memq command `(mwheel-scroll mouse-movement mouse-1 down-mouse-1 drag-mouse-1 mouse-set-point mouse-drag-region handle-switch-frame))
+  )
+
 (defun kch-pre ()
   (let* ((buffer (current-buffer))
 	 (mode major-mode)
@@ -195,7 +199,10 @@
 	(setq kch-current-count (1+ kch-current-count))
 	(setq kch-current-keys keys)
 	(setq kch-buffer-current buffer)
-	(insert (format "%s [%d] %-24s %s\n" (format-time-string "%y%m%d-%H%M%S.%2N") kch-current-count keys cmd))
+	(cond
+	 ((kch-blocked-command cmd))
+	 ((insert (format "%s [%d] %-24s %s\n" (format-time-string "%y%m%d-%H%M%S.%2N") kch-current-count keys cmd)))
+	 )
 	)
       )
      )
