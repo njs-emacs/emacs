@@ -1,3 +1,7 @@
+; hf-link create clickable links which point to files
+; largely experimental, plenty of scope for extension
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; (dregf "properties" elfs "ever")
 ; (dregf "propert.*keymap" elfs "ever")
 ; no keymap property found with properties
@@ -46,9 +50,6 @@
     )
   )
 
-(def-key global-map (kbd "C-v C-f") 'hf-mark)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun hf-find-file (start end)
   (let ((name (bs start end)))
     (find-file-other-window name))
@@ -105,6 +106,9 @@
   (hf-apply '(lambda (x) (kill-new x)))
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(def-key global-map (kbd "C-v C-m") 'hf-mark)
+
 (setq hf-map (make-sparse-keymap))
 
 (define-key hf-map (kbd "C-SPC") 'hf-click)
@@ -116,5 +120,17 @@
 (define-key hf-map [mouse-2] 'hf-click)
 (define-key hf-map [follow-link] 'mouse-face)
 
+(defun hf-help (&optional event)
+  (interactive (list last-input-event))
+  (let* ((link (hf-get-link event))
+	 (name (bs (nth 1 link) (nth 2 link)))
+	 )
+    (describe-symbol (intern name))
+    )
+  )
+
+(define-key hf-map (kbd "h") 'hf-help)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(syntax-ppss)
 ;(get 'filename  'beginning-op)
