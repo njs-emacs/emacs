@@ -91,7 +91,8 @@
 (define-key function-key-map (kbd "<kp-0>") (kbd "C-^"))
 (define-key function-key-map (kbd "<kp-decimal>") (kbd "C-h"))
 
-(define-key function-key-map (kbd "<kp-enter>") (kbd "RET"))
+;(define-key function-key-map (kbd "<kp-enter>") (kbd "RET"))
+(define-key function-key-map (kbd "<kp-enter>") (kbd "C-&"))
 
 (setq function-key-to-kp-alist
   `(
