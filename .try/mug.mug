@@ -1,3 +1,5 @@
+##template##
+
 #~(debug (eval a)) :reader mug-arg-reader-readc
 #~(debug (eval a)) :reader mug-arg-reader-list
 #~(eval a) :reader mug-arg-reader-sexp :echo t
