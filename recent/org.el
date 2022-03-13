@@ -67,3 +67,8 @@
 (file-class-linked-file-add 'org-mode
    `((keymap-help . "e:/.org/.topic/org-mode/keymap.org")))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun org-agenda-inactive ()
+  (interactive)
+  (let ((org-agenda-include-inactive-timestamps t))
+    (org-agenda)))
