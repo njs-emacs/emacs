@@ -40,21 +40,25 @@
 _g_:   General	_t_:   Todo	_l_:   Log	
 _h_:   Help	_s_:   Sandbox	_d_:   Document
 _j_:   Junk	_i_:   Index	_b_:   Buglist
-_o_:   Other
+_o_:   Other    _n_:   Notes	_r_:   Refile
+_a_:   Archive
 _q_:   Quit
 	
 "
-  ("g" (org-class-add-toggle "general"))
+  ("a" (org-class-add-toggle "archive"))
   ("b" (org-class-add-toggle "buglist"))
+  ("d" (org-class-add-toggle "document"))
+  ("g" (org-class-add-toggle "general"))
   ("h" (org-class-add-toggle "help"))
+  ("i" (org-class-add-toggle "index"))
+  ("j" (org-class-add-toggle "junk"))
+  ("l" (org-class-add-toggle "log"))
+  ("n" (org-class-add-toggle "notes"))
+  ("r" (org-class-add-toggle "refile"))
   ("s" (org-class-add-toggle "sandbox"))
   ("t" (org-class-add-toggle "todo"))
-  ("d" (org-class-add-toggle "document"))
-  ("j" (org-class-add-toggle "junk"))
-  ("i" (org-class-add-toggle "index"))
-  ("l" (org-class-add-toggle "log"))
-  ("o" (call-interactively 'org-class-insert))
 
+  ("o" (call-interactively 'org-class-insert))
 
   ("q" nil :color blue)
   )
