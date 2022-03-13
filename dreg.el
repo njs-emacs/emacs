@@ -146,3 +146,27 @@
 
 
 (define-key dreg-mode-keymap (kbd "M-#") 'dreg-shuffle)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun dreg-guess-best-filespec ()
+  (cond
+   ((eq major-mode 'emacs-lisp-mode) elfs)
+   ((eq major-mode 'nl-mode) "\\.nl$")
+   ((eq major-mode 'c-mode) cfs)
+   )
+  )
+
+(defun dreg-dwim (pat when where)
+  (interactive
+    (list
+     (read-from-minibuffer "Pattern: " (region-or-thing))
+     (completing-read "When: " '("ever" "year" "month" "week") nil t nil nil "ever")
+     (read-from-minibuffer "Where: " (dreg-guess-best-filespec))
+     )
+    )
+  (dregf pat where (read when))
+  )
+
+(def-key global-map (kbd "H-g H-g") 'dreg-dwim)
+(def-key global-map (kps "78") 'dreg-dwim)
+
