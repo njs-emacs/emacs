@@ -65,7 +65,18 @@
   )
 
 (file-class-linked-file-add 'org-mode
-   `((keymap-help . "e:/.org/.topic/org-mode/keymap.org")))
+   `(
+     (keymap-help . "e:/.org/.topic/org-mode/keymap.org")
+     (mode-help . "e:/.org/.topic/org-mode/org-mode-help.org")
+     )
+   )
+
+(file-class-linked-file-add 'org-agenda-mode
+   `(
+     (keymap-help . "e:/.org/.topic/org-mode/agenda.org")
+     (mode-help . "e:/.org/.topic/org-mode/org-mode-help.org")
+     )
+   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun org-agenda-inactive ()
