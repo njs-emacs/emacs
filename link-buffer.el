@@ -49,6 +49,10 @@
 	   '(linked-file 'keymap-help)
 	   )
 
+(qb-define (control-key-vector ?l ?m)
+	   '(linked-file 'mode-help)
+	   )
+
 (dolist (i '(q w e r t y))
   (qb-define (control-key-vector ?l  (string-to-char (symbol-name i))) `(linked-file ',i)))
 
