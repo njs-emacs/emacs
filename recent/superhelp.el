@@ -30,13 +30,34 @@ on symbol-at-point with no user input."
      )
     )
   )
-  
+
+(defun symbol-nearby ()
+  "Like symbol-at-point, but will try to move to the nearest sensible symbol."
+  (sx
+   (cond
+    ((looking-at "\\sw"))
+    ((and (looking-at "\\s *$") (rsb "\\sw" (point^))))
+    ((rsf "\\sw"))
+    )
+   (symbol-at-point)
+   )
+  )
+ 
 (defun s-where-is ()
   "Accelerate where-is: run on symbol-at-point with no user input."
   (interactive)
-  (let ((sym (symbol-at-point)))
+  (let ((sym (symbol-nearby)))
     (cond
-     ((fboundp sym) (where-is sym))
+     ((fboundp sym)
+      (let* ((keys
+	     (mapcar 'key-description (where-is-internal sym)))
+	     (s (mconcat keys "||"))
+	     )
+	(kill-new s)
+	(cond (superhelp-insert (insert s)))
+	)
+      (where-is sym)
+      )
      ((message "%s is not a function" sym))
      )
     )
