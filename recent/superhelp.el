@@ -139,7 +139,7 @@ _s_:   Select
 
   ("b" (s-where-is))
   ("w" (s-where-is))
-  ("k" (s-where-is))
+;  ("k" (s-where-is))
 
   ("a" (s-apropos))
   ("t" (s-completions))
@@ -185,8 +185,11 @@ _s_:   Select
 (define-key global-map (kbd "H-#") 'hydra-superhelp-blue/enter)
 (define-key global-map (kbd "H-~") 'hydra-superhelp-pink/enter)
 
-; hydra-base-map
-; hydra-keyboard-quit
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;	hydra-base-map		
+;;	hydra-keyboard-quit
+;; 	hydra-superhelp-blue/enter	
+;; 	hydra-superhelp-blue/enter	
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; * completion for superhelp
@@ -194,5 +197,3 @@ _s_:   Select
 ;;  (completion-all-completions "view" obarray 'fboundp 4)
 ;;  (completion-all-completions "vie-lo" obarray 'fboundp 6)
 
-;;  vie-lo
-;;  view
