@@ -6,8 +6,8 @@
 (setq org-master-directory "e:/.org")
 
 (setq org-master-file (filename-concat org-master-directory "home.org"))
-
 (setq org-default-notes-file (filename-concat org-master-directory "notes.org"))
+(setq org-help-file (filename-concat org-master-directory "help.org"))
 
 (defun org-master-file-edit ()
   (interactive) (find-file-other-window org-master-file))
@@ -17,12 +17,34 @@
   (find-file org-default-notes-file)
   )
 
+(defun org-help-file-visit ()
+  (interactive)
+  (find-file org-help-file)
+  )
+
+; global org-mode entry points
+
 (def-key-global [C-f1] 'org-capture)
 (def-key-global [C-f2] 'bookmark-bmenu-list)
 
 (def-key-global [M-f1] 'org-cycle-agenda-files)
 (def-key-global [M-f2] 'org-default-notes-file-visit)
-(def-key-global [M-f3] 'org-agenda)
+(def-key-global [M-f3] 'org-agenda-switch-buffer)
+(def-key-global [M-f4] 'org-agenda)
+(def-key-global [M-f5] 'org-help-file-visit)
+
+(defun org-agenda-switch-buffer (&optional arg)
+  (interactive "p")
+  (cond
+   ((buffer-live-p org-agenda-buffer)
+    (case arg
+      (4 (switch-to-buffer-other-window org-agenda-buffer))
+      (t (switch-to-buffer org-agenda-buffer))
+      )
+    )
+   (t (org-agenda-list))
+   )
+  )
 
 (def-key global-map (kbd "<M-S-f1>") 'org-master-file-edit)
 
