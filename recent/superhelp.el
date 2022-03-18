@@ -94,12 +94,20 @@ on symbol-at-point with no user input."
 (defmacro def-hydra-superhelp (&rest plist)
   (let ((color (plist-get plist :color)))
     `(defhydra ,(intern (format "hydra-superhelp-%s" color))
-       ,(append '(:hint nil :base-map superhelp-base-map :timeout 10) plist)
+       ,(append '(
+		  :hint nil
+;			:pre (message "pre")
+;			:post (message "post")
+		  	:base-map superhelp-base-map
+			:timeout 10
+			)
+		plist)
       "
 _c_:   Auto		_a_:   Apropos		_k_:   Key
 _f_:   Function		_x_:   Execute		_q_:   Quit
 _v_:   Variable		_t_:   Completions	_p_:   Copy
 _b_:   Binding		_m_:   Map
+_i_:   Insert %`superhelp-insert
 "
   ("t" (s-completions))
 
@@ -121,41 +129,12 @@ _b_:   Binding		_m_:   Map
   ("m" s-def-key)
 
   ("p" copy-symbol-at-point :color blue)
+  ("i" (flip superhelp-insert) :color pink)
   ("q" nil :color blue)
   )))
 
 (def-hydra-superhelp :color blue :foreign-keys run)
 (def-hydra-superhelp :color pink)
-
-(defhydra hydra-superhelp (:hint nil :color pink :base-map superhelp-base-map)
-      "
-_c_:   Auto		_a_:   Apropos		_k_:   Key
-_f_:   Function		_x_:   Execute		_q_:   Quit
-_v_:   Variable		_t_:   Completions	_p_:   Copy
-_b_:   Binding		_m_:   Map
-"
-  ("t" (s-completions))
-
-  ("c" (s-describe))
-  ("f" (s-describe-function))
-  ("v" (s-describe-variable))
-
-  ("b" (s-where-is))
-  ("w" (s-where-is))
-  ("k" (s-where-is))
-
-  ("a" (s-apropos))
-  ("t" (s-completions))
-
-  ("e" (s-call-interactively) :color blue)
-  ("x" (s-call-interactively) :color blue)
-
-  ("k" describe-key)
-  ("m" s-def-key)
-
-  ("p" copy-symbol-at-point :color blue)
-  ("q" nil :color blue)
-  )
 
 ;;;(defhydra hydra-superhelp (:color pink)
 ;;;  "Super Help"
@@ -166,8 +145,20 @@ _b_:   Binding		_m_:   Map
 ;;;  ("q" nil "Quit" :color blue)
 ;;;  )
 
-(define-key global-map (kbd "H-#") 'hydra-superhelp-blue/body)
-(define-key global-map (kbd "H-~") 'hydra-superhelp-pink/body)
+(defun hydra-superhelp-blue/enter (&optional arg)
+  (interactive "P")
+  (setq superhelp-insert nil)
+  (hydra-superhelp-blue/body)
+  )
+
+(defun hydra-superhelp-pink/enter (&optional arg)
+  (interactive "P")
+  (setq superhelp-insert nil)
+  (hydra-superhelp-pink/body)
+  )
+
+(define-key global-map (kbd "H-#") 'hydra-superhelp-blue/enter)
+(define-key global-map (kbd "H-~") 'hydra-superhelp-pink/enter)
 
 ; hydra-base-map
 ; hydra-keyboard-quit
