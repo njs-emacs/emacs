@@ -22,6 +22,6 @@
   ("q" nil "quit" :column ":")
   )
 
-(define-key global-map [M-f5] 'bg-hydra/body)
+(define-key global-map (kbd "C-v C-o C-b") 'bg-hydra/body)
 
 ;(list-colors-display)
