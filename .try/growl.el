@@ -14,7 +14,7 @@
     )
   )
 
-(defun growl (&rest plist)
+(defun growl* (plist)
   (let* ((title (plist-get plist :title))
 	 (message (plist-get plist :message))
 	 (app (plist-get plist :app))
@@ -42,6 +42,19 @@
     )
   )
 
+(defun growl (&rest plist)
+  (let* ((plist (append plist growl-default-plist)))
+    (growl* plist)
+    )
+  )
+
+(defun growlm (message &rest plist)
+  (apply 'growl :message message plist)
+  )
+
+(defvar growl-default-plist nil)
+(setq growl-default-plist `(:app "snat" :type "fartA" :title "look"))
+
 ;=; (top-level)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -58,24 +71,25 @@
 
 ;#+; (growl :raw "\"/a:snap\"" :type "fart1" :message "ma!" :title "yo mama")
 
-;#!; (growl :app "snap" :type "fart1" :title "amoop" :message "mama mia")
-;# ; (growl :app "snap" :type "fart1" :title "amoop" :message "\"mama mia\"")
+;#+; (growl :app "snap" :type "fart1" :title "amoop" :message "mama mia")
 ;#+; (growl :app "snap" :type "fart1" :title "amoop" :message "mama")
-;#!; (growl :app "snap" :type "fart1" :title "yo mama" :message "mama mia")
-;#!; (growl :app "snap" :type "fart1" :message "mama mia" :title "yo mama")
+;#+; (growl :app "snap" :type "fart1" :title "yo mama" :message "mama mia")
+;#+; (growl :app "snap" :type "fart1" :message "mama mia" :title "yo mama")
 
-;#; (growl :app "snat" :types "fartA,fartB,fartC" :type "fartC" :message "ma!" :title "yo mama")
-;#; (growl :app "snat" :type "fartA" :message "ma!" :title "yo mama")
-;#; (growl :app "snat" :type "fartC" :message "ma!" :title "yo mama")
+;#+; (growl :app "snat" :types "fartA,fartB,fartC" :type "fartC" :message "ma!" :title "yo mama")
+;#+; (growl :app "snat" :type "fartA" :message "ma!" :title "yo mama")
+;#+; (growl :app "snat" :type "fartC" :message "ma!" :title "yo mama")
 
-;#; (growl :raw "\"/a:snap\"" :title "yoohoo" :type "fart1" :message "hello world")
+;#+; (growl :message "hey!")
+;#+; (growlm "hey!!")
+;#+; (growlm "hey!!" :type "fartC")
 
-;#; (growl :app "snap" :type "fart1" :title "amoop" :message "mama mia")
-;#; (growl :app "snax" :types "fart1,fart2,fart3" :type "fart1" :title "amoop" :message "mama mia")
-;#; (growl :app "snax" :type "fart1" :message "mama mia")
+;#+; (growl :raw "\"/a:snap\"" :title "yoohoo" :type "fart1" :message "hello world")
+
+;#+; (growl :app "snap" :type "fart1" :title "amoop" :message "mama mia")
+;#+; (growl :app "snax" :types "fart1,fart2,fart3" :type "fart1" :title "amoop" :message "mama mia")
+;#+; (growl :app "snax" :type "fart1" :message "mama mia")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun growl-a ())
-(setq grat (run-at-time (time-add nil 30) nil 'growl-a))
-
-
+(defun growl-a () (growl :app "snat" :type "fartC" :message "ma!" :title "yo mama"))
+(setq grat (run-at-time (time-add nil 10) nil 'growl-a))
