@@ -759,3 +759,5 @@ E:\home\nick>d:\G\Growl\growlnotify /a:ploooop  "test message"
 Notification failed: 402 - Notification type not registered
 
 
+* growl sounds
+https://groups.google.com/g/growl-for-windows/c/TWM_UxyUUeM?hl=en

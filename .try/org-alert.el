@@ -41,27 +41,9 @@ put text in a windows notification" (format-time-string " %H:%M:%S"))
 (w32-notification-close 40)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; this would be for the unix style growl
-(defun growl (title message)
-  (start-process "growl" " growl" "D:/G/Growl/growlnotify.exe" title "/-a" "Emacs")
-  (process-send-string " growl" message)
-  (process-send-string " growl" "\n")
-  (process-send-eof " growl"))
+(top-level)
 
-(defun growl (title message)
-  (shell-execute-text
-   (format "D:/G/Growl/growlnotify.exe /a:lop \"/r:foo\" \"/n:foo\" /t:%s %s" title message))
-  )
-
-(defun growl-start ()
-  (interactive)
-  (shell-execute-text "D:/G/Growl/growl")
-  )
-
-
-
-
-(growl "Yo!" "hello")
+(setq grate (run-at-time "16:50" nil 'growl-a))
 
 (defun growl-compilation-result(buffer msg)
   (if (string-match "^finished" msg)
@@ -70,3 +52,6 @@ put text in a windows notification" (format-time-string " %H:%M:%S"))
     (growl "Emacs compilation" "Compilation Failed :-(")))
 
 (add-to-list 'compilation-finish-functions 'growl-compilation-result)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(dregf "growl" nil "month")
