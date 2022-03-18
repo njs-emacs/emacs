@@ -129,6 +129,7 @@ _f_:   Function		_x_:   Execute		_q_:   Quit
 _v_:   Variable		_t_:   Completions	_p_:   Copy
 _b_:   Binding		_m_:   Map
 _i_:   Insert %`superhelp-insert
+_s_:   Select
 "
   ("t" (s-completions))
 
@@ -151,6 +152,9 @@ _i_:   Insert %`superhelp-insert
 
   ("p" copy-symbol-at-point :color blue)
   ("i" (flip superhelp-insert) :color pink)
+
+  ("s" avy-goto-symbol-1)
+
   ("q" nil :color blue)
   )))
 
