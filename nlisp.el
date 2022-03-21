@@ -180,6 +180,8 @@ values in EXP, and execute BODY."
   (let* ((*s
 	  (cond ((save-excursion (beginning-of-line) (looking-at "\\sw"))
 		 (buffer-substring (point^) (point$)))
+		((save-excursion (beginning-of-line) (looking-at ";[^(]+"))
+		 (buffer-substring (match-end 0) (point$)))
 		((save-excursion (beginning-of-line) (looking-at "[;#]+"))
 		 (buffer-substring (match-end 0) (point$)))
 		((save-excursion (beginning-of-line) (looking-at "^/\\*"))
