@@ -154,16 +154,22 @@
 
 (defun filename-to-kill (arg)
   (interactive "p")
-  (kill-new
+  (kill-new-verbose
    (cond
-    ((= arg 64) (basename (buffer-file-name)))
-    ((= arg 16) (format "%s:%s" (buffer-file-name) (line-number-at-pos (point))))
-    ((= arg 4) (buffer-file-name))
     ((= arg 1) (file-name-nondirectory (buffer-file-name)))
+    ((= arg 0) (basename (buffer-file-name)))
+    ((= arg 2) (file-name-extension (buffer-file-name)))
+    ((= arg 4) (buffer-file-name))
+    ((= arg 16) (format "%s:%s" (buffer-file-name) (line-number-at-pos (point))))
+    (t (format "arg: %s" arg))
     )
    )
   )
 
+(define-key global-map (kbd "C-z C-y") 'filename-to-kill)
+(def-key z-map (kbd "C-f") 'filename-to-kill)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun dired-quick-dot (arg) (interactive "p")
   (dired default-directory)
   )
@@ -561,21 +567,6 @@ then replace VALUE with the value which follows it in the property list."
 	 )
        )
       )
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun copy-buffer-file-name-to-kill () (interactive)
-  (kill-new (file-name-nondirectory (buffer-file-name)))
-  )
-
-(define-key global-map (kbd "C-z C-y") 'copy-buffer-file-name-to-kill)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun buffer-file-name-to-kill () (interactive)
-  (let ((s (buffer-file-name)))
-    (kill-new s)
-    )
-  )
-
-(def-key z-map (kbd "C-f") 'buffer-file-name-to-kill)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun assoc-re (pat list)
   (let* ((fun '(lambda (x) (string-match pat (car x))))
