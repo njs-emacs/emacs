@@ -153,15 +153,16 @@
    ((eq major-mode 'emacs-lisp-mode) elfs)
    ((eq major-mode 'nl-mode) "\\.nl$")
    ((eq major-mode 'c-mode) cfs)
+   ((concat "\\" (file-name-suffix)))
    )
   )
 
-(defun dreg-dwim (pat when where)
+(defun dreg-dwim (pat where when)
   (interactive
     (list
      (read-from-minibuffer "Pattern: " (region-or-thing))
-     (completing-read "When: " '("ever" "year" "month" "week") nil t nil nil "ever")
      (read-from-minibuffer "Where: " (dreg-guess-best-filespec))
+     (completing-read "When: " '("ever" "year" "month" "week") nil t nil nil "ever")
      )
     )
   (dregf pat where (read when))
