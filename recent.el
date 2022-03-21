@@ -1,3 +1,8 @@
+(defun kill-new-verbose (s)
+  (kill-new s)
+  (message "Copied to kill: '%s'" s)
+  )
+
 (defun shell-line ()
   (interactive)
   (let ((cmd (bs (sxp (bol) (rsf "\\s-*")) (point$)))) (shell-command cmd))
@@ -585,7 +590,7 @@ then replace VALUE with the value which follows it in the property list."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun copy-emacs-url () (interactive)
-  (kill-new (format "emacs:%s??%s" (buffer-file-name) (line-number-at-pos)))
+  (kill-new-verbose (format "emacs:%s??%s" (buffer-file-name) (line-number-at-pos)))
   )
 
 (defun region-text ()
@@ -616,8 +621,7 @@ then replace VALUE with the value which follows it in the property list."
 	   )
 	  )
 	 )
-    (kill-new (format "[[%s][%s]]" link cap))
-    (message "copied '%s' to kill" link)
+    (kill-new-verbose (format "[[%s][%s]]" link cap))
     (fset 'zz `(lambda () (interactive)
 		 (insert ,(format "[[%s][" link))
 		 (sx (insert ,cap "]"))
@@ -637,8 +641,7 @@ then replace VALUE with the value which follows it in the property list."
 	 (cap (or (region-text) (format "%d" (line-number-at-pos))))
 	 (break (format "break %s:%s" file cap))
 	 )
-    (kill-new break)
-    (message "copied '%s' to kill" break)
+    (kill-new-verbose break)
     )
   )
 (def-key z-map (kbd "C-v") 'copy-gdb-break)
@@ -930,7 +933,7 @@ then replace VALUE with the value which follows it in the property list."
 (defun tsx-clip (&optional kill) (interactive)
   (setq log-time-string (time-base32))
   (insert log-time-string)
-  (and kill (kill-new log-time-string))
+  (and kill (kill-new-verbose log-time-string))
   )
 
 (def-key-global [C-f7] 'tsx-clip)
