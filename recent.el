@@ -1121,3 +1121,34 @@ then replace VALUE with the value which follows it in the property list."
    )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun edit-value (name &rest plist)
+  "Edit a variable value."
+  (interactive)
+  (let* ((buf (get-buffer-create (format "*edit-%s*" name)))
+	 (value (eval name))
+	 (eformat (or (plist-get plist :eformat)
+		      '(lambda (x) (format "%S" x))
+		      ))
+	 )
+    (switch-to-buffer buf)
+    (erase-buffer)
+    (insert ";;; -*- mode: emacs-lisp -*-
+;;;
+;;; f9		- eval this buffer
+
+")
+
+    (insert (format "(setq %s\n `(\n" name))
+    (dolist (i value)
+      (insert "   " (funcall eformat i) "\n")
+      )	      
+    (insert "  ))\n")
+    )
+  (insert (format"\n\n%s\n\n" (or (plist-get plist :tail) "")))
+  (emacs-lisp-mode)
+  )
+
+;; (edit-value 'org-refile-targets)
+;; (edit-value 'ziip :tail ";yo")
+
