@@ -18,8 +18,9 @@
  )
 
 (defun dregf (pat &optional fpat cmd &rest args)
+ (setq cmd (or cmd dreg-cmd-default))
+ (setq args (cons (format "--cmd=%s" cmd) args))
  (cond (fpat (setq args (push (format "--fpat=\"%s\"" fpat) args))))
- (setq args (push (format "--cmd=%s" (or cmd dreg-cmd-default)) args))
  (apply 'dreg** (format "--pat=\"%s\"" pat) args)
 ; (apply 'dreg** (format "--pat='%s'" pat) args)
  )
