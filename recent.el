@@ -1050,3 +1050,74 @@ then replace VALUE with the value which follows it in the property list."
 (define-key global-map (kps "^" "`") 'help)
 
 (def-key-buffer (kps "^1") 'org-agenda-buffer)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun beginning-of-defun-safe ()
+  "Goto the beginning of the current defun. Try to not move if already at the beginning.
+ The idea is to not move to the previous defun, stay in the current one."
+  (interactive)
+  (rsf "\\S ")
+  (beginning-of-defun)
+  )
+    
+(defun end-of-defun-safe ()
+  "Goto the end of the current defun. Try to not move if already at the end.
+ The idea is to not move to the next defun, stay in the current one."
+  (interactive)
+  (rsb "\\S ")
+  (end-of-defun)
+  )
+    
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq region-dwim-default-type 'line)
+; (setq region-dwim-default-type 'buffer)
+; (setq region-dwim-default-type 'defun)
+
+(defun region-dwim-arg-to-type (&optional arg)
+  "Convert an interactive prefix arg to a region-dwim type"
+  (case arg
+    (0 'defun)
+    (4 'line)
+    (t region-dwim-default-type)
+    )
+  )
+
+(defun region-dwim-beginning (&optional type)
+  "Return the beginning of an implied region."
+  (or (region-beginning-if-active)
+      (case (or type region-dwim-default-type)
+	(defun (sxp (beginning-of-defun-safe)))
+	(line (point^))
+	(buffer (point-min))
+	(t (point-min))
+	)
+      )
+  )
+
+(defun region-dwim-end (&optional type)
+  "Return the end of an implied region."
+  (or (region-end-if-active)
+      (case (or type region-dwim-default-type)
+	(defun (sxp (end-of-defun-safe)))
+	(line (point$))
+	(buffer (point-max))
+	(t (point-max))
+	)
+      )
+  )
+
+(defun region-dwim (&optional type)
+  "Return the boundaries of the implied region"
+  (list
+   (region-dwim-beginning type)
+   (region-dwim-end type)
+   )
+  )
+
+(defun region-dwim-text (&optional type)
+  "Return the text in the implied region"
+  (buffer-substring
+   (region-dwim-beginning type)
+   (region-dwim-end type)
+   )
+  )
+

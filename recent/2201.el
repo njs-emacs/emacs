@@ -24,12 +24,9 @@
 (defun read-as-list (s) (eval (read (format "`(%s)" s))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun region-beginning-dwim (&optional pos) (or pos (region-beginning-if-active) (point-min)))
-(defun region-end-dwim (&optional pos) (or pos (region-end-if-active) (point-max)))
-
 (defun read-buffer-forms (&optional start end)
-  (let* ((start (region-beginning-dwim start))
-	 (end (region-end-dwim end))
+  (let* ((start (or start (region-dwim-beginning)))
+	 (end (or end (region-dwim-end)))
 	 list
 	 )
     (goto-char start)
@@ -47,8 +44,8 @@
   )
 
 (defun sort-region-stuff (fun &optional start end)
-  (let* ((start (region-beginning-dwim start))
-	 (end (region-end-dwim end))
+  (let* ((start (or start (region-dwim-beginning)))
+	 (end (or end (region-dwim-end)))
 	 (list (read-buffer-forms start end))
 	 )
     (setq list (sort list fun))
