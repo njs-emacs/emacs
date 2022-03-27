@@ -46,3 +46,62 @@
     )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; these functions are used as a quick way of interactively
+; selecting an argument to a function not being called interactively
+; we can define alternate interactive argument reading methods
+
+; call-interactively
+
+(defun one-of (list &rest plist)
+  "Use completing-read to select one item from a list of symbols"
+  (cond
+;   ((stringp list) (apply 'one-of (mapcar 'intern-soft (unconcat list)) plist))
+   ((stringp list) (apply 'one-of (unconcat list) plist))
+   ((let* (
+	   (default (or (plist-get plist :default) (car list)))
+	   (initial (plist-get plist :initial))
+	   (predicate (plist-get plist :predicate))
+	   (prompt (format (or (plist-get plist :prompt) "Choose (%s): ") default))
+	   )
+      (completing-read prompt list predicate t initial nil default)
+      )
+    )
+   )
+  )
+
+(defun one-of* (&rest list)
+  "quick shortcut to one-of (without plist)"
+  (one-of list)
+  )
+
+(defmacro one-of** (&rest list)
+  "macro shortcut to one-of (without plist)"
+  `(one-of ',list)
+  )
+
+(defun one-of-eval (list &rest plist)
+  "Use completing-read to select one item from a list"
+  (eval (apply 'one-of list plist))
+  )
+
+;;; (eval (one-of `(ofs elfs)))
+;;; (one-of-eval `(ofs elfs))
+;;; 
+;;; (one-of** ofs elfs)
+;;; 
+;;; (quote x)
+;;; 
+;;; (one-of* 'ofs 'elfs)
+;;; (one-of `(ofs elfs))
+;;; (one-of `("abc" "def"))
+;;; (one-of "abc def")
+;;; 
+;;; (one-of "a b c")
+;;; (one-of `(a b c cde xyz))
+;;; 
+;;; (mapcar 'prin1-to-string '(a b c))
+;;; 
+;;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
