@@ -26,5 +26,7 @@
 (def-key c-bquote-map (kbd "C-w") 'avy-goto-word-1)
 (def-key c-bquote-map (kbd "C-r") 'avy-goto-char-2)
 
+(def-key c-bquote-map (kbd "C-` C-m") 'avy-move-current-region)
+(def-key c-bquote-map (kbd "C-` C-c") 'avy-copy-current-region)
 
 (def-key c-bquote-map (kbd "C-[") 'avy-sexp-copy)

@@ -81,3 +81,30 @@
     )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun avy-region-dwim-copy (&optional delete type)
+  (let* ((region (region-dwim type))
+	 (s (apply 'buffer-substring region))
+	 )
+    (and delete (apply 'delete-region region))
+    (save-excursion
+      (avy-goto-line)
+      (insert s)
+      )
+    )
+  )
+
+(defun avy-copy-current-region (&optional arg)
+  (interactive "p")
+  (let* ((type (region-dwim-arg-to-type arg)))
+    (avy-region-dwim-copy nil type)
+    )
+  )
+
+(defun avy-move-current-region (&optional arg)
+  (interactive "p")
+  (let* ((type (region-dwim-arg-to-type arg)))
+    (avy-region-dwim-copy t type)
+    )
+  )
+
