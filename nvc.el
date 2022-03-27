@@ -169,8 +169,10 @@
   (let* ((shadow-file (nvc-shadow-file-name file))
 	 (dir (file-name-directory shadow-file))
 	 )
-    (make-directory dir t)
-    (write-region (point-min) (point-max) shadow-file)
+    (with-suppressed-message
+      (make-directory dir t)
+      (write-region (point-min) (point-max) shadow-file)
+      )
     ))
 
 ; cannot set file time on windows machine
