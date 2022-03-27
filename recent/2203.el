@@ -105,3 +105,13 @@
 ;;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun alt-interactive (function spec)
+  "Call an interactive function using an alternate interactive spec"
+  (let* ((args (cadr (symbol-function function)))
+	 (fun `(lambda (&rest args) (interactive ,spec) (apply ',function args)))
+	 )
+    (call-interactively fun)
+    )
+  )
+
+;;; (alt-interactive 'find-file "FGo: ")
