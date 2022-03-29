@@ -103,6 +103,10 @@
    )
   )
 
+(defun mq-buffer-name ()
+  (or (buffer-file-name) (buffer-name))
+  )
+
 (defun mq-visit-linked-file (arg)
   (interactive "P")
   (let* ((keys (this-command-keys))
@@ -111,8 +115,8 @@
 	 (tag (lookup-key mq-bmap key))
 	 (buffer
 	  (or
-	   (mq-visit-linked-file-name (buffer-file-name) tag)
-	   (mq-visit-linked-file-name-poop (buffer-file-name) tag)
+	   (mq-visit-linked-file-name (mq-buffer-name) tag)
+	   (mq-visit-linked-file-name-poop (mq-buffer-name) tag)
 	   )
 	  )
 	 )
@@ -203,7 +207,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mq-show () (interactive)
-  (let ((name (buffer-file-name))
+  (let ((name (mq-buffer-name))
 	(map nil))
     (set-buffer (mq-file-buffer))
     (bob)
