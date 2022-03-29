@@ -190,6 +190,7 @@
     `(list ,files
 ;	   ()
 	   (first . (car ',f))
+	   (last . (car ',r))
 	   (next . (cadr (mq-file-match name ',f)))
 	   (prev . (cadr (mq-file-match name ',r)))
 	   ))
