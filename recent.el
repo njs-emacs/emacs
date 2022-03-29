@@ -1152,3 +1152,41 @@ then replace VALUE with the value which follows it in the property list."
 ;; (edit-value 'org-refile-targets)
 ;; (edit-value 'ziip :tail ";yo")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun apply-to-cdr-pair (fun a b) (funcall fun (cdr a) (cdr b)))
+
+(defun max-cdr (a b) (apply-to-cdr-pair 'max a b))
+(defun min-cdr (a b) (apply-to-cdr-pair 'min a b))
+(defun gt-cdr (a b) (apply-to-cdr-pair '> a b))
+(defun lt-cdr (a b) (apply-to-cdr-pair '< a b))
+(defun ge-cdr (a b) (apply-to-cdr-pair '>= a b))
+(defun le-cdr (a b) (apply-to-cdr-pair '<= a b))
+
+(defun string<-cdr (a b) (apply-to-cdr-pair 'string< a b))
+(defun string>-cdr (a b) (apply-to-cdr-pair 'string> a b))
+(defun string=-cdr (a b) (apply-to-cdr-pair 'string= a b))
+
+(defmacro def-apply-to-cdr-pair (fun)
+ `(defun ,(intern (format "%s-cdr" fun)) (a b) (apply-to-cdr-pair ',fun a b))
+ )
+
+; (macroexpand '(def-apply-to-cdr-pair string-lessp))
+(def-apply-to-cdr-pair string-lessp)
+(def-apply-to-cdr-pair string-greaterp)
+
+(def-apply-to-cdr-pair equal)
+(def-apply-to-cdr-pair eq)
+
+;;; (max-cdr '(a . 8) '(c . 3))
+;;; (min-cdr '(a . 8) '(c . 3))
+;;; (gt-cdr '(a . 8) '(c . 3))
+;;; (lt-cdr '(a . 8) '(c . 3))
+;;; (ge-cdr '(a . 8) '(c . 3))
+;;; (le-cdr '(a . 8) '(c . 3))
+;;; (le-cdr '(a . 3) '(c . 3))
+;;; 
+;;; (string<-cdr '(a . "3") '(c . "4"))
+;;; (string-lessp-cdr '(a . "3") '(c . "4"))
+;;; (string>-cdr '(a . "3") '(c . "4"))
+;;; 
+;;; (equal-cdr '(a . "4") '(c . "4"))
