@@ -234,5 +234,5 @@
     )
   )
 
-(define-key mq-map (kbd "C-h") 'mq-show)
+(define-key mq-map (kbd "M-h") 'mq-show)
 
