@@ -1,0 +1,39 @@
+
+* (mbm-visit-linked-file ARG)
+  bound to all M-' keys
+** bindings  
+Global Bindings Starting With M-':
+key             binding
+---             -------
+
+M-' ESC		Prefix Command
+M-' <M-backspace>		mbm-visit-linked-file
+
+M-' M-SPC	mbm-visit-linked-file
+M-' M-#		mbm-visit-linked-file
+M-' M-'		mbm-visit-linked-file
+M-' M-,		mbm-visit-linked-file
+M-' M-. .. M-' M-9		mbm-visit-linked-file
+M-' M-;		mbm-visit-linked-file
+M-' M-[		mbm-visit-linked-file
+M-' M-]		mbm-visit-linked-file
+M-' M-a .. M-' M-g		mbm-visit-linked-file
+M-' M-h		mbm-show
+M-' M-i .. M-' M-z		mbm-visit-linked-file
+
+[back]
+
+the set of active linked file depends on which mbm-form is activated
+The form is activates if the predicate matches the fileset
+
+(mbm-basic plist fileset &rest forms)
+
+if fileset is a list, the matching predicate will be a simple membership test
+if it is a string then it is a regexp to match the buffer name
+this can be overridden in the plist
+
+(mbm-list (:match mbm-member-name) nil
+ (a . "A")
+ (b . "B")
+ (c . "C")
+ )
