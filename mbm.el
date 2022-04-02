@@ -197,7 +197,7 @@
       (erase-buffer)
       (insert "")
       (dolist (i result)
-	(let* ((tag (intern (car i)))
+	(let* ((tag (car i))
 	       (target (cdr i))
 	       (key (where-is-internal tag mbm-bmap t))
 	       (key-desc (key-description key))
