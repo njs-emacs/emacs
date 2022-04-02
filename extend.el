@@ -28,14 +28,17 @@ membership in NAMES and PATHS"
     )
   )
 
-(defun locate-up-file-directory (file)
+(defun locate-up-file-directory (file &optional max)
   "Locate a directory above the current one that contains a particular FILE."
   (let* ((cd default-directory)
 	 nd
+	 (max (or max 255))
 	 )
     (while (and cd (not (file-exists-p (format "%s/%s" cd file))))
       (setq nd (expand-file-name (format "%s/.." cd)))
+      (setq max (1- max))
       (cond
+       ((< max 0) nil)
        ((string-match "^//\\sw+/*$" nd) (setq cd nil))
        ((string= nd cd) (setq cd nil))
        ((setq cd nd))
@@ -44,9 +47,9 @@ membership in NAMES and PATHS"
     cd)
   )
 
-(defun locate-up-file (file &optional default)
+(defun locate-up-file (file &optional default max)
   "Locate a file in current directory or directory above."
-  (let ((cd (locate-up-file-directory file)))
+  (let ((cd (locate-up-file-directory file max)))
     (cond (cd (expand-file-name (format "%s/%s" cd file)))
 	  (default)
 	  )
