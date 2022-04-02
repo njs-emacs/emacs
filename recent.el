@@ -1221,3 +1221,12 @@ Use FUN (default 'equal) for the comparison."
 ;; (list-prev '(1 2 3 4 5) 1)
 ;; (list-next-list '(1 2 3 4 5) 3)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun file-name-suffix-match (pat name)
+  (string= (file-name-suffix name) pat)
+  )
+
+(defun file-name-suffix-rename (name suffix)
+  (concat (file-name-base name) suffix)
+  )
+
