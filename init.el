@@ -115,6 +115,8 @@
 (load "n-register" t t)
 (load "yas" t t)
 
+(load "mbm" t t)
+
 (define-key global-map "\C-xf" 'find-file)
 
 (setq create-lockfiles nil)
