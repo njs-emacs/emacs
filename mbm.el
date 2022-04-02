@@ -197,13 +197,13 @@
       (erase-buffer)
       (insert "")
       (dolist (i result)
-	(let* ((tag (car i))
+	(let* ((tag (intern (car i)))
 	       (target (cdr i))
 	       (key (where-is-internal tag mbm-bmap t))
 	       (key-desc (key-description key))
 	       (fun `(lambda (arg) (interactive "p") (mbm-show-jump ,target)))
 	       )
-	  (insert (format "%-8s %-10s %s\n" key-desc (car i) (cdr i)))
+	  (insert (format "%-8s %-10s %s\n" key-desc tag (cdr i)))
 	  (define-key map key fun)
 	  (define-key map (substring key-desc 2) fun)
 	  )
@@ -361,6 +361,7 @@ There will not always be a conversion, so understand how to use this."
  (save-match-data
    (cond
     ((string-match "<%B>" s) (concat "\\" (substring s (match-end 0)) "$"))
+    (s)
     )
    )
  )
