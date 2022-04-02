@@ -1190,3 +1190,34 @@ then replace VALUE with the value which follows it in the property list."
 ;;; (string>-cdr '(a . "3") '(c . "4"))
 ;;; 
 ;;; (equal-cdr '(a . "4") '(c . "4"))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun copy-dup-list (list)
+  "Make a copy of a LIST appended to itself. This is used to move along
+a cyclic list in either direction."
+ (nconc (copy-list list) (copy-list list)))
+
+(defun list-next-list (list elt &optional fun)
+  "Return a LIST which has at its head the (cyclic) cell which follows the ELEMENT.
+Use FUN (default 'equal) for the comparison."
+  (let* ((fun (or fun 'equal))
+	 (list (copy-dup-list list))
+	 (fm (member-if `(lambda (x) (,fun x elt)) list))
+	 )
+    fm
+    ))
+
+(defun list-next (list elt &optional fun)
+  "Return the element which follows (cyclically) ELT in LIST. Use FUN for equality check (default 'equal)."
+  (cadr (list-next-list list elt fun))
+  )
+
+(defun list-prev (list elt &optional fun)
+  "Return the element which precedes (cyclically) ELT in LIST. Use FUN for equality check (default 'equal)."
+  (list-next (reverse list) elt fun)
+  )
+
+;; (list-next '(1 2 3 4 5) 3)
+;; (list-prev '(1 2 3 4 5) 1)
+;; (list-next-list '(1 2 3 4 5) 3)
+
