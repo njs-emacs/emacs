@@ -121,24 +121,26 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun mbm-reveal-1 (form element name)
+(defun mbm-reveal-1 (form element cbuf)
 ;  (debug)
   (let* ((plist (nth 0 form))
 	 (tag (car element))
 	 (select (eval (cdr element)))
+	 (cbuf-name (mbm-buffer-name cbuf))
 	 (new)
 	 )
     (setq new
       (cond
-       ((stringp select) (mbm-expand select name))
+       ((stringp select) (mbm-expand select cbuf-name))
        )
       )
     (cons tag new)
     )
   )
 
-(defun mbm-reveal (form name)
+(defun mbm-reveal (form cbuf)
   (let* ((plist (nth 0 form))
+	 (cbuf-name (mbm-buffer-name cbuf))
 	 (forms (nthcdr 2 form))
 	 (match-fun (mbm--get-match-fun plist))
 	 (pac-fun (or (plist-get plist :pac) 'mbm--pac-generic))
@@ -156,11 +158,11 @@
     (setq match-arg (funcall pac-fun (nth 1 form) forms))
     (setq mbm-match-arg match-arg)
 
-    (setq match-result (funcall match-fun name match-arg regexp))
+    (setq match-result (funcall match-fun cbuf-name match-arg regexp))
     (cond
      (match-result
 ;      (debug)
-      (setq result (mapcar '(lambda (x) (mbm-reveal-1 form x name)) forms))
+      (setq result (mapcar '(lambda (x) (mbm-reveal-1 form x cbuf)) forms))
       )
      )
     result
@@ -183,7 +185,7 @@
 ;	   (debug)
 	   (cond
 	    ((null form) (throw 'done nil))
-	    ((setq result (append (mbm-reveal form name) result)))
+	    ((setq result (append (mbm-reveal form cbuf) result)))
 	    )
 	   )
 	 )
