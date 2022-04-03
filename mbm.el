@@ -232,13 +232,13 @@
 (defun mbm-show-find-here ()
   (interactive)
   (let* ((keys (this-command-keys))
-	 (name (bs (+ (point^) 20) (point$)))
-	 (buffer (get-buffer name))
+	 (tname (bs (+ (point^) 20) (point$)))
+	 (buffer (get-buffer tname))
 	 (alist `(nil . ((inhibit-same-window . t))))
 	 )
     (cond
      ((bufferp buffer))
-     ((setq buffer (find-file-noselect name)))
+     ((setq buffer (find-file-noselect tname)))
      )
     (cond
      ((string= keys "o")
