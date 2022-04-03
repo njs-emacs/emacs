@@ -167,11 +167,11 @@
     )
   )
 
-(defun mbm-show* (name)
-  (let* ((buffer (mbm-file-buffer))
+(defun mbm-show* (cbuf)
+  (let* ((name (mbm-buffer-name cbuf))
+	 (buffer (mbm-file-buffer))
 	 (result)
 	 )
-	 
     (sx 
      (set-buffer buffer)
      (bob)
@@ -220,9 +220,8 @@
   )
 
 (defun mbm-show () (interactive)
-  (let* ((name (mbm-buffer-name))
-	 )
-    (mbm-show* name)
+  (let* ((cbuf (current-buffer)))
+    (mbm-show* cbuf)
     )
   )
 
@@ -256,8 +255,8 @@
 
 (defun mbm-show-refresh ()
   (interactive)
-  (let* ((buffer (swx (other-window 1) (current-buffer))))
-    (mbm-show* (mbm-buffer-name buffer))
+  (let* ((cbuf (swx (other-window 1) (current-buffer))))
+    (mbm-show* cbuf)
     )
   )
        
