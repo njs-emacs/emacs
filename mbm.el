@@ -69,8 +69,8 @@
 (defun mbm-file-buffer ()
   (find-file-noselect (locate-up-file mbm-file-name)))
 
-(defun mbm-buffer-name ()
-  (or (buffer-file-name) (buffer-name))
+(defun mbm-buffer-name (&optional buffer)
+  (or (buffer-file-name) (buffer-name buffer))
   )
 
 (defun mbm-buffer-switch (buffer &optional arg)
@@ -167,9 +167,8 @@
     )
   )
 
-(defun mbm-show () (interactive)
-  (let* ((name (mbm-buffer-name))
-	 (buffer (mbm-file-buffer))
+(defun mbm-show* (name)
+  (let* ((buffer (mbm-file-buffer))
 	 (result)
 	 )
 	 
@@ -191,11 +190,14 @@
        )
      )
     (let ((show-buffer (get-buffer-create "*mbm*"))
-	  (map (make-sparse-keymap))
+	  (map (copy-keymap mbm-show-map))
 	  )
-      (switch-to-buffer-other-window show-buffer)
+      (or (get-buffer-window show-buffer)
+	  (switch-to-buffer-other-window show-buffer)
+	  )
+      (read-only-mode 0)
       (erase-buffer)
-      (insert "")
+      (insert (format "Directory: %s\n\n" default-directory))
       (dolist (i result)
 	(let* ((tag (car i))
 	       (target (cdr i))
@@ -205,19 +207,86 @@
 	       )
 	  (insert (format "%-8s %-10s %s\n" key-desc tag (cdr i)))
 	  (define-key map key fun)
-	  (define-key map (substring key-desc 2) fun)
+
+;;	  (define-key map (substring key-desc 2) fun)
 	  )
 	)
+      (set-buffer-modified-p nil)
+      (read-only-mode)
+      (bob)
       (use-local-map map)
-      (setq mbm-show-map map)
       )
     )
   )
 
+(defun mbm-show () (interactive)
+  (let* ((name (mbm-buffer-name))
+	 )
+    (mbm-show* name)
+    )
+  )
+
+;;; display-buffer options abound
+
+(defun mbm-show-find-here ()
+  (interactive)
+  (let* ((keys (this-command-keys))
+	 (name (bs (+ (point^) 20) (point$)))
+	 (buffer (get-buffer name))
+	 (alist `(nil . ((inhibit-same-window . t))))
+	 )
+    (cond
+     ((bufferp buffer))
+     ((setq buffer (find-file-noselect name)))
+     )
+    (cond
+     ((string= keys "o")
+      (display-buffer buffer alist)
+      )
+     ((string= keys "f")
+      (display-buffer-reuse-window buffer '((inhibit-same-window . t)))
+      )
+     ((string= keys (kbd "RET"))
+      (display-buffer-same-window buffer nil)
+      )
+     
+     )
+    )
+  )
+
+(defun mbm-show-refresh ()
+  (interactive)
+  (let* ((buffer (swx (other-window 1) (current-buffer))))
+    (mbm-show* (mbm-buffer-name buffer))
+    )
+  )
+       
+
+(setq mbm-show-map (make-sparse-keymap))
+(define-key mbm-show-map "q" 'kill-current-buffer)
+(define-key mbm-show-map "o" 'mbm-show-find-here)
+(define-key mbm-show-map "f" 'mbm-show-find-here)
+(define-key mbm-show-map "g" 'mbm-show-refresh)
+(define-key mbm-show-map (kbd "RET") 'mbm-show-find-here)
+
+(defun mbm-open-target (target)
+  (find-file-noselect target)
+  )
+
 (defun mbm-show-jump (target)
-  (let ((buffer (current-buffer)))
-    (kill-buffer buffer)
-    (find-file target)
+  "Switch to buffer designated by TARGET. "
+  (let* ((buffer (current-buffer))
+	 (new-buffer (mbm-open-target target))
+	 )
+    (cond
+     (t
+      (display-buffer-use-some-window new-buffer '((inhibit-same-window . t)))
+      )
+     (t
+      (kill-buffer buffer)
+      (display-buffer-same-window new-buffer nil)
+      )
+     )
     )
   )
 
