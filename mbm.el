@@ -266,6 +266,8 @@
 (define-key mbm-show-map "o" 'mbm-show-find-here)
 (define-key mbm-show-map "f" 'mbm-show-find-here)
 (define-key mbm-show-map "g" 'mbm-show-refresh)
+(define-key mbm-show-map "n" 'forward-line)
+(define-key mbm-show-map "p" 'previous-line)
 (define-key mbm-show-map (kbd "RET") 'mbm-show-find-here)
 
 (defun mbm-open-target (target)
