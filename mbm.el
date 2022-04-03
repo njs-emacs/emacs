@@ -81,20 +81,21 @@
    )
   )
 
-(defun mbm-find-link (name tag)
-  (let ((buffer (mbm-file-buffer)))
+(defun mbm-find-link (cbuf tag)
+  (let* ((cbuf-name (mbm-buffer-name cbuf))
+	 (mbuf (mbm-file-buffer)))
     (sx 
-     (set-buffer buffer)
+     (set-buffer mbuf)
      (bob)
      (catch 'done
        (while t
-	 (let* ((form (eval (read buffer)))
+	 (let* ((form (eval (read mbuf)))
 		(result)
 		)
 ;	   (debug)
 	   (cond
 	    ((null form) (throw 'done nil))
-	    ((setq result (mbm-eval form name tag))
+	    ((setq result (mbm-eval form cbuf-name tag))
 	     (and result (throw 'done result))
 	     )
 	    )
@@ -108,12 +109,13 @@
 (defun mbm-visit (arg)
   "Try to visit the linked buffer."
   (interactive "P")
-  (let* ((keys (this-command-keys))
+  (let* ((cbuf (current-buffer))
+	 (keys (this-command-keys))
 	 (key (substring keys 1))
 	 (tag (lookup-key mbm-bmap key))
 	 (tbuf
 	  (or
-	   (mbm-find-link (mbm-buffer-name) tag)
+	   (mbm-find-link cbuf tag)
 	   )
 	  )
 	 )
