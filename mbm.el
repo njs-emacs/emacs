@@ -34,7 +34,7 @@
 
 (mbm-define "<M-backspace>" 'buried)
 
-(mbm-define "M-SPC" 'meta)
+;(mbm-define "M-SPC" 'meta)
 
 (mbm-define "M-'" 'other)
 (mbm-define "M-/" 'alt)
@@ -222,6 +222,7 @@
   )
 
 (define-key mbm-map (kbd "M-h") 'mbm-show)
+(define-key mbm-map (kbd "M-SPC") 'mbm-show)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
