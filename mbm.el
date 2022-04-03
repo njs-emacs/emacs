@@ -106,17 +106,18 @@
   )
 
 (defun mbm-visit (arg)
+  "Try to visit the linked buffer."
   (interactive "P")
   (let* ((keys (this-command-keys))
 	 (key (substring keys 1))
 	 (tag (lookup-key mbm-bmap key))
-	 (buffer
+	 (tbuf
 	  (or
 	   (mbm-find-link (mbm-buffer-name) tag)
 	   )
 	  )
 	 )
-    (and buffer (mbm-buffer-switch buffer arg))
+    (and tbuf (mbm-buffer-switch tbuf arg))
     )
   )
 
