@@ -82,8 +82,7 @@
   )
 
 (defun mbm-find-link (cbuf tag)
-  (let* ((cbuf-name (mbm-buffer-name cbuf))
-	 (mbuf (mbm-file-buffer)))
+  (let* ((mbuf (mbm-file-buffer)))
     (sx 
      (set-buffer mbuf)
      (bob)
@@ -95,7 +94,7 @@
 ;	   (debug)
 	   (cond
 	    ((null form) (throw 'done nil))
-	    ((setq result (mbm-eval form cbuf-name tag))
+	    ((setq result (mbm-eval form cbuf tag))
 	     (and result (throw 'done result))
 	     )
 	    )
@@ -173,8 +172,7 @@
   )
 
 (defun mbm-show* (cbuf)
-  (let* ((name (mbm-buffer-name cbuf))
-	 (buffer (mbm-file-buffer))
+  (let* ((buffer (mbm-file-buffer))
 	 (result)
 	 )
     (sx 
@@ -358,9 +356,10 @@
     list)
   )
 
-(defun mbm-apply (form name tag match) 
+(defun mbm-apply (form cbuf tag match) 
 ;  (debug)
-  (let* ((plist (nth 0 form))
+  (let* ((cbuf-name (mbm-buffer-name cbuf))
+	 (plist (nth 0 form))
 	 (forms (nthcdr 2 form))
 	 (element (assq tag forms))
 	 (select (eval (cdr element)))
@@ -368,7 +367,7 @@
 	 )
     (setq new
       (cond
-       ((stringp select) (mbm-expand select name))
+       ((stringp select) (mbm-expand select cbuf-name))
        )
       )
     new
@@ -385,8 +384,9 @@
     )
   )
 
-(defun mbm-eval (form name tag)
-  (let* ((plist (nth 0 form))
+(defun mbm-eval (form cbuf tag)
+  (let* ((cbuf-name (mbm-buffer-name cbuf))
+	 (plist (nth 0 form))
 	 (forms (nthcdr 2 form))
 	 (match-fun (mbm--get-match-fun plist))
 	 (pac-fun (or (plist-get plist :pac) 'mbm--pac-generic))
@@ -403,9 +403,9 @@
     (setq match-arg (funcall pac-fun (nth 1 form) forms))
     (setq mbm-match-arg match-arg)
 
-    (setq match-result (funcall match-fun name match-arg regexp))
+    (setq match-result (funcall match-fun cbuf-name match-arg regexp))
     (cond
-     (match-result (mbm-apply form name tag match-result))
+     (match-result (mbm-apply form cbuf tag match-result))
      )
     )
   )
@@ -442,8 +442,16 @@ There will not always be a conversion, so understand how to use this."
    )
  )
 
-(defun mbm-apply-cycle ()  ;; implicit name
-  (let* ((fun #'(lambda (elt name) (string-match (mbm-expansion-to-regexp (cdr elt)) name)))
+(defun mbm-match-form-cdr (elt cbuf)
+  (let ((cbuf-name (mbm-buffer-name cbuf)))
+    (string-match (mbm-expansion-to-regexp (cdr elt)) cbuf-name)
+    )
+  )
+
+(defun mbm-apply-cycle ()
+  (let* (; cbuf from higher scope
+	 ; cbuf-name from higher scope
+	 (fun #'mbm-match-form-cdr)
 	 (filter (delete-if-not '(lambda (x) (stringp (cdr x))) (copy-list forms)))
 	 mf mr
 	 )
@@ -451,14 +459,14 @@ There will not always be a conversion, so understand how to use this."
 ;     (debug)
     (setq foo
       (case tag
-	(next (list-next filter name fun))
-	(prev (list-prev filter name fun))
+	(next (mbm-list-next filter cbuf fun))
+	(prev (mbm-list-prev filter cbuf fun))
 	(first (first filter))
 	(last (car (last filter)))
 	)
       )
     (cond
-     (foo (mbm-expand (cdr foo) name))
+     (foo (mbm-expand (cdr foo) cbuf))
      )
     )
   )
