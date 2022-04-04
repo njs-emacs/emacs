@@ -133,7 +133,7 @@
 	 )
     (setq new
       (cond
-       ((stringp select) (mbm-expand select cbuf-name))
+       ((stringp select) (mbm-expand select cbuf))
        )
       )
     (cons tag new)
@@ -367,7 +367,7 @@
 	 )
     (setq new
       (cond
-       ((stringp select) (mbm-expand select cbuf-name))
+       ((stringp select) (mbm-expand select cbuf))
        )
       )
     new
@@ -410,22 +410,22 @@
     )
   )
 
-;; uses name from higher scope
-
-(defun mbm--replace (s) ;; &implicit name
+(defun mbm-expand--replace (s)
 ;   (debug)
   (save-match-data
-    (let ((x (string-match-string "<\\(.*?\\)>" s 1)))
+    (let* (;; cbuf from higher scope
+	   (cbuf-name (mbm-buffer-name cbuf))
+	   (x (string-match-string "<\\(.*?\\)>" s 1)))
       (cond
-       ((string= x "%B") (basename name))
+       ((string= x "%B") (basename cbuf-name))
        (x)
        )
       )
     )
   )
 
-(defun mbm-expand (ss name)
-  (replace-regexp-in-string "\\(<.*?>\\)" 'mbm--replace ss)
+(defun mbm-expand (ss cbuf)
+  (replace-regexp-in-string "\\(<.*?>\\)" 'mbm-expand--replace ss)
   )
   
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
