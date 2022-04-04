@@ -1,3 +1,7 @@
+;; name
+;; cbuf
+;; cbuf-name
+
 ;; some of these functions make use of variables
 ;; from higher scopes. This is largely avoidable but
 ;; may be corrected later.
@@ -315,32 +319,33 @@
 	   ))
   )
 
-(defun mbm--name-equal (name target &optional regexp)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mbm--name-equal (cbuf target &optional regexp)
   (cond
-   (regexp (string-match target name))
-   ((equal name target))
+   (regexp (string-match target cbuf))
+   ((equal cbuf target))
    )
   )
 
-(defun mbm--name-member (name list &optional regexp)
+(defun mbm--name-member (cbuf target &optional regexp)
   (or
    (member-if '(lambda (y)
-		 (mbm--name-equal name (expand-file-name y) regexp)) list)
+		 (mbm--name-equal cbuf (expand-file-name y) regexp)) target)
    (member-if '(lambda (y)
-		 (mbm--name-equal name (file-name-nondirectory y) regexp)) list)
+		 (mbm--name-equal cbuf (file-name-nondirectory y) regexp)) target)
    )
   )
 
-(defun mbm--match-generic (buffer-name target &optional regexp)
+(defun mbm--match-generic (cbuf target &optional regexp)
   (cond
    ((stringp target)
-    (mbm--name-equal buffer-name target regexp))
+    (mbm--name-equal cbuf target regexp))
    ((listp target)
-    (mbm--name-member buffer-name target regexp))
+    (mbm--name-member cbuf target regexp))
    )
   )
 
-(defun mbm--match-all (buffer-name target &optional regexp)
+(defun mbm--match-all (cbuf target &optional regexp)
   t
   )
 
@@ -403,7 +408,7 @@
     (setq match-arg (funcall pac-fun (nth 1 form) forms))
     (setq mbm-match-arg match-arg)
 
-    (setq match-result (funcall match-fun cbuf-name match-arg regexp))
+    (setq match-result (funcall match-fun cbuf match-arg regexp))
     (cond
      (match-result (mbm-apply form cbuf tag match-result))
      )
