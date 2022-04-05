@@ -132,7 +132,6 @@
   (let* ((plist (nth 0 form))
 	 (tag (car element))
 	 (select (eval (cdr element)))
-	 (cbuf-name (mbm-buffer-name cbuf))
 	 (new)
 	 )
     (setq new
@@ -146,7 +145,6 @@
 
 (defun mbm-reveal (form cbuf)
   (let* ((plist (nth 0 form))
-	 (cbuf-name (mbm-buffer-name cbuf))
 	 (forms (nthcdr 2 form))
 	 (match-fun (mbm--get-match-fun plist))
 	 (pac-fun (or (plist-get plist :pac) 'mbm--pac-generic))
@@ -164,7 +162,7 @@
     (setq match-arg (funcall pac-fun (nth 1 form) forms))
     (setq mbm-match-arg match-arg)
 
-    (setq match-result (funcall match-fun cbuf-name match-arg regexp))
+    (setq match-result (funcall match-fun cbuf match-arg regexp))
     (cond
      (match-result
 ;      (debug)
