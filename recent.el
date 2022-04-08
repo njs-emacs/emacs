@@ -1237,6 +1237,7 @@ Use FUN (default 'equal) for the comparison."
   (interactive (list (read-from-minibuffer "Replace: " (thing-at-point 'symbol))
 		     (read-from-minibuffer "With: " (thing-at-point 'symbol))
 		     ))
+;; added this line instead
   (query-replace from to)
   )
 
