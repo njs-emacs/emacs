@@ -51,6 +51,19 @@
 ;(frame-monitor-geometry)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun avy-occur-symbol-1 (char &optional ARG BEG END SYMBOL)
+  (interactive (list (read-char "char: " t) current-prefix-arg))
+  (let ((s
+	 (save-excursion
+	   (avy-goto-word-1 char)
+	   (symbol-at-point)
+	   )
+	 ))
+    (occur (format "%s" s))
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun avy-copy-symbol-1 (char &optional ARG BEG END SYMBOL)
   (interactive (list (read-char "char: " t)
                      current-prefix-arg))

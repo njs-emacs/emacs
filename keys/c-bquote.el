@@ -30,3 +30,4 @@
 (def-key c-bquote-map (kbd "C-` C-c") 'avy-copy-current-region)
 
 (def-key c-bquote-map (kbd "C-[") 'avy-sexp-copy)
+(def-key c-bquote-map (kbd "C-o") 'avy-occur-symbol-1)
