@@ -1232,3 +1232,12 @@ Use FUN (default 'equal) for the comparison."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; added a separator
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun query-replace-dwim (from to)
+  (interactive (list (read-from-minibuffer "Replace: " (thing-at-point 'symbol))
+		     (read-from-minibuffer "With: " (thing-at-point 'symbol))
+		     ))
+  (query-replace from to)
+  )
+
+(def-key global-map (kbd "M-g %") 'query-replace-dwim)
