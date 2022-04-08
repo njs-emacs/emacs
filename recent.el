@@ -1230,3 +1230,5 @@ Use FUN (default 'equal) for the comparison."
   (concat (file-name-base name) suffix)
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; added a separator
