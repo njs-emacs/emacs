@@ -105,3 +105,11 @@
   (interactive)
   (let ((org-agenda-include-inactive-timestamps t))
     (org-agenda)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun org-refile-target-here ()
+  (interactive)
+  (setq org-refile-targets
+    `((,(buffer-file-name) :tag . "refile_here"))
+    )
+  )
