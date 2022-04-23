@@ -14,6 +14,7 @@ helm-show-kill-ring
 helm-buffers-list
 helm-find-files
 
+(def-key global-map (kbd "s-x") 'helm-M-x)
 (def-key global-map (kbd "H-x") 's-call-interactively)
 (def-key global-map (kps "15") 'helm-find-files)
 

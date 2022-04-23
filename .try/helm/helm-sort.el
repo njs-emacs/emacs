@@ -124,47 +124,9 @@
 ;;; (advice-mapc 'print 'helm-list-directory)
 ;;; (advice-remove 'helm-list-directory 'helm-list-directory@add-sort-xxx)
 
-(describe-keymap helm-find-files-map)
-(which-key-show-full-keymap 'helm-find-files-map)
-(describe-bindings
+;;; (describe-keymap helm-find-files-map)
+;;; (which-key-show-full-keymap 'helm-find-files-map)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defmacro with-helm-buffer-if-live (&rest body)
-  "Eval BODY inside `helm-buffer'."
-  (declare (indent 0) (debug t))
-  (let ((buffer (get-buffer (helm-buffer-get))))
-    (cond
-     ((buffer-live-p buffer)
-      `(with-current-buffer ,buffer ,@body))
-     )
-    )
-  )
-
-(with-helm-buffer-if-live (+ 1 2))
-(macroexpand '(with-helm-buffer-if-live (+ 1 2)))
-
-(define-derived-mode helm-grep-mode
-    special-mode "helm-grep"
-    "Major mode to provide actions in helm grep saved buffer.
-
-Special commands:
-\\{helm-grep-mode-map}"
-    (set (make-local-variable 'helm-grep-last-cmd-line)
-         (with-helm-buffer-if-live helm-grep-last-cmd-line))
-    (set (make-local-variable 'revert-buffer-function)
-         #'helm-grep-mode--revert-buffer-function))
-
-(defvar ploxa-history nil)
-
-(defun ploxa ()
-  (debug)
-  (setq default-directory (read-from-minibuffer "Where: " nil nil nil 'ploxa-history))
-  (message "default-directory is %s" default-directory)
-  )
-
-(add-hook 'helm-grep-before-init-hook 'ploxa)
-(add-hook 'helm-grep-after-init-hook 'ploxa)
-(add-hook 'helm-grep-mode-hook 'ploxa)
-
