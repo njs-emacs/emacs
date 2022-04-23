@@ -1,3 +1,5 @@
+#+CLASS: help sandbox
+#+TOPIC: emacs/yas
 * aya refresh [[https://github.com/abo-abo/auto-yasnippet][yasnippet]]
   H-y			aya-expand
     H-y			aya-1

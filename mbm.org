@@ -1,3 +1,5 @@
+#+CLASS: help
+#+TOPIC: emacs/mbm
 
 * (mbm-visit-linked-file ARG)
   bound to all M-' keys

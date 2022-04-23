@@ -1,3 +1,6 @@
+#+CLASS: help manual notes
+#+DESCRIPTION: growlnotify posts a notification which can be made visible on-screen
+#+TOPIC: growl
 * growlnotify
   there's a unix-style one that takes hyphen style parameters
   and a dos-style one that takes slash style parameters

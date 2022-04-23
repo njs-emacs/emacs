@@ -1,3 +1,5 @@
+#+CLASS: help sandbox
+#+TOPIC: emacs/tooltip
 * tooltips
   (tooltip-show "foo\nbar\nbaz" t)
   (tooltip-show "foo\nbar\nbaz")
