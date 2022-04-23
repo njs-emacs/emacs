@@ -30,7 +30,12 @@
      (cperl-brace-offset . 0)
      (cperl-brace-imaginary-offset . 0)
      (cperl-label-offset . -2)
-     (first-change-hook not-this-file)))
+     (first-change-hook not-this-file)
+     (yub . n)
+     (humb)
+     (yub . y)
+     )
+   )
  '(tooltip-mode t))
 
 (custom-set-faces
@@ -38,7 +43,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "LightGray" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 80 :width normal :foundry "outline" :family "Lucida Console"))))
+ '(default ((t (:inherit nil :background "LightGray" :foreground "black" :height 80 :foundry "outline" :family "Lucida Console"))))
  '(fixed-pitch ((t nil)))
  '(font-lock-string-face ((((class color) (min-colors 88) (background light)) (:foreground "darkviolet"))))
  '(font-lock-variable-name-face ((t (:foreground "sienna4"))))
@@ -54,7 +59,8 @@
 
 (setq default-custom-set-face-list
   (list 
-   '(default ((t (:inherit nil :stipple nil :background "LightGray" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 80 :width normal :foundry "outline" :family "Lucida Console"))))
+;   '(default ((t (:inherit nil :background "LightGray" :foreground "black" :height 80 :foundry "outline" :family "Lucida Console"))))
+   '(default ((t (:inherit nil :height 80 :foundry "outline" :family "Lucida Console"))))
    '(font-lock-string-face ((((class color) (min-colors 88) (background light)) (:foreground "darkviolet"))))
    '(fringe ((t (:background "#E0E0C0" :foreground "#A0A0A0"))))
    '(highlight-changes-face ((((class color)) (:background "yellow" :foreground "red"))) t)
@@ -63,5 +69,6 @@
   )
 
 (apply 'custom-set-faces default-custom-set-face-list)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
