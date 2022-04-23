@@ -113,3 +113,23 @@
     `((,(buffer-file-name) :tag . "refile_here"))
     )
   )
+
+(defun org-refile-init-220409 (&optional arg)
+  "Setup org-refile to refile in the buffer this command was invoked, with
+target being configured to add topics at root if desired.
+We can do this with multiple targets."
+  (interactive "p")
+  (setq org-refile-use-outline-path 'file)
+  (setq org-outline-path-complete-in-steps nil)
+  (cond
+   ((eq arg 1) (setq org-refile-targets nil))
+   )
+  (setq org-refile-targets
+    (nconc 
+     `(
+       (,(buffer-file-name) :maxlevel . 1)
+       )
+     org-refile-targets
+     )
+    )
+  )
