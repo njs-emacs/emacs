@@ -10,7 +10,11 @@
   (grep (format "grep %s \"extern.*%s.*;\" *.h" grep-flags s))
   )
 
-(defun isearch-extern () (interactive)
+(defun isearch-extern ()
+  "Grep for \"extern...{last search}\"
+
+Search for definitions or declarations of the function most matched."
+  (interactive)
   (isearch-done)
   (grep (format "grep %s \"extern.*%s.*;\" *.h" grep-flags isearch-string))
   )
