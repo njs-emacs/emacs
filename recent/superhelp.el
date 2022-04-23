@@ -6,31 +6,17 @@
 (define-key superhelp-base-map "n" 'next-line)
 (define-key superhelp-base-map "p" 'previous-line)
 
-
-(defun s-describe-function ()
-  "Accelerate describe-function: run on symbol-at-point with no user input."
-  (interactive)
-  (describe-function (symbol-at-point))
-  )
-  
-(defun s-describe-variable ()
-  "Accelerate describe-variable: run on symbol-at-point with no user input."
-  (interactive)
-  (describe-variable (symbol-at-point))
-  )
-  
-(defun s-describe ()
-  "Accelerate symbol help: run either describe-variable or describe-function
-on symbol-at-point with no user input."
-  (interactive)
-  (let ((sym (symbol-at-point)))
-    (cond
-     ((fboundp sym) (describe-function sym))
-     ((boundp sym) (describe-variable sym))
-     )
+(defun symbol-unquote (sym)
+  "Remove any prepended quote to symbol, like what symbol-at-point can do."
+  (let ((name (symbol-name sym)))
+    (intern-soft (replace-regexp-in-string "^'*" "" name))
     )
   )
-
+ 
+(defun symbol-unquote-at-point ()
+  (symbol-unquote (symbol-at-point))
+  )
+ 
 (defun symbol-nearby ()
   "Like symbol-at-point, but will try to move to the nearest sensible symbol."
   (sx
@@ -39,12 +25,36 @@ on symbol-at-point with no user input."
     ((and (looking-at "\\s *$") (rsb "\\sw" (point^))))
     ((rsf "\\sw"))
     )
-   (symbol-at-point)
+   (symbol-unquote-at-point)
    )
   )
  
+(defun s-describe-function ()
+  "Accelerate describe-function: run on symbol-nearby with no user input."
+  (interactive)
+  (describe-function (symbol-nearby))
+  )
+  
+(defun s-describe-variable ()
+  "Accelerate describe-variable: run on symbol-nearby with no user input."
+  (interactive)
+  (describe-variable (symbol-nearby))
+  )
+  
+(defun s-describe ()
+  "Accelerate symbol help: run either describe-variable or describe-function
+on symbol-nearby with no user input."
+  (interactive)
+  (let ((sym (symbol-nearby)))
+    (cond
+     ((fboundp sym) (describe-function sym))
+     ((boundp sym) (describe-variable sym))
+     )
+    )
+  )
+
 (defun s-where-is ()
-  "Accelerate where-is: run on symbol-at-point with no user input."
+  "Accelerate where-is: run on symbol-nearby with no user input."
   (interactive)
   (let ((sym (symbol-nearby)))
     (cond
@@ -64,9 +74,9 @@ on symbol-at-point with no user input."
   )
   
 (defun s-call-interactively ()
-  "Interactively call symbol-at-point function."
+  "Interactively call symbol-nearby function."
   (interactive)
-  (let ((sym (symbol-at-point)))
+  (let ((sym (symbol-nearby)))
     (cond
      ((commandp sym) (call-interactively sym))
      ((message "%s is not an interactively callable function" sym))
@@ -75,17 +85,17 @@ on symbol-at-point with no user input."
   )
   
 (defun s-apropos ()
-  "Give us a quick apropos of symbol-at-point"
+  "Give us a quick apropos of symbol-nearby"
   (interactive)
-  (let ((sym (or (region-text) (symbol-name (symbol-at-point)))))
+  (let ((sym (or (region-text) (symbol-name (symbol-nearby)))))
     (apropos sym)
     )
   )
   
 (defun s-completions ()
-  "Show completions of symbol-at-point"
+  "Show completions of symbol-nearby"
   (interactive)
-  (let* ((sym (or (region-text) (symbol-name (symbol-at-point))))
+  (let* ((sym (or (region-text) (symbol-name (symbol-nearby))))
 	 (fun (completing-read
 	       "Describe: "
 	       obarray 'fboundp t sym nil
@@ -96,16 +106,16 @@ on symbol-at-point with no user input."
 (defun region-symbol () (let ((text (region-text))) (and text (intern text))))
 
 (defun s-def-key (key)
-  "Map key to symbol-at-point"
+  "Map key to symbol-nearby"
   (interactive "KKey: ")
-  (let* ((sym (or (region-symbol) (symbol-at-point))))
+  (let* ((sym (or (region-symbol) (symbol-nearby))))
     (debug)
     (define-key global-map key sym)
     )
   )
 
-(defun copy-symbol-at-point () (interactive)
-  (let ((s (symbol-name (symbol-at-point))))
+(defun copy-symbol-nearby () (interactive)
+  (let ((s (symbol-name (symbol-nearby))))
     (kill-new s)
     (message "Copied '%s' to kill" s)
     )
@@ -150,7 +160,7 @@ _s_:   Select
   ("k" describe-key)
   ("m" s-def-key)
 
-  ("p" copy-symbol-at-point :color blue)
+  ("p" copy-symbol-nearby :color blue)
   ("i" (flip superhelp-insert) :color pink)
 
   ("s" avy-goto-symbol-1)
