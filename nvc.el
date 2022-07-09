@@ -10,6 +10,12 @@
 ;; format of log file changed 090407-104510
 ;; now includes visited files, and is coded as 'V' for visit 'S' for save, replacing 'F' type
 
+(defmacro with-suppressed-message (&rest body)
+  "Suppress new messages temporarily in the echo area and the `*Messages*' buffer while BODY is evaluated."
+  (declare (indent 0))
+  (let ((message-log-max nil))
+    `(with-temp-message (or (current-message) "") ,@body)))
+
 (setq nvc-remote-ntfs t)
 
 (defun backup-path (s) (filename-concat backup-root s))

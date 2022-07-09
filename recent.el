@@ -996,12 +996,6 @@ then replace VALUE with the value which follows it in the property list."
 
 ; (get-buffer-string "*Shell Command Output*")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defmacro with-suppressed-message (&rest body)
-  "Suppress new messages temporarily in the echo area and the `*Messages*' buffer while BODY is evaluated."
-  (declare (indent 0))
-  (let ((message-log-max nil))
-    `(with-temp-message (or (current-message) "") ,@body)))
-
 (defun shell-execute-text (s &rest plist)
   (let* ((nvc-global-enable nil)
 	 (file-name (or (plist-get plist :file-name)
