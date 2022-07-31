@@ -1,5 +1,6 @@
 (defun byte-compile-log-warning (&rest args))
 
+(load "first" t t)
 (load "nload" t t)
 (load "def-key" t t)
 (load "plemu" t t)
