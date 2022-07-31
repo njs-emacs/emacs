@@ -420,5 +420,3 @@
 
 ;;(yas--define-parents 'mug-mode '(emacs-lisp-mode))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; (dregf "shell" "\\.mug" "year" "--one=1")
