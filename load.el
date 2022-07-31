@@ -1,16 +1,19 @@
+(defun loading-file ()
+  "This function returns the best guess as to which file is being loaded or evalled"
+  (cond
+   ((and (boundp 'load-file-name) load-file-name))
+   ((and (boundp 'fullname) fullname))
+   (buffer-file-name))
+  )
+
 (defun loading-path (&optional x)
   "This function returns a filename in the same directory as the file currently being
 loaded, regardless of whether the buffer is being loaded or evalled."
-  (let* ((f (cond ((boundp 'fullname) fullname) (buffer-file-name)))
+  (let* ((f (loading-file))
 	 (d (file-name-directory f))
 	 )
     (cond (x (filename-concat d x)) (d))
     )
-  )
-
-(defun loading-file ()
-  "This function returns the best guess as to which file is being loaded or evalled"
-  (cond ((boundp 'fullname) fullname) (buffer-file-name))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
