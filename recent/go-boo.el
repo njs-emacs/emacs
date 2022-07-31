@@ -172,36 +172,36 @@ This is the shortcut generic content-regeneration boobie 'boom."
 ;; bofa - full syntax - append result to expression
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun boo-bosa ()
+(defun boo-bosa (&optional loop)
   "Execute (boo-boo \"bosa\") on boo-region. This will normally
 be used to execute boobies for side-effects only (using bosa boobie).
 Simple syntax Append result"
-  (interactive)
-  (boo-boo-ni "bosa")
+  (interactive "P")
+  (boo-boo-ni "bosa" loop)
   )
 
-(defun boo-bosr ()
+(defun boo-bosr (&optional loop)
   "Execute (boo-boo \"bosr\") on boo-region. This will normally
 be used to execute boobies for side-effects only (using bosr boobie).
 Simple syntax Replace result"
-  (interactive)
-  (boo-boo-ni "bosr")
+  (interactive "P")
+  (boo-boo-ni "bosr" loop)
   )
 
-(defun boo-bofa ()
+(defun boo-bofa (&optional loop)
   "Execute (boo-boo \"bofa\") on boo-region. This will normally
 be used to execute boobies for side-effects only (using bofa boobie).
 Full syntax Append result"
-  (interactive)
-  (boo-boo-ni "bofa")
+  (interactive "P")
+  (boo-boo-ni "bofa" loop)
   )
 
-(defun boo-bofr ()
+(defun boo-bofr (&optional loop)
   "Execute (boo-boo \"bofr\") on boo-region. This will normally
 be used to execute boobies for side-effects only (using bofr boobie).
 Full syntax Replace result"
-  (interactive)
-  (boo-boo-ni "bofr")
+  (interactive "P")
+  (boo-boo-ni "bofr" loop)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
