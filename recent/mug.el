@@ -78,6 +78,8 @@
     )
   )
 
+(defun mug-arg-region (start end) (list start end))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-arg-reader-apply (fun) (funcall fun (point^) (point$)))
 
@@ -123,7 +125,11 @@
 	 (fun `(lambda ,arg-spec ,body))
 	 (arg-reader (or (plist-get plist :reader) mug-arg-reader-default))
 	 (start (region-beginning-if-active (point^)))
-	 (end (region-end-if-active (point$)))
+	 (end (cond
+	       ((region-active-p) (region-end))
+	       ((plist-get plist :end) (sxp (rsf (plist-get plist :end))))
+	       (t (point$))
+	       ))
 	 (args (funcall arg-reader start end))
 	 (extra (plist-get plist :extra))
 	 (extra-args (cond (extra (interactive-arg-read extra))))
