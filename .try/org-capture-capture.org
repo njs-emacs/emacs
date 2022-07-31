@@ -1,0 +1,55 @@
+* shag  
+* done at <2022-03-21 Mon 23:01>%? :done:
+* 220131                                                             :refile:
+* done                                                                 :done:
+<2022-03-21 Mon 22:51>
+* done at <2022-03-21 Mon 23:02>                                       :done:
+* done at <2022-03-21 Mon 23:03>                                       :done:
+xxx
+* done at <2022-03-21 23:06:52>  :done:
+* done at <2022-03-21 23:07:13>  :done:
+* done at 2022-03-21 23:09:38 <2022-03-21 23:09:38>  :done:
+* done at 2022-03-21 23:09:49 <2022-03-21 23:09:49>  :done:
+* done at 23:11:38 <2022-03-21 23:11:38>  :done:
+* done at 23:11:57 <2022-03-21 23:11:57>  :done:
+* done at 231254 <2022-03-21 23:12:54>  :done:
+* done at <2022-03-21 23:14:13>  :done:
+xxx
+* done at 2022  :done:
+* done at <2022-03-21 Mon 23:15>                                       :done:
+* done 0 at <2022-03-21 Mon 23:16>                                     :done:
+* done 1 at 2022  :done:
+* done 1 at 2022                                                       :done:
+* done 1 at 2022  :done:
+* done 1 at 2022  :done:
+return
+* done 1 at 2022                                                       :done:
+SPC return
+* done 2 at <2022-03-21 23:18:34> a                                    :done:
+* done 2 at <2022-03-21 23:18:47>                                      :done:
+SPC return
+* done 2 at <2022-03-21 23:19:12>  :done:
+nothing
+* done 2 at <2022-03-21 23:19:26> xx                                   :done:
+* done 3 at 2022-03-21 23:19:49 <2022-03-21 23:19:49>  SPC             :done:
+* done 3 at 2022-03-21 23:20:02 <2022-03-21 23:20:02> X                :done:
+* done 3 at 2022-03-21 23:20:10 <2022-03-21 23:20:10>  :done:
+return
+* done 3 at 2022-03-21 23:20:25 <2022-03-21 23:20:25>                  :done:
+SPC return
+* done 5 at 232112 <2022-03-21 23:21:12>  SPC                          :done:
+* done 5 at 232142 <2022-03-21 23:21:42> done                          :done:
+* done 5 at 232148 <2022-03-21 23:21:48> again                         :done:
+
+* capture template expansion examples                           :org:capture:
+* done 5 at 232816 <2022-03-21 23:28:16>                               :done:
+* done 5 at 232851 <2022-03-21 23:28:51>                               :done:
+* done 5 at 232900 <2022-03-21 23:29:00>                               :done:
+* done 5 at 232958 <2022-03-21 23:29:58> :done:
+* done 5 at 233848 <2022-03-21 23:38:48>  :done:
+* done :done:
+<2022-03-25 Fri 15:22> %(format-time-string \"25/03/2022 15:22:53\")
+* done <2022-03-25 Fri 15:27>
+:PROPERTIES:
+:PONE:
+:END:
