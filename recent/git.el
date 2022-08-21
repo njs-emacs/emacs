@@ -64,3 +64,25 @@
 
 ;(define-key global-map (kbd "C-x C-v C-c") 'git-stage-and-commit)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun get-last-changelog ()
+  (sx (eob)
+      (let ((start (rsb "=begin changelog"))
+	    (end (rsf "=end"))
+	    )
+	(goto-char end)
+	(fl -1)
+	(bs$)
+	)
+      )
+  )
+	    
+(defun ns-git-commit-current-from-changelog ()
+  (interactive)
+  (save-buffer)
+  (git-call (format "add \"%s\"" (buffer-file-name)))
+  (git-call (format "commit -m \"%s\"" (get-last-changelog)))
+  )
+
+(def-key global-map (kps "88") 'ns-git-commit-current-from-changelog)
+;(def-key global-map (kbd "C-x C-v C-c") 'ns-git-commit-current-from-changelog)
