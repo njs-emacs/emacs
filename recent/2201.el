@@ -53,39 +53,6 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun region-or-thing ()
-  (cond ((region-active-p) (region-text))
-	((thing-at-point 'sexp))
-	)
-  )
-
-(defun region-size ()
-  (cond
-   ((region-active-p) (- (region-end) (region-beginning)))
-   (0)
-   ))
-    
-
-(defun region-or-thing-region ()
-  (cond
-   ((> (region-size) 0) (cons (region-beginning) (region-end)))
-   ((bounds-of-thing-at-point 'sexp))
-;   ((sx (cons (sxp (beginning-of-sexp)) (sxp (end-of-sexp)))))
-   )
-  )
-
-(defun region-or-thing-adorn (l &optional r)
-  (let* ((zone (region-or-thing-region))
-	 (r (or r l))
-	 )
-    (sx
-     (goto-char (cdr zone)) (insert r)
-     (goto-char (car zone)) (insert l)
-     )
-    )
-  )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun kdf-sort (&optional start end)
   (interactive "r")
   (let ((sorted (sort-region-stuff
