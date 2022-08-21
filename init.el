@@ -123,6 +123,7 @@
 (setq create-lockfiles nil)
 (setq list-command-history-max 4096)
 
+(require 'magit)
 (require 'org)
 (require 'thingatpt)
 
