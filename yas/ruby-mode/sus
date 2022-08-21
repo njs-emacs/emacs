@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: timestamp function shell (trad) with double splat args
+# key: sus
+# binding:
+# --
+def ${1:_`(format-time-string log-time-identifier-string-format)`}(**args)
+  $0
+  end
