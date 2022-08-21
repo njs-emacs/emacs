@@ -9,3 +9,9 @@
     (nil :level . 2)
     ))
 
+(setq org-refile-targets
+  (nconc 
+    `(
+      (,(buffer-file-name) :maxlevel . 1)
+      )
+      org-refile-targets))
