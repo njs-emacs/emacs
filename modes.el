@@ -118,9 +118,13 @@ force-mode is callable interactively with \\[force-mode]"
 ;(add-mode "\\.pl$" 'ol-mode)
 (add-mode "\\.pl$" 'perl-mode)
 
-(autoload 'ruby-mode "ruby" "" (interactive))
-(add-mode "\\.rb$" 'ruby-mode)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(autoload 'ruby-mode "ruby" "" (interactive))
+;(add-mode "\\.rb$" 'ruby-mode)
 
+(eval-after-load "ruby-mode" '(load ".extra/ruby-mode-extra"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'get-mode "newsget")
 (add-mode "\\.get$" 'get-mode)
 
