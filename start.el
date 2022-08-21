@@ -13,6 +13,7 @@
 (init-local (p-path "stub"))
 (tab-bar-mode)
 (top-level)
+;(init-local "e:/borough/merton")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (init-local "e:/.d/l/lily")
@@ -40,7 +41,7 @@
 (init-local "e:/ca")
 (init-local "f:/_media/.meta/150812")
 (init-local "e:/#/avisynth")
-(init-local (p-path  "apihook"))
+(init-local (p-path "apihook"))
 (init-local (p-path "hook/cbt"))
 (init-local (p-path "hook/msg"))
 
