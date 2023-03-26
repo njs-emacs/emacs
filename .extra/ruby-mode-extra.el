@@ -15,8 +15,13 @@
 
 (defun ruby-exec-this (&optional cmd) (interactive)
   (let ((command (ruby-get-command)))
+    (setq ruby-command-last command)
     (compile (ruby-command (buffer-file-name) (list command)))
     )
+  )
+
+(defun ruby-exec-replay (&optional cmd) (interactive)
+  (compile (ruby-command (buffer-file-name) (list ruby-command-last)))
   )
 
 (defun ruby-mode-hook-ns ()
