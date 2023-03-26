@@ -39,10 +39,14 @@
 
 (defvar-local go-boo-env nil "Extra buffer-local arg for boo.pl")
 
-(defvar go-boo-script-paths
+(defvar go-boo-script-paths nil)
+(setq go-boo-script-paths
   `(
+    "boo.rb"
     "boo.pl"
+    ".boo/boo.rb"
     ".boo/boo.pl"
+    "boo/boo.rb"
     "boo/boo.pl"
     )
   )
@@ -61,7 +65,7 @@ Throw an error if script cannot be found."
     )
   )
 
-(defun boo-command-build ()
+(defun boo-command-build-perl (script fun loop)
   "Build the boo.pl command line, using higher scope arguments."
   (let (cmd (loop (cond (loop 1) (0))))
     (setq cmd
@@ -77,6 +81,30 @@ Throw an error if script cannot be found."
     )
   )
 
+(defun boo-command-build-ruby (script fun loop)
+  "Build the boo.rb command line, using higher scope arguments."
+  (let (cmd (loop (cond (loop 1) (0))))
+    (setq cmd
+      (format "ruby %s --fun=%s --loop=%s --mode=%s --file=\"%s\""
+	      script fun loop major-mode (buffer-file-name))
+      )
+    (cond
+     (go-boo-env
+      (setq cmd (concat cmd (format " --env=\"%s\"" go-boo-env)))
+      )
+     )
+    cmd
+    )
+  )
+
+(defun boo-command-build (script fun loop)
+  "Build the boo.pl command line, using higher scope arguments."
+  (cond
+   ((string-match "\\.rb$" script) (boo-command-build-ruby script fun loop))
+   ((string-match "\\.pl$" script) (boo-command-build-perl script fun loop))
+   )
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun boo-raw (fun)
   "Execute boobie FUN purely for side effects, with no input.
@@ -89,7 +117,7 @@ Output is handled the same as shell-command-on-region."
   (let* ((script (boo-get-script-or-die))
 	 (loop nil)
 	 )
-    (setq cmd (boo-command-build))
+    (setq cmd (boo-command-build script fun loop))
     (shell-command-on-region (point) (point) cmd nil)
     )
   )
@@ -98,6 +126,7 @@ Output is handled the same as shell-command-on-region."
 (defvar-local boo-always-bol t
   "When non-nil always start expression at beginning-of-line regardless of where point is currently"
   )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun boo-boo (fun &optional loop)
   "Execute boobie FUN on region (with optional LOOP) and replace
@@ -130,7 +159,7 @@ Output is handled the same as shell-command-on-region."
      )
     (copy-region-as-kill start end)
 
-    (setq cmd (boo-command-build))
+    (setq cmd (boo-command-build script fun loop))
     (shell-command-on-region start end cmd nil t)
     (bs (point) (mark))
     )
@@ -217,7 +246,7 @@ Return the output from bum boobie, and append to the \" *boo-ni*\" buffer."
 	 buffer start end cmd
 	 )
     (cond ((eq fun (car boo-history))) ((setq boo-history (cons fun boo-history))))
-    (setq cmd (boo-command-build))
+    (setq cmd (boo-command-build script fun loop))
     (setq buffer (get-buffer-create " *boo-ni*"))
     (sx
      (set-buffer buffer)
