@@ -13,7 +13,9 @@
 (init-local (p-path "stub"))
 (tab-bar-mode)
 (top-level)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;(init-local "e:/borough/merton")
+(init-local "e:/ca")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (init-local "e:/.d/l/lily")
