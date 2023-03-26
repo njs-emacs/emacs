@@ -167,13 +167,15 @@
 	)
   )
 
-(defun uniquify-buffer-name (mode)
-  (let ((i 0)
+(defun uniquify-buffer-name (&optional old-name format)
+  (let* ((old-name (or old-name (buffer-name)))
+	 (format (or format "*%s<%s>*"))
+	 (i 0)
        name)
     (while
 	(progn
 	  (setq name
-	    (format "*%s<%s>*" mode i))
+	    (format format old-name i))
 	  (get-buffer name))
       (setq i
 	(1+ i)))
