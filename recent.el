@@ -1236,3 +1236,8 @@ Use FUN (default 'equal) for the comparison."
   )
 
 (def-key global-map (kbd "M-g %") 'query-replace-dwim)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun drorg (pat &optional since &rest args)
+  (apply 'dregf pat "\\.org" (or since "ever") args)
+  )
