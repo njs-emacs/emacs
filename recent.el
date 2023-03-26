@@ -1014,17 +1014,16 @@ then replace VALUE with the value which follows it in the property list."
       (write-region nil nil file-name nil 0)
       (set-buffer-modified-p nil)
       )
-    (shell-command (format "bash %s" file-name) shell-buffer)
-    (prog1
-	(get-buffer-string shell-buffer)
-      (cond
-       ((plist-get plist :show))
-       ((plist-get plist :kill)
-	(kill-buffer shell-buffer)
-	)
-       ((replace-buffer-in-windows shell-buffer))
-       )
+    (shell-command shell-command shell-buffer)
+    (setq shell-output (get-buffer-string shell-buffer))
+    (cond
+     ((plist-get plist :show))
+     ((plist-get plist :kill)
+      (kill-buffer shell-buffer)
       )
+     ((replace-buffer-in-windows shell-buffer))
+     )
+    shell-output
     )
   )
 
