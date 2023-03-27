@@ -3,10 +3,11 @@
 	 (shell-program (or (plist-get plist :shell-program) "bash"))
 	 (file-name (or (plist-get plist :file-name)
 			(format "%s/bash-%d.tmp" (temporary-file-directory) (emacs-pid))))
-	 (shell-buffer-name (or (plist-get plist :shell-buffer-name) "*shell-execute*"))
-	 (shell-buffer (get-buffer-create shell-buffer-name))
+	 (output-buffer-name (or (plist-get plist :output-buffer-name) "*shell-execute*"))
+	 (output-buffer (get-buffer-create output-buffer-name))
 	 shell-command
 	 shell-output
+	 exec-buffer
 	 )
 
     (cond
@@ -24,8 +25,8 @@
      )
 
     (save-excursion
-      (setq buffer (find-file-noselect file-name))
-      (set-buffer buffer)
+      (setq exec-buffer (find-file-noselect file-name))
+      (set-buffer exec-buffer)
       (set-buffer-file-coding-system 'unix)
       (erase-buffer)
       (insert s)
@@ -33,14 +34,14 @@
       (write-region nil nil file-name nil 0)
       (set-buffer-modified-p nil)
       )
-    (shell-command shell-command shell-buffer)
-    (setq shell-output (get-buffer-string shell-buffer))
+    (shell-command shell-command output-buffer)
+    (setq shell-output (get-buffer-string output-buffer))
     (cond
      ((plist-get plist :show))
      ((plist-get plist :kill)
-      (kill-buffer shell-buffer)
+      (kill-buffer output-buffer)
       )
-     ((replace-buffer-in-windows shell-buffer))
+     ((replace-buffer-in-windows output-buffer))
      )
     shell-output
     )
