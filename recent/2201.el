@@ -69,3 +69,10 @@
    )
 ;  (apply 'call-process vc-git-program nil nil nil args)
   )
+
+(defun magit-call (&rest args)
+  (call-shell
+   (format "%s %s" vc-git-program (mconcat args " "))
+   )
+  (magit-refresh-if-open)
+  )
