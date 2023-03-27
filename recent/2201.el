@@ -62,22 +62,3 @@
     )
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun git-call (&rest args)
-  (call-shell
-   (format "%s %s" vc-git-program (mconcat args " "))
-   )
-;  (apply 'call-process vc-git-program nil nil nil args)
-  )
-
-(defun magit-call (&rest args)
-  (call-shell
-   (format "%s %s" vc-git-program (mconcat args " "))
-   )
-  (magit-refresh-if-open)
-  )
-
-(defun magit-stage-and-commit (file message &optional arg)
-  (git-stage-and-commit file message arg)
-  (magit-refresh-if-open)
-  )
