@@ -76,3 +76,8 @@
    )
   (magit-refresh-if-open)
   )
+
+(defun magit-stage-and-commit (file message &optional arg)
+  (git-stage-and-commit file message arg)
+  (magit-refresh-if-open)
+  )
