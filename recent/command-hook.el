@@ -56,11 +56,11 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun ch-save () (interactive)
-  (setq name (daily-date-path (format-time-string "boo-%y%m%d.bch")))
+  (setq name (daily-date-path-create (format-time-string "boo-%y%m%d.bch")))
   (set-buffer (get-buffer-create ch-buffer-name))
   (write-region (point-min) (point-max) name)
 
-  (setq name (daily-date-path (format-time-string "boo-%y%m%d.kch")))
+  (setq name (daily-date-path-create (format-time-string "boo-%y%m%d.kch")))
   (set-buffer (get-buffer-create kch-buffer-name))
   (write-region (point-min) (point-max) name)
   )
