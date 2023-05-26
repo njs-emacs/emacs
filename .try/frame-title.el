@@ -7,3 +7,10 @@
    (vc-mode vc-mode)
    "  " mode-line-modes mode-line-misc-info mode-line-end-spaces))
 
+;; frame-title-format
+;; mode-line-format
+
+;; (rename-frame (selected-frame) "admin - %b")
+;; (modify-frame-parameters (selected-frame) (list (cons 'name "admin! - %b")))
+;; (modify-frame-parameters (selected-frame) (list (cons 'name nil)))
+;; (setq frame-title-format `("" "%b - Admin - " system-name))

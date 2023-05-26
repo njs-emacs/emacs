@@ -1204,3 +1204,44 @@ Use FUN (default 'equal) for the comparison."
 (defun drorg (pat &optional since &rest args)
   (apply 'dregf pat "\\.org" (or since "ever") args)
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar admin-user nil "Admin user")
+
+(defun frame-background-color-override (color)
+  (interactive "sFrame background color: ")
+  (setq default-frame-alist (alist-put default-frame-alist 'background-color color))
+  (mapcar '(lambda (frame) (modify-frame-parameters frame `((background-color . ,color)))) (frame-list))
+  )
+
+(defun admin-user-reflect (mode old new)
+  (cond
+   ((eq mode t)		; new value set
+    (cond
+     ((eq arg nil)
+      (setq frame-title-format `("%b"))
+      (frame-background-color-override "LightGray")
+      )
+     (t
+      (setq frame-title-format `("Admin - %b"))
+      (frame-background-color-override "#c6c8e0")
+      )
+    ))
+   (t			; old value unset
+    )
+   )
+  )
+
+(defun set-admin-user (arg)
+  (interactive "P")
+  (let ((old admin-user))
+    (cond
+     ((null arg) (setq arg (not admin-user)))
+     ((eq arg 4) (setq arg t))
+     (t (setq arg nil))
+     )
+    (admin-user-reflect nil admin-user arg)
+    (setq admin-user arg)
+    (admin-user-reflect t old arg)
+    )
+  )
