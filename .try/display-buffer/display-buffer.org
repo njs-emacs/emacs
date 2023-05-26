@@ -1,0 +1,3 @@
+| display-buffer-in-tab         | x |
+| display-buffer-in-atom-window |   |
+| display-buffer-below-selected |   |

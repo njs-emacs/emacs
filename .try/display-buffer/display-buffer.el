@@ -46,6 +46,8 @@ The name is meant to be used by the external rules of my tiling window manager (
 	      )
   )
 
+; display-buffer
+
 (prot/make-frame-floating-with-current-buffer)
 
 display-buffer-alist
