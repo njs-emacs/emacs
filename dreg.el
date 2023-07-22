@@ -3,7 +3,8 @@
 
 (setq dreg-cmd-default "year")
 
-(setq dreg-script-file "e:/_backup/.meta/dreg/dreg.pl")
+;(setq dreg-script-file "e:/_backup/.meta/dreg/dreg.pl")
+(setq dreg-script-file "e:/_backup/.meta/dreg14/dreg14.pl")
 
 (defun dreg** (&rest args)
  (let ((cmd (format "perl %s" dreg-script-file))
