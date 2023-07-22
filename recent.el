@@ -1206,6 +1206,7 @@ Use FUN (default 'equal) for the comparison."
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar admin-user-init nil "Admin user passed from command line")
 (defvar admin-user nil "Admin user")
 
 (defun frame-background-color-override (color)
@@ -1232,16 +1233,24 @@ Use FUN (default 'equal) for the comparison."
    )
   )
 
-(defun set-admin-user (arg)
-  (interactive "P")
+(defun set-admin-user (&optional arg)
+  (interactive "p")
   (let ((old admin-user))
     (cond
-     ((null arg) (setq arg (not admin-user)))
+     ((eq arg 0) (setq arg nil))
+     ((eq arg 1) (setq arg (not admin-user)))
      ((eq arg 4) (setq arg t))
-     (t (setq arg nil))
      )
     (admin-user-reflect nil admin-user arg)
     (setq admin-user arg)
     (admin-user-reflect t old arg)
     )
   )
+
+(defun set-init-admin-user ()
+  (set-admin-user admin-user-init)
+  (remove-hook 'window-setup-hook 'set-init-admin-user)
+  )
+
+(add-hook 'window-setup-hook 'set-init-admin-user)
+
