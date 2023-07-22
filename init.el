@@ -127,7 +127,9 @@
 (require 'org)
 (require 'thingatpt)
 
+;;; must come first - defines keymaps
 (bulkload-directory (filename-concat user-emacs-home "keys"))
+
 (bulkload-directory (filename-concat user-emacs-home "recent"))
 (bulkload-directory (filename-concat user-emacs-home "recent" emacs-major-version))
 
