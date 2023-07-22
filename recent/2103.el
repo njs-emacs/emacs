@@ -106,7 +106,7 @@
     )
   )
 
-(global-set-key (kbd "M-s M-i") 'indent-pattern-to-column)
+;(global-set-key (kbd "M-s M-i") 'indent-pattern-to-column)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun occur-dwim ()
@@ -122,7 +122,7 @@
         regexp-history)
   (call-interactively 'occur))
 
-(global-set-key (kbd "M-s M-=") 'occur-dwim)
+;(global-set-key (kbd "M-s M-=") 'occur-dwim)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -132,7 +132,7 @@
   (split-window-below)
   )
 
-(define-key c-z-map (kbd "C--") 'split-this-buffer-window)
+;(define-key c-z-map (kbd "C--") 'split-this-buffer-window)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (bulkload-directory (filename-concat user-emacs-home "recent/2103"))
