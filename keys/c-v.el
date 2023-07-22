@@ -15,3 +15,5 @@
 (def-key c-v-map (kbd "C-s") 'enquote-at-point-s)
 (def-key c-v-map (kbd "C-v") 'scroll-up)
 
+(def-key c-v-map (kbd "h") 'help-visit-mode-org)
+
