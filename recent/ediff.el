@@ -9,6 +9,14 @@
 ;; the following is the work-area used to diagnose the problem
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun ediff-call-process (program buffer args)
+  (apply #'call-process program nil buffer nil args)
+  )
+
+(defun ediff-call-process (program buffer args)
+  (call-process "bash" nil buffer nil "-c" (string-join (cons program args) " "))
+  )
+
 (defun ediff-exec-process (program buffer synch options &rest files)
   "Execute the diff PROGRAM.
 
@@ -66,7 +74,7 @@ are ignored."
 
 	      ;; -- workaround call-process barfing on '{}'
 ;;              (apply #'call-process program nil buffer nil args)
-	      (call-process "bash" nil buffer nil "-c" (string-join (cons program args) " "))
+	      (ediff-call-process program buffer args)
 
             ;; On other systems, do it asynchronously.
             (let ((proc (get-buffer-process buffer)))
