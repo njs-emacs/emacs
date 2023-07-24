@@ -3,6 +3,8 @@
 ;; when the brackets are in a particular place, for example
 ;; "foo{6}" -> "foo6"
 ;; "bar foo{6}" -> "bar foo{6}"
+;;
+;; sometimes (not always) you can use "foo\\{6\\}" -> "foo{6}"
 ;; 
 ;; the simplest workaround is to use bash to invoke diff
 
