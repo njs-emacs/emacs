@@ -63,7 +63,11 @@ are ignored."
               ;; subprocess is done.
               ;; In DOS, must synchronize because DOS doesn't have
               ;; asynchronous processes.
-              (apply #'call-process program nil buffer nil args)
+
+	      ;; -- workaround call-process barfing on '{}'
+;;              (apply #'call-process program nil buffer nil args)
+	      (call-process "bash" nil buffer nil "-c" (string-join (cons program args) " "))
+
             ;; On other systems, do it asynchronously.
             (let ((proc (get-buffer-process buffer)))
 	      (if proc (kill-process proc)))
