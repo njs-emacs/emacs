@@ -380,21 +380,84 @@
 (define-key mug-mode-map (kbd "C-c C-u") 'mug-avy-avy)
 
 
-(mapcar '(lambda (x)
-	   (define-key mug-electric-keymap
-		       (kbd (car x)) (cdr x))
-	   (define-key mug-mode-map
-		       (kbd (format "C-c C-%s" (car x))) (cdr x))
-	   )
-	`(
-	  ("a" . mug-active-command-mark)
-	  ("j" . mug-active-command-jump)
-          ("c" . mug-exec)
-          ("x" . mug-exec-echo)
-	  ("o" . mug-visit-org-file)
-	  ("k" . mug-define-key)
+(set-default 'mug-exec-extended-map nil)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mug-extended-map-view ()
+  (interactive)
+;  (debug)
+  (let ((s (mconcat (mapcar
+		     '(lambda (s) (format "%s\n" s))
+		     (cdr mug-exec-extended-map)) "\n")))
+    (show s)
+    )
+  )
+
+(defun mug-extended-map-view ()
+  (interactive)
+;  (debug)
+  (let ((s (mconcat (mapcar
+		     '(lambda (b)
+			(cond
+			 ((listp (cdr b))
+			  (let* ((m (cdr b))
+				 (mm (nth 1 (car (nth 1 (nth 3 m))))))
+			    (format "%c %s \n   %s\n"
+				    (car b) mm b
+				    ))
+			  )
+			 ))
+		     (cdr mug-exec-extended-map)) "\n")))
+    (show s)
+    )
+  )
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(make-variable-buffer-local 'mug-exec-extended-map)
+(make-variable-buffer-local 'mug-electric-keymap)
+
+(defun mug-define-extended (key)
+  (interactive "Kkey: ")
+  (define-key mug-extended-map key
+    `(lambda (arg) (interactive "p")
+       (let ((mug-active-command ,(set-marker (make-marker) (mug-locate-command-line))))
+	 (mug-exec arg)
+	 )
+       )
+    )
+  )
+
+(defun mug-electric-define-key (key binding)
+  (define-key mug-electric-keymap
+	      (kbd key) binding)
+  (define-key mug-mode-map
+	      (kbd (format "C-c C-%s" key)) binding)
+  )
+
+(defun mug-electric-define-keys ()
+  (mapcar '(lambda (x)
+	     (mug-electric-define-key (car x) (cdr x))
+	     )
+	  `(
+	    ("a" . mug-active-command-mark)
+	    ("j" . mug-active-command-jump)
+            ("c" . mug-exec)
+            ("x" . mug-exec-echo)
+	    ("o" . mug-visit-org-file)
+	    ("k" . mug-define-key)
+	    ("q" . mug-electric-mode)
+	    ("S" . mug-define-extended)
+	    )
 	  )
-	)
+  )
+
+(defun mug-extended-map-jump (key)
+  (interactive "Kkey: ")
+  (let ((b (keymap-lookup key)))
+    (debug)
+    )
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define-minor-mode mug-electric-mode
@@ -413,10 +476,20 @@
 (defun mug-mode ()
   (interactive)
   (emacs-lisp-mode)
-  (use-local-map mug-mode-map)
+
   (setq major-mode 'mug-mode)
   (setq mode-name "mug")
   (setq mug-buffer-mru (current-buffer))
+
+  (mug-electric-define-keys)
+  (use-local-map mug-mode-map)
+
+  (setq mug-exec-extended-map (make-sparse-keymap))
+  (define-key mug-exec-extended-map (kbd "C-h") 'mug-extended-map-view)
+  (define-key mug-exec-extended-map (kbd "C-j") 'mug-extended-map-jump)
+
+  (mug-electric-define-key "s" mug-exec-extended-map)
+
 ;  (add-hook 'kill-buffer-hook 'mug-mode-kill-hook t t)
   )
 
