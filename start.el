@@ -3,10 +3,8 @@
 
 (frame-default-height)
 
-(setq p-home (// "boo/e/.p"))
+(setq p-home "e:/.p")
 (defun p-path (path) (filename-concat p-home path))
-
-(load-file (// "boo/e/mew/.emacs.el"))
 
 (cons-load-path (p-path ".emacs"))
 
