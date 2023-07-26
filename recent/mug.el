@@ -361,6 +361,10 @@
     mm)
   )
 
+(defun mug-marker-get-text (m)
+
+  )
+
 
 (defun mug-tmarker-view ()
   (interactive)
@@ -369,10 +373,11 @@
 		     '(lambda (b)
 			(cond
 			 ((listp (cdr b))
-			  (let* ((m (cdr b))
-				 (mm (nth 1 (car (nth 1 (nth 3 m))))))
-			    (format "%c %s \n   %s\n"
-				    (car b) mm b
+			  (let* ((mm (mug-tmarker-get-mark (cdr b)))
+				 (command (mug-read-command-line mm))
+				 )
+			    (format "-%c %s \n   %s\n%s\n"
+				    (car b) mm b (car command)
 				    ))
 			  )
 			 ))
@@ -383,11 +388,14 @@
 
 (defun mug-tmarker-jump (key)
   (interactive "Kkey: ")
-  (debug)
   (let* ((k (key-description key))
-	 (b (keymap-lookup mug-tmarker-map k))
-	 (bb (mug-tmarker-get-mark b))
+	 (b (lookup-key mug-tmarker-map k))
+	 (bb (and b (mug-tmarker-get-mark b)))
 	 )
+    (cond
+     (bb (goto-marker bb))
+     ((error (format "%s not mapped" k)))
+     )
     )
   )
 
@@ -401,6 +409,20 @@
        )
     )
   )
+
+(defun mug-tmarker-dispatch (arg) (interactive "p")
+;  (debug)
+  (let* ((overriding-local-map mug-tmarker-map)
+	 (keys (read-key-sequence nil t))
+
+;	 (k (key-description key))
+	 (b (lookup-key mug-tmarker-map keys))
+;	 (x (lookup-key mug-tmarker-map k))
+	 )
+    (call-interactively b 1)
+    )
+  )
+  
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-define-key (key)
@@ -454,6 +476,7 @@
 	  ("k" . mug-define-key)
 	  ("q" . mug-electric-mode)
 	  ("S" . mug-define-tmarker)
+	  ("s" . mug-tmarker-dispatch)
 	  )
 	)
 
