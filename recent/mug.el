@@ -140,6 +140,9 @@
   )
 
 (defun mug-exec-here (&optional tloc arg echo)
+  "Apply the current tcommand to the arg line at LOC.
+the current tcommand will be either mug-active-command if set, otherwise it will be
+the tcommand above the location."
   (sx
    (let* ((command-line (mug-read-command-line tloc))
 	  (command (mug-read-command tloc))
@@ -169,6 +172,7 @@
   )
 
 (defun mug-exec (&optional arg)
+  "Call mug-exec-here with default environmental context."
   (interactive "p")
    (cond
     ((mug-exec-here nil arg))
@@ -176,6 +180,7 @@
    )
 
 (defun mug-exec-echo (&optional arg)
+  "Call mug-exec-here with default environmental context, but override any :echo parameters."
   (interactive "p")
    (cond
     ((mug-exec-here nil arg t))
@@ -195,10 +200,12 @@
 (set-default 'mug-active-command nil)
 
 (defun mug-active-command-end ()
+  "Returns the end of the tcommand. By default this the end of the line."
   (sxp (goto-char mug-active-command) (eol))
   )
 
 (defun mug-active-command-clear ()
+  "Remove the active command marker, and revert to default behaviour."
   (cond
    (mug-active-command
     (put-text-property mug-active-command (mug-active-command-end) 'face nil)
@@ -208,27 +215,36 @@
    )
   )
 
-(defun mug-active-command-mark (&optional force)
-  (interactive)
-  (cond
-   (mug-active-command
-    (mug-active-command-clear)
-    (cond 
-     (force
-      (mug-active-command-mark))
-     (t (message "active command cleared"))
+(defun mug-active-command-mark-set (&optional pos)
+  "Move the active commmand to POS or clear it if POS is nil, or same as existing active command."
+  (let ((old mug-active-command))
+    (cond
+     (mug-active-command
+      (mug-active-command-clear)
+      (cond
+       ((and pos (not (= old pos)))
+	(mug-active-command-mark-set pos))
+       (t (message "active command cleared"))
+       )
+      )
+     (t
+      (setq mug-active-command
+	(set-marker (make-marker) pos))
+      (put-text-property mug-active-command (mug-active-command-end) 'face 'info-index-match)
+      (message "active command set to %s" mug-active-command)
+      )
      )
     )
-   (t
-    (setq mug-active-command
-      (set-marker (make-marker) (mug-locate-command-line)))
-    (put-text-property mug-active-command (mug-active-command-end) 'face 'info-index-match)
-    (message "active command set to %s" mug-active-command)
-    )
-   )
+  )
+
+(defun mug-active-command-mark-here (&optional arg)
+  "Set the active command to where the point is."
+  (interactive "p")
+  (mug-active-command-mark-set (point))
   )
 
 (defun mug-active-command-jump ()
+  "Jump to the location of the active command."
   (interactive)
   (cond
    (mug-active-command
@@ -242,6 +258,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-avy-arg-candidates ()
+  "Return a list, ready for any, which is the locations of all the arglines in the buffer."
   (let ((avy-all-windows nil))
     (let (r)
       (sx (bob)
@@ -258,13 +275,15 @@
   )
 
 (defun mug-avy-arg-pick ()
-  (sxp (avy-process
+  "Use avy to pick an argline."
+  (sx (avy-process
 	(mug-avy-arg-candidates)
 	(avy--style-fn 'at-full))
     )
   )
 
 (defun mug-avy-template-candidates ()
+  "Return a list, ready for any, which is the locations of all the commandlines in the buffer."
   (let ((avy-all-windows nil))
     (let (r)
       (sx (bob)
@@ -280,30 +299,18 @@
   )
 
 (defun mug-avy-template-pick ()
-  (sxp (avy-process
-	(mug-avy-template-candidates)
-	(avy--style-fn 'at-full))
-    )
+  "Use avy to pick an tline."
+  (sx (avy-process
+       (mug-avy-template-candidates)
+       (avy--style-fn 'at-full))
+      )
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; avy customizations :: 41a6226 Fri Feb 25 13:18:00 2022 +0000
 
-(defun mug-avy-template-activate (&optional prefix)
-  (interactive "p")
-  (let ((tloc (mug-avy-template-pick)))
-    (cond
-     (tloc
-      (sx
-       (goto-char tloc)
-       (mug-active-command-mark t)
-       )
-      )
-     )
-    )
-  )
-
 (defun mug-avy-execute (&optional prefix)
+  "Use avy to select a parameter line to execute in the active command context."
   (interactive "p")
   (let* ((aloc (mug-avy-arg-pick))
 	 (tloc nil)
@@ -319,8 +326,8 @@
     )
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-avy-template-execute (&optional prefix)
+  "Use avy to select a command context to execute the parameter line at point."
   (interactive "p")
   (let ((tloc (mug-avy-template-pick)))
     (cond
@@ -331,8 +338,8 @@
     )
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-avy-avy (&optional prefix)
+  "Use avy to select a command context to execute the parameter line selected also with avy."
   (interactive "p")
   (let ((aloc (mug-avy-arg-pick))
 	(tloc (mug-avy-template-pick)))
@@ -344,31 +351,39 @@
     )
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun mug-tmarker-view ()
-  (interactive)
-;  (debug)
-  (let ((s (mconcat (mapcar
-		     '(lambda (s) (format "%s\n" s))
-		     (cdr mug-tmarker-map)) "\n")))
-    (show s)
+(defun mug-avy-template-activate (&optional prefix)
+  "Use avy to select a command context to execute the parameter line at point."
+  (interactive "p")
+  (let ((tloc (mug-avy-template-pick)))
+    (cond
+     (tloc
+      (sx
+       (mug-active-command-mark-set tloc)
+       )
+      )
+     )
     )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; a tmarker key is one that is mapped to a executable form.
+; these are held in mug-tmarker-map, where keys are mapped to exec forms
+; when positioned on a parameter form, the dispatch key 's' is followed
+; by the mapped key, which selects the appropriate exec-form
+; 
+
 (defun mug-tmarker-get-mark (b)
+  "Get the command location for a tmark binding."
   (let* ((m b)
 	 (mm (nth 1 (car (nth 1 (nth 3 m))))))
     mm)
   )
 
-(defun mug-marker-get-text (m)
-
-  )
-
-
 (defun mug-tmarker-view ()
+  "Display all the defined tmarkers."
   (interactive)
-;  (debug)
   (let ((s (mconcat (mapcar
 		     '(lambda (b)
 			(cond
@@ -376,8 +391,8 @@
 			  (let* ((mm (mug-tmarker-get-mark (cdr b)))
 				 (command (mug-read-command-line mm))
 				 )
-			    (format "-%c %s \n   %s\n%s\n"
-				    (car b) mm b (car command)
+			    (format "%c\t%s\n"
+				    (car b) (car command)
 				    ))
 			  )
 			 ))
@@ -386,20 +401,8 @@
     )
   )
 
-(defun mug-tmarker-jump (key)
-  (interactive "Kkey: ")
-  (let* ((k (key-description key))
-	 (b (lookup-key mug-tmarker-map k))
-	 (bb (and b (mug-tmarker-get-mark b)))
-	 )
-    (cond
-     (bb (goto-marker bb))
-     ((error (format "%s not mapped" k)))
-     )
-    )
-  )
-
 (defun mug-define-tmarker (key)
+  "Define a tmarker mapping."
   (interactive "Kkey: ")
   (define-key mug-tmarker-map key
     `(lambda (arg) (interactive "p")
@@ -410,22 +413,58 @@
     )
   )
 
-(defun mug-tmarker-dispatch (arg) (interactive "p")
-;  (debug)
+(defun mug-tmarker-dispatch-read-key ()
+  "Read a mug-tmarker-dispatch key."
   (let* ((overriding-local-map mug-tmarker-map)
-	 (keys (read-key-sequence nil t))
-
-;	 (k (key-description key))
-	 (b (lookup-key mug-tmarker-map keys))
-;	 (x (lookup-key mug-tmarker-map k))
+	 (keys (read-key-sequence "Key: "))
 	 )
-    (call-interactively b 1)
+    keys
     )
   )
-  
+
+(defun mug-tmarker-dispatch (arg) (interactive "p")
+  "Dispatch a tmarker key."
+  (let* ((keys (mug-tmarker-dispatch-read-key))
+	 (b (lookup-key mug-tmarker-map keys))
+	 )
+    (cond
+     ((commandp b) (call-interactively b 1))
+     ((error "%s is not a tmarker-dispatch key in this buffer" (key-description keys)))
+     )
+    )
+  )
+
+(defun mug-tmarker-jump ()
+  "Jump to the location of a tmarker."
+  (interactive)
+  (let* ((keys (mug-tmarker-dispatch-read-key))
+	 (b (lookup-key mug-tmarker-map keys))
+	 (bb (and b (mug-tmarker-get-mark b)))
+	 )
+    (cond
+     (bb (goto-marker bb))
+     ((error (format "%s not mapped" k)))
+     )
+    )
+  )
+
+(defun mug-tmarker-active-mark ()
+  "Set the active command to the tmark location."
+  (interactive)
+  (let* ((keys (mug-tmarker-dispatch-read-key))
+	 (b (lookup-key mug-tmarker-map keys))
+	 (bb (and b (mug-tmarker-get-mark b)))
+	 )
+    (cond
+     (bb (mug-active-command-mark-set bb))
+     ((error (format "%s not mapped" k)))
+     )
+    )
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-define-key (key)
+  "Assign a key to a execute a parameter line."
   (interactive "Kkey: ")
   (define-key mug-mode-map (concat (kbd "C-v") key)
     `(lambda (arg) (interactive "p")
@@ -468,7 +507,7 @@
 	   (mug-electric-define-key (car x) (cdr x))
 	   )
 	`(
-	  ("a" . mug-active-command-mark)
+	  ("a" . mug-active-command-mark-here)
 	  ("j" . mug-active-command-jump)
           ("c" . mug-exec)
           ("x" . mug-exec-echo)
@@ -480,6 +519,7 @@
 	  )
 	)
 
+(define-key mug-tmarker-map (kbd "C-a") 'mug-tmarker-active-mark)
 (define-key mug-tmarker-map (kbd "C-h") 'mug-tmarker-view)
 (define-key mug-tmarker-map (kbd "C-j") 'mug-tmarker-jump)
 
@@ -488,6 +528,7 @@
 (setq mug-tmarker-map-base mug-tmarker-map)
 
 (defun mug-define-local-keys ()
+  "Internal function to clone base keymaps for local maps."
  (setq mug-mode-map (copy-keymap mug-mode-map-base))
  (setq mug-electric-keymap (copy-keymap mug-electric-keymap-base))
  (setq mug-tmarker-map (copy-keymap mug-tmarker-map-base))
@@ -509,6 +550,7 @@
   )
 
 (defun mug-mode ()
+  "Major mode for editing and using mug buffers."
   (interactive)
   (emacs-lisp-mode)
 
@@ -520,20 +562,7 @@
 
   (use-local-map mug-mode-map)
 
-;  (add-hook 'kill-buffer-hook 'mug-mode-kill-hook t t)
   )
 
 (setq auto-mode-alist (alist-put auto-mode-alist "\\.mug$" 'mug-mode))
-
-(put 'mug-mode 'eval-buffer-modal 'mug-eval-buffer)
-
-;;(yas--define-parents 'mug-mode '(emacs-lisp-mode))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq mug-install-directory "e:/borough/barnet")
-
-(defun mug-visit-org-file ()
-  (interactive)
-  (find-file-other-window (filename-concat mug-install-directory "mug.org"))
-  )
 
