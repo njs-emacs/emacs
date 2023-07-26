@@ -1,2 +1,3 @@
-* foo
-* foo
+* remove 
+* ediff mug.el.~stash@{3}~
+* make keymaps local
