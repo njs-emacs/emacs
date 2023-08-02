@@ -1110,6 +1110,24 @@ then replace VALUE with the value which follows it in the property list."
 ;; (edit-value 'ziip :tail ";yo")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun apply-to-car-pair (fun a b) (funcall fun (car a) (car b)))
+(defmacro def-apply-to-car-pair (fun)
+ `(defun ,(intern (format "%s-car" fun)) (a b) (apply-to-car-pair ',fun a b))
+ )
+
+(def-apply-to-car-pair string<)
+(def-apply-to-car-pair string=)
+(def-apply-to-car-pair string>)
+
+(def-apply-to-car-pair max)
+(def-apply-to-car-pair min)
+
+(def-apply-to-car-pair >)
+(def-apply-to-car-pair <)
+(def-apply-to-car-pair >=)
+(def-apply-to-car-pair <=)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun apply-to-cdr-pair (fun a b) (funcall fun (cdr a) (cdr b)))
 
 (defun max-cdr (a b) (apply-to-cdr-pair 'max a b))
