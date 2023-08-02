@@ -3,3 +3,5 @@
 TAGS
 **/.yas-compiled-snippets.el
 .mbm.el
+.try/alt-init
+myelpa
