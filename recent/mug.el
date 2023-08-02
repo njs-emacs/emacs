@@ -129,7 +129,9 @@
     (let* ((plist (cdr tform))
 	   (key (plist-get plist :key))
 	   )
-      (mug-tmarker-define-key (point^) key)
+      (cond
+       (key (mug-tmarker-define-key (point^) key))
+       )
       )
     )
   )
