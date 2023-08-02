@@ -230,7 +230,7 @@ the tcommand above the location."
      (t
       (setq mug-active-command
 	(set-marker (make-marker) pos))
-      (put-text-property mug-active-command (mug-active-command-end) 'face 'info-index-match)
+      (put-text-property mug-active-command (mug-active-command-end) 'face 'match)
       (message "active command set to %s" mug-active-command)
       )
      )
