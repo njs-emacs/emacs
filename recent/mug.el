@@ -90,8 +90,6 @@
     )
   )
 
-(defun mug-arg-region (start end) (list start end))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-on-tform-line ()
   (save-excursion
