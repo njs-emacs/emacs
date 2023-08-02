@@ -622,10 +622,10 @@ the tcommand above the location."
 
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq auto-mode-alist (alist-put auto-mode-alist "\\.mug$" 'mug-mode))
 
-(defun mug-tmarker-foo ()
+(;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+defun mug-tmarker-foo ()
   (let* (((forms
 	   (mapcar
 	    '(lambda (binding)
