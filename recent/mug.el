@@ -17,7 +17,7 @@
     list)
   )
 
-(defmacro sxp (&rest body) `(save-excursion ,@body (point)))
+(defmacro sxp (&rest body) (cons 'save-excursion (append body '((point)))))
 
 (defun point^ () (sxp (beginning-of-line)))
 (defun point$ () (sxp (end-of-line)))
@@ -96,6 +96,22 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-arg-reader-apply (fun) (funcall fun (point^) (point$)))
+
+(defun mug-on-tform-line ()
+  (save-excursion
+    (bol)
+    (looking-at mug-header-pattern)
+    )
+  )
+
+(defun mug-tform-read ()
+  "Read a tform from the current buffer"
+  (save-excursion
+    (beginning-of-line)
+    (re-search-forward mug-header-pattern nil t)
+    (eval (read (format "`(%s)" (buffer-substring (point) (point$)))))
+    )
+  )
 
 (defun mug-locate-command-line ()
   (let ()
@@ -185,10 +201,33 @@ the tcommand above the location."
    )
   )
 
+(defun mug-tmarker-define-key (tloc key)
+  "Define a tmarker mapping."
+  (define-key mug-tmarker-map key
+    `(lambda (arg) (interactive "p")
+       (let ((mug-active-command ,(set-marker (make-marker) tloc)))
+	 (mug-exec arg)
+	 )
+       )
+    )
+  )
+
+(defun mug-tform-exec ()
+  (interactive)
+  (let ((tform (mug-tform-read)))
+    (let* ((plist (cdr tform))
+	   (key (plist-get plist :key))
+	   )
+      (mug-tmarker-define-key (point^) key)
+      )
+    )
+  )
+
 (defun mug-exec (&optional arg)
   "Call mug-exec-here with default environmental context."
   (interactive "p")
    (cond
+    ((mug-on-tform-line) (mug-tform-exec))
     ((mug-exec-here nil arg))
     )
    )
@@ -197,6 +236,7 @@ the tcommand above the location."
   "Call mug-exec-here with default environmental context, but override any :echo parameters."
   (interactive "p")
    (cond
+    ((mug-on-tform-line) (mug-tform-exec))
     ((mug-exec-here nil arg t))
     )
    )
@@ -495,7 +535,7 @@ the tcommand above the location."
 (make-variable-buffer-local 'mug-tmarker-map)
 (make-variable-buffer-local 'mug-electric-keymap)
 
-(defvar-local mug-tmarker-map nil "Key map to hold tmarker bindings")
+(defvar-local mug-tmarker-map nil "")
 (setq mug-tmarker-map nil)
 
 (defun mug-electric-define-key (key binding)
@@ -516,6 +556,8 @@ the tcommand above the location."
 
 (define-key mug-mode-map (kbd "C-c C-y") 'mug-avy-template-execute)
 (define-key mug-mode-map (kbd "C-c C-u") 'mug-avy-avy)
+
+(define-key mug-mode-map (kbd "C-c C-.") 'mug-hydra)
 
 (mapcar '(lambda (x)
 	   (mug-electric-define-key (car x) (cdr x))
@@ -578,5 +620,56 @@ the tcommand above the location."
 
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq auto-mode-alist (alist-put auto-mode-alist "\\.mug$" 'mug-mode))
 
+(defun mug-tmarker-foo ()
+  (let* (((forms
+	   (mapcar
+	    '(lambda (binding)
+	       (cond
+		((listp (cdr binding))
+		 (let* (
+			(mark (mug-tmarker-get-mark (cdr binding)))
+			     (command (mug-read-command-line mm))
+			     )
+			(list (format "%c" (car b)) (cdr b))
+			))
+		     )
+		    ) mug-tmarker-map))
+
+
+(defun mug-hydra ()
+  (interactive)
+  (debug)
+  (let* ((forms (mapcar
+		 '(lambda (b)
+		    (cond
+		     ((listp (cdr b))
+		      (let* ((mm (mug-tmarker-get-mark (cdr b)))
+			     (command (mug-read-command-line mm))
+			     )
+			(list (format "%c" (car b)) (cdr b))
+			))
+		     )
+		    ) mug-tmarker-map))
+	 (prompts (mconcat (
+	 (hform
+	  `(defhydra mug-hydra* (:color pink :hint nil :timeout 30)
+      "
+  _p_   ^^   _b_  back         _h_  highlight  _i_  isearch
+_<_   _>_    _d_  definition   _R_  remove     _Q_  query-replace
+  _n_   ^^   _w_  save         ^^              _r_  rename
+"
+      ,@forms
+      ("<"      symbol-overlay-jump-first)
+      (">"      symbol-overlay-jump-last)
+      ("q" nil)
+      )))
+    (eval hform)
+    (call-interactively 'mug-hydra*/body)
+    )
+  )
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
