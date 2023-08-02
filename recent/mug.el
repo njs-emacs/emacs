@@ -261,7 +261,7 @@ the tcommand above the location."
   "Return a list, ready for any, which is the locations of all the arglines in the buffer."
   (let ((avy-all-windows nil))
     (let (r)
-      (save-excursion (bob)
+      (save-excursion (beginning-of-buffer)
 	  (while (re-search-forward "^\." nil t)
 	    (cond
 	     ((looking-at-at "#~" (point^)))
@@ -286,7 +286,7 @@ the tcommand above the location."
   "Return a list, ready for any, which is the locations of all the commandlines in the buffer."
   (let ((avy-all-windows nil))
     (let (r)
-      (save-excursion (bob)
+      (save-excursion (beginning-of-buffer)
 	  (while (re-search-forward "^\." nil t)
 	    (cond
 	     ((looking-at-at "#~" (point^)) (setq r (cons (point^) r)))
