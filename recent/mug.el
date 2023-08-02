@@ -8,6 +8,20 @@
 ;;; mapping commands to global keys makes no sense
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun alist-put (list tag val)
+  (let ((cell (assoc tag list)))
+    (cond
+     (cell (setcdr cell val))
+     ((setq list (cons (cons tag val) list)))
+     )
+    list)
+  )
+
+(defmacro sxp (&rest body) `(save-excursion ,@body (point)))
+
+(defun point^ () (sxp (beginning-of-line)))
+(defun point$ () (sxp (end-of-line)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun bit-set-p (v mask &optional match)
   (= (logand v mask) (or match mask))
   )
