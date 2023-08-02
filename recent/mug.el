@@ -515,6 +515,7 @@ the tcommand above the location."
 	  ("k" . mug-define-key)
 	  ("q" . mug-electric-mode)
 	  ("S" . mug-define-tmarker)
+	  ("m" . mug-define-tmarker)
 	  ("s" . mug-tmarker-dispatch)
 	  )
 	)
