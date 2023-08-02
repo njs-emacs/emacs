@@ -17,7 +17,7 @@
     list)
   )
 
-(defmacro sxp (&rest body) (cons 'save-excursion (append body '((point)))))
+(defmacro sxp (&rest body) `(save-excursion ,@body (point)))
 
 (defun point^ () (sxp (beginning-of-line)))
 (defun point$ () (sxp (end-of-line)))
