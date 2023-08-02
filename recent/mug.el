@@ -88,7 +88,7 @@
     (save-excursion
      (cond
       ((looking-at mug-header-pattern))
-      ((rsb mug-header-pattern))
+      ((re-search-backward mug-header-pattern))
       ((error "Can't find a command line"))
       )
      (point^)
@@ -103,12 +103,12 @@
 	   (tloc (goto-char tloc))
 	   (mug-active-command (goto-char mug-active-command))
 	   ((looking-at mug-header-pattern))
-	   ((rsb mug-header-pattern))
+	   ((re-search-backward mug-header-pattern))
 	   ((error "Can't find a command line"))
 	   )
 	  (bol)
 	  (let* ((limit (point$)) s start)
-	    (setq start (rsf mug-header-pattern))
+	    (setq start (re-search-forward mug-header-pattern nil t))
 	    (eval (read (format "`(%s)" (buffer-substring (point) (point$)))))
 	    )
 	  )
@@ -127,7 +127,7 @@
 	 (start (region-beginning-if-active (point^)))
 	 (end (cond
 	       ((region-active-p) (region-end))
-	       ((plist-get plist :end) (sxp (rsf (plist-get plist :end))))
+	       ((plist-get plist :end) (sxp (re-search-forward (plist-get plist :end) nil t)))
 	       (t (point$))
 	       ))
 	 (args (funcall arg-reader start end))
@@ -262,7 +262,7 @@ the tcommand above the location."
   (let ((avy-all-windows nil))
     (let (r)
       (save-excursion (bob)
-	  (while (rsf "^\.")
+	  (while (re-search-forward "^\." nil t)
 	    (cond
 	     ((looking-at-at "#~" (point^)))
 	     (t (setq r (cons (point^) r)))
@@ -287,7 +287,7 @@ the tcommand above the location."
   (let ((avy-all-windows nil))
     (let (r)
       (save-excursion (bob)
-	  (while (rsf "^\.")
+	  (while (re-search-forward "^\." nil t)
 	    (cond
 	     ((looking-at-at "#~" (point^)) (setq r (cons (point^) r)))
 	     )
