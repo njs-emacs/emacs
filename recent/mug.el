@@ -95,8 +95,6 @@
 (defun mug-arg-region (start end) (list start end))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun mug-arg-reader-apply (fun) (funcall fun (point^) (point$)))
-
 (defun mug-on-tform-line ()
   (save-excursion
     (bol)
@@ -112,6 +110,9 @@
     (eval (read (format "`(%s)" (buffer-substring (point) (point$)))))
     )
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mug-arg-reader-apply (fun) (funcall fun (point^) (point$)))
 
 (defun mug-locate-command-line ()
   (let ()
