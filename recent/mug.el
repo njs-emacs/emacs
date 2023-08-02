@@ -201,7 +201,7 @@ the tcommand above the location."
 
 (defun mug-active-command-end ()
   "Returns the end of the tcommand. By default this the end of the line."
-  (sxp (goto-char mug-active-command) (eol))
+  (sxp (goto-char mug-active-command) (end-of-line))
   )
 
 (defun mug-active-command-clear ()
