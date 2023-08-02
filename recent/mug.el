@@ -206,6 +206,7 @@ the tcommand above the location."
   "Call mug-exec-here with default environmental context."
   (interactive "p")
    (cond
+    ((mug-on-tform-line) (mug-tform-exec))
     ((mug-exec-here nil arg))
     )
    )
@@ -214,6 +215,7 @@ the tcommand above the location."
   "Call mug-exec-here with default environmental context, but override any :echo parameters."
   (interactive "p")
    (cond
+    ((mug-on-tform-line) (mug-tform-exec))
     ((mug-exec-here nil arg t))
     )
    )
