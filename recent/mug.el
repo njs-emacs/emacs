@@ -41,7 +41,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-arg-reader-generic (start end)
-  (let ((s (bs start end)))
+  (let ((s (buffer-substring start end)))
     `(,s))
   )
 
@@ -58,22 +58,22 @@
   )
 
 (defun mug-arg-reader-list-ns (start end)
-  (read (format "(%s)" (bs start end)))
+  (read (format "(%s)" (buffer-substring start end)))
   )
 
 (defun mug-arg-reader-list (start end)
-  (mug-stringify (read (format "(%s)" (bs start end))))
+  (mug-stringify (read (format "(%s)" (buffer-substring start end))))
   )
 
 (defun mug-arg-reader-sexp (start end)
-  (let ((s (bs start end)))
+  (let ((s (buffer-substring start end)))
 ;    (debug)
     (list (read s))
     )
   )
 
 (defun mug-arg-reader-quote (start end)
-  (let ((s (bs start end)))
+  (let ((s (buffer-substring start end)))
     (list `(quote ,(read s)))
     )
   )
@@ -109,7 +109,7 @@
 	  (bol)
 	  (let* ((limit (point$)) s start)
 	    (setq start (rsf mug-header-pattern))
-	    (eval (read (format "`(%s)" (bs (point) (point$)))))
+	    (eval (read (format "`(%s)" (buffer-substring (point) (point$)))))
 	    )
 	  )
 	 )
