@@ -95,6 +95,23 @@
 (defun mug-arg-region (start end) (list start end))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mug-on-tform-line ()
+  (save-excursion
+    (bol)
+    (looking-at mug-header-pattern)
+    )
+  )
+
+(defun mug-tform-read ()
+  "Read a tform from the current buffer"
+  (save-excursion
+    (beginning-of-line)
+    (re-search-forward mug-header-pattern nil t)
+    (eval (read (format "`(%s)" (buffer-substring (point) (point$)))))
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-arg-reader-apply (fun) (funcall fun (point^) (point$)))
 
 (defun mug-locate-command-line ()
