@@ -46,7 +46,7 @@
   )
 
 (defun mug-arg-reader-readc (start end)
-  (sx
+  (save-excursion
    (goto-char start)
    (let ((o))
      (while (< (point) end)
@@ -85,7 +85,7 @@
 
 (defun mug-locate-command-line ()
   (let ()
-    (sx
+    (save-excursion
      (cond
       ((looking-at mug-header-pattern))
       ((rsb mug-header-pattern))
@@ -98,7 +98,7 @@
 
 (defun mug-read-command-line (&optional tloc)
   (let ((command-line
-	 (sx
+	 (save-excursion
 	  (cond
 	   (tloc (goto-char tloc))
 	   (mug-active-command (goto-char mug-active-command))
@@ -143,7 +143,7 @@
   "Apply the current tcommand to the arg line at LOC.
 the current tcommand will be either mug-active-command if set, otherwise it will be
 the tcommand above the location."
-  (sx
+  (save-excursion
    (let* ((command-line (mug-read-command-line tloc))
 	  (command (mug-read-command tloc))
 	  (plist (cdr command-line))
@@ -261,7 +261,7 @@ the tcommand above the location."
   "Return a list, ready for any, which is the locations of all the arglines in the buffer."
   (let ((avy-all-windows nil))
     (let (r)
-      (sx (bob)
+      (save-excursion (bob)
 	  (while (rsf "^\.")
 	    (cond
 	     ((looking-at-at "#~" (point^)))
@@ -276,7 +276,7 @@ the tcommand above the location."
 
 (defun mug-avy-arg-pick ()
   "Use avy to pick an argline."
-  (sx (avy-process
+  (save-excursion (avy-process
 	(mug-avy-arg-candidates)
 	(avy--style-fn 'at-full))
     )
@@ -286,7 +286,7 @@ the tcommand above the location."
   "Return a list, ready for any, which is the locations of all the commandlines in the buffer."
   (let ((avy-all-windows nil))
     (let (r)
-      (sx (bob)
+      (save-excursion (bob)
 	  (while (rsf "^\.")
 	    (cond
 	     ((looking-at-at "#~" (point^)) (setq r (cons (point^) r)))
@@ -300,7 +300,7 @@ the tcommand above the location."
 
 (defun mug-avy-template-pick ()
   "Use avy to pick an tline."
-  (sx (avy-process
+  (save-excursion (avy-process
        (mug-avy-template-candidates)
        (avy--style-fn 'at-full))
       )
@@ -317,7 +317,7 @@ the tcommand above the location."
 	 )
     (cond
      (aloc
-      (sx
+      (save-excursion
        (goto-char aloc)
        (mug-exec-here tloc prefix)
        )
@@ -345,7 +345,7 @@ the tcommand above the location."
 	(tloc (mug-avy-template-pick)))
     (cond
      (tloc
-      (sx (goto-char aloc) (mug-exec-here tloc prefix))
+      (save-excursion (goto-char aloc) (mug-exec-here tloc prefix))
       )
      )
     )
@@ -357,7 +357,7 @@ the tcommand above the location."
   (let ((tloc (mug-avy-template-pick)))
     (cond
      (tloc
-      (sx
+      (save-excursion
        (mug-active-command-mark-set tloc)
        )
       )
