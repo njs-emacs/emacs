@@ -23,7 +23,5 @@
 (wug-define "r" (format "%-10s" "adv"))
 (wug-define "m" (format "%-10s" "misc"))
 (wug-define "g" (format "%-10s" "garbage"))
-get under way
-man
-woman
-compact discmale female have
+
+(top-level)

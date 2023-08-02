@@ -1,4 +1,10 @@
 ;; this is a mode for fast replacement of numbers in columns
+;; it replaces the symbol/number/sexp with a string corresponding to a locally mapped key
+;; some overlap with hydras
+;; suggested modifications
+;; - C-h to show keys
+;; - no-replace current string
+;; - more documentation
 
 (setq wux-map (make-sparse-keymap))
 
@@ -37,6 +43,9 @@
 (setq wub-map (make-sparse-keymap))
 (setq wub-insert-map (make-sparse-keymap))
 
+(make-variable-buffer-local 'wub-map)
+(make-variable-buffer-local 'wub-insert-map)
+
 (defun wub-replace-with-string () (interactive)
   (wux-replace-sexp-with-and-goto-next-line
    (lookup-key wub-insert-map (this-command-keys))
@@ -65,20 +74,3 @@
   (use-local-map nil)
 )
 
-(wub-unset "a")
-
-(make-variable-buffer-local 'wub-map)
-(make-variable-buffer-local 'wub-insert-map)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq wug-map (make-sparse-keymap))
-(setq wug-insert-map (make-sparse-keymap))
-
-(defun wug-define (key string)
-  (define-key wug-insert-map key string)
-  (define-key wug-map key 'wub-replace-with-string)
-  )
-
-(wug-define " " " ")
-
-(defun wug-mode () (interactive) (wub-mode wug-map wug-insert-map))
