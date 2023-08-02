@@ -535,7 +535,7 @@ the tcommand above the location."
 (make-variable-buffer-local 'mug-tmarker-map)
 (make-variable-buffer-local 'mug-electric-keymap)
 
-(defvar-local mug-tmarker-map nil "")
+(defvar-local mug-tmarker-map nil "Key map to hold tmarker bindings")
 (setq mug-tmarker-map nil)
 
 (defun mug-electric-define-key (key binding)
