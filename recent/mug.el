@@ -440,7 +440,8 @@ the tcommand above the location."
 (defun mug-tmarker-view ()
   "Display all the defined tmarkers."
   (interactive)
-  (let ((s (mconcat (mapcar
+  (let* ((map (sort-copy (cdr mug-tmarker-map) '<-car))
+	 (s (mconcat (mapcar
 		     '(lambda (b)
 			(cond
 			 ((listp (cdr b))
@@ -452,7 +453,7 @@ the tcommand above the location."
 				    ))
 			  )
 			 ))
-		     (cdr mug-tmarker-map)) "\n")))
+		     map) "")))
     (show s)
     )
   )
