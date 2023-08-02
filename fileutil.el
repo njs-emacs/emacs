@@ -151,7 +151,7 @@ For example (file-name-suffix \"emacs/modes.el\") returns \".el\""
 (defun make-buffer (name &rest contents)
   (sx (let ((buf (set-buffer (get-buffer-create name))))
 	(erase-buffer)
-	(insert (cat contents "\n"))
+	(insert (mconcat contents "\n"))
 	(bob)
 	buf)))
 
