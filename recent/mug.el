@@ -111,6 +111,29 @@
     )
   )
 
+(defun mug-tmarker-define-key (tloc key)
+  "Define a tmarker mapping."
+  (define-key mug-tmarker-map key
+    `(lambda (arg) (interactive "p")
+       (let ((mug-active-command ,(set-marker (make-marker) tloc)))
+	 (mug-exec arg)
+	 )
+       )
+    )
+  )
+
+(defun mug-tform-exec ()
+  (interactive)
+  (debug)
+  (let ((tform (mug-tform-read)))
+    (let* ((plist (cdr tform))
+	   (key (plist-get plist :key))
+	   )
+      (mug-tmarker-define-key (point^) key)
+      )
+    )
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-arg-reader-apply (fun) (funcall fun (point^) (point$)))
 
