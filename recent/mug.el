@@ -106,7 +106,7 @@
 	   ((re-search-backward mug-header-pattern))
 	   ((error "Can't find a command line"))
 	   )
-	  (bol)
+	  (beginning-of-line)
 	  (let* ((limit (point$)) s start)
 	    (setq start (re-search-forward mug-header-pattern nil t))
 	    (eval (read (format "`(%s)" (buffer-substring (point) (point$)))))
