@@ -553,7 +553,6 @@ the tcommand above the location."
 (defun mug-mode ()
   "Major mode for editing and using mug buffers."
   (interactive)
-  (emacs-lisp-mode)
 
   (setq major-mode 'mug-mode)
   (setq mode-name "mug")
