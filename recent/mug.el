@@ -30,8 +30,6 @@
   (call-interactively `(lambda (&rest args) (interactive ,spec) args))
   )
 
-; (interactive-arg-read "SThis: \nSThat: ")
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar mug-header-pattern "^#~+\\s *")
 (setq mug-header-pattern "^#~+\\s *")
@@ -177,7 +175,7 @@
   (let* ((command-line (mug-read-command-line tloc))
 	 (body (car command-line))
 	 (plist (cdr command-line))
-	 (arg-spec (or (plist-get plist :args) '(&optional a b c d e)))
+	 (arg-spec (or (plist-get plist :args) '(&optional a b c d e f)))
 	 (fun `(lambda ,arg-spec ,body))
 	 (arg-reader (or (plist-get plist :reader) mug-arg-reader-default))
 	 (start (region-beginning-if-active (point^)))
