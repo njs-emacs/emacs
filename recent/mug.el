@@ -463,12 +463,17 @@ the tcommand above the location."
 (defun mug-define-tmarker (key)
   "Define a tmarker mapping."
   (interactive "Kkey: ")
-  (define-key mug-tmarker-map key
-    `(lambda (arg) (interactive "p")
-       (let ((mug-active-command ,(set-marker (make-marker) (mug-locate-command-line))))
-	 (mug-exec arg)
-	 )
-       )
+  (let* ((current (lookup-key mug-tmarker-map key)))
+    (cond ((and current (symbolp current))
+	   (error "Don't try to remap that key %s -> %s" (key-description key) current))
+	  )
+    (define-key mug-tmarker-map key
+     `(lambda (arg) (interactive "p")
+        (let ((mug-active-command ,(set-marker (make-marker) (mug-locate-command-line))))
+	  (mug-exec arg)
+	  )
+	)
+     )
     )
   )
 
