@@ -242,7 +242,7 @@ the tcommand above the location."
 	  (command (mug-read-command tloc))
 	  (plist (cdr command-line))
 	  (cd (plist-get plist :cd))
-	  (echo (or mug-always-echo (plist-get plist :echo) (not (bit-set-p arg 1))))
+	  (echo (or echo mug-always-echo (plist-get plist :echo) (not (bit-set-p arg 1))))
 	  (kill (or mug-always-kill (plist-get plist :kill) (bit-set-p arg 2)))
 	  (show (or mug-always-show (plist-get plist :show) (bit-set-p arg 4)))
 	  (insert (or mug-always-insert (plist-get plist :insert) (bit-set-p arg 16)))
