@@ -614,7 +614,6 @@ the tcommand above the location."
 	  ("j" . mug-active-command-jump)
           ("c" . mug-exec)
           ("x" . mug-exec-echo)
-	  ("o" . mug-visit-org-file)
 	  ("k" . mug-define-key)
 	  ("q" . mug-electric-mode)
 	  ("S" . mug-define-tmarker)
