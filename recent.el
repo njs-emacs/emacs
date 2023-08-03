@@ -1272,3 +1272,14 @@ Use FUN (default 'equal) for the comparison."
 
 (add-hook 'window-setup-hook 'set-init-admin-user)
 
+(defun shell-rb (command &optional sp ep)
+  (let ((sp (or sp "^=\\s("))
+	(ep (or ep "^=\\s)"))
+	)
+    (shell-command-on-region
+     (ssb sp nil nil nil t)
+     (ssb ep)
+     command)
+    )
+  )
+
