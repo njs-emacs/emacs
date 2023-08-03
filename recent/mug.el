@@ -301,12 +301,13 @@ the tcommand above the location."
        (t (message "active command cleared"))
        )
       )
-     (t
+     ((mug-on-tform-line)
       (setq mug-active-command
 	(set-marker (make-marker) pos))
       (put-text-property mug-active-command (mug-active-command-end) 'face 'match)
       (message "active command set to %s" mug-active-command)
       )
+     (t (error "Not on a tform line"))
      )
     )
   )
