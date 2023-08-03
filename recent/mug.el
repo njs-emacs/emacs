@@ -507,13 +507,7 @@ the tcommand above the location."
     (cond ((and current (symbolp current))
 	   (error "Don't try to remap that key %s -> %s" (key-description key) current))
 	  )
-    (define-key mug-tmarker-map key
-     `(lambda (arg) (interactive "p")
-        (let ((mug-active-command ,(set-marker (make-marker) (mug-locate-command-line))))
-	  (mug-exec arg)
-	  )
-	)
-     )
+    (mug-tmarker-define-key (mug-locate-command-line) key)
     )
   )
 
