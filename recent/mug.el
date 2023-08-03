@@ -489,8 +489,8 @@ the tcommand above the location."
 			  (let* ((mm (mug-tmarker-get-mark (cdr b)))
 				 (command (mug-read-command-line mm))
 				 )
-			    (format "%c\t%s\n"
-				    (car b) (car command)
+			    (format "%s\t%s\n"
+				    (key-description (vector (car b))) (car command)
 				    ))
 			  )
 			 ))
