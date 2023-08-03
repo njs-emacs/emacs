@@ -111,9 +111,11 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun mug-on-tform-line ()
+(defun mug-on-tform-line (&optional pos)
+  "Returns non-nil if point is on a tline."
   (save-excursion
-    (bol)
+    (and pos (goto-char pos))
+    (beginning-of-line)
     (looking-at mug-header-pattern)
     )
   )
