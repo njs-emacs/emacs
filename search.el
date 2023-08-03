@@ -205,6 +205,9 @@ Optional N is used to select sub-expression."
 (define-key search-map "[" 'kill-to-regexp-start)
 (define-key search-map "]" 'kill-to-regexp-end)
 
+(defun ssb (s &optional lim e n end) (sx (rsb s lim e n end)))
+(defun ssf (s &optional lim e n end) (sx (rsf s lim e n end)))
+	       
 (defun rsb (s &optional lim e n end)
   (cond ((re-search-backward s lim (or e t))
 	 (goto-char
