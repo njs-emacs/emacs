@@ -323,7 +323,7 @@ the tcommand above the location."
        (t (message "active command cleared"))
        )
       )
-     ((mug-on-tform-line)
+     ((mug-on-tform-line pos)
       (setq mug-active-command
 	(set-marker (make-marker) pos))
       (put-text-property mug-active-command (mug-active-command-end) 'face 'match)
@@ -455,8 +455,9 @@ the tcommand above the location."
     (cond
      (tloc
       (save-excursion
-       (mug-active-command-mark-set tloc)
-       )
+	(mug-active-command-clear)
+	(mug-active-command-mark-set tloc)
+	)
       )
      )
     )
