@@ -32,6 +32,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun bit-set-p (v mask &optional match)
+  "Return non-nil if a bit pattern is matched in VALUE."
   (= (logand v mask) (or match mask))
   )
 
@@ -88,16 +89,19 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-stringify (list) 
+  "Local stringify function to turn all elements of a list to strings."
   (mapcar '(lambda (x) (prin1-to-string x t)) list)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-arg-reader-generic (start end)
+  "Argument reader. Just returns a the rest of the line as a single argument."
   (let ((s (buffer-substring start end)))
     `(,s))
   )
 
 (defun mug-arg-reader-readc (start end)
+  "Argument reader which reads the rest of the line as lisp objects."
   (save-excursion
    (goto-char start)
    (let ((o))
@@ -110,20 +114,24 @@
   )
 
 (defun mug-arg-reader-list-ns (start end)
+  "Argument reader..."
   (read (format "(%s)" (buffer-substring start end)))
   )
 
 (defun mug-arg-reader-list (start end)
+  "Argument reader..."
   (mug-stringify (read (format "(%s)" (buffer-substring start end))))
   )
 
 (defun mug-arg-reader-sexp (start end)
+  "Argument reader..."
   (let ((s (buffer-substring start end)))
     (list (read s))
     )
   )
 
 (defun mug-arg-reader-quote (start end)
+  "Argument reader..."
   (let ((s (buffer-substring start end)))
     (list `(quote ,(read s)))
     )
@@ -131,7 +139,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-on-tform-line (&optional pos)
-  "Returns non-nil if point is on a tline."
+  "Returns non-nil if POS is on a tform line."
   (save-excursion
     (and pos (goto-char pos))
     (beginning-of-line)
@@ -161,6 +169,7 @@
   )
 
 (defun mug-tform-exec ()
+  "Execute tform in tform context. Internalize tform declaration, key binding, etc."
   (interactive)
   (let ((tform (mug-tform-read)))
     (let* ((plist (cdr tform))
@@ -178,6 +187,7 @@
 (defun mug-arg-reader-apply (fun) (funcall fun (point^) (point$)))
 
 (defun mug-locate-command-line ()
+  "Locate the closest tform. Look at current location, then scan forward, then backward."
   (let ()
     (save-excursion
      (cond
@@ -191,6 +201,7 @@
   )
 
 (defun mug-read-command-line (&optional tloc)
+  "Read the tform at LOC. If LOC not given, and no mug-active-command, then search backward."
   (let ((command-line
 	 (save-excursion
 	  (cond
@@ -212,6 +223,7 @@
   )
 
 (defun mug-read-command (&optional tloc)
+  "Assemble mform expression from the implicit tform and the aform indicated for the position LOC."
   (let* ((command-line (mug-read-command-line tloc))
 	 (body (car command-line))
 	 (plist (cdr command-line))
@@ -584,6 +596,8 @@ the tcommand above the location."
 (setq mug-tmarker-map nil)
 
 (defun mug-electric-define-key (key binding)
+  "Define an electric key and an equivalent key accessed
+ thru the C-c prefix when not in electric mode."
   (define-key mug-electric-keymap
 	      (kbd key) binding)
   (define-key mug-mode-map
