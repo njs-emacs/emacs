@@ -68,7 +68,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mug-stringify (list) 
-  (mapcar '(lambda (x) (sprint x t)) list)
+  (mapcar '(lambda (x) (prin1-to-string x t)) list)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -231,7 +231,7 @@ the tcommand above the location."
 
      (and kill (kill-new result))
      (and show (show result))
-     (and echo (message (sprint result)))
+     (and echo (message (prin1-to-string result)))
      (cond
       (insert 
        (goto-char (region-end-if-active (point$)))
