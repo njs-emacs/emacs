@@ -50,6 +50,26 @@
    )
   )
 
+(defun make-symbol-keys (s)
+  "Convert input string KEYS to a key sequence in the most sensible way."
+  (cond
+   ((string-match "\"" s) (make-symbol-keys (read s)))
+   ((string-match "^<" s) (kbd s))
+   ((string-match "^[CcSsMmAaHh]-" s) (kbd s))
+   ((string-match "^\\sw$" s) (kbd s))
+   ((string-match "^\\sw+" s) (kbd (format "<%s>" s)))
+   )
+  )
+
+(defun make-keys-dwim (s)
+  "Convert input object KEYS to a key sequence in the most sensible way."
+  (cond
+   ((vectorp s) s)
+   ((symbolp s) (make-symbol-keys (symbol-name s)))
+   ((stringp s) (make-symbol-keys s))
+   )
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar mug-header-pattern "^#~+\\s *")
 (setq mug-header-pattern "^#~+\\s *")
@@ -138,6 +158,7 @@
 	 )
        )
     )
+  (message "key %s assigned to marker at %s" (key-description key) tloc)
   )
 
 (defun mug-tform-exec ()
@@ -146,9 +167,10 @@
   (let ((tform (mug-tform-read)))
     (let* ((plist (cdr tform))
 	   (key (plist-get plist :key))
+	   (keys (make-keys-dwim key))
 	   )
       (cond
-       (key (mug-tmarker-define-key (point^) key))
+       (key (mug-tmarker-define-key (point^) keys))
        )
       )
     )
