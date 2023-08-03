@@ -569,12 +569,13 @@ the tcommand above the location."
 (defun mug-define-key (key)
   "Assign a key to a execute a parameter line."
   (interactive "Kkey: ")
-  (define-key mug-mode-map (concat (kbd "C-v") key)
+  (define-key mug-mode-map (kbd (concat "C-v " (key-description key)))
     `(lambda (arg) (interactive "p")
        (goto-marker ,(set-marker (make-marker) (point^)))
        (mug-exec arg)
        )
     )
+  (message "key %s assigned to marker at %s" (key-description key) (point^))
   )
        
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
