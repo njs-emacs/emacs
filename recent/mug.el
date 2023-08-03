@@ -119,7 +119,6 @@
 
 (defun mug-arg-reader-sexp (start end)
   (let ((s (buffer-substring start end)))
-;    (debug)
     (list (read s))
     )
   )
@@ -163,7 +162,6 @@
 
 (defun mug-tform-exec ()
   (interactive)
-  (debug)
   (let ((tform (mug-tform-read)))
     (let* ((plist (cdr tform))
 	   (key (plist-get plist :key))
