@@ -147,9 +147,10 @@
     )
   )
 
-(defun mug-tform-read ()
-  "Read a tform from the current buffer"
+(defun mug-tform-read (&optional pos)
+  "Read a tform from the current buffer at POS (default is (point))"
   (save-excursion
+    (and pos (goto-char pos))
     (beginning-of-line)
     (re-search-forward mug-header-pattern nil t)
     (eval (read (format "`(%s)" (buffer-substring (point) (point$)))))
