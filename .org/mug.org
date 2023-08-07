@@ -1,0 +1,67 @@
+* base operation
+  C-c C-c executes
+  C-c C-a sets current
+  C-c C-y avy execute
+
+={
+| C-c C-a     | a | mug-active-command-mark-here | b  |
+| C-c C-c     | c | mug-exec                     | a  |
+| C-c C-e     | q | mug-electric-mode            | g  |
+| C-c C-j     | j | mug-active-command-jump      | d  |
+| C-c C-k     | k | mug-define-key               | m  |
+| C-c RET     | m | mug-define-tmarker           | k  |
+| C-c C-q     | q | mug-electric-mode            | g  |
+| C-c C-t     |   | mug-avy-template-activate    | j  |
+| C-c C-u     |   | mug-avy-avy                  | g  |
+| C-c C-v     |   | mug-avy-execute              | h  |
+| C-c C-x     |   | mug-exec-echo                | f  |
+| C-c C-y     |   | mug-avy-template-execute     | c  |
+| C-c C-s C-a |   | mug-tmarker-active-mark      | e  |
+| C-c C-s C-h |   | mug-tmarker-view             | ca |
+| C-c C-s C-j |   | mug-tmarker-jump             | cb |
+=}
+* sort
+  (shell-rb "sort \"-bt|\" -k4")
+* electric mode
+
+| S     | mug-define-tmarker           | a  |   |
+| a     | mug-active-command-mark-here | aa |   |
+| c     | mug-exec                     |    |   |
+| j     | mug-active-command-jump      | ab |   |
+| k     | mug-define-key               |    |   |
+| m     | mug-define-tmarker           |    |   |
+| q     | mug-electric-mode            |    |   |
+| s     | mug-tmarker-dispatch         |    |   |
+| t     | mug-avy-template-activate    |    |   |
+| u     | mug-avy-avy                  |    |   |
+| v     | mug-avy-execute              |    |   |
+| x     | mug-exec-echo                |    |   |
+| s C-a | mug-tmarker-active-mark      | e  |   |
+| s C-h | mug-tmarker-view             | ca |   |
+| s C-j | mug-tmarker-jump             | cb |   |
+
+* interactive function list
+ (assoc "e:/emacs/recent/mug.el" load-history)
+ (lisp-loaded-interactive-functions "e:/emacs/recent/mug.el")
+
+| C-c C-j     | mug-active-command-jump      |
+| C-c C-a     | mug-active-command-mark-here |
+| C-c C-u     | mug-avy-avy                  |
+| C-c C-v     | mug-avy-execute              |
+| C-c C-t     | mug-avy-template-activate    |
+| C-c C-y     | mug-avy-template-execute     |
+| C-c C-k     | mug-define-key               |
+| C-c RET     | mug-define-tmarker           |
+| C-c C-q     | mug-electric-mode            |
+| C-c C-c     | mug-exec                     |
+| C-c C-x     | mug-exec-echo                |
+|             | mug-mode                     |
+| <none>      | mug-tform-exec               |
+| C-c C-s C-a | mug-tmarker-active-mark      |
+| C-c C-s     | mug-tmarker-dispatch         |
+| C-c C-s C-j | mug-tmarker-jump             |
+| C-c C-s C-h | mug-tmarker-view             |
+
+* 
+
+* :extra
