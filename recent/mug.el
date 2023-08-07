@@ -533,10 +533,10 @@ If ECHO is a function, it is applied to the output before it is echoed."
     )
   )
 
-(defun mug-tmarker-dispatch-read-key ()
+(defun mug-tmarker-dispatch-read-key (&optional prompt)
   "Read a mug-tmarker-dispatch key."
   (let* ((overriding-local-map mug-tmarker-map)
-	 (keys (read-key-sequence "Key: "))
+	 (keys (read-key-sequence (or prompt "TMarker Key: ")))
 	 )
     keys
     )
@@ -557,13 +557,13 @@ If ECHO is a function, it is applied to the output before it is echoed."
 (defun mug-tmarker-jump ()
   "Jump to the location of a tmarker."
   (interactive)
-  (let* ((keys (mug-tmarker-dispatch-read-key))
+  (let* ((keys (mug-tmarker-dispatch-read-key "Jump to TMarker for key:"))
 	 (b (lookup-key mug-tmarker-map keys))
 	 (bb (and b (mug-tmarker-get-mark b)))
 	 )
     (cond
      (bb (goto-marker bb))
-     ((error (format "%s not mapped" k)))
+     ((error (format "%s not mapped - Use C-c C-s C-h to show active mappings." keys)))
      )
     )
   )
@@ -571,7 +571,7 @@ If ECHO is a function, it is applied to the output before it is echoed."
 (defun mug-tmarker-active-mark ()
   "Set the active command to the tmark location."
   (interactive)
-  (let* ((keys (mug-tmarker-dispatch-read-key))
+  (let* ((keys (mug-tmarker-dispatch-read-key "Set active TMarker for key:"))
 	 (b (lookup-key mug-tmarker-map keys))
 	 (bb (and b (mug-tmarker-get-mark b)))
 	 )
