@@ -620,11 +620,6 @@ If ECHO is a function, it is applied to the output before it is echoed."
 (setq mug-tmarker-map (make-sparse-keymap))
 
 (define-key mug-mode-map (kbd "C-c C-e") 'mug-electric-mode)
-(define-key mug-mode-map (kbd "C-c C-t") 'mug-avy-template-activate)
-(define-key mug-mode-map (kbd "C-c C-v") 'mug-avy-execute)
-
-(define-key mug-mode-map (kbd "C-c C-y") 'mug-avy-template-execute)
-(define-key mug-mode-map (kbd "C-c C-u") 'mug-avy-avy)
 
 (mapcar '(lambda (x)
 	   (mug-electric-define-key (car x) (cdr x))
@@ -639,6 +634,11 @@ If ECHO is a function, it is applied to the output before it is echoed."
 	  ("S" . mug-define-tmarker)
 	  ("m" . mug-define-tmarker)
 	  ("s" . mug-tmarker-dispatch)
+
+	  ("t" . mug-avy-template-activate)
+	  ("u" . mug-avy-avy)
+	  ("v" . mug-avy-execute)
+	  ("y" . mug-avy-template-execute)
 	  )
 	)
 
