@@ -19,7 +19,7 @@
   )
 
 (defmacro sxp (&rest body)
-  "Like save-excursion, but returns where point was at the end of theb ody execution."
+  "Like save-excursion, but returns where point was at the end of the body execution."
   `(save-excursion ,@body (point)))
 
 (defun point^ ()
