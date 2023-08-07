@@ -369,7 +369,8 @@ If ECHO is a function, it is applied to the output before it is echoed."
     (goto-char mug-active-command)
     )
    (t
-    (error "mug-active-command is not active")
+    (goto-char (mug-locate-command-line))
+;    (error "mug-active-command is not active")
     )
    )
   )
