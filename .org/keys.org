@@ -1,0 +1,27 @@
+* A- keys
+| a | Y |                    |   |
+| b | Y |                    |   |
+| c | - | ??                 |   |
+| d | Y |                    |   |
+| e | Y |                    |   |
+| f | - | ??                 |   |
+| g | - | (ms-gamingoverlay) |   |
+| h | - | ??                 |   |
+| i | - | (settings)         |   |
+| j | - | ??                 |   |
+| k | - | (connect)          |   |
+| l | - | ??                 |   |
+| m | Y |                    |   |
+| n | - | (notes)            |   |
+| o | - | ??                 |   |
+| p | - | (project)          |   |
+| q | Y |                    |   |
+| r | Y |                    |   |
+| s | - | ??                 |   |
+| t | Y |                    |   |
+| u | - | (display options)  |   |
+| v | - | ??                 |   |
+| w | - | ??                 |   |
+| x | - | (start menu)       |   |
+| y | Y |                    |   |
+| z | - | ??                 |   |
