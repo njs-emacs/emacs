@@ -263,7 +263,8 @@ the tcommand above the location.
 Optional args are ARG, the prefix for the calling command, and ECHO (overrides tcommand :echo).
 If ECHO is a function, it is applied to the output before it is echoed."
   (save-excursion
-   (let* ((command-line (mug-read-command-line tloc))
+   (let* ((arg (or arg 0))
+	  (command-line (mug-read-command-line tloc))
 	  (command (mug-read-command tloc))
 	  (plist (cdr command-line))
 	  (cd (plist-get plist :cd))
