@@ -642,6 +642,10 @@ If ECHO is a function, it is applied to the output before it is echoed."
 	  )
 	)
 
+(mug-electric-define-key "w" 'mug-hydra)
+
+(defun mug-hydra () (interactive))
+
 (define-key mug-tmarker-map (kbd "C-a") 'mug-tmarker-active-mark)
 (define-key mug-tmarker-map (kbd "C-h") 'mug-tmarker-view)
 (define-key mug-tmarker-map (kbd "C-j") 'mug-tmarker-jump)
