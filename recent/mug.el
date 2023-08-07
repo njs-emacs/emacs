@@ -249,7 +249,9 @@
 (defun mug-exec-here (&optional tloc arg echo)
   "Apply the current tcommand to the arg line at LOC.
 the current tcommand will be either mug-active-command if set, otherwise it will be
-the tcommand above the location."
+the tcommand above the location.
+Optional args are ARG, the prefix for the calling command, and ECHO (overrides tcommand :echo).
+If ECHO is a function, it is applied to the output before it is echoed."
   (save-excursion
    (let* ((command-line (mug-read-command-line tloc))
 	  (command (mug-read-command tloc))
@@ -265,8 +267,14 @@ the tcommand above the location."
      (setq result (save-cd cd (eval command)))
 
      (and kill (kill-new result))
-     (and show (show result))
-     (and echo (message (prin1-to-string result)))
+     (cond
+      ((functionp show) (show (funcall show result)))
+      (show (show result))
+      )
+     (cond
+      ((functionp echo) (message (funcall echo result)))
+      (echo (message (prin1-to-string result)))
+      )
      (cond
       (insert 
        (goto-char (region-end-if-active (point$)))
