@@ -1,7 +1,7 @@
 ##template##
 
-#~(debug (eval a)) :reader mug-arg-reader-readc
-#~(debug (eval a)) :reader mug-arg-reader-list
+#~(progd (eval a)) :reader mug-arg-reader-readc :show t
+#~(debug (eval a)) :reader mug-arg-reader-ns
 #~(eval a) :reader mug-arg-reader-sexp :echo t
 #~ (eval (car `(list ,a))) :reader mug-arg-reader-sexp :echo t
 #~ (progd a) :reader mug-arg-reader-sexp :echo t
@@ -9,6 +9,9 @@
 
 #~ a :reader mug-arg-reader-sexp :echo t
 #~ (process-buffer a) :reader mug-arg-reader-sexp :echo t
+
+a b c
+(print (+ 1 2)) a
 
 (get-process "emacsql-psql")
 (get-process "emacsql-psql<1>")
