@@ -428,12 +428,65 @@ If ECHO is a function, it is applied to the output before it is echoed."
     )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mug-template-avy-show-dispatch-help (alist)
+  "Display action shortucts in echo area."
+  (let ((len (length "avy-action-")))
+    (message "%s" (mapconcat
+                   (lambda (x)
+                     (format "%s: %s"
+                             (propertize
+                              (char-to-string (car x))
+                              'face 'aw-key-face)
+                             (substring (symbol-name (cdr x)) len)))
+                   alist
+                   " "))))
+
+(defun avy-action-klib (pos) (debug))
+
+(defvar mug-template-avy-dispatch-alist
+  nil
+  "List of actions for `mug-template-avy-handler'."
+  )
+
+(setq mug-template-avy-dispatch-alist
+  '(
+    (?x . avy-action-klib)
+    )
+  )
+
+(defun mug-template-handler-function (char)
+  "The bad CHAR handler for mug-template-avy-pick."
+  (debug)
+  (let* (dispatch
+	 (alist mug-template-avy-dispatch-alist)
+	 )
+    (cond ((setq dispatch (assoc char alist))
+           (unless (eq avy-style 'words)
+             (setq avy-action (cdr dispatch)))
+           (throw 'done 'restart))
+          ((memq char avy-escape-chars)
+           ;; exit silently
+           (throw 'done 'abort))
+          ((eq char ??)
+           (mug-template-avy-show-dispatch-help alist)
+           (throw 'done 'restart))
+          ((mouse-event-p char)
+           (signal 'user-error (list "Mouse event not handled" char)))
+          (t
+           (message "No such candidate: %s, hit `C-g' to quit."
+                    (if (characterp char) (string char) char))))))
+
 (defun mug-avy-template-pick ()
   "Use avy to pick an tline."
-  (save-excursion (avy-process
+  (let* ((avy-handler-function 'mug-template-handler-function))
+    (setq avy-action nil)
+    (save-excursion
+      (avy-process
        (mug-avy-template-candidates)
        (avy--style-fn 'at-full))
       )
+    )
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
