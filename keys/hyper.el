@@ -24,3 +24,8 @@
 
 (def-key global-map (kbd "H-s-SPC") 'ace-jump-line-mode)
 (def-key global-map (kbd "<H-s-delete>") 'ace-jump-buffer)
+
+(def-key global-map (kbd "H-M-w") 'avy-goto-char-timer)
+
+(def-key global-map (kbd "H-a H-a") 'embark-act)
+
