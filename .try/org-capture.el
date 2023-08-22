@@ -142,3 +142,27 @@ org-property-set-functions-alist
 ;(org-capture-template-add "q" '("org" entry (file+olp "refile.org" "org") "* %a %^{fart}p\n"))
 ;(org-capture-template-add "q" '("org" entry (file+olp "refile.org" "org") "* %A %? %^{fart}p\n"))
 ;(org-capture-template-add "q" '("org" entry (file+olp "refile.org" "org") "* %?\n%A\n"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; from e:/.p/stub/.emacs.el
+(org-capture-template-add "b"
+  '("bugs" entry (file "") "* %? :filey:"))
+
+
+(org-capture-template-add "y"
+ `("Table 1" table-line (file+olp "e:/ca/.org/sandbox.org" "tables" "1") "| %?  | | |"  :table-line-pos "II-1"))
+
+(org-capture-template-add "ma"
+ `("Table z" table-line (file+olp "e:/ca/.org/sandbox.org" "tables" "1") "| %?  | | |\n"  :table-line-pos "III-2"))
+
+(org-capture-template-add "mb"
+ `("Table z" table-line (file+olp "e:/ca/.org/sandbox.org" "tables" "1") "| %?  | | |"  :table-line-pos "-1"))
+
+(org-capture-template-add "m" `("Prefix"))
+
+
+;; %^C - Interactive selection of which kill or clip to use.
+
+;;; (setq org-table-automatic-realign nil)
