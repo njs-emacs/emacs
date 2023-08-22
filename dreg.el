@@ -1,5 +1,16 @@
-(defun enquote (x) (concat "\"" x "\""))
-(defun enquote (x) x)
+;;; dreg.el --- emacs interface to history search (dreg)
+
+;; Copyright (C) 2023 Otzo Software 
+
+;; Author: Nick Steed <nick@otzo.org>
+;; Version: 0.1
+;; Package-Requires: ()
+;; Keywords: emacs, dreg
+;; URL: https://flamingant.github.io/dreg
+
+;;; Commentary:
+
+;; dreg is a subsystem used to find patterns in previously edited files.
 
 (setq dreg-cmd-default "year")
 
@@ -7,6 +18,7 @@
 (setq dreg-script-file "e:/_backup/.meta/dreg14/dreg14.pl")
 
 (defun dreg** (&rest args)
+  "Execute the external dreg command, a perl script."
  (let ((cmd (format "perl %s" dreg-script-file))
        )
   (setq cmd (mconcat (apply 'list cmd args) " "))
@@ -14,16 +26,12 @@
   )
  )
 
-(defun dreg* (pat &rest args)
- (apply 'dreg** (format "--pat=%s" pat) args)
- )
-
 (defun dregf (pat &optional fpat cmd &rest args)
+  "Perform a dreg query."
  (setq cmd (or cmd dreg-cmd-default))
  (setq args (cons (format "--cmd=%s" cmd) args))
  (cond (fpat (setq args (push (format "--fpat=\"%s\"" fpat) args))))
  (apply 'dreg** (format "--pat=\"%s\"" pat) args)
-; (apply 'dreg** (format "--pat='%s'" pat) args)
  )
 
 (defun dref (&optional fpat cmd &rest args)
@@ -32,25 +40,49 @@
  (apply 'dreg** "--typefilter=." "--pat=\".\"" "--one=1" args)
  )
 
-; (dreg* "1 day" "--where=file ~ '.p[lm]'" "--cmd=month")
-; (dreg** "--pat=1 week" "--where=file~'.p[lm]'" "--cmd=since" "--when='01 jan 2010'")
-
-; (dregf "time" ".p[lm]" "week")
-; (dregf "time" ".p[lm]" "today")
-; (dregf "time" ".p[lm]")
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun drez (pat) (interactive "SPattern: ")
+(defun drez (pat)
+  (interactive "SPattern: ")
+  "Perform a special query to just print first line of files which match pattern."
   (let ((tr "and time between now() - interval '1 year' and now() "))
     (dreg**
-;   (format "--cmd=querz \"select distinct foo from (select file from log where file ~ '%s' and type = 'S' order by time desc) as foo limit 30\"" pat)
      (format "--cmd=querz \"select file from log where file ~ '%s' and type = 'S' %s order by time desc limit 100\"" pat tr)
-;     (format "--cmd=querz \"select foo from (select file from log where file ~ '%s' and type = 'S' %s order by time desc) as foo limit 40\"" pat tr)
      )
     )
 )
 
-(defun drezz (x) (interactive "SType: ") (drez (format "\\.%s$" x)))
+(defun drezz (x)
+  (interactive "SType: ")
+  (drez (format "\\.%s$" x))
+  )
+
+(defun dfp (pat &rest args) (apply 'dregf pat plfs args))
+(defun dfh (pat &rest args) (apply 'dregf pat htfs args))
+
+(defun dresh (p &optional since)
+  (dregf p "sh-.*\\.input" (or since dreg-since "month"))
+  )
+
+(defun dregx (&optional arg)
+  "Perform dreg query using selection."
+  (interactive "p")
+  (dregf (x-get-selection) (dired-glob-regexp (grep-spec))
+	      (cond
+	       ((= arg 4) "ever")
+	       ((= arg 1) "month")
+	       ((= arg 0) "year")
+	       ))
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq elfs "\\.(el|emacs)$")
+(setq eelfs "\\.(eel|el|emacs)$")
+(setq htfs "\\.(html|css|php|js)$")
+(setq plfs "\\.p[lm]$")
+(setq cfs "\\.[ch]$")
+(setq nlfs "\\.nl$")
+(setq ofs "\\.(el|org)$")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'yas-x)
@@ -94,35 +126,11 @@
     )
   )
 
-(setq elfs "\\.(el|emacs)$")
-(setq eelfs "\\.(eel|el|emacs)$")
-(setq htfs "\\.(html|css|php|js)$")
-(setq plfs "\\.p[lm]$")
-(setq cfs "\\.[ch]$")
-(setq nlfs "\\.nl$")
-(setq ofs "\\.(el|org)$")
-
 (dreg-map "e" "elfs")
 (dreg-map "h" "htfs")
 (dreg-map "c" "cfs")
 (dreg-map "p" "plfs")
 (dreg-map "n" "\"\\\\.nl\"")
-
-(defun dfp (pat &rest args) (apply 'dregf pat plfs args))
-(defun dfh (pat &rest args) (apply 'dregf pat htfs args))
-
-(defun dresh (p &optional since)
-  (dregf p "sh-.*\\.input" (or since dreg-since "month"))
-  )
-
-(defun dregx (&optional arg) (interactive "p")
-       (dregf (x-get-selection) (dired-glob-regexp (grep-spec))
-	      (cond
-	       ((= arg 4) "ever")
-	       ((= arg 1) "month")
-	       ((= arg 0) "year")
-	       ))
-  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun dreg-shuffle () (interactive)
@@ -172,4 +180,11 @@
 
 (def-key global-map (kbd "H-g H-g") 'dreg-dwim)
 (def-key global-map (kps "78") 'dreg-dwim)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; (dreg** "--pat=1 week" "--where=file~'.p[lm]'" "--cmd=since" "--when='01 jan 2010'")
+
+; (dregf "time" ".p[lm]" "week")
+; (dregf "time" ".p[lm]" "today")
+; (dregf "time" ".p[lm]")
 
