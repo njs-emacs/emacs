@@ -353,4 +353,15 @@ match, and if BEG is non-nil move to the beginning of the match."
     (nreverse r))
  )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 's)
+
+(defun s-format-eval (s)
+  (let ((fun `(lambda (x) (eval (read x)))))
+    (s-format s fun)
+    )
+  )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 (load-overrides "search")
