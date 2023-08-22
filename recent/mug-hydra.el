@@ -27,7 +27,7 @@
 	 (pforms (mconcat (mapcar '(lambda (x) (format "%-10s %s" (car x) (mug-get-tform-expr x))) forms) "\n"))
 	 (pforms (string-replace "%" "%%%%" pforms))
 	 (hform
-	  `(defhydra mug-hydra* (:color pink :hint nil :timeout 30)
+	  `(defhydra mug-hydra* (:color pink :hint nil :timeout 10)
       ,(concat pforms "\n\nq   quit\n")
       ,@forms
       ("q" nil)
