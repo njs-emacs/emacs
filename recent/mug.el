@@ -1,4 +1,15 @@
-;;; mug-mode
+;;; mug.el --- a powerful and flexible command dispatcher
+
+;; Copyright (C) 2023 Otzo Software 
+
+;; Author: Nick Steed <nick@otzo.org>
+;; Version: 0.1.1
+;; Package-Requires: ((lo-to-c))
+;; Keywords: emacs, 
+;; URL: https://flamingant.github.io/COVID-19
+
+;;; Commentary:
+
 ;;; a kind of repl, but executes a nearby expression template
 ;;; using the current location as parameters
 ;;;
@@ -756,3 +767,6 @@ If ECHO is a function, it is applied to the output before it is echoed."
 
 (setq auto-mode-alist (alist-put auto-mode-alist "\\.mug$" 'mug-mode))
 
+(provide 'mug)
+
+;;; mug.el ends here
