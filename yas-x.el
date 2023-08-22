@@ -1,5 +1,19 @@
-;; yasnippet extension allows locally mapping a key combination to
-;; a snippet
+;;; yas-x.el --- extension for mapping yasnippets to keys locally
+
+;; Copyright (C) 2023 Otzo Software 
+
+;; Author: Nick Steed <nick@otzo.org>
+;; Version: 0.0.1
+;; Package-Requires: ((yasnippet))
+;; Keywords: emacs, yasnippet
+;; URL: https://flamingant.github.io/yas-x
+
+;;; Commentary:
+
+;; yas-x is a yasnippet extension which provides locally mapping a 
+;; key combination to a yasnippet
+
+(require 'yasnippet)
 
 (defvar yas-x-map nil "Expand map for yas-x")
 
@@ -27,6 +41,7 @@
     )
   )
 
+;;;###autoload
 (defun yas-x-define (key name)
   "Locally define KEY to invoke YASNIPPET."
   (local-set-key key 'yas-x-expand-command)
@@ -34,3 +49,5 @@
   )
 
 (provide 'yas-x)
+
+;;; yas-x.el ends here
