@@ -1,4 +1,16 @@
-;; find first occurence of pattern in files which match this file's suffix
+;;; drf.el --- dregf helper to find possible template files
+
+;; Copyright (C) 2023 Otzo Software 
+
+;; Author: Nick Steed <nick@otzo.org>
+;; Version: 0.1
+;; Package-Requires: ((dregf "0.1"))
+;; Keywords: emacs, dregf
+;; URL: https://flamingant.github.io/drf
+
+;;; Commentary:
+
+;; find first occurence of pattern in files which match the current file's suffix
 ;; can be used to find template files
 
 (defun drf* (pat &optional spec since)
@@ -49,3 +61,5 @@
 
 (def-key drf-map (kbd "C-d") 'drf-template)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; drf.el ends here

@@ -1,3 +1,19 @@
+;;; superhelp.el --- More help than you can handle
+
+;; Copyright (C) 2022 Free Software Foundation, Inc.
+
+;; Author: Nick Steed <nick@otzo.org>
+;; Version: 0.2
+;; Package-Requires: ((hydra "0.15.0"))
+;; Keywords: emacs, hydra, help
+;; URL: https://example.com/jrhacker/superfrobnicate
+
+;;; Commentary:
+
+;; This package provides a hydra to access all possible help functions
+;; so that you can move around a buffer containing symbols and activate
+;; whatever help functions you want on the thing at point.
+
 (setq superhelp-base-map (make-sparse-keymap))
 
 (dotimes (i 26)
@@ -207,3 +223,6 @@ _s_:   Select
 ;;  (completion-all-completions "view" obarray 'fboundp 4)
 ;;  (completion-all-completions "vie-lo" obarray 'fboundp 6)
 
+(provide 'superhelp)
+
+;;; superhelp.el ends here
