@@ -803,7 +803,8 @@ If ECHO is a function, it is applied to the output before it is echoed."
   (mug-define-local-keys)
 
   (use-local-map mug-mode-map)
-
+  (emacs-read-hash-plus)
+  (emacs-eval-buffer-delimited-region "^#={" "^#=}")
   )
 
 (setq auto-mode-alist (alist-put auto-mode-alist "\\.mug$" 'mug-mode))
