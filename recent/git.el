@@ -84,6 +84,12 @@
   (magit-refresh-if-open)
   )
 
+(defmacro magit-progn (&rest args)
+  `(prog1 (progn ,@args)
+     (magit-refresh-if-open)
+     )
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun get-last-changelog ()
   (sx (eob)
