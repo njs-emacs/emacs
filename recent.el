@@ -1283,3 +1283,8 @@ Use FUN (default 'equal) for the comparison."
     )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun bit-set-p (v mask &optional match)
+  "Return non-nil if a bit pattern is matched in VALUE."
+  (= (logand v mask) (or match mask))
+  )

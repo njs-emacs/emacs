@@ -42,11 +42,6 @@
  (sxp (end-of-line)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun bit-set-p (v mask &optional match)
-  "Return non-nil if a bit pattern is matched in VALUE."
-  (= (logand v mask) (or match mask))
-  )
-
 (defun interactive-arg-read (spec)
   "Simulate the process of gathering args for an interactive function."
   (cond
@@ -274,15 +269,14 @@ the tcommand above the location.
 Optional args are ARG, the prefix for the calling command, and ECHO (overrides tcommand :echo).
 If ECHO is a function, it is applied to the output before it is echoed."
   (save-excursion
-   (let* ((arg (or arg 0))
-	  (command-line (mug-read-command-line tloc))
+   (let* ((command-line (mug-read-command-line tloc))
 	  (command (mug-read-command tloc))
 	  (plist (cdr command-line))
 	  (cd (plist-get plist :cd))
-	  (echo (or echo mug-always-echo (plist-get plist :echo) (not (bit-set-p arg 1))))
-	  (kill (or mug-always-kill (plist-get plist :kill) (bit-set-p arg 2)))
-	  (show (or mug-always-show (plist-get plist :show) (bit-set-p arg 4)))
-	  (insert (or mug-always-insert (plist-get plist :insert) (bit-set-p arg 16)))
+	  (echo (or (plist-get plist :echo) mug-always-echo))
+	  (kill (or (plist-get plist :kill) mug-always-kill))
+	  (show (or (plist-get plist :show) mug-always-show))
+	  (insert (or (plist-get plist :insert) mug-always-insert))
 	  result
 	  )
      (cond ((plist-get plist :debug) (debug)))
