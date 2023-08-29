@@ -106,6 +106,23 @@ membership in NAMES and PATHS"
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun plist-merge (plist &rest lists)
+  "Merge multiple property lists. Later items take priority"
+  (dolist (list lists)
+    (while list
+      (let* ((prop (pop list))
+	     (value (pop list))
+	     )
+	(setq plist (plist-put plist prop value))
+	)
+      )
+    )
+  plist
+  )
+
+; (plist-merge nil `(a 1 b 2) `(c 3 a 4))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun gget (o tag)
   "Generalized symbol or plist or alist get (gget OBJECT TAG)"
   (cond ((symbolp o) (get o tag))
