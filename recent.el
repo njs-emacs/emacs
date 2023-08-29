@@ -1288,3 +1288,19 @@ Use FUN (default 'equal) for the comparison."
   "Return non-nil if a bit pattern is matched in VALUE."
   (= (logand v mask) (or match mask))
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun emacs-eval-buffer-delimited-region (spat epat &optional limit)
+  (save-excursion
+   (beginning-of-buffer)
+   (let* ((start (cond ((re-search-forward spat limit t) (match-end 0))))
+	  (end (cond ((re-search-forward epat limit t) (match-beginning 0))))
+	  )
+     (cond
+      ((and start end) (eval-region start end))
+      )
+     )
+   )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
