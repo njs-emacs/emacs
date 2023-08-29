@@ -106,13 +106,15 @@
 ;; some of these fuinctions are for demonstration purposes to illustrate
 ;; a possible method of reading parameters from the current buffer
 
-(defun mug-arg-reader-generic (start end)
+(defun mug-arg-reader-generic (start end &optional plist)
   "Argument reader. Just returns a the rest of the line as a single argument."
-  (let ((s (buffer-substring start end)))
+  (let* ((s (buffer-substring start end))
+	 )
+    (cond ((plist-get plist :eval) (setq s (s-format-eval s))))
     `(,s))
   )
 
-(defun mug-arg-reader-readc (start end)
+(defun mug-arg-reader-readc (start end &optional plist)
   "Argument reader which reads the rest of the line as lisp objects."
   (save-excursion
    (goto-char start)
@@ -125,29 +127,29 @@
    )
   )
 
-(defun mug-arg-reader-readc-strings (start end)
+(defun mug-arg-reader-readc-strings (start end &optional plist)
   "Argument reader which reads the rest of the line as lisp objects turned into strings."
   (mug-stringify (mug-arg-reader-readc start end))
   )
 
-(defun mug-arg-reader-list-ns (start end)
+(defun mug-arg-reader-list-ns (start end &optional plist)
   "Argument reader returns a list by constructing a list form and reading it."
   (read (format "(%s)" (buffer-substring start end)))
   )
 
-(defun mug-arg-reader-list (start end)
+(defun mug-arg-reader-list (start end &optional plist)
   "Argument reader returning a list of lisp objects read from the buffer."
   (mug-stringify (read (format "(%s)" (buffer-substring start end))))
   )
 
-(defun mug-arg-reader-sexp (start end)
+(defun mug-arg-reader-sexp (start end &optional plist)
   "Argument reader returning a list containing the first sexp in the region."
   (let ((s (buffer-substring start end)))
     (list (read s))
     )
   )
 
-(defun mug-arg-reader-quote (start end)
+(defun mug-arg-reader-quote (start end &optional plist)
   "Argument reader which quotes the first sexp on the line"
   (let ((s (buffer-substring start end)))
     (list `(quote ,(read s)))
@@ -256,7 +258,7 @@
 	       ((plist-get plist :end) (sxp (re-search-forward (plist-get plist :end) nil t)))
 	       (t (point$))
 	       ))
-	 (args (funcall arg-reader start end))
+	 (args (funcall arg-reader start end plist))
 	 (extra (plist-get plist :extra))
 	 (extra-args (cond (extra (interactive-arg-read extra))))
 	 (args (nconc args extra-args))
