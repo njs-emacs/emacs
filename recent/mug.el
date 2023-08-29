@@ -81,6 +81,9 @@
 (defvar mug-header-pattern "^#~+\\s *")
 (setq mug-header-pattern "^#~+\\s *")
 
+(defvar-local mug-always-cd nil "When set, becomes the default command :cd parameter")
+(defvar-local mug-always-append nil "When set, becomes the default command show :append parameter")
+
 (defvar-local mug-always-show nil "Always act if mug command has :show t or show prefix arg was given")
 (defvar-local mug-always-echo nil "Always act if mug command has :echo t or echo prefix arg was given")
 (defvar-local mug-always-kill nil "Always act if mug command has :kill t or kill prefix arg was given")
@@ -272,7 +275,8 @@ If ECHO is a function, it is applied to the output before it is echoed."
    (let* ((command-line (mug-read-command-line tloc))
 	  (command (mug-read-command tloc))
 	  (plist (cdr command-line))
-	  (cd (plist-get plist :cd))
+	  (cd (or (plist-get plist :cd) mug-always-cd))
+	  (append (or (plist-get plist :append) mug-always-append))
 	  (echo (or (plist-get plist :echo) mug-always-echo))
 	  (kill (or (plist-get plist :kill) mug-always-kill))
 	  (show (or (plist-get plist :show) mug-always-show))
