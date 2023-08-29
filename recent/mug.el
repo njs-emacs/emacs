@@ -206,8 +206,6 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun mug-arg-reader-apply (fun) (funcall fun (point^) (point$)))
-
 (defun mug-locate-command-line ()
   "Locate the closest tform. Look at current location, then scan forward, then backward."
   (let ()
