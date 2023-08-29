@@ -274,7 +274,7 @@ If ECHO is a function, it is applied to the output before it is echoed."
   (save-excursion
    (let* ((command-line (mug-read-command-line tloc))
 	  (command (mug-read-command tloc))
-	  (plist (cdr command-line))
+	  (plist (plist-merge (cdr command-line) extra-plist))
 	  (cd (or (plist-get plist :cd) mug-always-cd))
 	  (append (or (plist-get plist :append) mug-always-append))
 	  (echo (or (plist-get plist :echo) mug-always-echo))
@@ -306,23 +306,48 @@ If ECHO is a function, it is applied to the output before it is echoed."
    )
   )
 
-(defun mug-exec (&optional arg)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar plist-read-history nil "History for read-plist-from-minibuffer")
+
+(defun read-plist-from-minibuffer (prompt)
+  "Read a plist from the minibuffer."
+  (let* ((s (read-from-minibuffer prompt nil nil nil 'plist-read-history)))
+    (cond
+     ((string-match "^\\s *$" s) nil)
+     (t (eval (read (format "`(%s)" s))))
+     )
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mug-extra-plist-read (prefix)
+  (cond
+   ((eq prefix 4) (read-plist-from-minibuffer "Extra plist: "))
+   ((eq prefix 16) (eval (read (format "`(%s)" (car plist-read-history)))))
+   )
+  )
+
+(defun mug-exec (&optional prefix)
   "Call mug-exec-here with default environmental context."
   (interactive "p")
-   (cond
-    ((mug-on-tform-line) (mug-tform-exec))
-    ((mug-exec-here nil arg))
+  (let* ((extra-plist (mug-extra-plist-read prefix)))
+    (cond
+     ((mug-on-tform-line) (mug-tform-exec))
+     ((mug-exec-here nil extra-plist))
+     )
     )
    )
 
 (defun mug-exec-echo (&optional arg)
   "Call mug-exec-here with default environmental context, but override any :echo parameters."
   (interactive "p")
-   (cond
-    ((mug-on-tform-line) (mug-tform-exec))
-    ((mug-exec-here nil arg t))
+  (let* ((extra-plist (plist-merge `(:echo t) (mug-extra-plist-read prefix))))
+    (cond
+     ((mug-on-tform-line) (mug-tform-exec))
+     ((mug-exec-here nil extra-plist))
+     )
     )
-   )
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar-local mug-active-command nil
