@@ -1,0 +1,141 @@
+#+(setq mug-always-show "*zub*")
+#+(setq mug-always-show t)
+
+#={
+#=}
+
+(dregf "^#~" "\\.mug" "ever")
+
+################################################################
+#~ (shell-execute-text a) :show "*foo*" :append "=====\n"
+#~ (shell-execute-text a) :append "=====\n"
+
+;; display output in alternate show buffer
+#~ (shell-execute-text a) :show "*gub*"
+
+date
+
+#~ (shell-execute-text (eval (read a))) :show t
+
+(format "echo foo %s" (current-time-string))
+
+#~ (shell-execute-text (format "cpan.bat %s" a) :show t)
+#~ (shell-execute-text (format "echo %s ; cd ../%s ; ls ;" a a)) :show t
+#~ (shell-execute-text (format "echo %s ; cd ../%s ; pwd ; git log -v" a a)) :show t
+#~ (shell-execute-text (format "echo %s ; cd ../%s ; pwd ; git status -v" a a)) :show t
+#~ (shell-execute-text (format "echo %s" (concat a b c d e f))) :show t :extra "sOne: \nsTwo: "
+#~ (shell-execute-text (format "echo 7 %s" a)) :echo t :key C-7
+#~ (shell-execute-text (format "echo 8 %s" a)) :echo t :key C-8
+#~ (shell-execute-text (format "echo 9 %s" a)) :echo t :key C-9
+#~ (shell-execute-text (format "gh %s --help" a)) :show t
+#~ (shell-execute-text (format "gh %s" a)) :show t
+#~ (shell-execute-text (format "git %s" a)) :show t :key "3"
+#~ (shell-execute-text (format "git add %s" (lol a))) :show t :cd "e:.p/x" :debug t
+#~ (shell-execute-text (format "git add %s" b)) :reader mug-arg-reader-list :show t :cd "e:/emacs"
+#~ (shell-execute-text (format "objdump %s filey64.exe" a)) :show t
+#~ (shell-execute-text (format "objdump %s main.o" a)) :show t
+#~ (shell-execute-text (format "perl last.pl --cmd=dong %s" a b) :no-erase t :show t)
+#~ (shell-execute-text (format "perl pop.pl --cmd=%s" a) a b c d e) :show t
+#~ (shell-execute-text (format "perl pop.pl --cmd=%s" a) b c d e) :show t
+#~ (shell-execute-text (format "perl pop.pl --cmd=_0630_153006 %s" a)) :show t
+#~ (shell-execute-text (format "perl pop.pl --cmd=_0630_153006 '%s'" a)) :show t
+#~ (shell-execute-text (format "perl pop.pl --cmd=_0630_153006 --serverport=5433 '%s'" a)) :show t
+#~ (shell-execute-text (format "perl pop.pl --cmd=_0630_153006") a b c d e) :show t
+#~ (shell-execute-text (shell-history-strip a)) :show t
+#~ (shell-execute-text a :shell-name "*yo*" :kill t)
+#~ (shell-execute-text a :shell-name "*yo*" :show t)
+#~ (shell-execute-text a :shell-program "cmd" :echo t :show t)
+#~ (shell-execute-text a :shell-program "powershell") :show t
+#~ (shell-execute-text a :show t)
+#~ (shell-execute-text a :show t) :cd "e:/"
+#~ (shell-execute-text a :show t) :cd "f:/"
+#~ (shell-execute-text a) :cd "f:/"
+#~ (shell-execute-text a)
+#~ (shell-execute-text a) 
+#~ (shell-execute-text a) :cd "c:/"
+#~ (shell-execute-text a) :echo (lambda (x) (format "[1 [%s]]" x))
+#~ (shell-execute-text a) :echo t :show (lambda (x) (format "<<%s>>" x))
+#~ (shell-execute-text a) :echo t :show (lambda (x) (format "[[%s]]" x))
+#~ (shell-execute-text a) :echo t :show (lambda (x) (format "[[[%s]]]" x)) :key U
+#~ (shell-execute-text a) :show t
+#~ (shell-execute-text a) :show t 
+#~ (shell-execute-text a) :show t :cd "e:.p/x"
+#~ (shell-execute-text a) :show t :cd "e:/emacs"
+#~ (shell-execute-text a) :show t :kill t 
+
+(setq mug-always-show t)
+
+pwd
+
+#~ (apply 'last a) :args (&rest a) :reader mug-arg-reader-list-ns
+#~ (eval (car `(list ,a))) :reader mug-arg-reader-sexp :echo t
+#~ (ever-send a)
+#~ (ggg a b c) :reader mug-arg-reader-list :show t :cd "e:/emacs"
+#~ (git-call "add" a)
+#~ (git-call "reset -q HEAD --" a)
+#~ (git-call (format "add %s" a))
+#~ (git-call (format "add %s" a)) :key C-1
+#~ (git-call (format "add %s" a)) :show t
+#~ (git-call (format "commit --amend -m \"%s\"" a))
+#~ (git-call (format "commit -m \"%s\"" a))
+#~ (git-call (format "commit -m \"%s\"" a)) :show t
+#~ (git-call (format "update-index --assume-unchanged %s" a))
+#~ (git-call (format "update-index --no-assume-unchanged \"%s\"" a))
+#~ (git-call a)
+#~ (git-call a) :show t
+#~ (git-foo a b c) :reader mug-arg-reader-list
+#~ (git-stage-and-commit a b 4) :reader mug-arg-reader-list
+#~ (magit-call a)
+#~ (magit-call a) :echo t :show t :eval nil
+#~ (magit-call a) :echo t :show t :eval t
+#~ (magit-call a) :show t
+#~ (message "A %s" a)
+#~ (message "B %s" a)
+#~ (message "C %s" a)
+#~ (mugg-a files msg) :reader mug-arg-reader-readc :args (files &optional msg)
+#~ (netsh a) :show t
+#~ (ns-ruby-call a b) :reader mug-arg-region :end "#>>>"
+#~ (pop-ex a) :show t
+#~ (process-buffer a) :reader mug-arg-reader-sexp :echo t
+#~ (process-send-string psql (concat a "\n"))
+#~ (process-send-string psql (concat a "\n\\echo :PROMPT1\n"))
+#~ (process-send-string psql (concat a "\n\\echo ===\n"))
+#~ (progd a) :reader mug-arg-reader-sexp :echo t
+#~ (psql a) :show t
+#~ (psql-send-command psql a) :echo t
+#~ (psql-send-command-raw psql a :sentinel ";;;") :echo t
+#~ (psql-send-command-raw psql a) :echo t
+#~ (show a)
+#~ (swx-other (git-call "update-index" a (buffer-file-name)))
+#~ (vc-git--call nil "commit" "-m" a)
+#~ (vc-git--call nil "commit" (format "--date=%s" a) "-m" b) :reader mug-arg-reader-list
+#~ a :reader mug-arg-reader-quote :echo t
+#~ a :reader mug-arg-reader-sexp :echo t
+#~(debug (eval a)) :reader mug-arg-reader-ns
+#~(debug) :extra "bBuffer: "
+#~(debug) :reader mug-arg-reader-list :extra "FFile: "
+#~(debug) :reader mug-arg-reader-list :extra "GFile: "
+#~(debug) :reader mug-arg-reader-list :extra "XValue: "
+#~(debug) :reader mug-arg-reader-list :extra "bBuffer: "
+#~(debug) :reader mug-arg-reader-list :extra "cChar: "
+#~(debug) :reader mug-arg-reader-list :extra "fFile: "
+#~(debug) :reader mug-arg-reader-list :extra "kKey: "
+#~(debug) :reader mug-arg-reader-list :extra "nNumber: "
+#~(debug) :reader mug-arg-reader-list :extra "sString: "
+#~(debug) :reader mug-arg-reader-list :extra (list (car kill-ring))
+#~(dregf a "\\.mug")
+#~(dregf a "\\.org" "ever")
+#~(eval a) :reader mug-arg-reader-sexp :echo t
+#~(format "|%s | %s |" a b) :extra "bBuffer: "
+#~(git-stage-and-commit "recent/mug.el" a 4) :key C-0
+#~(git-stage-and-commit a b 4) :reader mug-arg-reader-list
+#~(git-stage-and-commit a b 4) :reader mug-arg-reader-list :extra "sWell: "
+#~(magit-call a b 4) :show t :key C-2
+#~(magit-call a) :show t :key C-1
+#~(magit-prog (magit-call (format "stage %s" a))) :key C-3
+#~(print (list a b c d)) :reader mug-arg-reader-list
+#~(print a)
+#~(progd (eval a)) :reader mug-arg-reader-readc :show t
+#~(setq default-directory a) :echo t
+16
+Compilation finished at Tue Aug 29 14:31:08
