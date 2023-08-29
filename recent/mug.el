@@ -265,7 +265,25 @@
     )
   )
 
-(defun mug-exec-here (&optional tloc arg echo)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mug-show (what where &optional append)
+  (cond
+   ((bufferp where)
+    (show-buf where (list what) nil append)
+    )
+   ((stringp where)
+    (mug-show what (get-buffer-create where t) append)
+    )
+   ((numberp where)
+    (mug-show what (format "*show<%s>*" where) append)
+    )
+   (t
+    (mug-show what "*show*" append)
+    )
+   )
+  )
+
+(defun mug-exec-here (&optional tloc extra-plist)
   "Apply the current tcommand to the arg line at LOC.
 the current tcommand will be either mug-active-command if set, otherwise it will be
 the tcommand above the location.
@@ -289,7 +307,7 @@ If ECHO is a function, it is applied to the output before it is echoed."
      (and kill (kill-new result))
      (cond
       ((functionp show) (show (funcall show result)))
-      (show (show result))
+      (show (mug-show result show append))
       )
      (cond
       ((functionp echo) (message (funcall echo result)))
@@ -336,7 +354,7 @@ If ECHO is a function, it is applied to the output before it is echoed."
      ((mug-exec-here nil extra-plist))
      )
     )
-   )
+  )
 
 (defun mug-exec-echo (&optional arg)
   "Call mug-exec-here with default environmental context, but override any :echo parameters."
