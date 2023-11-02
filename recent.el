@@ -1309,3 +1309,11 @@ Use FUN (default 'equal) for the comparison."
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun dired-ediff-conflict ()
+  (interactive)
+  (let* ((file (dired-file-name-at-point))
+	 (orig (replace-regexp-in-string "--[-0-9]\\{13\\}" "" file))
+	 )
+    (ediff-files file orig)
+    )
+  )
