@@ -79,6 +79,7 @@ membership in NAMES and PATHS"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun alist-put (list tag val)
+  "Like plist-put but acts on alists. Should really be built-in."
   (let ((cell (assoc tag list)))
     (cond
      (cell (setcdr cell val))
@@ -106,7 +107,9 @@ membership in NAMES and PATHS"
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun plist-merge (plist &rest lists)
+; the new plist-merge function isn't really tested yet
+
+(defun plist-merge-old (plist &rest lists)
   "Merge multiple property lists. Later items take priority"
   (dolist (list lists)
     (while list
@@ -120,7 +123,19 @@ membership in NAMES and PATHS"
   plist
   )
 
-; (plist-merge nil `(a 1 b 2) `(c 3 a 4))
+(defun plist-merge (plist &rest list)
+  "Merge multiple property lists. Later items take priority"
+  (while list
+    (let* ((prop (pop list)))
+      (cond
+       ((consp prop) (setq plist (apply 'plist-merge plist prop)))
+       ((eq prop :merge) (setq plist (plist-merge plist (pop list))))
+       ((setq plist (plist-put plist prop (pop list))))
+       )
+      )
+    )
+  plist
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun gget (o tag)
