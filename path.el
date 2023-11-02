@@ -1,3 +1,32 @@
+(defun path-string-split (path)
+  (unconcat path ";")
+  )
+
+(defun path-string-concat (path-list)
+  (mconcat path-list ";")
+  )
+
+(defun path-string-delete-element (path element)
+  (let* ((path-list (path-string-split path))
+	 )
+    (setq path-list (delete-if '(lambda (x) (path-element= element x)) path-list))
+    (mconcat path-list ";")
+    )
+  )
+
+;(path-string-delete-element "1;2/d;3" "2/d")
+;(path-string-delete-element "1;2/d;3" "1")
+;(path-string-delete-element "1;2/d;3" "3")
+;(path-string-delete-element "1;2/d;3" "x")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun path-split ()
+  (let* ((path (getenv "PATH")))
+    (path-string-split path)
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun slash-back (s) (string-sub s "/" "\\"))
 (defun slash-front (s) (string-sub s "\\\\" "/"))
 (defun slash-back-double (s) (replace-regexp-in-string "\\\\" "\\&\\&" s))
@@ -22,12 +51,6 @@
 	(string= (expand-file-name a) b)
 	(string= (expand-file-name a) (expand-file-name b))
 	)
-    )
-  )
-
-(defun path-split ()
-  (let* ((path (getenv "PATH")))
-    (unconcat path ";")
     )
   )
 
