@@ -1025,6 +1025,8 @@ then replace VALUE with the value which follows it in the property list."
   )
     
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; these functions overlap thing-at-point
+
 (setq region-dwim-default-type 'line)
 ; (setq region-dwim-default-type 'buffer)
 ; (setq region-dwim-default-type 'defun)
@@ -1042,6 +1044,7 @@ then replace VALUE with the value which follows it in the property list."
   "Return the beginning of an implied region."
   (or (region-beginning-if-active)
       (case (or type region-dwim-default-type)
+	(sexp (sxp (beginning-of-sexp)))
 	(defun (sxp (beginning-of-defun-safe)))
 	(line (point^))
 	(buffer (point-min))
@@ -1054,6 +1057,7 @@ then replace VALUE with the value which follows it in the property list."
   "Return the end of an implied region."
   (or (region-end-if-active)
       (case (or type region-dwim-default-type)
+	(sexp (sxp (end-of-sexp)))
 	(defun (sxp (end-of-defun-safe)))
 	(line (point$))
 	(buffer (point-max))
@@ -1272,6 +1276,7 @@ Use FUN (default 'equal) for the comparison."
 
 (add-hook 'window-setup-hook 'set-init-admin-user)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun shell-rb (command &optional sp ep)
   (let ((sp (or sp "^=\\s("))
 	(ep (or ep "^=\\s)"))
