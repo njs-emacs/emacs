@@ -19,29 +19,6 @@
 ;;; mapping commands to global keys makes no sense
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun alist-put (list tag val)
-  "Like plist-put but acts on alists. Should really be built-in."
-  (let ((cell (assoc tag list)))
-    (cond
-     (cell (setcdr cell val))
-     ((setq list (cons (cons tag val) list)))
-     )
-    list)
-  )
-
-(defmacro sxp (&rest body)
-  "Like save-excursion, but returns where point was at the end of the body execution."
-  `(save-excursion ,@body (point)))
-
-(defun point^ ()
-  "The value of (point) at the start of the line."
- (sxp (beginning-of-line)))
-
-(defun point$ ()
-  "The value of (point) at the end of the line."
- (sxp (end-of-line)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun interactive-arg-read (spec)
   "Simulate the process of gathering args for an interactive function."
   (cond
@@ -57,6 +34,7 @@
    )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun make-symbol-keys (s)
   "Convert input string KEYS to a key sequence in the most sensible way."
   (cond
@@ -266,21 +244,27 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun mug-show (what where &optional append)
-  (cond
-   ((bufferp where)
-    (show-buf where (list what) nil append)
+(defun mug-show (what where plist)
+  (let* ((append (or (plist-get plist :append) mug-always-append))
+	  )
+    (cond
+     ((functionp where)
+      (funcall where what plist)
+      )
+     ((bufferp where)
+      (show-buf where (list what) nil append)
+      )
+     ((stringp where)
+      (mug-show what (get-buffer-create where t) plist)
+      )
+     ((numberp where)
+      (mug-show what (format "*show<%s>*" where) plist)
+      )
+     (t
+      (mug-show what "*show*" plist)
+      )
+     )
     )
-   ((stringp where)
-    (mug-show what (get-buffer-create where t) append)
-    )
-   ((numberp where)
-    (mug-show what (format "*show<%s>*" where) append)
-    )
-   (t
-    (mug-show what "*show*" append)
-    )
-   )
   )
 
 (defun mug-exec-here (&optional tloc extra-plist)
@@ -306,8 +290,7 @@ If ECHO is a function, it is applied to the output before it is echoed."
 
      (and kill (kill-new result))
      (cond
-      ((functionp show) (show (funcall show result)))
-      (show (mug-show result show append))
+      (show (mug-show result show plist))
       )
      (cond
       ((functionp echo) (message (funcall echo result)))
