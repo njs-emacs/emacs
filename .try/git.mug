@@ -1,0 +1,76 @@
+#~ (git-call (format "describe HEAD%s" (make-string (read a) ?~))) :show t
+
+#~ (git-call (format "show HEAD%s" (make-string (read a) ?~))) :show t
+#~ (git-call (format "show HEAD~%s" a)) :show t
+#~ (git-call (format "show HEAD~%s" a)) :show t
+#~ (git-call (format "show %s" a)) :show t
+#~ (git-call a) :show t
+log HEAD..HEAD
+log HEAD{1}..HEAD
+log HEAD@{1}..HEAD
+log HEAD@{2}..HEAD@{1}
+reflog
+
+show @{17:30}
+show @{17:00}
+show @{yesterday}
+
+show @{1}
+show HEAD@{1}
+show HEAD@{2}
+show HEAD@{3}
+show HEAD@{5}
+show HEAD@{5}
+
+:/modify
+HEAD@{3.days.ago}
+HEAD@{3.days.ago}^^{/add}
+HEAD@{3.days.ago}^{/add}
+
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+ mug-tmarker-map
+show HEAD~
+show HEAD~~
+show HEAD~2
+show HEAD@{5}
+show HEAD@{6}
+show HEAD@{7}
+show HEAD@{8}
+
+show HEAD
+show HEAD^
+show HEAD^^
+show HEAD^^^
+show HEAD^^^^
+show HEAD^^^^^
+
+show HEAD^^2
+
+stash help
+stash show
+stash show -p
+stash show -p stash@{0}
+stash show -p stash@{1}
+stash show -p stash@{2}
+stash show -p stash@{3}
+stash show -p stash@{4}
+
+diff stash@{0} master
+diff stash@{0} stash@{1}
+
+diff @{0} @{1}
+
+status
+
+update-index --assume-unchanged a.mug
+update-index --no-assume-unchanged a.mug
