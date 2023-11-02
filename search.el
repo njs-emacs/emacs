@@ -205,17 +205,16 @@ Optional N is used to select sub-expression."
 (define-key search-map "[" 'kill-to-regexp-start)
 (define-key search-map "]" 'kill-to-regexp-end)
 
-(defun ssb (s &optional lim e n end) (sx (rsb s lim e n end)))
-(defun ssf (s &optional lim e n end) (sx (rsf s lim e n end)))
-	       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun rsb (s &optional lim e n end)
+  "See rsf"
   (cond ((re-search-backward s lim (or e t))
 	 (goto-char
 	  (funcall (if end 'match-end 'match-beginning) (or n 0)))
 	 (point))))
 	       
 (defun rsf (s &optional limit error n beg)
-"Search for STRING, before LIMIT is reached.
+"Search forward for STRING, before LIMIT is reached.
 NOERROR is as for re-search-forward. If N is non-nil, move to that
 match, and if BEG is non-nil move to the beginning of the match."
   (cond ((re-search-forward s limit (or error t))
@@ -223,6 +222,15 @@ match, and if BEG is non-nil move to the beginning of the match."
 	  (funcall (if beg 'match-beginning 'match-end) (or n 0)))
 	 (point))))
 
+(defun ssb (s &optional lim e n end)
+  "Return location where backward search for pattern would be found."
+  (sx (rsb s lim e n end)))
+
+(defun ssf (s &optional lim e n end)
+  "Return location where forward search for pattern would be found."
+  (sx (rsf s lim e n end)))
+	       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defmacro MS (exp &optional n)
   `(and ,exp (ms (or ,n 0))))
 
