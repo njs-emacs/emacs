@@ -1,5 +1,5 @@
 ; these examples just show which functions we would like to map to A- keys
-; note may A- keys do not work
+; note many A- keys do not work
 
 (def-key global-map (kbd "<A-backspace>") 'winner-undo)
 (def-key global-map (kbd "<A-M-backspace>") 'winner-redo)
