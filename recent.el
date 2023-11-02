@@ -1317,3 +1317,29 @@ Use FUN (default 'equal) for the comparison."
     (ediff-files file orig)
     )
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun delete-this-buffer-file ()
+  "Delete the file that the current buffer is visiting, close the buffer."
+  (interactive)
+  (cond
+   ((y-or-n-p (format "Delete %s " (buffer-file-name)))
+    (delete-file (buffer-file-name))
+    (kill-buffer)
+    )
+   )
+  )
+
+(defun delete-this-file-dwim ()
+  "Delete file
+  Filename at point"
+  (interactive)
+  (let ((file (thing-at-point 'filename)))
+    (cond
+     ((y-or-n-p (format "Delete %s " file))
+      (delete-file file)
+      )
+     )
+    )
+  )
+       
