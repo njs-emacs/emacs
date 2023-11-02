@@ -1,3 +1,4 @@
+.sync*.db
 /help.el
 /0.el
 TAGS
