@@ -12,17 +12,35 @@
 
 ;; dreg is a subsystem used to find patterns in previously edited files.
 
-(setq dreg-cmd-default "year")
+(defvar dreg-cmd-default "year" "Default dreg command")
+(defvar dreg-extra-args "" "Extra dreg command line parameters")
+
+(setq dreg-cmd-default "ever")
 
 ;(setq dreg-script-file "e:/_backup/.meta/dreg/dreg.pl")
 (setq dreg-script-file "e:/_backup/.meta/dreg14/dreg14.pl")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+; 231012-172543 workaround path problems where c:\\Strawberry\\c\\bin
+; must be in path to run dregf.
+; An inelegant solution, but establishes a technique for temporary
+; PATH override
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun dreg** (&rest args)
   "Execute the external dreg command, a perl script."
  (let ((cmd (format "perl %s" dreg-script-file))
+       (old-path (getenv "PATH"))
        )
   (setq cmd (mconcat (apply 'list cmd args) " "))
-  (compile cmd)
+  (unwind-protect
+      (let ((new-path (concat old-path ";c:\\Strawberry\\c\\bin")))
+	(setenv "PATH" new-path)
+	(compile cmd)
+	)
+    (setenv "PATH" old-path)
+    )
   )
  )
 
