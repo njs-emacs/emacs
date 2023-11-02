@@ -8,6 +8,17 @@
     )
   )
 
+(defun write-string-to-file-edit-maybe (filename string &optional edit)
+  (write-string-to-file filename string)
+  (cond
+   (edit
+    (find-file filename)
+    (read-only-mode 0)
+    (setq nvc-enable nil)
+    )
+   )
+  )
+
 (defun write-string-to-file (filename string &optional append)
   (write-region string nil filename append 1)
   )
