@@ -40,6 +40,8 @@
 )
        
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; wub is a kind of subclass to wux
+
 (setq wub-map (make-sparse-keymap))
 (setq wub-insert-map (make-sparse-keymap))
 
@@ -74,3 +76,17 @@
   (use-local-map nil)
 )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; wug is a kind of subclass to wux
+
+(setq wug-map (make-sparse-keymap))
+(setq wug-insert-map (make-sparse-keymap))
+
+(defun wug-define (key string)
+  (define-key wug-insert-map key string)
+  (define-key wug-map key 'wub-replace-with-string)
+  )
+
+(wug-define " " " ")
+
+(defun wug-mode () (interactive) (wub-mode wug-map wug-insert-map))
