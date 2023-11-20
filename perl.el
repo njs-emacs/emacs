@@ -27,9 +27,19 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(set-default 'perl-options nil)
+(defvar perl-include nil "")
+(make-variable-buffer-local 'perl-include)
+(set-default 'perl-include `("e:/perl/lib"))
+
+(defvar perl-extra-include nil "")
+(make-variable-buffer-local 'perl-extra-include)
+
+(set-default 'perl-options "")
 (make-variable-buffer-local 'perl-options)
 
+(defun perl-include-add (&rest list) (setq perl-extra-include (append perl-extra-include list)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (make-local-variable 'perl-process-start-hooks)
 (make-local-variable 'perl-compile-start-hooks)
 
@@ -39,16 +49,31 @@
 (make-variable-buffer-local 'perl-exec-file)
 (set-default 'perl-exec-file "perl")
 
-(defun perl-command (file &optional options)
-  (let* ((perl-opts (mconcat perl-options " "))
+(defun perl-command-args (file &optional options)
+  (let* ((include (mformat (append perl-extra-include perl-include) "-I%s" " "))
+	 (perl-opts (mconcat perl-options " "))
 	 (script-opts (mconcat options " ")))
-    (format "%s %s \"%s\" %s" perl-exec-file perl-opts file script-opts)
+    (format "%s %s \"%s\" %s" perl-opts include file script-opts)
     )
   )
 
+(defun perl-command (file &optional options)
+  (let* ((args (perl-command-args file options)))
+    (format "%s %s" perl-exec-file args)
+    )
+  )
+
+(defun perl-command-perlinc (file &optional options)
+  "same as perl-command but use PERLINC environment variable"
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defun start-perl () (interactive)
   (save-buffer)
-  (start-process "*sex*" nil perl-exec-file (format "%s" (buffer-file-name)))
+  (let* ((args perl-command-args))
+    (start-process "*sex*" nil perl-exec-file (perl-command (buffer-file-name)))
+    )
   )
 
 (defun perl-exec-this (&optional cmd) (interactive)
