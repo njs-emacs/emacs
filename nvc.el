@@ -249,18 +249,67 @@
 	    ))))
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defmacro inhibit-read-only (&rest stuff)
+  `(let ()
+     (and buffer-read-only (read-only-mode -1))  ; clear if set
+     (prog1 (progn ,@stuff) 
+       (read-only-mode)
+       )
+     )
+  )
+
+(defun bup-reverse-refresh ()
+  (interactive)
+  (let* ((n 1000))
+    (inhibit-read-only
+     (erase-buffer)
+     (shell-command (format "tac %s | head -%s" (buffer-file-name) n) (current-buffer))
+     (set-buffer-modified-p nil)
+     )
+    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define-minor-mode bup-reverse-mode "Show files in reverse order"
+  :init-value nil
+  :lighter " R"
+;  (debug)
+  (cond
+   (bup-reverse-mode
+    (bup-reverse-refresh)
+    (beginning-of-buffer)
+    )
+   (t
+    (inhibit-read-only (revert-buffer t t))
+    (end-of-buffer)
+    )
+   )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun write-file-and-refresh-if-visiting-fake (file text)
   (let ((buf (find-buffer-visiting file)))
     (cond
-     (buf (save-excursion
-	    (set-buffer buf)
-	    (setq buffer-read-only nil)
-	    (eob)
-	    (insert text)
-	    (set-buffer-modified-p nil)
-	    (setq buffer-read-only t)
-	    ))))
-  (write-string-to-file file text t)
+     (buf
+      (save-excursion
+	(set-buffer buf)
+	(inhibit-read-only
+	 (cond
+	  (bup-reverse-mode
+	   (bob)
+	   (insert text)
+	   )
+	  (t 
+	   (eob)
+	   (insert text)
+	   )
+	  )
+	 )
+	(set-buffer-modified-p nil)
+	)
+      )))
+    (write-string-to-file file text t)
   )
 
 (defun write-log-files (text)

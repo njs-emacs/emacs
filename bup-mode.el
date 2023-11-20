@@ -154,9 +154,20 @@
 (define-key bup-mode-map "z" 'bup-pipe-z)
 
 (define-key bup-mode-map "r" 'bup-refresh)
+(define-key bup-mode-map "R" 'bup-reverse-mode)
 
 (defun bup-pipe-z () (interactive)
   (shell-command-on-region (region-beginning) (region-end) "perl z.pl"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun bup-special-save ()
+  (interactive)
+  (cond
+   ((yes-or-no-p "You don't really want to save this do you? ")
+    t)
+   (t (error "Not saving") (top-level))
+   ))
+	      
 
 (defun bup-mode () (interactive)
   (use-local-map bup-mode-map)
@@ -165,6 +176,8 @@
   (cond (buffer-read-only)
 	((toggle-read-only))
 	)
+  (buffer-disable-undo)
+  (setq local-before-save-hooks 'bup-special-save)
   )
 
 (defun uniquify-buffer-name (&optional old-name format)
