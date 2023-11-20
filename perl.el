@@ -2,6 +2,7 @@
 (set-default 'perl-run-function 'perl-run-compile)
 
 (defun perl-run-compile (file options)
+  (setq compilation-original-buffer (current-buffer))
   (save-buffer)
   (let ((hooks perl-compile-start-hooks)
 	) 
